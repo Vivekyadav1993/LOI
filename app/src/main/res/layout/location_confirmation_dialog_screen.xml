@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:drawable/alert_light_frame">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="LOCATION"
+        android:textSize="@dimen/text_xxxlarge"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:background="#343851"
+        android:padding="10dp"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Current Location"
+        android:gravity="center"
+        android:textSize="@dimen/text_large"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Current Location"
+        android:gravity="left"
+        android:textSize="@dimen/text_xxlarge"
+        android:textColor="#232323"
+        android:id="@+id/loc_confirm_add"
+        android:textStyle="bold"
+        android:layout_margin="20dp"
+       />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="150dp"
+        android:text="Change Location"
+        android:id="@+id/loc_confirm_changeloc_btn"
+        android:background="@drawable/blue_round_trans"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:gravity="center"
+        android:textSize="@dimen/text_large"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/blue"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirm"
+        android:minWidth="150dp"
+        android:background="@drawable/blue_bg"
+        android:paddingTop="10dp"
+        android:id="@+id/loc_confirm_done"
+        android:paddingBottom="10dp"
+        android:gravity="center"
+        android:textSize="@dimen/text_large"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/white"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"/>
+
+</LinearLayout>

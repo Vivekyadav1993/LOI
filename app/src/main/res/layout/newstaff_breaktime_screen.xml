@@ -1,0 +1,2343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/dark_grey">
+
+        // header layout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/hesder_bg">
+
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="25dp"
+                android:id="@+id/new_staff_breaktime_back_btn"
+                android:src="@drawable/leftarrow_white"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/new_staff_breaktime_back_btn"
+                android:layout_toLeftOf="@+id/new_staff_breaktime_next_btn"
+                android:text="Set Staff break timing"
+                android:textSize="@dimen/text_large"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="SAVE"
+                android:textColor="@color/white"
+                android:id="@+id/new_staff_breaktime_next_btn"
+                android:layout_alignParentRight="true"
+                android:textSize="@dimen/text_large"
+                android:padding="5dp"/>
+
+
+        </RelativeLayout>
+
+
+
+        // All day layout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            android:layout_marginBottom="5dp"
+            android:orientation="vertical">
+
+            // All day tag layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="All Day"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/new_staff_breaktime_all_break_btn"
+                    android:textColor="@color/blue"
+                    android:text="Break +"/>
+
+
+            </RelativeLayout>
+
+
+            // All day 1st break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_all_breaklayout1"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/all_date_icn1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/all_date_icn1"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_all_starttime_btn1"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_all_endtime_btn1"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_all_starttime_btn1"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/all_close_icn1"/>
+
+
+
+
+            </RelativeLayout>
+
+            // All day 2nd break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_all_breaklayout2"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/all_date_icn2"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/all_date_icn2"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_all_starttime_btn2"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_all_endtime_btn2"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_all_starttime_btn2"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/all_close_icn2"/>
+
+
+
+            </RelativeLayout>
+
+            // All day 3rd break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_all_breaklayout3"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/all_date_icn3"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/all_date_icn3"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_all_starttime_btn3"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_all_endtime_btn3"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_all_starttime_btn3"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/all_close_icn3"/>
+
+
+
+            </RelativeLayout>
+
+
+            // All day 4th break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_all_breaklayout4"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/all_date_icn4"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/all_date_icn4"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_all_starttime_btn4"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_all_endtime_btn4"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_all_starttime_btn4"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/all_close_icn4"/>
+
+
+
+
+
+            </RelativeLayout>
+
+            // All day 5th break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_all_breaklayout5"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/all_date_icn5"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/all_date_icn5"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_all_starttime_btn5"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_all_endtime_btn5"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_all_starttime_btn5"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/all_close_icn5"/>
+
+
+
+
+
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+
+
+        // Mon day layout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:minHeight="?attr/actionBarSize"
+            android:orientation="vertical"
+            android:layout_marginTop="1dp"
+            android:paddingBottom="5dp"
+            android:layout_marginBottom="1dp">
+
+            // Mon day tag layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="Monday"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/new_staff_breaktime_mon_break_btn"
+                    android:textColor="@color/blue"
+                    android:text="Break +"/>
+
+
+            </RelativeLayout>
+
+
+            // MON day 1st break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_mon_breaklayout1"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/mon_date_icn1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/mon_date_icn1"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_mon_starttime_btn1"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_mon_endtime_btn1"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_mon_starttime_btn1"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/mon_close_icn1"/>
+
+
+
+            </RelativeLayout>
+
+            // mon day 2nd break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_mon_breaklayout2"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/mon_date_icn2"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/mon_date_icn2"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_mon_starttime_btn2"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktimemon_endtime_btn2"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_mon_starttime_btn2"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/mon_close_icn2"/>
+
+
+
+
+            </RelativeLayout>
+
+            // mon day 3rd break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_mon_breaklayout3"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/mon_date_icn3"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/mon_date_icn3"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_mon_starttime_btn3"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_mon_endtime_btn3"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_mon_starttime_btn3"
+                    android:layout_marginLeft="10dp"
+                    />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/mon_close_icn3"/>
+
+
+
+            </RelativeLayout>
+
+
+            // mon day 4th break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_mon_breaklayout4"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/mon_date_icn4"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/mon_date_icn4"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_mon_starttime_btn4"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_mon_endtime_btn4"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_mon_starttime_btn4"
+                    android:layout_marginLeft="10dp"
+                    />
+
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/mon_close_icn4"/>
+
+
+            </RelativeLayout>
+
+            // mon day 5th break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_mon_breaklayout5"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/mon_date_icn5"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/mon_date_icn5"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_mon_starttime_btn5"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_mon_endtime_btn5"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_mon_starttime_btn5"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/mon_close_icn5"/>
+
+
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+
+        // Tue day layout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp" >
+
+            // tue day tag layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="Tuesday"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/new_staff_breaktime_tue_break_btn"
+                    android:textColor="@color/blue"
+                    android:text="Break +"/>
+
+
+            </RelativeLayout>
+
+
+            // tue day 1st break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_tue_breaklayout1"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/tue_date_icn1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tue_date_icn1"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_tue_starttime_btn1"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_tue_endtime_btn1"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_tue_starttime_btn1"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/tue_close_icn1"/>
+
+
+
+            </RelativeLayout>
+
+            // tue day 2nd break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_tue_breaklayout2"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/tue_date_icn2"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tue_date_icn2"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_tue_starttime_btn2"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_tue_endtime_btn2"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_tue_starttime_btn2"
+                    android:layout_marginLeft="10dp"
+                    />
+
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/tue_close_icn2"/>
+
+
+            </RelativeLayout>
+
+            // tue day 3rd break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_tue_breaklayout3"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/tue_date_icn3"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tue_date_icn3"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_tue_starttime_btn3"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_tue_endtime_btn3"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_tue_starttime_btn3"
+                    android:layout_marginLeft="10dp"
+                    />
+
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/tue_close_icn3"/>
+
+
+            </RelativeLayout>
+
+
+            // tue day 4th break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_tue_breaklayout4"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/tue_date_icn4"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tue_date_icn4"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_tue_starttime_btn4"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_tue_endtime_btn4"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_tue_starttime_btn4"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/tue_close_icn4"/>
+
+
+            </RelativeLayout>
+
+            // tue day 5th break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_tue_breaklayout5"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/tue_date_icn5"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tue_date_icn5"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_tue_starttime_btn5"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_tue_endtime_btn5"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_tue_starttime_btn5"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/tue_close_icn5"/>
+
+
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+
+        // wed day layout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_marginTop="1dp"
+            android:paddingBottom="5dp"
+            android:layout_marginBottom="1dp">
+
+            // wed day tag layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="Wednesday"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/new_staff_breaktime_wed_break_btn"
+                    android:textColor="@color/blue"
+                    android:text="Break +"/>
+
+
+            </RelativeLayout>
+
+
+            // wed day 1st break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_wed_breaklayout1"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/wed_date_icn1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/wed_date_icn1"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_wed_starttime_btn1"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_wed_endtime_btn1"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_wed_starttime_btn1"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/wed_close_icn1"/>
+
+
+            </RelativeLayout>
+
+            // wed day 2nd break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_wed_breaklayout2"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/wed_date_icn2"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/wed_date_icn2"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_wed_starttime_btn2"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_wed_endtime_btn2"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_wed_starttime_btn2"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/wed_close_icn2"/>
+
+
+            </RelativeLayout>
+
+            // wed day 3rd break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_wed_breaklayout3"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/wed_date_icn3"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/wed_date_icn3"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_wed_starttime_btn3"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_wed_endtime_btn3"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_wed_starttime_btn3"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/wed_close_icn3"/>
+
+
+            </RelativeLayout>
+
+
+            // wed day 4th break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_wed_breaklayout4"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/wed_date_icn4"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/wed_date_icn4"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_wed_starttime_btn4"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_wed_endtime_btn4"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_wed_starttime_btn4"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/wed_close_icn4"/>
+
+
+            </RelativeLayout>
+
+            // wed day 5th break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_wed_breaklayout5"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/wed_date_icn5"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/wed_date_icn5"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_wed_starttime_btn5"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_wed_endtime_btn5"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_wed_starttime_btn5"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/wed_close_icn5"/>
+
+
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+
+        // Thr day layout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:minHeight="?attr/actionBarSize"
+            android:orientation="vertical"
+            android:layout_marginTop="1dp"
+            android:paddingBottom="5dp"
+            android:layout_marginBottom="1dp">
+
+            // Thr day tag layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="Thursday"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/new_staff_breaktime_Thr_break_btn"
+                    android:textColor="@color/blue"
+                    android:text="Break +"/>
+
+
+            </RelativeLayout>
+
+
+            // Thr day 1st break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_Thr_breaklayout1"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/Thr_date_icn1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/Thr_date_icn1"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_Thr_starttime_btn1"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_Thr_endtime_btn1"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_Thr_starttime_btn1"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/thr_close_icn1"/>
+
+
+            </RelativeLayout>
+
+            // Thr day 2nd break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_Thr_breaklayout2"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/Thr_date_icn2"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/Thr_date_icn2"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_Thr_starttime_btn2"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_Thr_endtime_btn2"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_Thr_starttime_btn2"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/thr_close_icn2"/>
+
+
+            </RelativeLayout>
+
+            // Thr day 3rd break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_Thr_breaklayout3"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/Thr_date_icn3"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/Thr_date_icn3"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_Thr_starttime_btn3"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_Thr_endtime_btn3"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_Thr_starttime_btn3"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/thr_close_icn3"/>
+
+
+            </RelativeLayout>
+
+
+            // Thr day 4th break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_Thr_breaklayout4"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/Thr_date_icn4"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/Thr_date_icn4"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_Thr_starttime_btn4"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_Thr_endtime_btn4"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_Thr_starttime_btn4"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/thr_close_icn4"/>
+
+
+            </RelativeLayout>
+
+            // Thr day 5th break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_Thr_breaklayout5"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/Thr_date_icn5"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/Thr_date_icn5"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_Thr_starttime_btn5"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_Thr_endtime_btn5"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_Thr_starttime_btn5"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/thr_close_icn5"/>
+
+
+
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+
+        // fri day layout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:minHeight="?attr/actionBarSize"
+            android:orientation="vertical"
+            android:layout_marginTop="1dp"
+            android:paddingBottom="5dp"
+            android:layout_marginBottom="1dp">
+
+            // fri day tag layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="Friday"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/new_staff_breaktime_fri_break_btn"
+                    android:textColor="@color/blue"
+                    android:text="Break +"/>
+
+
+            </RelativeLayout>
+
+
+            // fri day 1st break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_fri_breaklayout1"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/fri_date_icn1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/fri_date_icn1"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_fri_starttime_btn1"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_fri_endtime_btn1"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_fri_starttime_btn1"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/fri_close_icn1"/>
+
+
+            </RelativeLayout>
+
+            // fri day 2nd break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_fri_breaklayout2"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/fri_date_icn2"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/fri_date_icn2"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_fri_starttime_btn2"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_fri_endtime_btn2"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_fri_starttime_btn2"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/fri_close_icn2"/>
+
+
+            </RelativeLayout>
+
+            // fri day 3rd break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_fri_breaklayout3"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/fri_date_icn3"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/fri_date_icn3"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_fri_starttime_btn3"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_fri_endtime_btn3"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_fri_starttime_btn3"
+                    android:layout_marginLeft="10dp"
+                    />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/fri_close_icn3"/>
+
+
+
+            </RelativeLayout>
+
+
+            // fri day 4th break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_fri_breaklayout4"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/fri_date_icn4"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/fri_date_icn4"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_fri_starttime_btn4"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_fri_endtime_btn4"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_fri_starttime_btn4"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/fri_close_icn4"/>
+
+
+            </RelativeLayout>
+
+            // fri day 5th break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_fri_breaklayout5"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/fri_date_icn5"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/fri_date_icn5"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_fri_starttime_btn5"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_fri_endtime_btn5"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_fri_starttime_btn5"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/fri_close_icn5"/>
+
+
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+
+        // sat day layout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:minHeight="?attr/actionBarSize"
+            android:layout_marginTop="1dp"
+            android:paddingBottom="5dp"
+            android:layout_marginBottom="1dp">
+
+            // sat day tag layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="Saturday"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/new_staff_breaktime_sat_break_btn"
+                    android:textColor="@color/blue"
+                    android:text="Break +"/>
+
+
+            </RelativeLayout>
+
+
+            // sat day 1st break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_sat_breaklayout1"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/sat_date_icn1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/sat_date_icn1"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_sat_starttime_btn1"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_sat_endtime_btn1"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_sat_starttime_btn1"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/sat_close_icn1"/>
+
+
+            </RelativeLayout>
+
+            // sat day 2nd break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_sat_breaklayout2"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/sat_date_icn2"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/sat_date_icn2"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_sat_starttime_btn2"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_sat_endtime_btn2"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_sat_starttime_btn2"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/sat_close_icn2"/>
+
+
+
+            </RelativeLayout>
+
+            // sat day 3rd break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_sat_breaklayout3"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/sat_date_icn3"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/sat_date_icn3"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_sat_starttime_btn3"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_sat_endtime_btn3"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_sat_starttime_btn3"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/sat_close_icn3"/>
+
+
+
+            </RelativeLayout>
+
+
+            // sat day 4th break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_sat_breaklayout4"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/sat_date_icn4"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/sat_date_icn4"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_sat_starttime_btn4"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_sat_endtime_btn4"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_sat_starttime_btn4"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/sat_close_icn4"/>
+
+
+
+            </RelativeLayout>
+
+            // sat day 5th break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_sat_breaklayout5"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/sat_date_icn5"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/sat_date_icn5"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_sat_starttime_btn5"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_sat_endtime_btn5"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_sat_starttime_btn5"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/sat_close_icn5"/>
+
+
+
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+
+        // sun day layout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_marginTop="1dp"
+            android:paddingBottom="5dp"
+            android:minHeight="?attr/actionBarSize"
+            android:layout_marginBottom="1dp">
+
+            // sun day tag layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="Sunday"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/new_staff_breaktime_sun_break_btn"
+                    android:textColor="@color/blue"
+                    android:text="Break +"/>
+
+
+            </RelativeLayout>
+
+
+            // sun day 1st break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_sun_breaklayout1"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/sun_date_icn1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/sun_date_icn1"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_sun_starttime_btn1"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_sun_endtime_btn1"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_sun_starttime_btn1"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/sun_close_icn1"/>
+
+
+
+            </RelativeLayout>
+
+            // sun day 2nd break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_sun_breaklayout2"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/sun_date_icn2"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/sun_date_icn2"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_sun_starttime_btn2"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_sun_endtime_btn2"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_sun_starttime_btn2"
+                    android:layout_marginLeft="10dp"
+                    />
+
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/sun_close_icn2"/>
+
+            </RelativeLayout>
+
+            // sun day 3rd break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_sun_breaklayout3"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/sun_date_icn3"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/sun_date_icn3"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_sun_starttime_btn3"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_sun_endtime_btn3"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_sun_starttime_btn3"
+                    android:layout_marginLeft="10dp"
+                    />
+
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/sun_close_icn3"/>
+
+
+            </RelativeLayout>
+
+
+            // sun day 4th break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_sun_breaklayout4"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/sun_date_icn4"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/sun_date_icn4"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_sun_starttime_btn4"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_sun_endtime_btn4"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_sun_starttime_btn4"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/sun_close_icn4"/>
+
+
+
+            </RelativeLayout>
+
+            // sun day 5th break layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone"
+                android:id="@+id/new_staff_breaktime_sun_breaklayout5"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock_icn"
+                    android:id="@+id/sun_date_icn5"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/sun_date_icn5"
+                    android:text="08:00 AM"
+                    android:id="@+id/new_staff_breaktime_sun_starttime_btn5"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="05:00 PM"
+                    android:id="@+id/new_staff_breaktime_sun_endtime_btn5"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/new_staff_breaktime_sun_starttime_btn5"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/close_smallicn"
+                    android:id="@+id/sun_close_icn5"/>
+
+
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+
+</ScrollView>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/grey_border_trans"
+    android:padding="10dp"
+    android:weightSum="1">
+
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight=".5"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_large"
+        android:id="@+id/seqn_tag"
+        android:text="Saloon"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight=".5"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_large"
+            android:text="Select position :"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"/>
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/seqn_pos_picker"></Spinner>
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

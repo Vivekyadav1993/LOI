@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/parent_lay"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/splash_bg">
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/splash_logo"
+            android:layout_centerInParent="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Getting location..."
+            android:textSize="16sp"
+            android:id="@+id/getloc_tag"
+            android:layout_above="@+id/dot_progress_bar"
+            android:layout_marginBottom="5dp"
+            android:textColor="#ffffff"/>
+
+        <com.github.silvestrpredko.dotprogressbar.DotProgressBar
+            android:id="@+id/dot_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            custom:amount="5"
+            custom:duration="@android:integer/config_mediumAnimTime"
+            custom:endColor="#ffffff"
+            custom:startColor="#ffffff"
+            custom:animationDirection="left"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"/>
+
+
+</RelativeLayout>
+

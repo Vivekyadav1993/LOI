@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LOGIN"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_xxxlarge"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="sans-serif-condensed"
+        android:layout_marginTop="30dp"/>
+
+
+
+
+       <EditText
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:background="@drawable/grey_roundbg"
+           android:hint="Phone Number"
+           android:gravity="center"
+           android:maxLength="10"
+           android:inputType="number"
+           android:textSize="@dimen/text_xxlarge"
+           android:paddingTop="5dp"
+           android:paddingBottom="5dp"
+           android:imeOptions="actionNext"
+           android:id="@+id/login_phone_input"
+           android:layout_marginTop="40dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/grey_roundbg"
+        android:hint="Password"
+        android:gravity="center"
+        android:inputType="text"
+        android:imeOptions="actionDone"
+        android:id="@+id/login_password_input"
+        android:textSize="@dimen/text_xxlarge"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_marginTop="20dp"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GO !"
+        android:textColor="@color/white"
+        android:background="@drawable/grey_border_trans"
+        android:textSize="@dimen/text_xxxlarge"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingRight="40dp"
+        android:paddingLeft="40dp"
+        android:id="@+id/login_btn"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forgot Password"
+        android:textColor="@color/red"
+        android:layout_marginTop="20dp"
+        android:padding="5dp"
+        android:id="@+id/login_forgot_pwd"
+        android:textSize="@dimen/text_xxlarge"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="sans-serif-condensed"/>
+
+
+
+
+
+
+</LinearLayout>

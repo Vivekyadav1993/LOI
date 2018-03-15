@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_grey"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/hesder_bg">
+
+
+        <ImageView
+            android:id="@+id/ad_pub_back_btn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="5dp"
+            android:layout_marginLeft="8dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/leftarrow_white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/ad_pub_next_btn"
+            android:layout_toRightOf="@+id/ad_pub_back_btn"
+            android:gravity="center"
+            android:text="Ad Publish Selection"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_large" />
+
+        <TextView
+            android:id="@+id/ad_pub_next_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="5dp"
+            android:text="NEXT"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_large"
+            android:visibility="gone" />
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="PLACE MY AD AT"
+        android:textColor="#000"
+        android:textSize="@dimen/text_medium" />
+
+    <TextView
+        android:id="@+id/ad_pub_forall_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:drawableRight="@drawable/next_icn_black"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:text="Service For All"
+        android:textColor="#000"
+        android:textSize="@dimen/text_medium" />
+
+    <TextView
+        android:id="@+id/ad_pub_society_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:drawableRight="@drawable/next_icn_black"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:text="Service For Society Members Only"
+        android:textColor="#000"
+        android:textSize="@dimen/text_medium" />
+
+    <TextView
+        android:id="@+id/ad_pub_private_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
+        android:drawableRight="@drawable/next_icn_black"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:text="For Private Event"
+        android:textColor="#000"
+        android:textSize="@dimen/text_medium" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"/>
+
+</LinearLayout>

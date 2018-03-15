@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+    // header layout
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/hesder_bg">
+
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:id="@+id/group_selec_back_btn"
+            android:src="@drawable/leftarrow_white"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/group_selec_back_btn"
+            android:layout_toLeftOf="@+id/group_selec_createbtn"
+            android:text="Group Selection"
+            android:textSize="@dimen/text_large"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CREATE"
+            android:textSize="@dimen/text_large"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:id="@+id/group_selec_createbtn"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+
+
+
+    </RelativeLayout>
+
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:visibility="visible"
+        android:divider="@null"
+        android:dividerHeight="5dp"
+        android:id="@+id/group_selec_list"></ListView>
+
+
+</LinearLayout>

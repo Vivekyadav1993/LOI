@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    // header layout
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/hesder_bg">
+
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:id="@+id/add_parti_back_btn"
+            android:src="@drawable/leftarrow_white"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/add_parti_back_btn"
+            android:layout_toLeftOf="@+id/add_parti_createbtn"
+            android:text="New Group\nAdd Participant"
+            android:textSize="@dimen/text_large"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CREATE"
+            android:textSize="@dimen/text_large"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:id="@+id/add_parti_createbtn"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+
+
+
+    </RelativeLayout>
+
+    // search bar layout
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center_vertical">
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/grey_border_trans"
+            android:hint="Invite by mobile number"
+            android:layout_toLeftOf="@+id/add_parti_phone_invitebtn"
+            android:textSize="@dimen/text_small"
+            android:id="@+id/add_parti_phone_input"
+            android:padding="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ADD"
+            android:id="@+id/add_parti_phone_invitebtn"
+            android:textColor="@color/white"
+            android:background="@drawable/black_roung_bg"
+            android:textSize="@dimen/text_small"
+            android:padding="5dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="10dp"/>
+
+
+    </RelativeLayout>
+
+    // contact and customer list btn layout
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Customer List"
+            android:id="@+id/add_parti_mycust_list_btn"
+            android:textColor="@color/white"
+            android:background="@drawable/black_roung_bg"
+            android:textSize="@dimen/text_small"
+            android:padding="5dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Telephone"
+            android:id="@+id/add_parti_mytele_list_btn"
+            android:textColor="@color/white"
+            android:background="@drawable/blue_bg"
+            android:textSize="@dimen/text_small"
+            android:padding="5dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/add_parti_mycust_list_btn"
+            android:layout_marginLeft="10dp"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="Invite people with your phone list"/>
+
+      <ListView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:divider="@null"
+          android:dividerHeight="5dp"
+          android:id="@+id/add_parti_list"></ListView>
+
+</LinearLayout>

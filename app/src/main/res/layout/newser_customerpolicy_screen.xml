@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/dark_grey">
+
+        // header layout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/hesder_bg">
+
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="25dp"
+                android:id="@+id/newser_cuspolicy_back_btn"
+                android:src="@drawable/leftarrow_white"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/newser_cuspolicy_back_btn"
+                android:layout_toLeftOf="@+id/newser_cuspolicy_next_btn"
+                android:text="Customer Policy"
+                android:textSize="@dimen/text_large"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="CREATE"
+                android:textColor="@color/white"
+                android:id="@+id/newser_cuspolicy_next_btn"
+                android:layout_alignParentRight="true"
+                android:textSize="@dimen/text_large"
+                android:padding="5dp"/>
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Customer Access"
+            android:textSize="@dimen/text_xxlarge"
+            android:textColor="@color/black"
+            android:padding="10dp"/>
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Staff Wise Booking"
+            android:padding="10dp"
+            android:id="@+id/newser_cuspolicy_staffwise_booking_switch"
+            android:background="@color/white"
+            android:layout_marginBottom="1dp"/>
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Advance Booking No of Days"
+            android:padding="10dp"
+            android:id="@+id/newser_cuspolicy_advnoof_day_switch"
+            android:background="@color/white"
+            android:layout_marginBottom="1dp"/>
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Repeat Booking package Configuration"
+            android:padding="10dp"
+            android:id="@+id/newser_cuspolicy_repeatbooking_packageconfig_switch"
+            android:background="@color/white"
+            android:layout_marginBottom="1dp"/>
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Operator Live Status"
+            android:padding="10dp"
+            android:id="@+id/newser_cuspolicy_operatorlive_status_switch"
+            android:background="@color/white"
+            android:layout_marginBottom="1dp"/>
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Booked people in group detail"
+            android:padding="10dp"
+            android:id="@+id/newser_cuspolicy_bookedpeople_ingroup_switch"
+            android:background="@color/white"
+            android:layout_marginBottom="1dp"/>
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Calender Synchronisation"
+            android:padding="10dp"
+            android:id="@+id/newser_cuspolicy_calender_sync_switch"
+            android:background="@color/white"
+            android:layout_marginBottom="1dp"/>
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pre Paid Booking"
+            android:padding="10dp"
+            android:id="@+id/newser_prepaid_switch"
+            android:background="@color/white"
+            android:layout_marginBottom="1dp"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pre Paid Booking Charges"
+            android:textSize="@dimen/text_xxlarge"
+            android:id="@+id/prepaid_tag"
+            android:textColor="@color/black"
+            android:padding="10dp"/>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/newser_cuspolicy_prepaid_book_radiogrp"
+            android:orientation="vertical">
+
+
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:text="Adjustable"
+                android:background="@color/white"
+                android:gravity="left"
+                android:id="@+id/newser_cuspolicy_prepaid_book_ajust_radiobtn"
+                android:layout_marginBottom="1dp"
+                android:padding="10dp"/>
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:text="Non - Adjustable"
+                android:background="@color/white"
+                android:id="@+id/newser_cuspolicy_prepaid_book_nonajust_radiobtn"
+                android:gravity="left"
+                android:layout_marginBottom="1dp"
+                android:padding="10dp"/>
+
+
+        </RadioGroup>
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Policy"
+            android:textSize="@dimen/text_xxlarge"
+            android:textColor="@color/black"
+            android:padding="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cancellation Policy"
+            android:padding="10dp"
+            android:textColor="#000"
+            android:id="@+id/newser_cuspolicy_cancellationpolicy_btn"
+            android:drawableRight="@drawable/next_icn_black"
+            android:background="@color/white"
+            android:textSize="@dimen/text_medium"
+            android:layout_marginBottom="1dp"
+            android:gravity="center_vertical"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Discount Policy"
+            android:padding="10dp"
+            android:textColor="#000"
+            android:id="@+id/newser_cuspolicy_discountpolicy_btn"
+            android:drawableRight="@drawable/next_icn_black"
+            android:background="@color/white"
+            android:textSize="@dimen/text_medium"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="1dp"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Package Configuration"
+            android:padding="10dp"
+            android:textColor="#000"
+            android:id="@+id/newser_cuspolicy_packageconfi_btn"
+            android:drawableRight="@drawable/next_icn_black"
+            android:background="@color/white"
+            android:textSize="@dimen/text_medium"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="1dp"/>
+
+    </LinearLayout>
+
+
+
+
+</ScrollView>

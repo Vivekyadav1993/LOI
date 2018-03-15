@@ -1,0 +1,780 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/dark_grey">
+
+
+        // header layout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/hesder_bg">
+
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="25dp"
+                android:id="@+id/newstaff_working_back_btn"
+                android:src="@drawable/leftarrow_white"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/newstaff_working_back_btn"
+                android:layout_toLeftOf="@+id/newstaff_working_next_btn"
+                android:text="Set Your Business Hours"
+                android:textSize="@dimen/text_large"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="SAVE"
+                android:textColor="@color/white"
+                android:id="@+id/newstaff_working_next_btn"
+                android:layout_alignParentRight="true"
+                android:textSize="@dimen/text_large"
+                android:padding="5dp"/>
+
+
+        </RelativeLayout>
+
+
+        // select Date layout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/grey"
+            android:layout_marginBottom="1dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+
+            // switch layout
+            <RelativeLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/newstaff_working_date_switch_layout"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true">
+
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/newstaff_working_date_switch_btn"/>
+
+            </RelativeLayout>
+
+
+
+            // date icon layout
+            <RelativeLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:id="@+id/newstaff_working_date_icon_layout"
+                android:layout_alignParentLeft="true">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/date_icn"/>
+
+            </RelativeLayout>
+
+            // event layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/newstaff_working_date_icon_layout"
+                android:layout_toLeftOf="@+id/newstaff_working_date_switch_layout">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/newstaff_working_date_tag"
+                    android:text="Date"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newstaff_working_date_tag"
+                    android:text="28/09/2017"
+                    android:id="@+id/newstaff_working_date_start_btn"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newstaff_working_date_tag"
+                    android:text="End date"
+                    android:id="@+id/newstaff_working_date_end_btn"
+                    android:textColor="@color/dark_grey"
+                    android:layout_toRightOf="@+id/newstaff_working_date_start_btn"
+                    android:layout_marginLeft="10dp"
+                    />
+
+
+
+            </RelativeLayout>
+
+
+
+
+
+        </RelativeLayout>
+
+        // monday layout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginBottom="1dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+
+            // switch layout
+            <RelativeLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/newstaff_working_timemon_switch_layout"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true">
+
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:checked="true"
+                    android:id="@+id/newstaff_working_timemon_switch_btn"/>
+
+            </RelativeLayout>
+
+
+
+            // date icon layout
+            <RelativeLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:id="@+id/newstaff_working_timemon_icon_layout"
+                android:layout_alignParentLeft="true">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/clock_icn"/>
+
+            </RelativeLayout>
+
+            // event layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/newstaff_working_timemon_icon_layout"
+                android:layout_toLeftOf="@+id/newstaff_working_timemon_switch_layout">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/newstaff_working_timemon_tag"
+                    android:text="Monday"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newstaff_working_timemon_tag"
+                    android:text="08:00 AM"
+                    android:id="@+id/newstaff_working_timemon_start_btn"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newstaff_working_timemon_tag"
+                    android:text="05:00 PM"
+                    android:id="@+id/newstaff_working_timemon_end_btn"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/newstaff_working_timemon_start_btn"
+                    android:layout_marginLeft="10dp"
+                    />
+
+
+
+            </RelativeLayout>
+
+
+
+
+
+        </RelativeLayout>
+
+        // Tuesday layout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginBottom="1dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+
+            // switch layout
+            <RelativeLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/newstaff_working_timetue_switch_layout"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true">
+
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/newstaff_working_timetue_switch_btn"
+                    android:layout_centerVertical="true"
+                    android:checked="true"
+                    android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
+
+
+
+            // date icon layout
+            <RelativeLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:id="@+id/newstaff_working_timetue_icon_layout"
+                android:layout_alignParentLeft="true">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/clock_icn"/>
+
+            </RelativeLayout>
+
+            // event layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/newstaff_working_timetue_icon_layout"
+                android:layout_toLeftOf="@+id/newstaff_working_timetue_switch_layout">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/newstaff_working_timetue_tag"
+                    android:text="Tuesday"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newstaff_working_timetue_tag"
+                    android:text="08:00 AM"
+                    android:id="@+id/newstaff_working_timetue_start_btn"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newstaff_working_timetue_tag"
+                    android:text="05:00 PM"
+                    android:id="@+id/newstaff_working_timetue_end_btn"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/newstaff_working_timetue_start_btn"
+                    android:layout_marginLeft="10dp"
+                    />
+
+
+
+            </RelativeLayout>
+
+
+
+
+
+        </RelativeLayout>
+
+        // wednesday layout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginBottom="1dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+
+            // switch layout
+            <RelativeLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/newstaff_working_timewed_switch_layout"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true">
+
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/newstaff_working_timewed_switch_btn"
+                    android:layout_centerVertical="true"
+                    android:checked="true"
+                    android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
+
+
+
+            // date icon layout
+            <RelativeLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:id="@+id/newstaff_working_timewed_icon_layout"
+                android:layout_alignParentLeft="true">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/clock_icn"/>
+
+            </RelativeLayout>
+
+            // event layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/newstaff_working_timewed_icon_layout"
+                android:layout_toLeftOf="@+id/newstaff_working_timewed_switch_layout">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/newstaff_working_timewed_tag"
+                    android:text="Wednesday"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newstaff_working_timewed_tag"
+                    android:text="08:00 AM"
+                    android:id="@+id/newstaff_working_timewed_start_btn"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newstaff_working_timewed_tag"
+                    android:text="05:00 PM"
+                    android:id="@+id/newstaff_working_timewed_end_btn"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/newstaff_working_timewed_start_btn"
+                    android:layout_marginLeft="10dp"
+                    />
+
+
+
+            </RelativeLayout>
+
+
+
+
+
+        </RelativeLayout>
+
+        // thursday layout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginBottom="1dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+
+            // switch layout
+            <RelativeLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/newstaff_working_timethr_switch_layout"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true">
+
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:checked="true"
+                    android:id="@+id/newstaff_working_timethr_switch_btn"/>
+
+            </RelativeLayout>
+
+
+
+            // date icon layout
+            <RelativeLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:id="@+id/newstaff_working_timethr_icon_layout"
+                android:layout_alignParentLeft="true">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/clock_icn"/>
+
+            </RelativeLayout>
+
+            // event layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/newstaff_working_timethr_icon_layout"
+                android:layout_toLeftOf="@+id/newstaff_working_timethr_switch_layout">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/newstaff_working_timethr_tag"
+                    android:text="Thursday"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newstaff_working_timethr_tag"
+                    android:text="08:00 AM"
+                    android:id="@+id/newstaff_working_timethr_start_btn"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newstaff_working_timethr_tag"
+                    android:text="05:00 PM"
+                    android:id="@+id/newstaff_working_timethr_end_btn"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/newstaff_working_timethr_start_btn"
+                    android:layout_marginLeft="10dp"
+                    />
+
+
+
+            </RelativeLayout>
+
+
+
+
+
+        </RelativeLayout>
+
+
+        // friday layout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginBottom="1dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+
+            // switch layout
+            <RelativeLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/newstaff_working_timefri_switch_layout"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true">
+
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/newstaff_working_timefri_switch_btn"/>
+
+            </RelativeLayout>
+
+
+
+            // date icon layout
+            <RelativeLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:id="@+id/newstaff_working_timefri_icon_layout"
+                android:layout_alignParentLeft="true">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/clock_icn"/>
+
+            </RelativeLayout>
+
+            // event layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/newstaff_working_timefri_icon_layout"
+                android:layout_toLeftOf="@+id/newstaff_working_timefri_switch_layout">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/newstaff_working_timefri_tag"
+                    android:text="Friday"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newstaff_working_timefri_tag"
+                    android:text="08:00 AM"
+                    android:id="@+id/newstaff_working_timefri_start_btn"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newstaff_working_timefri_tag"
+                    android:text="05:00 PM"
+                    android:id="@+id/newstaff_working_timefri_end_btn"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/newstaff_working_timefri_start_btn"
+                    android:layout_marginLeft="10dp"
+                    />
+
+
+
+            </RelativeLayout>
+
+
+
+
+
+        </RelativeLayout>
+
+
+        // saturday layout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginBottom="1dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+
+            // switch layout
+            <RelativeLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/newstaff_working_timesat_switch_layout"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true">
+
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:checked="true"
+                    android:id="@+id/newstaff_working_timesat_switch_btn"/>
+
+            </RelativeLayout>
+
+
+
+            // date icon layout
+            <RelativeLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:id="@+id/newstaff_working_timesat_icon_layout"
+                android:layout_alignParentLeft="true">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/clock_icn"/>
+
+            </RelativeLayout>
+
+            // event layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/newstaff_working_timesat_icon_layout"
+                android:layout_toLeftOf="@+id/newstaff_working_timesat_switch_layout">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/newstaff_working_timesat_tag"
+                    android:text="Saturday"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newstaff_working_timesat_tag"
+                    android:text="08:00 AM"
+                    android:id="@+id/newstaff_working_timesat_start_btn"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newstaff_working_timesat_tag"
+                    android:text="05:00 PM"
+                    android:id="@+id/newstaff_working_timesat_end_btn"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/newstaff_working_timesat_start_btn"
+                    android:layout_marginLeft="10dp"
+                    />
+
+
+
+            </RelativeLayout>
+
+
+
+
+
+        </RelativeLayout>
+
+
+        // sunday layout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginBottom="1dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+
+            // switch layout
+            <RelativeLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/newstaff_working_timesun_switch_layout"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true">
+
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/newstaff_working_timesun_switch_btn"/>
+
+            </RelativeLayout>
+
+
+
+            // date icon layout
+            <RelativeLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:id="@+id/newstaff_working_timesun_icon_layout"
+                android:layout_alignParentLeft="true">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/clock_icn"/>
+
+            </RelativeLayout>
+
+            // event layout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/newstaff_working_timesun_icon_layout"
+                android:layout_toLeftOf="@+id/newstaff_working_timesun_switch_layout">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/newstaff_working_timesun_tag"
+                    android:text="Sunday"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newstaff_working_timesun_tag"
+                    android:text="08:00 AM"
+                    android:id="@+id/newstaff_working_timesun_start_btn"
+                    android:textColor="@color/black"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:drawablePadding="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newstaff_working_timesun_tag"
+                    android:text="05:00 PM"
+                    android:id="@+id/newstaff_working_timesun_end_btn"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/newstaff_working_timesun_start_btn"
+                    android:layout_marginLeft="10dp"
+                    />
+
+
+
+            </RelativeLayout>
+
+
+
+
+
+        </RelativeLayout>
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+</ScrollView>

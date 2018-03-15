@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="125dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginTop="5dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="4dp"
+    app:cardUseCompatPadding="true">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
+
+        <ImageView
+            android:id="@+id/company_image_iv"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_launcher" />
+
+
+        <TextView
+            android:id="@+id/company_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@id/company_image_iv"
+            android:layout_toRightOf="@id/company_image_iv"
+            android:text="Choice Pizz Corner"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/company_address_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/company_name_tv"
+            android:layout_marginLeft="12dp"
+            android:layout_toEndOf="@id/company_image_iv"
+            android:layout_toRightOf="@id/company_image_iv"
+            android:text="Sec 49, Noida"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/company_service_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/company_address_tv"
+            android:layout_marginLeft="12dp"
+            android:layout_toEndOf="@id/company_image_iv"
+            android:layout_toRightOf="@id/company_image_iv"
+            android:text="Food"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+
+        <TextView
+            android:id="@+id/company_open_time_text_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/company_service_tv"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="3dp"
+            android:layout_toEndOf="@id/company_image_iv"
+            android:layout_toRightOf="@id/company_image_iv"
+            android:background="@color/gray"
+            android:paddingBottom="2dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="2dp"
+            android:text="Open Now:"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/company_open_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/company_open_time_text_tv"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@id/company_image_iv"
+            android:layout_toRightOf="@id/company_image_iv"
+            android:background="@color/gray"
+            android:paddingBottom="2dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="2dp"
+            android:text="8 am - 6 pm"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/company_last_appointment_time_text_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/company_service_tv"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="3dp"
+            android:layout_toEndOf="@id/company_open_time_text_tv"
+            android:layout_toRightOf="@id/company_open_time_text_tv"
+            android:background="@color/gray"
+            android:paddingBottom="2dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="2dp"
+            android:text="Last Appointment Avaliable:"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/company_last_appointment_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/company_open_time_text_tv"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@id/company_open_time_text_tv"
+            android:layout_toRightOf="@id/company_open_time_text_tv"
+            android:background="@color/gray"
+            android:paddingBottom="2dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="2dp"
+            android:text="6:30 pm"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+
+        <Button
+            android:id="@+id/company_book_btn"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:layout_above="@id/company_last_appointment_time_text_tv"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/button_background"
+            android:text="Book"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

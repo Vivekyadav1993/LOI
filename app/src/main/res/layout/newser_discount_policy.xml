@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/dark_grey">
+
+
+
+
+        // header layout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/hesder_bg">
+
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="25dp"
+                android:id="@+id/newser_dispolicy_back_btn"
+                android:src="@drawable/leftarrow_white"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/newser_dispolicy_back_btn"
+                android:layout_toLeftOf="@+id/newser_dispolicy_next_btn"
+                android:text="Discount Policy"
+                android:textSize="@dimen/text_large"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="CREATE"
+                android:textColor="@color/white"
+                android:id="@+id/newser_dispolicy_next_btn"
+                android:layout_alignParentRight="true"
+                android:textSize="@dimen/text_large"
+                android:padding="5dp"/>
+
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Refund Slab (On amount collected)"
+            android:textSize="@dimen/text_xlarge"
+            android:id="@+id/discount_policy_add_btn"
+            android:drawableRight="@drawable/add"
+            android:textColor="@color/black"
+            android:padding="10dp"/>
+
+
+        // no of class layout
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginBottom="1dp"
+            >
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Subsequent Class No"
+                    android:backgroundTint="@null"
+                    android:inputType="number"
+                    android:imeOptions="actionNext"
+                    android:textSize="@dimen/text_medium"
+                    android:id="@+id/discount_policy_classno_input"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="10dp"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+
+        </RelativeLayout>
+
+
+        // period amount
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginBottom="1dp"
+            >
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Period"
+                    android:backgroundTint="@null"
+                    android:inputType="number"
+                    android:imeOptions="actionNext"
+                    android:textSize="@dimen/text_medium"
+                    android:id="@+id/discount_policy_period_input"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="10dp"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+
+        </RelativeLayout>
+
+
+        // days amount
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginBottom="1dp"
+            >
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Days"
+                    android:backgroundTint="@null"
+                    android:inputType="number"
+                    android:id="@+id/discount_policy_days_input"
+                    android:imeOptions="actionNext"
+                    android:textSize="@dimen/text_medium"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="10dp"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+
+        </RelativeLayout>
+
+        // discount amount
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginBottom="1dp"
+            >
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Discount %"
+                    android:backgroundTint="@null"
+                    android:inputType="number"
+                    android:imeOptions="actionDone"
+                    android:textSize="@dimen/text_medium"
+                    android:id="@+id/discount_policy_dis_input"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="10dp"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+
+        </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Refund Slabs List :"
+        android:textSize="@dimen/text_small"
+        android:textColor="@color/black"
+        android:padding="10dp"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/colorPrimaryDark"
+        android:background="@color/white"
+        android:dividerHeight="3dp"
+        android:id="@+id/newser_dispolicy_list"></ListView>
+
+
+
+
+
+</LinearLayout>
+

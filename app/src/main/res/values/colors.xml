@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#242638</color>
+    <color name="colorPrimaryDark">#1E202E</color>
+    <color name="colorAccent">#2B71FF</color>
+
+    <color name="grey">#ECECED</color>
+
+    <color name="dark_grey">#D3D3D3</color>
+
+    <color name="white">#ffff</color>
+
+    <color name="red">#ca0808</color>
+
+    <color name="blue">#2B71FF</color>
+
+    <color name="hesder_bg">#343851</color>
+
+
+</resources>

@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/dark_grey">
+
+
+
+        //header layout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/nav_header_height"
+            android:background="@color/hesder_bg"
+            android:padding="10dp">
+
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="25dp"
+                android:id="@+id/new_serinfo_back_btn"
+                android:src="@drawable/leftarrow_white"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/new_serinfo_back_btn"
+                android:layout_toLeftOf="@+id/new_serinfo_next_btn"
+                android:text=""
+                android:textSize="@dimen/text_large"
+                android:id="@+id/new_serinfo_tag"
+                android:textColor="@color/white"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="DONE"
+                android:textColor="@color/white"
+                android:id="@+id/new_serinfo_next_btn"
+                android:layout_alignParentRight="true"
+                android:textSize="@dimen/text_large"
+                android:padding="5dp"/>
+
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_below="@+id/new_serinfo_tag"
+                android:src="@drawable/browse_pic"
+                android:visibility="invisible"
+                android:id="@+id/new_resser_browse_button"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"/>
+
+
+        </RelativeLayout>
+
+        // Name layout
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginBottom="1dp"
+            >
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Name"
+                    android:backgroundTint="@null"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    android:textSize="@dimen/text_medium"
+                    android:id="@+id/new_serinfo_name_input"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="10dp"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+
+        </RelativeLayout>
+
+        // Details layout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginBottom="1dp"
+            >
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Duration in minute"
+                    android:backgroundTint="@null"
+                    android:inputType="number"
+                    android:imeOptions="actionNext"
+                    android:textSize="@dimen/text_medium"
+                    android:id="@+id/new_serinfo_duration_input"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="10dp"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+
+        </RelativeLayout>
+
+        // Buffer Time layout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginBottom="1dp"
+            >
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Buffer Time in minute"
+                    android:backgroundTint="@null"
+                    android:inputType="number"
+                    android:imeOptions="actionNext"
+                    android:textSize="@dimen/text_medium"
+                    android:id="@+id/new_serinfo_buffer_input"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="10dp"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+
+        </RelativeLayout>
+
+        // Cost layout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginBottom="1dp"
+            >
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Cost in rupees"
+                    android:backgroundTint="@null"
+                    android:inputType="number"
+                    android:imeOptions="actionNext"
+                    android:textSize="@dimen/text_medium"
+                    android:id="@+id/new_serinfo_cost_input"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="10dp"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+
+        </RelativeLayout>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/new_serinfo_group_radio"
+            >
+
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Service provided one on one"
+                android:padding="10dp"
+                android:id="@+id/new_serinfo_oneonone_radiobtn"
+                android:background="@color/white"
+                android:layout_marginBottom="1dp"
+                />
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Group"
+                android:padding="10dp"
+                android:id="@+id/new_serinfo_group_radiobtn"
+                android:background="@color/white"
+                android:layout_marginBottom="1dp"
+                />
+
+        </RadioGroup>
+
+        // Max people layout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:visibility="gone"
+            android:id="@+id/max_people_layout"
+            android:layout_marginBottom="1dp"
+            >
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Max People in group"
+                    android:backgroundTint="@null"
+                    android:inputType="number"
+                    android:imeOptions="actionDone"
+                    android:textSize="@dimen/text_medium"
+                    android:id="@+id/new_serinfo_maxpeople_input"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="10dp"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+
+        </RelativeLayout>
+
+        //home service
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Home service"
+            android:id="@+id/new_serinfo_homeservice_btn"
+            android:drawableRight="@drawable/next_icn_black"
+            android:background="@color/white"
+            android:textSize="@dimen/text_medium"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginBottom="1dp"
+            android:gravity="center_vertical"/>
+
+
+
+
+
+    </LinearLayout>
+
+</ScrollView>

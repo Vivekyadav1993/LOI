@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="10dp"
+    android:paddingBottom="30dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CREATE ACCOUNT"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_xxxlarge"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="sans-serif-condensed"
+        android:layout_marginTop="30dp"/>
+
+
+
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        android:gravity="center"
+        android:inputType="text"
+        android:textSize="@dimen/text_xlarge"
+        android:background="@drawable/grey_roundbg"
+
+        android:padding="5dp"
+
+        android:imeOptions="actionNext"
+        android:id="@+id/register_name_input"
+        android:layout_marginTop="40dp"/>
+
+
+
+        <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/grey_roundbg"
+        android:hint="Phone Number"
+        android:gravity="center"
+        android:maxLength="10"
+        android:inputType="number"
+        android:textSize="@dimen/text_xxlarge"
+            android:padding="5dp"
+        android:imeOptions="actionNext"
+        android:id="@+id/register_phone_input"
+        android:layout_marginTop="10dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/grey_roundbg"
+        android:hint="Email Id"
+        android:gravity="center"
+        android:inputType="text"
+        android:imeOptions="actionNext"
+        android:id="@+id/register_email_input"
+        android:textSize="@dimen/text_xxlarge"
+        android:padding="5dp"
+        android:layout_marginTop="10dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/grey_roundbg"
+        android:hint="Password"
+        android:gravity="center"
+        android:inputType="text"
+        android:imeOptions="actionDone"
+        android:id="@+id/register_password_input"
+        android:textSize="@dimen/text_xxlarge"
+        android:padding="5dp"
+        android:layout_marginTop="10dp"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GO !"
+        android:textColor="@color/white"
+        android:background="@drawable/grey_border_trans"
+        android:textSize="@dimen/text_xxxlarge"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingRight="40dp"
+        android:paddingLeft="40dp"
+        android:id="@+id/register_btn"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"/>
+
+
+
+
+    </LinearLayout>
+
+</ScrollView>

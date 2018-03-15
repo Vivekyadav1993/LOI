@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/grey_border_trans"
+    android:padding="10dp"
+    android:weightSum="1">
+
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_weight=".1"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="A"
+            android:textColor="@color/white"
+            android:paddingTop="5dp"
+            android:paddingLeft="10dp"
+            android:paddingBottom="5dp"
+            android:paddingRight="10dp"
+            android:id="@+id/contacts_list_letter_tag"
+            android:gravity="center"
+            android:textSize="@dimen/text_large"
+            android:background="@drawable/round_bg"/>
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight=".38"
+        android:layout_height="wrap_content"
+        android:text="Mukesh (DT)"
+        android:id="@+id/contacts_list_name_tag"
+        android:textSize="@dimen/text_small"
+        android:padding="5dp"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight=".39"
+        android:id="@+id/contacts_list_number_tag"
+        android:layout_height="wrap_content"
+        android:text="9999999999"
+        android:textSize="@dimen/text_small"
+        android:padding="5dp"/>
+
+    <CheckBox
+        android:layout_width="0dp"
+        android:layout_weight=".13"
+        android:layout_height="wrap_content"
+        android:id="@+id/contacts_list_select_btn"
+        android:textSize="@dimen/text_small"
+        android:clickable="false"
+        android:focusable="false"
+        android:padding="5dp"/>
+
+
+
+</LinearLayout>

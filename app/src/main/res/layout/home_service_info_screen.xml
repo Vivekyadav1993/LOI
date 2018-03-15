@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/dark_grey">
+
+
+
+
+
+
+        // header layout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/hesder_bg">
+
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="25dp"
+                android:id="@+id/homeser_back_btn"
+                android:src="@drawable/leftarrow_white"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/homeser_back_btn"
+                android:layout_toLeftOf="@+id/homeser_next_btn"
+                android:text="Home Service"
+                android:textSize="@dimen/text_large"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="SAVE"
+                android:textColor="@color/white"
+                android:id="@+id/homeser_next_btn"
+                android:layout_alignParentRight="true"
+                android:textSize="@dimen/text_large"
+                android:padding="5dp"/>
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginBottom="1dp"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Home Service"
+                android:textSize="@dimen/text_large"
+                android:layout_alignParentLeft="true"
+
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"/>
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/homeser_btn"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        // Place Name layout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginBottom="1dp"
+            >
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Place Name"
+                    android:backgroundTint="@null"
+                    android:inputType="text"
+                    android:ems="10"
+                    android:imeOptions="actionNext"
+                    android:textSize="@dimen/text_medium"
+                    android:id="@+id/homeser_name_input"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="10dp"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+
+        </RelativeLayout>
+
+        // Place radius layout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginBottom="1dp"
+            >
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Km of Radius"
+                    android:backgroundTint="@null"
+                    android:inputType="number"
+                    android:imeOptions="actionNext"
+                    android:textSize="@dimen/text_medium"
+                    android:id="@+id/homeser_kmradius_input"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="10dp"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+
+        </RelativeLayout>
+
+        // Travel Timing layout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginBottom="1dp"
+            >
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Travel timing in min"
+                    android:backgroundTint="@null"
+                    android:inputType="number"
+                    android:imeOptions="actionDone"
+                    android:textSize="@dimen/text_medium"
+                    android:id="@+id/homeser_traveltime_input"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="10dp"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+
+        </RelativeLayout>
+
+        // timing layout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:background="@color/white"
+            android:layout_marginBottom="1dp"
+           >
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/clock_icn"
+                android:layout_centerVertical="true"
+                android:id="@+id/date_icn5"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/date_icn5"
+                android:text="Start Time"
+                android:id="@+id/homeser_starttime_btn"
+                android:textColor="@color/black"
+                android:drawableRight="@drawable/arrow_black"
+                android:layout_centerVertical="true"
+                android:drawablePadding="10dp"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="End Time"
+                android:layout_centerVertical="true"
+                android:id="@+id/homeser_endtime_btn"
+                android:textColor="@color/black"
+                android:layout_toRightOf="@+id/homeser_starttime_btn"
+                android:layout_marginLeft="10dp"
+                />
+
+
+
+
+        </RelativeLayout>
+
+        //Select Staff
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Staff"
+            android:id="@+id/homeser_selectstaff_btn"
+            android:drawableRight="@drawable/next_icn_black"
+            android:background="@color/white"
+            android:textSize="@dimen/text_medium"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginBottom="1dp"
+            android:gravity="center_vertical"/>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GO !"
+            android:textColor="@color/colorAccent"
+            android:background="@drawable/blue_round_trans"
+            android:textSize="@dimen/text_large"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="40dp"
+            android:layout_centerHorizontal="true"
+            android:paddingLeft="40dp"
+            android:id="@+id/homeser_save_btn"
+            android:layout_gravity="center_horizontal" />
+
+        </RelativeLayout>
+
+
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@color/white"
+            android:padding="10dp"
+            android:nestedScrollingEnabled="true"
+            android:divider="@color/grey"
+            android:dividerHeight="1dp"
+            android:id="@+id/homeser_list"
+            android:layout_marginTop="1dp"
+            ></ListView>
+
+
+
+
+    </LinearLayout>
+
+</ScrollView>
