@@ -5,7 +5,7 @@ android {
     buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "r2stech.lifeoninternet"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -38,8 +38,11 @@ dependencies {
     compile 'com.gmail.samehadar:iosdialog:1.0'
     compile 'com.android.support:cardview-v7:26.1.0'
     compile 'com.jakewharton:butterknife:8.5.1'
+    compile 'com.wefika:collapse-calendar-view:0.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }
+
+
 
 
 

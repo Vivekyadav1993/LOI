@@ -15,6 +15,8 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import frags.BusinessDetailsFrag;
+import frags.BusinessHourFrag;
 import frags.CustomerLandingFrag;
 import r2stech.lifeoninternet.R;
 
@@ -23,15 +25,20 @@ public class CustomerLandingRecyclerViewAdapter extends RecyclerView.Adapter<Cus
 
 
     private ArrayList<String> data;
-    CustomerLandingFrag mCustomerLandingFrag;
+    private CustomerLandingFrag mCustomerLandingFrag;
+    protected CustomerLandingButtonClick mClick;
+    public interface CustomerLandingButtonClick {
+        void buttonOptionClick(int pos);
 
+    }
     Context mContext;
 
     LayoutInflater layoutInflater;
 
-    public CustomerLandingRecyclerViewAdapter(CustomerLandingFrag mContext, ArrayList<String> data) {
+    public CustomerLandingRecyclerViewAdapter(CustomerLandingFrag mContext, ArrayList<String> data,CustomerLandingButtonClick mCustomerLandingButtonClick) {
         this.mCustomerLandingFrag = mContext;
         this.data = data;
+        mCustomerLandingButtonClick=mCustomerLandingButtonClick;
     }
 
     @Override
@@ -44,26 +51,21 @@ public class CustomerLandingRecyclerViewAdapter extends RecyclerView.Adapter<Cus
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
-
         holder.mBookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "" + position, Toast.LENGTH_SHORT).show();
-
+                mClick.buttonOptionClick(position);
             }
         });
 
     }
-
 
     @Override
     public int getItemCount() {
         return data.size();
     }
 
-
     class ViewHolder extends RecyclerView.ViewHolder {
-
 
         @BindView(R.id.company_book_btn)
         public Button mBookBtn;
@@ -72,7 +74,6 @@ public class CustomerLandingRecyclerViewAdapter extends RecyclerView.Adapter<Cus
             super(itemView);
 
             ButterKnife.bind(this, itemView);
-
         }
     }
 

@@ -1,0 +1,167 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="frags.JoinQueueFrag">
+
+    <RelativeLayout
+        android:id="@+id/header_rl"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/hesder_bg">
+
+
+        <ImageView
+            android:id="@+id/join_queue_back_btn"
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/leftarrow_white" />
+
+        <TextView
+            android:id="@+id/frag_toolbar_title_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="Tansen Academy"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_large" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/frag_toolbar_title_tv"
+            android:gravity="center"
+            android:text="Join the Queue"
+            android:textColor="@color/white" />
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/header_rl"
+        android:padding="8dp">
+
+        <com.wefika.calendar.CollapseCalendarView
+            android:id="@+id/frag_join_queue_calendar_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:id="@+id/frag_join_queue_waiting_rl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/frag_join_queue_calendar_view"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/waiting_time_text_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="Estimate Waiting period now"
+                android:textColor="@color/black"
+
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/frag_join_queue_waiting_time_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/waiting_time_text_tv"
+                android:layout_marginTop="25dp"
+                android:gravity="center"
+                android:text="30 min"
+                android:textColor="@color/blue"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/frag_join_queue_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/frag_join_queue_waiting_time_tv"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="24dp"
+                android:background="@color/amber_700"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="Join the queue"
+                android:textColor="@color/white" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/frag_join_queue_no_waiting_rl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/frag_join_queue_calendar_view">
+
+            <TextView
+                android:id="@+id/no_waiting_time_text_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="There is no Waiting period now"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/frag_join_queue_no_waiting_time_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/no_waiting_time_text_tv"
+                android:layout_marginTop="25dp"
+                android:gravity="center"
+                android:text="You are Welcome !"
+                android:textColor="@color/blue"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/frag_join_queue_no_waiting_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/frag_join_queue_no_waiting_time_tv"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="24dp"
+                android:background="@color/amber_700"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="Expect me within next 30 Minuts"
+                android:textColor="@color/white" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="Pre Booking of spot in queue : Rs. 50 (Will be adjust in the final bill) "
+            android:textColor="@color/red"
+            android:textSize="14sp" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textView"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
+            android:src="@drawable/float_background" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

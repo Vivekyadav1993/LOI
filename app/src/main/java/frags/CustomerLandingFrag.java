@@ -9,19 +9,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import adapters.CustomerLandingRecyclerViewAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import helper.HelperFrags;
 import r2stech.lifeoninternet.LandingActivity;
 import r2stech.lifeoninternet.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CustomerLandingFrag extends Fragment {
+public class CustomerLandingFrag extends HelperFrags{
 
     private FragmentManager mFragmentManager;
     private LandingActivity activity;
@@ -61,10 +63,17 @@ public class CustomerLandingFrag extends Fragment {
         mFragmentManager = getActivity().getSupportFragmentManager();
 
         mRecyclerView.setHasFixedSize(true);
-        mCustomerLandingRecyclerViewAdapter = new CustomerLandingRecyclerViewAdapter(this, customerLandingData);
+        mCustomerLandingRecyclerViewAdapter = new CustomerLandingRecyclerViewAdapter(this, customerLandingData, new CustomerLandingRecyclerViewAdapter.CustomerLandingButtonClick() {
+            @Override
+            public void buttonOptionClick(int pos) {
+                Bundle bundle = new Bundle();
+                Toast.makeText(getContext(), "" +pos, Toast.LENGTH_SHORT).show();
+                replaceFrag(new JoinQueueFrag(), bundle, CustomerLandingFrag.class.getName());
+
+            }
+        });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mCustomerLandingRecyclerViewAdapter);
-
 
     }
 

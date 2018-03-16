@@ -64,38 +64,32 @@ import static android.app.Activity.RESULT_OK;
 public class HelperFrags extends Fragment {
 
 
-    private  Calendar c;
+    private Calendar c;
 
-    private int mYear , mMonth , mDay , mHour , mMinute;
+    private int mYear, mMonth, mDay, mHour, mMinute;
 
     private FragmentManager fragmentManager;
 
     private FragmentTransaction fragmentTransaction;
 
 
-
     private static final int FILE_SELECT_CODE = 3;
 
-    private static final  int REQUEST_CAMERA = 0, SELECT_FILE = 111;
+    private static final int REQUEST_CAMERA = 0, SELECT_FILE = 111;
 
     private int MY_PERMISSIONS_REQUEST_CAMERA = 3;
 
     private int MY_PERMISSIONS_REQUEST_SELECTFILE = 4;
 
-    private Bitmap select_pic ;
+    private Bitmap select_pic;
 
-    private String pic_path="", song_path="";
+    private String pic_path = "", song_path = "";
 
     private Uri song_uri;
 
     private ImageView upload_pic_holder;
 
-
-
-
-
-
-      public void addFrag(Fragment frag , Bundle bundle){
+    public void addFrag(Fragment frag, Bundle bundle) {
         fragmentManager = getActivity().getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         frag.setArguments(bundle);
@@ -103,26 +97,26 @@ public class HelperFrags extends Fragment {
 
     }
 
-    public void replaceFrag(Fragment frag , Bundle bundle , String backclass){
+    public void replaceFrag(Fragment frag, Bundle bundle, String backclass) {
         fragmentManager = getActivity().getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         frag.setArguments(bundle);
         if (backclass.equals(""))
             fragmentTransaction.replace(R.id.parentcontainer, frag).addToBackStack(null).commit();
         else
-        fragmentTransaction.replace(R.id.parentcontainer, frag).addToBackStack(backclass).commit();
+            fragmentTransaction.replace(R.id.parentcontainer, frag).addToBackStack(backclass).commit();
 
     }
 
-    public void initializeSharedData(){
+    public void initializeSharedData() {
 
         //initialize share preference
-        AppConstants.app_data =getActivity().getSharedPreferences("AppData", getActivity().MODE_PRIVATE);
+        AppConstants.app_data = getActivity().getSharedPreferences("AppData", getActivity().MODE_PRIVATE);
 
     }
 
 
-    public void showMSg(String msg){
+    public void showMSg(String msg) {
         Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
     }
 
@@ -135,14 +129,12 @@ public class HelperFrags extends Fragment {
     }
 
 
-    public void getDate(final TextView text){
+    public void getDate(final TextView text) {
         // Get Current Date
         c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
-
-
 
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
@@ -152,17 +144,17 @@ public class HelperFrags extends Fragment {
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
 
-                        String oldFormat= "yyyy-MM-dd";
-                        String newFormat= "dd-MMM-yy";
+                        String oldFormat = "yyyy-MM-dd";
+                        String newFormat = "dd-MMM-yy";
 
                         String formatedDate = "";
                         java.text.SimpleDateFormat dateFormat = new java.text.SimpleDateFormat(oldFormat);
-                        Date startDate = null , currentdate= null;
+                        Date startDate = null, currentdate = null;
 
                         try {
 
                             startDate = dateFormat.parse(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
-                            currentdate= dateFormat.parse(mYear + "-" + (mMonth + 1) + "-" + mDay);
+                            currentdate = dateFormat.parse(mYear + "-" + (mMonth + 1) + "-" + mDay);
 
 
                         } catch (java.text.ParseException e) {
@@ -171,96 +163,16 @@ public class HelperFrags extends Fragment {
 
                         java.text.SimpleDateFormat timeFormat = new java.text.SimpleDateFormat(newFormat);
                         formatedDate = timeFormat.format(startDate);
-
-
-
-
-                           // text.setText(formatedDate);
-                         text.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
-
-
-
-
-
-
-
-
-
-
-
-
-                    }
-                }, mYear, mMonth, mDay);
-
-        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-
-
-
-        datePickerDialog.show();
-
-
-    }
-
-    public void getDateWithcallback(final TextView text , final HttpresponseUpd callback){
-        // Get Current Date
-        c = Calendar.getInstance();
-
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
-
-
-
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
-                new DatePickerDialog.OnDateSetListener() {
-
-                    @Override
-                    public void onDateSet(DatePicker view, int year,
-                                          int monthOfYear, int dayOfMonth) {
-
-                        String oldFormat= "yyyy-MM-dd";
-                        String newFormat= "dd-MMM-yy";
-
-                        String formatedDate = "";
-                        java.text.SimpleDateFormat dateFormat = new java.text.SimpleDateFormat(oldFormat);
-                        Date startDate = null , currentdate= null;
-
-                        try {
-
-                            startDate = dateFormat.parse(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
-                            currentdate= dateFormat.parse(mYear + "-" + (mMonth + 1) + "-" + mDay);
-
-
-                        } catch (java.text.ParseException e) {
-                            e.printStackTrace();
-                        }
-
-                        java.text.SimpleDateFormat timeFormat = new java.text.SimpleDateFormat(newFormat);
-                        formatedDate = timeFormat.format(startDate);
-
-
 
 
                         // text.setText(formatedDate);
                         text.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
 
 
-                        callback.getResponse("Date");
-
-
-
-
-
-
-
-
-
                     }
                 }, mYear, mMonth, mDay);
 
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-
 
 
         datePickerDialog.show();
@@ -268,9 +180,54 @@ public class HelperFrags extends Fragment {
 
     }
 
-    public void getBreakTime(final TextView text , final String frmTime , final String toTime){
+    public void getDateWithcallback(final TextView text, final HttpresponseUpd callback) {
+        // Get Current Date
+        c = Calendar.getInstance();
+
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
+                new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+
+                        String oldFormat = "yyyy-MM-dd";
+                        String newFormat = "dd-MMM-yy";
+
+                        String formatedDate = "";
+                        java.text.SimpleDateFormat dateFormat = new java.text.SimpleDateFormat(oldFormat);
+                        Date startDate = null, currentdate = null;
+
+                        try {
+
+                            startDate = dateFormat.parse(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                            currentdate = dateFormat.parse(mYear + "-" + (mMonth + 1) + "-" + mDay);
 
 
+                        } catch (java.text.ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        java.text.SimpleDateFormat timeFormat = new java.text.SimpleDateFormat(newFormat);
+                        formatedDate = timeFormat.format(startDate);
+
+                        // text.setText(formatedDate);
+                        text.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+
+                        callback.getResponse("Date");
+
+                    }
+                }, mYear, mMonth, mDay);
+
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        datePickerDialog.show();
+    }
+
+    public void getBreakTime(final TextView text, final String frmTime, final String toTime) {
 
         c = Calendar.getInstance();
         mHour = c.get(Calendar.HOUR_OF_DAY);
@@ -296,36 +253,30 @@ public class HelperFrags extends Fragment {
                         } else if (mHour == 0) {
                             mHour += 12;
                             timeSet = "AM";
-                        } else if (mHour == 12){
+                        } else if (mHour == 12) {
                             timeSet = "PM";
-                        }else{
+                        } else {
                             timeSet = "AM";
                         }
 
                         String min = "";
                         if (mMinute < 10)
-                            min = "0" + mMinute ;
+                            min = "0" + mMinute;
                         else
                             min = String.valueOf(mMinute);
 
 
-                        String hr="";
+                        String hr = "";
 
                         if (mHour < 10)
-                            hr = "0" + mHour ;
+                            hr = "0" + mHour;
                         else
                             hr = String.valueOf(mHour);
 
 
-
-
                         // Append in a StringBuilder
                         String aTime = new StringBuilder().append(hr).append(':')
-                                .append(min ).append(" ").append(timeSet).toString();
-
-
-
-
+                                .append(min).append(" ").append(timeSet).toString();
 
                         try {
                             Date mToday = new Date();
@@ -336,10 +287,7 @@ public class HelperFrags extends Fragment {
                             Date end = sdf.parse(toTime);
                             Date taken = sdf.parse(aTime);
 
-
-
-
-                            if (taken.before(end)&&taken.after(start)) {
+                            if (taken.before(end) && taken.after(start)) {
                                 text.setText(aTime);
 
                             } else {
@@ -349,16 +297,8 @@ public class HelperFrags extends Fragment {
                         } catch (ParseException e) {
                             // Invalid date was entered
                         }
-
-
-
-
-
-
-
                     }
                 }, mHour, mMinute, false);
-
 
 
         timePickerDialog.show();
@@ -366,7 +306,7 @@ public class HelperFrags extends Fragment {
 
     }
 
-    public String getcurrentTime(){
+    public String getcurrentTime() {
 
         Calendar datetime = Calendar.getInstance();
 
@@ -382,56 +322,49 @@ public class HelperFrags extends Fragment {
         } else if (mHour == 0) {
             mHour += 12;
             timeSet = "AM";
-        } else if (mHour == 12){
+        } else if (mHour == 12) {
             timeSet = "PM";
-        }else{
+        } else {
             timeSet = "AM";
         }
 
         String min = "";
         if (mMinute < 10)
-            min = "0" + mMinute ;
+            min = "0" + mMinute;
         else
             min = String.valueOf(mMinute);
 
 
-        String hr="";
+        String hr = "";
 
         if (mHour < 10)
-            hr = "0" + mHour ;
+            hr = "0" + mHour;
         else
             hr = String.valueOf(mHour);
 
 
-
-
         // Append in a StringBuilder
         String aTime = new StringBuilder().append(hr).append(':')
-                .append(min ).append(" ").append(timeSet).toString();
+                .append(min).append(" ").append(timeSet).toString();
 
 
-
-
-        return  aTime;
+        return aTime;
 
 
     }
 
-    public String getcurrentDate(){
+    public String getcurrentDate() {
         c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
 
-        return  (mYear+ "-" + (mMonth + 1) + "-" +mDay);
+        return (mYear + "-" + (mMonth + 1) + "-" + mDay);
 
 
     }
 
-
-
-
-    public void getTime(final TextView text , final String previousTime){
+    public void getTime(final TextView text, final String previousTime) {
         // Get Current Time
         Calendar datetime = Calendar.getInstance();
 
@@ -447,7 +380,7 @@ public class HelperFrags extends Fragment {
                     public void onTimeSet(TimePicker view, int hourOfDay,
                                           int minute) {
 
-                        Log.e("time",mHour+""+mMinute);
+                        Log.e("time", mHour + "" + mMinute);
 
 
                         mHour = hourOfDay;
@@ -461,49 +394,43 @@ public class HelperFrags extends Fragment {
                         } else if (mHour == 0) {
                             mHour += 12;
                             timeSet = "AM";
-                        } else if (mHour == 12){
+                        } else if (mHour == 12) {
                             timeSet = "PM";
-                        }else{
+                        } else {
                             timeSet = "AM";
                         }
 
                         String min = "";
                         if (mMinute < 10)
-                            min = "0" + mMinute ;
+                            min = "0" + mMinute;
                         else
                             min = String.valueOf(mMinute);
 
 
-                        String hr="";
+                        String hr = "";
 
                         if (mHour < 10)
-                            hr = "0" + mHour ;
+                            hr = "0" + mHour;
                         else
                             hr = String.valueOf(mHour);
 
 
-
-
                         // Append in a StringBuilder
                         String aTime = new StringBuilder().append(hr).append(':')
-                                .append(min ).append(" ").append(timeSet).toString();
+                                .append(min).append(" ").append(timeSet).toString();
 
 
-
-
-                        if (previousTime.equals("")){
+                        if (previousTime.equals("")) {
                             text.setText(aTime);
 
-                        }
+                        } else {
 
-                        else {
-
-                           // text.setText(aTime);
+                            // text.setText(aTime);
 
                             try {
                                 Date mToday = new Date();
 
-                                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("hh:mm a", Locale.ENGLISH );
+                                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("hh:mm a", Locale.ENGLISH);
                                 String curTime = sdf.format(mToday);
                                 Date start = sdf.parse(previousTime);
                                 Date end = sdf.parse(aTime);
@@ -533,62 +460,37 @@ public class HelperFrags extends Fragment {
 
 
                               */
+                                long mills = start.getTime() - end.getTime();
+                                int hours = (int) (mills / (1000 * 60 * 60));
+                                int mins = (int) mills % (1000 * 60 * 60);
+
+                                String diff = hours + ":" + mins;
+
+                                Log.e("diff", diff);
 
 
-                                    long mills = start.getTime() - end.getTime();
-                                    int hours = (int) (mills/(1000 * 60 * 60));
-                                    int mins = (int) mills % (1000*60*60);
-
-                                    String diff = hours + ":" + mins;
-
-                                    Log.e("diff" , diff);
-
-
-                                 if (hours==24||hours<24){
+                                if (hours == 24 || hours < 24) {
 
                                     if (start.before(end)) {
 
 
                                         showMSg("Invalid Time!!!");
 
-                                    }
-                                    else{
-
-
+                                    } else {
                                         text.setText(aTime);
-
-
                                     }
-
-
-                                }
-                                else{
+                                } else {
                                     showMSg("Invalid Time!!!");
 
                                 }
-
-
-
-
-                            }
-
-
-                                catch (ParseException e) {
+                            } catch (ParseException e) {
                                 // Invalid date was entered
 
-                                Log.e("error",e.toString());
+                                Log.e("error", e.toString());
                             }
-
-
-
                         }
-
-
-
-
                     }
                 }, mHour, mMinute, false);
-
 
 
         timePickerDialog.show();
@@ -597,7 +499,7 @@ public class HelperFrags extends Fragment {
     }
 
 
-    public void getTimeback(final TextView text , final String previousTime){
+    public void getTimeback(final TextView text, final String previousTime) {
         // Get Current Time
         Calendar datetime = Calendar.getInstance();
 
@@ -613,7 +515,7 @@ public class HelperFrags extends Fragment {
                     public void onTimeSet(TimePicker view, int hourOfDay,
                                           int minute) {
 
-                        Log.e("time",mHour+""+mMinute);
+                        Log.e("time", mHour + "" + mMinute);
 
 
                         mHour = hourOfDay;
@@ -627,55 +529,45 @@ public class HelperFrags extends Fragment {
                         } else if (mHour == 0) {
                             mHour += 12;
                             timeSet = "AM";
-                        } else if (mHour == 12){
+                        } else if (mHour == 12) {
                             timeSet = "PM";
-                        }else{
+                        } else {
                             timeSet = "AM";
                         }
 
                         String min = "";
                         if (mMinute < 10)
-                            min = "0" + mMinute ;
+                            min = "0" + mMinute;
                         else
                             min = String.valueOf(mMinute);
 
 
-                        String hr="";
+                        String hr = "";
 
                         if (mHour < 10)
-                            hr = "0" + mHour ;
+                            hr = "0" + mHour;
                         else
                             hr = String.valueOf(mHour);
 
-
-
-
                         // Append in a StringBuilder
                         String aTime = new StringBuilder().append(hr).append(':')
-                                .append(min ).append(" ").append(timeSet).toString();
+                                .append(min).append(" ").append(timeSet).toString();
 
 
-
-
-                        if (previousTime.equals("")){
+                        if (previousTime.equals("")) {
                             text.setText(aTime);
 
-                        }
-
-                        else {
+                        } else {
 
                             // text.setText(aTime);
 
                             try {
                                 Date mToday = new Date();
 
-                                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("hh:mm a", Locale.ENGLISH );
+                                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("hh:mm a", Locale.ENGLISH);
                                 String curTime = sdf.format(mToday);
                                 Date start = sdf.parse(previousTime);
                                 Date end = sdf.parse(aTime);
-
-
-
 
 /* else if (LandingActivity.business_data.getAdderess_data().get(LandingActivity.business_array_pos).getDate_start()
                                         .equals(LandingActivity.business_data.getAdderess_data().get(LandingActivity.business_array_pos).getDate_end())){
@@ -702,23 +594,22 @@ public class HelperFrags extends Fragment {
 
 
                                 long mills = start.getTime() - end.getTime();
-                                int hours = (int) (mills/(1000 * 60 * 60));
-                                int mins = (int) mills % (1000*60*60);
+                                int hours = (int) (mills / (1000 * 60 * 60));
+                                int mins = (int) mills % (1000 * 60 * 60);
 
                                 String diff = hours + ":" + mins;
 
-                                Log.e("diff" , diff);
+                                Log.e("diff", diff);
 
 
-                                if (hours==24||hours<24||hours<-24){
+                                if (hours == 24 || hours < 24 || hours < -24) {
 
                                     if (end.before(start)) {
 
 
                                         showMSg("Invalid Time!!!");
 
-                                    }
-                                    else{
+                                    } else {
 
 
                                         text.setText(aTime);
@@ -727,34 +618,24 @@ public class HelperFrags extends Fragment {
                                     }
 
 
-                                }
-                                else{
+                                } else {
                                     showMSg("Invalid Time!!!");
 
                                 }
 
 
-
-
-                            }
-
-
-                            catch (ParseException e) {
+                            } catch (ParseException e) {
                                 // Invalid date was entered
 
-                                Log.e("error",e.toString());
+                                Log.e("error", e.toString());
                             }
-
 
 
                         }
 
 
-
-
                     }
                 }, mHour, mMinute, false);
-
 
 
         timePickerDialog.show();
@@ -763,27 +644,23 @@ public class HelperFrags extends Fragment {
     }
 
 
-    public void hitApi(final String url , final HttpresponseUpd callback) {
+    public void hitApi(final String url, final HttpresponseUpd callback) {
 
         String tag_string_req = "login_req";
 
 
-
-
         try {
 
-            String _url = url.replaceAll(" ","%20");
+            String _url = url.replaceAll(" ", "%20");
 
             StringRequest strReq = new StringRequest(Request.Method.GET,
                     _url, new Response.Listener<String>() {
 
                 @Override
-                public void onResponse(String response)   {
+                public void onResponse(String response) {
 
 
-                      callback.getResponse(response);
-
-
+                    callback.getResponse(response);
 
 
                 }
@@ -799,11 +676,9 @@ public class HelperFrags extends Fragment {
             Volley.newRequestQueue(getActivity()).add(strReq);
 
 
-        }
-        catch (IndexOutOfBoundsException e1){
+        } catch (IndexOutOfBoundsException e1) {
 
-        }
-        catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
 
         }
 
@@ -811,7 +686,7 @@ public class HelperFrags extends Fragment {
     }
 
 
-    public void getTimestaff(final TextView text , final String start_time , final String previousTime){
+    public void getTimestaff(final TextView text, final String start_time, final String previousTime) {
         // Get Current Time
         Calendar datetime = Calendar.getInstance();
 
@@ -827,7 +702,7 @@ public class HelperFrags extends Fragment {
                     public void onTimeSet(TimePicker view, int hourOfDay,
                                           int minute) {
 
-                        Log.e("time",mHour+""+mMinute);
+                        Log.e("time", mHour + "" + mMinute);
 
 
                         mHour = hourOfDay;
@@ -841,49 +716,43 @@ public class HelperFrags extends Fragment {
                         } else if (mHour == 0) {
                             mHour += 12;
                             timeSet = "AM";
-                        } else if (mHour == 12){
+                        } else if (mHour == 12) {
                             timeSet = "PM";
-                        }else{
+                        } else {
                             timeSet = "AM";
                         }
 
                         String min = "";
                         if (mMinute < 10)
-                            min = "0" + mMinute ;
+                            min = "0" + mMinute;
                         else
                             min = String.valueOf(mMinute);
 
 
-                        String hr="";
+                        String hr = "";
 
                         if (mHour < 10)
-                            hr = "0" + mHour ;
+                            hr = "0" + mHour;
                         else
                             hr = String.valueOf(mHour);
 
 
-
-
                         // Append in a StringBuilder
                         String aTime = new StringBuilder().append(hr).append(':')
-                                .append(min ).append(" ").append(timeSet).toString();
+                                .append(min).append(" ").append(timeSet).toString();
 
 
-
-
-                        if (previousTime.equals("")){
+                        if (previousTime.equals("")) {
                             text.setText(aTime);
 
-                        }
-
-                        else {
+                        } else {
 
                             // text.setText(aTime);
 
                             try {
                                 Date mToday = new Date();
 
-                                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("hh:mm a", Locale.ENGLISH );
+                                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("hh:mm a", Locale.ENGLISH);
                                 String curTime = sdf.format(mToday);
                                 Date start = sdf.parse(start_time);
                                 Date to = sdf.parse(previousTime);
@@ -917,23 +786,22 @@ public class HelperFrags extends Fragment {
 
 
                                 long mills = to.getTime() - end.getTime();
-                                int hours = (int) (mills/(1000 * 60 * 60));
-                                int mins = (int) mills % (1000*60*60);
+                                int hours = (int) (mills / (1000 * 60 * 60));
+                                int mins = (int) mills % (1000 * 60 * 60);
 
                                 String diff = hours + ":" + mins;
 
-                                Log.e("diff" , diff);
+                                Log.e("diff", diff);
 
 
-                                if (hours==24||hours<24||hours<-24){
+                                if (hours == 24 || hours < 24 || hours < -24) {
 
-                                    if (end.before(start)||end.after(to)) {
+                                    if (end.before(start) || end.after(to)) {
 
 
                                         showMSg("Invalid Time!!!");
 
-                                    }
-                                    else{
+                                    } else {
 
 
                                         text.setText(aTime);
@@ -942,34 +810,24 @@ public class HelperFrags extends Fragment {
                                     }
 
 
-                                }
-                                else{
+                                } else {
                                     showMSg("Invalid Time!!!");
 
                                 }
 
 
-
-
-                            }
-
-
-                            catch (ParseException e) {
+                            } catch (ParseException e) {
                                 // Invalid date was entered
 
-                                Log.e("error",e.toString());
+                                Log.e("error", e.toString());
                             }
-
 
 
                         }
 
 
-
-
                     }
                 }, mHour, mMinute, false);
-
 
 
         timePickerDialog.show();
@@ -978,27 +836,22 @@ public class HelperFrags extends Fragment {
     }
 
 
-
-
-
-
-
-    public void checkPermission(ImageView upload_pic_holder){
+    public void checkPermission(ImageView upload_pic_holder) {
 
         this.upload_pic_holder = upload_pic_holder;
 
 
-            // Here, thisActivity is the current activity
-            if (ContextCompat.checkSelfPermission(getActivity(),
-                    android.Manifest.permission.READ_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED) {
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
 
 
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE},
-                        MY_PERMISSIONS_REQUEST_SELECTFILE);
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE},
+                    MY_PERMISSIONS_REQUEST_SELECTFILE);
 
-                Log.e("okk","0");
+            Log.e("okk", "0");
 
              /*   // Should we show an explanation?
                 if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
@@ -1024,11 +877,11 @@ public class HelperFrags extends Fragment {
                     // app-defined int constant. The callback method gets the
                     // result of the request.
                 }*/
-            }else{
-                selectImage();
-                Log.e("okk","1");
+        } else {
+            selectImage();
+            Log.e("okk", "1");
 
-            }
+        }
 
 
     }
@@ -1056,7 +909,6 @@ public class HelperFrags extends Fragment {
     }
 
 
-
     // method to invoke chooser dialog
     private void showFileChooser() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -1077,7 +929,7 @@ public class HelperFrags extends Fragment {
     // Method for get path of selected audio file
     public static String getSongPath(Context context, Uri uri) throws URISyntaxException {
         if ("content".equalsIgnoreCase(uri.getScheme())) {
-            String[] projection = { "_data" };
+            String[] projection = {"_data"};
             Cursor cursor = null;
 
             try {
@@ -1089,8 +941,7 @@ public class HelperFrags extends Fragment {
             } catch (Exception e) {
                 // Eat it
             }
-        }
-        else if ("file".equalsIgnoreCase(uri.getScheme())) {
+        } else if ("file".equalsIgnoreCase(uri.getScheme())) {
             return uri.getPath();
         }
 
@@ -1099,7 +950,7 @@ public class HelperFrags extends Fragment {
 
     // method to invoke chooser dialog for image
     private void selectImage() {
-        final CharSequence[] items = {  "Choose from Library", "Cancel" };
+        final CharSequence[] items = {"Choose from Library", "Cancel"};
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Add Photo!");
         builder.setItems(items, new DialogInterface.OnClickListener() {
@@ -1128,20 +979,14 @@ public class HelperFrags extends Fragment {
     // override method
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-       // super.onActivityResult(requestCode, resultCode, data);
+        // super.onActivityResult(requestCode, resultCode, data);
 
-
-
-
-                        if (resultCode == RESULT_OK) {
-                    onSelectFromGalleryResult(data);
-                    Log.e("okk", "3.0");
-                } else{
-                    Log.e("okk","3");
-                }
-
-
-
+        if (resultCode == RESULT_OK) {
+            onSelectFromGalleryResult(data);
+            Log.e("okk", "3.0");
+        } else {
+            Log.e("okk", "3");
+        }
     }
 
 
@@ -1151,11 +996,10 @@ public class HelperFrags extends Fragment {
         select_pic.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
 
 
-
         File destination = new File(Environment.getExternalStorageDirectory(),
                 System.currentTimeMillis() + ".jpg");
 
-        pic_path =destination.toString();
+        pic_path = destination.toString();
 
         // current_pic.setTag(pic_path.size()-1);
         upload_pic_holder.setImageBitmap(select_pic);
@@ -1174,20 +1018,18 @@ public class HelperFrags extends Fragment {
         }
 
 
-
-
     }
 
 
     private void onSelectFromGalleryResult(Intent data) {
         Uri selectedImageUri = data.getData();
 
-        Log.e("data",data.toString()+"uuuu");
+        Log.e("data", data.toString() + "uuuu");
 
         String wholeID = null;
-        String selectedImagePath="";
+        String selectedImagePath = "";
 
-        String[] projection = { MediaStore.MediaColumns.DATA };
+        String[] projection = {MediaStore.MediaColumns.DATA};
         Cursor cursor = getActivity().managedQuery(selectedImageUri, projection, null, null,
                 null);
 
@@ -1195,7 +1037,7 @@ public class HelperFrags extends Fragment {
         if (cursor == null) { // Source is Dropbox or other similar local file path
             pic_path = selectedImageUri.getPath();
 
-            Log.e("cursor","-null---");
+            Log.e("cursor", "-null---");
         } else {
             cursor.moveToFirst();
             int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
@@ -1208,7 +1050,7 @@ public class HelperFrags extends Fragment {
 
         pic_path = cursor.getString(column_index);*/
 
-        Log.e("picpath",pic_path+"----");
+        Log.e("picpath", pic_path + "----");
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
@@ -1223,49 +1065,43 @@ public class HelperFrags extends Fragment {
         select_pic = BitmapFactory.decodeFile(pic_path, options);
 
 
-        Log.e("pic",select_pic.toString()+"juhgjgt");
+        Log.e("pic", select_pic.toString() + "juhgjgt");
         upload_pic_holder.setImageBitmap(select_pic);
 
     }
 
 
-
-
-
-
-
-    public ArrayList<String> getListDate(String str_date , String end_date ){
+    public ArrayList<String> getListDate(String str_date, String end_date) {
 
         List<Date> dates = new ArrayList<Date>();
 
 
-
-        DateFormat formatter ;
+        DateFormat formatter;
 
         formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date startDate = null;
         try {
-            startDate = (Date)formatter.parse(str_date);
+            startDate = (Date) formatter.parse(str_date);
         } catch (ParseException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
         Date endDate = null;
         try {
-            endDate = (Date)formatter.parse(end_date);
+            endDate = (Date) formatter.parse(end_date);
         } catch (ParseException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        long interval = 24*1000 * 60 * 60; // 1 hour in millis
-        long endTime =endDate.getTime() ; // create your endtime here, possibly using Calendar or Date
+        long interval = 24 * 1000 * 60 * 60; // 1 hour in millis
+        long endTime = endDate.getTime(); // create your endtime here, possibly using Calendar or Date
         long curTime = startDate.getTime();
         while (curTime <= endTime) {
             dates.add(new Date(curTime));
             curTime += interval;
         }
-        for(int i=0;i<dates.size();i++){
-            Date lDate =(Date)dates.get(i);
+        for (int i = 0; i < dates.size(); i++) {
+            Date lDate = (Date) dates.get(i);
             String ds = formatter.format(lDate);
 
         }
@@ -1321,14 +1157,8 @@ public class HelperFrags extends Fragment {
         }
 
 
-
-        return  day_name;
+        return day_name;
     }
-
-
-
-
-
 
 
 }

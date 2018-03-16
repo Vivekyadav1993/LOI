@@ -182,9 +182,6 @@ public class LandingActivity extends HelperActivity
 
         fragmentTransaction.add(R.id.parentcontainer, frag1)/*.addToBackStack(LandingActivity.class.getName())*/.commit();
 
-
-
-
         bundle = getIntent().getExtras();
 
 
