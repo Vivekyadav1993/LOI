@@ -12,7 +12,7 @@
 
 
         <ImageView
-            android:id="@+id/join_queue_back_btn"
+            android:id="@+id/frag_joined_queue_back_btn"
             android:layout_width="40dp"
             android:layout_height="25dp"
             android:layout_centerVertical="true"
@@ -35,7 +35,24 @@
             android:layout_below="@id/frag_toolbar_title_tv"
             android:gravity="center"
             android:text="Join the Queue"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:id="@+id/textView2" />
+
+        <TextView
+            android:id="@+id/frag_joined_queue_waiting_time_tv"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/textView2"
+            android:layout_marginEnd="45dp"
+            android:layout_marginRight="45dp"
+            android:layout_marginTop="272dp"
+            android:gravity="center_horizontal"
+            android:paddingLeft="5dp"
+            android:paddingTop="8dp"
+            android:text="30 min"
+            android:textColor="@color/amber_700" />
 
 
     </RelativeLayout>
@@ -53,11 +70,12 @@
         android:textSize="16sp" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:src="@mipmap/ic_launcher" />
+        android:layout_marginTop="15dp"
+        android:tint="@color/gray"
+        android:src="@drawable/group_queue_icon" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -87,7 +105,7 @@
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".05"/>
+            android:layout_weight=".05" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -97,6 +115,7 @@
             android:orientation="vertical">
 
             <TextView
+
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -104,10 +123,11 @@
                 android:paddingLeft="5dp"
                 android:paddingTop="8dp"
                 android:text="Position in the Queue"
-                android:textColor="@color/amber_700"/>
+                android:textColor="@color/amber_700" />
 
 
             <TextView
+                android:id="@+id/frag_joined_queue_position_in_queue_tv"
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -115,14 +135,15 @@
                 android:paddingLeft="5dp"
                 android:paddingTop="8dp"
                 android:text="6/10"
-                android:textColor="@color/amber_700"/>
+                android:textColor="@color/amber_700" />
 
 
         </LinearLayout>
+
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".04"/>
+            android:layout_weight=".04" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -138,16 +159,7 @@
                 android:paddingLeft="5dp"
                 android:paddingTop="8dp"
                 android:text="Est Waiting Time"
-                android:textColor="@color/amber_700"/>
-
-            <TextView
-                android:layout_width="140dp"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:paddingLeft="5dp"
-                android:paddingTop="8dp"
-                android:text="30 min"
-                android:textColor="@color/amber_700"/>
+                android:textColor="@color/amber_700" />
 
 
         </LinearLayout>
@@ -155,7 +167,7 @@
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".04"/>
+            android:layout_weight=".04" />
 
     </LinearLayout>
 
@@ -173,8 +185,8 @@
             android:layout_marginLeft="54dp"
             android:layout_marginStart="54dp"
             android:background="@color/gray"
-            android:textColor="@color/white"
-            android:text="Cancel" />
+            android:text="Cancel"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/frag_joined_queue_push_back_btn"
@@ -185,27 +197,25 @@
             android:layout_marginStart="57dp"
             android:layout_toEndOf="@id/frag_joined_queue_cancel_btn"
             android:layout_toRightOf="@id/frag_joined_queue_cancel_btn"
-            android:text="Push Myself Back"
             android:background="@color/amber_700"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
-            android:textColor="@color/white"/>
+            android:text="Push Myself Back"
+            android:textColor="@color/white" />
 
 
     </RelativeLayout>
 
     <Button
+        android:id="@+id/frag_joined_queue_show_details_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Show Details"
-        android:paddingRight="25dp"
-        android:paddingLeft="25dp"
-        android:textColor="@color/white"
-        android:background="@color/gray"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal"/>
-
-
-
+        android:background="@color/gray"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:text="Show Details"
+        android:textColor="@color/white" />
 
 </LinearLayout>

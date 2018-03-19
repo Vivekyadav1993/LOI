@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="frags.JoinQueueFrag">
 
     <RelativeLayout
@@ -14,7 +15,8 @@
         <ImageView
             android:id="@+id/join_queue_back_btn"
             android:layout_width="40dp"
-            android:layout_height="25dp"
+            android:layout_height="30dp"
+            android:padding="5dp"
             android:layout_centerVertical="true"
             android:src="@drawable/leftarrow_white" />
 
@@ -40,7 +42,6 @@
 
     </RelativeLayout>
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -56,8 +57,8 @@
             android:id="@+id/frag_join_queue_waiting_rl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/frag_join_queue_calendar_view"
-            android:visibility="gone">
+            android:visibility="gone"
+            android:layout_below="@id/frag_join_queue_calendar_view">
 
             <TextView
                 android:id="@+id/waiting_time_text_tv"
@@ -67,7 +68,6 @@
                 android:gravity="center"
                 android:text="Estimate Waiting period now"
                 android:textColor="@color/black"
-
                 android:textSize="16sp" />
 
             <TextView
@@ -139,7 +139,7 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/frag_join_queue_pre_book_amount_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -151,16 +151,21 @@
             android:textSize="14sp" />
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floatingActionButton"
+            android:id="@+id/frag_join_queue_float_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/textView"
+            android:layout_above="@id/frag_join_queue_pre_book_amount_tv"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="15dp"
             android:layout_marginEnd="25dp"
             android:layout_marginRight="25dp"
-            android:src="@drawable/float_background" />
+            app:backgroundTint="@color/white"
+            app:borderWidth="1dp"
+            app:elevation="6dp"
+            android:tint="@color/amber_700"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_details" />
 
     </RelativeLayout>
 
