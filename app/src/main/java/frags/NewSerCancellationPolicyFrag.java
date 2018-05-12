@@ -28,6 +28,7 @@ import models.CancelPolicyData;
 import models.HomeSerData;
 import r2stech.lifeoninternet.LandingActivity;
 import r2stech.lifeoninternet.R;
+import r2stech.lifeoninternet.utils.Utils;
 
 /**
  * Created by teknik on 10/6/2017.
@@ -76,7 +77,7 @@ public class NewSerCancellationPolicyFrag extends HelperFrags implements Httpres
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("http")
                 .authority("lifeoninternet.com")
-                .appendPath("new_service")
+                .appendPath(Utils.stringBuilder())
                 .appendPath("api.php")
                 .appendQueryParameter("action", "getCancellation")
                 .appendQueryParameter("business_id", bundle.getString("ser_id"))
@@ -149,7 +150,7 @@ public class NewSerCancellationPolicyFrag extends HelperFrags implements Httpres
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("http")
                 .authority("lifeoninternet.com")
-                .appendPath("new_service")
+                .appendPath(Utils.stringBuilder())
                 .appendPath("api.php")
                 .appendQueryParameter("action", "createCancellation")
                 .appendQueryParameter("service_id", bundle.getString("ser_id"))

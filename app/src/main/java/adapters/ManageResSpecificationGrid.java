@@ -27,10 +27,6 @@ import r2stech.lifeoninternet.R;
 
 public class ManageResSpecificationGrid extends BaseAdapter {
 
-
-
-
-
     private Activity activity;
 
     private ArrayList<ManageSpecPosData> data = new ArrayList<>();

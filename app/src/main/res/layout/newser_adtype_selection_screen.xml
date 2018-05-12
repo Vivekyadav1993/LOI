@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     // header layout
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -13,153 +14,144 @@
 
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="25dp"
             android:id="@+id/newser_adtype_back_btn"
-            android:src="@drawable/leftarrow_white"
-            android:layout_centerVertical="true"/>
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@drawable/leftarrow_white" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/newser_adtype_back_btn"
+            android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/newser_adtype_next_btn"
-            android:text="Appointment Model"
-            android:textSize="@dimen/text_large"
-            android:textColor="@color/white"
+            android:layout_toRightOf="@+id/newser_adtype_back_btn"
             android:gravity="center"
-            android:layout_centerVertical="true"/>
+            android:text="Appointment Mode"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_large" />
 
         <TextView
+            android:id="@+id/newser_adtype_next_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:padding="10dp"
             android:text="NEXT"
             android:textColor="@color/white"
-            android:id="@+id/newser_adtype_next_btn"
-            android:layout_alignParentRight="true"
-            android:textSize="@dimen/text_large"
-            android:padding="5dp"/>
+            android:textSize="@dimen/text_medium" />
 
 
     </RelativeLayout>
 
 
     //que layout
+
     <RadioGroup
+        android:id="@+id/newser_adtype_all_radiogrp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/newser_adtype_all_radiogrp"
-        android:background="@color/dark_grey">
+        android:background="@color/dark_grey"
+        android:orientation="vertical">
 
 
         <RadioButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layoutDirection="rtl"
-            android:text="QUE"
             android:id="@+id/newser_adtype_que_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
             android:background="@color/white"
             android:gravity="left"
-            android:layout_marginBottom="1dp"
-            android:padding="10dp"/>
-
+            android:layoutDirection="rtl"
+            android:padding="10dp"
+            android:text="Queue Model" />
 
 
         <RadioButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layoutDirection="rtl"
-            android:gravity="left"
-            android:text="Group"
-            android:visibility="gone"
             android:id="@+id/newser_adtype_group_btn"
-            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"
-            android:padding="10dp"/>
+            android:background="@color/white"
+            android:gravity="left"
+            android:layoutDirection="rtl"
+            android:padding="10dp"
+            android:text="Group"
+            android:visibility="gone" />
 
 
         <RadioButton
+            android:id="@+id/newser_adtype_appointment_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layoutDirection="rtl"
-            android:text="Appointment"
-            android:gravity="left"
-            android:id="@+id/newser_adtype_appointment_btn"
-            android:background="@color/white"
             android:layout_marginBottom="1dp"
-            android:padding="10dp"/>
+            android:background="@color/white"
+            android:clickable="false"
+            android:enabled="false"
+            android:gravity="left"
+            android:layoutDirection="rtl"
+            android:padding="10dp"
+            android:text="Appointment Model" />
 
     </RadioGroup>
 
 
+    // appointment sub option layout
 
-          // appointment sub option layout
-        <LinearLayout
+    <LinearLayout
+        android:id="@+id/newser_adtype_appointment_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:visibility="gone">
+
+        <RadioGroup
+            android:id="@+id/sub_type_radiogrp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@color/white"
-            android:visibility="gone"
-            android:paddingLeft="20dp"
-            android:id="@+id/newser_adtype_appointment_layout"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            >
-
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/sub_type_radiogrp"
-                android:orientation="vertical">
+            android:orientation="vertical">
 
             <RadioButton
+                android:id="@+id/sub_type_fixed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
-                android:text="Fixed Service Duration"
+                android:layout_marginBottom="1dp"
                 android:background="@color/white"
                 android:gravity="left"
-                android:id="@+id/sub_type_fixed"
-                android:layout_marginBottom="1dp"
+                android:layoutDirection="rtl"
+                android:padding="10dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:padding="10dp"/>
-
-
+                android:text="Fixed Service Duration" />
 
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/dark_grey"/>
+                android:background="@color/dark_grey" />
 
             <RadioButton
+                android:id="@+id/sub_type_unfixed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
-                android:text="Fixed Slot and End Time"
+                android:layout_marginBottom="1dp"
                 android:background="@color/white"
                 android:gravity="left"
-                android:id="@+id/sub_type_unfixed"
-                android:layout_marginBottom="1dp"
-                android:padding="10dp"/>
+                android:layoutDirection="rtl"
+                android:padding="10dp"
+                android:text="Fixed Slot and End Time" />
 
 
-            </RadioGroup>
+        </RadioGroup>
 
 
-        </LinearLayout>
-
-
-
-
-
-
-
-
-
+    </LinearLayout>
 
 
 </LinearLayout>

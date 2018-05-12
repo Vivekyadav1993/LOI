@@ -20,38 +20,21 @@ import r2stech.lifeoninternet.R;
  * Created by teknik on 11/14/2017.
  */
 
-public class AddStaffAdap  extends BaseAdapter {
+public class AddStaffAdap extends BaseAdapter {
 
 
     private Activity activity;
-
-
     Holder holder;
-
     private ArrayList<StaffData> data = new ArrayList<>();
 
-
     public AddStaffAdap(Activity act, ArrayList<StaffData> aray) {
-
-
         activity = act;
-
         data = aray;
-
     }
 
     static class Holder {
-
-
-        TextView  name ;
-
-
-
-
-
-
+        TextView name;
     }
-
 
     @Override
     public int getCount() {
@@ -79,21 +62,11 @@ public class AddStaffAdap  extends BaseAdapter {
         if (view == null) {
 
 
-            LayoutInflater inflater = ((LayoutInflater) activity
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE));
-
-
+            LayoutInflater inflater = ((LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
             view = inflater.inflate(R.layout.staff_list_child_screen, parent, false);
-
-
             holder = new Holder();
 
-
-
             holder.name = (TextView) view.findViewById(R.id.ad_staff_list_nametag);
-
-
-
 
             view.setTag(holder);
 
@@ -104,17 +77,13 @@ public class AddStaffAdap  extends BaseAdapter {
 
         }
 
-       Log.e("dat" , data.get(position).getAdmin_flag());
-        if (!data.get(position).getAdmin_flag().equals("No")){
+        Log.e("dat", data.get(position).getAdmin_flag());
+        if (!data.get(position).getAdmin_flag().equals("No")) {
             holder.name.setTextColor(activity.getResources().getColor(R.color.blue));
         }
 
 
-        holder.name.setText(data.get(position).getFirst_name()+" "+data.get(position).getLast_name());
-
-
-
-
+        holder.name.setText(data.get(position).getFirst_name() + " " + data.get(position).getLast_name());
 
         return view;
     }
@@ -123,6 +92,4 @@ public class AddStaffAdap  extends BaseAdapter {
         data = arr;
         notifyDataSetChanged();
     }
-
-
 }

@@ -1,5 +1,6 @@
 package frags;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.BitmapDrawable;
@@ -12,10 +13,12 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,6 +35,8 @@ import r2stech.lifeoninternet.LandingActivity;
 import r2stech.lifeoninternet.R;
 import r2stech.lifeoninternet.SplashActivity;
 import r2stech.lifeoninternet.UserAuthACtivity;
+import r2stech.lifeoninternet.utils.Sharedpreferences;
+import r2stech.lifeoninternet.utils.Utils;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
@@ -57,12 +62,19 @@ public class LoginFrag extends HelperFrags implements HttpresponseUpd {
 
     private String post_tag = "";
 
+    private Sharedpreferences mPrefs;
+
+    private TextView mOtpSubmitTv, mOtpCancelTv, mResendOtpTv;
+    private EditText mOtpEt;
+    private Dialog verifyOtpDialog, messageInputWindow;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Mroot = inflater.inflate(R.layout.login_screen, null);
 
         ButterKnife.bind(this, Mroot);
+        mPrefs = Sharedpreferences.getUserDataObj(getActivity());
 
         initializeSharedData();
 
@@ -82,7 +94,7 @@ public class LoginFrag extends HelperFrags implements HttpresponseUpd {
             Uri.Builder builder = new Uri.Builder();
             builder.scheme("http")
                     .authority("lifeoninternet.com")
-                    .appendPath("new_service")
+                    .appendPath(Utils.stringBuilder())
                     .appendPath("api.php")
                     .appendQueryParameter("action", "signin")
                     .appendQueryParameter("password", password_input.getText().toString())
@@ -112,26 +124,20 @@ public class LoginFrag extends HelperFrags implements HttpresponseUpd {
 
     public void getForgotDialog() {
 
-        LayoutInflater layoutInflater = (LayoutInflater) getActivity().getSystemService(LAYOUT_INFLATER_SERVICE);
-        View layout = layoutInflater.inflate(R.layout.forgot_pwd_dialog_screen, null);
+        messageInputWindow = new Dialog(getContext());
+        messageInputWindow.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        messageInputWindow.setContentView(R.layout.forgot_pwd_dialog_screen);
+        messageInputWindow.getWindow().setGravity(Gravity.CENTER);
+        messageInputWindow.show();
 
+        final EditText email = (EditText) messageInputWindow.findViewById(R.id.fp_email_input);
 
-        final PopupWindow messageInputWindow = new PopupWindow(layout, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        messageInputWindow.setContentView(layout);
-        messageInputWindow.setFocusable(true);
-        messageInputWindow.setBackgroundDrawable(new BitmapDrawable());
-        messageInputWindow.setOutsideTouchable(true);
-
-
-        final EditText email = (EditText) layout.findViewById(R.id.fp_email_input);
-
-        TextView done = (TextView) layout.findViewById(R.id.fp_submit_btn);
+        TextView done = (TextView) messageInputWindow.findViewById(R.id.fp_submit_btn);
 
 
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                messageInputWindow.dismiss();
                 if (email.getText().toString().equals("")) {
 
                 } else {
@@ -139,13 +145,14 @@ public class LoginFrag extends HelperFrags implements HttpresponseUpd {
                     Uri.Builder builder = new Uri.Builder();
                     builder.scheme("http")
                             .authority("lifeoninternet.com")
-                            .appendPath("new_service")
+                            .appendPath(Utils.stringBuilder())
                             .appendPath("api.php")
                             .appendQueryParameter("action", "forgotPassword")
                             .appendQueryParameter("email", email.getText().toString())
                     ;
 
                     String myUrl = builder.build().toString();
+                    Log.e("urlforgot", myUrl);
 
                     if (AppUtils.isNetworkAvailable(getActivity())) {
                         post_tag = "forgot";
@@ -162,16 +169,6 @@ public class LoginFrag extends HelperFrags implements HttpresponseUpd {
             }
         });
 
-
-        try {
-
-
-            messageInputWindow.showAtLocation(layout, Gravity.CENTER, 0, 0);
-
-        } catch (WindowManager.BadTokenException e) {
-
-
-        }
     }
 
 
@@ -195,31 +192,31 @@ public class LoginFrag extends HelperFrags implements HttpresponseUpd {
 
                 if (!obj.getString("user_id").equals("0")) {
 
-                    // save user info
-                    editor = AppConstants.app_data.edit();
-                    editor.putString("name", obj.getString("name"));
-                    editor.putString("email", obj.getString("email"));
-                    editor.putString("phone", obj.getString("mobile"));
 
-                    editor.putString("user_id", obj.getString("user_id"));
-                    editor.commit();
+                    if (obj.getString("message").equalsIgnoreCase("Verify your mobile number")) {
 
-                    snackbar = Snackbar.make(Mroot, "Parsing error occurred!!! " + obj.getString("message"), Snackbar.LENGTH_LONG);
+                        showVerifyOtpDialog(obj.getString("user_id"));
+                    } else {
+                        mPrefs.setEmailId(obj.getString("email"));
+                        mPrefs.setName(obj.getString("name"));
+                        // save user info
+                        editor = AppConstants.app_data.edit();
+                        editor.putString("name", obj.getString("name"));
+                        editor.putString("email", obj.getString("email"));
+                        editor.putString("phone", obj.getString("mobile"));
 
-                    snackbar.show();
+                        editor.putString("user_id", obj.getString("user_id"));
+                        editor.commit();
 
-
-                    Intent intent = new Intent(getActivity(), LandingActivity.class);
-                    intent.putExtra("src", "def");
-                    startActivity(intent);
-                    getActivity().finish();
-
+                        Intent intent = new Intent(getActivity(), LandingActivity.class);
+                        intent.putExtra("src", "def");
+                        startActivity(intent);
+                        getActivity().finish();
+                    }
 
                 } else {
-                    snackbar = Snackbar.make(Mroot, "Parsing error occurred!!! " + obj.getString("message"), Snackbar.LENGTH_LONG);
-
+                    snackbar = Snackbar.make(Mroot, "" + obj.getString("message"), Snackbar.LENGTH_LONG);
                     snackbar.show();
-
                 }
 
             } catch (JSONException e) {
@@ -229,27 +226,32 @@ public class LoginFrag extends HelperFrags implements HttpresponseUpd {
             }
 
 
-        } else {
-
+        } else if (post_tag.equals("otp_login")) {
+            verifyOtpDialog.dismiss();
             try {
 
+                JSONObject main_obj = new JSONObject(response);
+                //  String message = main_obj.getString("message");
+                snackbar = Snackbar.make(Mroot, "" + main_obj.getString("message"), Snackbar.LENGTH_LONG);
+                snackbar.show();
+
+
+            } catch (JSONException e) {
+                snackbar = Snackbar.make(Mroot, "" + e.getMessage(), Snackbar.LENGTH_LONG);
+
+                snackbar.show();
+            }
+
+
+        } else {
+            messageInputWindow.dismiss();
+            try {
 
                 JSONObject main_obj = new JSONObject(response);
                 JSONArray main_array = main_obj.getJSONArray("output");
                 JSONObject obj = main_array.getJSONObject(0);
-
-
-
-
-                    snackbar = Snackbar.make(Mroot, obj.getString("message"), Snackbar.LENGTH_LONG);
-
-                    snackbar.show();
-
-
-
-
-
-
+                snackbar = Snackbar.make(Mroot, obj.getString("message"), Snackbar.LENGTH_LONG);
+                snackbar.show();
 
 
             } catch (JSONException e) {
@@ -258,6 +260,62 @@ public class LoginFrag extends HelperFrags implements HttpresponseUpd {
 
 
         }
+    }
+
+
+    private void showVerifyOtpDialog(final String user_id) {
+
+        verifyOtpDialog = new Dialog(getContext());
+        verifyOtpDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        verifyOtpDialog.setContentView(R.layout.custom_otp_dialouge_login_layout);
+        mOtpEt = (EditText) verifyOtpDialog.findViewById(R.id.item_otp_login_et);
+        mOtpSubmitTv = (TextView) verifyOtpDialog.findViewById(R.id.item_otp_submit_login_tv);
+        mOtpCancelTv = (TextView) verifyOtpDialog.findViewById(R.id.item_otp_cancel_login_tv);
+        mResendOtpTv = (TextView) verifyOtpDialog.findViewById(R.id.item_otp_resend_login_tv);
+
+        verifyOtpDialog.getWindow().setGravity(Gravity.CENTER);
+        verifyOtpDialog.show();
+        mOtpSubmitTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri.Builder builder = new Uri.Builder();
+                builder.scheme("http")
+                        .authority("lifeoninternet.com")
+                        .appendPath(Utils.stringBuilder())
+                        .appendPath("api.php")
+                        .appendQueryParameter("action", "verify_otp")
+                        .appendQueryParameter("user_id", user_id)
+                        .appendQueryParameter("otp", mOtpEt.getText().toString());
+
+                String myUrl = builder.build().toString();
+                Log.e("urlotp", myUrl);
+
+                if (AppUtils.isNetworkAvailable(getActivity())) {
+                    post_tag = "otp_login";
+                    AppUtils.getStringData(myUrl, getActivity(), callback);
+                } else {
+                    snackbar = Snackbar.make(Mroot, "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+
+                }
+
+
+            }
+        });
+        mOtpCancelTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                verifyOtpDialog.dismiss();
+
+            }
+        });
+        mResendOtpTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            }
+        });
     }
 
 }

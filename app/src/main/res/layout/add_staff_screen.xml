@@ -1,83 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/dark_grey">
+        android:background="@color/dark_grey"
+        android:orientation="vertical">
 
+        // header layout
 
-
-
-
-
-    // header layout
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/hesder_bg">
-
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="25dp"
-            android:id="@+id/add_staff_back_btn"
-            android:src="@drawable/leftarrow_white"
-            android:layout_centerVertical="true"/>
-
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/add_staff_back_btn"
-            android:layout_toLeftOf="@+id/add_staff_next_btn"
-            android:text="Add Your Staff"
-            android:textSize="@dimen/text_large"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:layout_centerVertical="true"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="NEXT"
-            android:textColor="@color/white"
-            android:id="@+id/add_staff_next_btn"
-            android:layout_alignParentRight="true"
-            android:textSize="@dimen/text_large"
-            android:padding="5dp"/>
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/hesder_bg">
 
 
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/add_staff_back_btn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:background="?selectableItemBackgroundBorderless"
+                android:padding="10dp"
+                android:src="@drawable/leftarrow_white" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/staff_refress_page_iv"
+                android:layout_toRightOf="@id/add_staff_back_btn"
+                android:gravity="center"
+                android:text="Add Your Staff"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_large" />
+
+            <ImageView
+                android:id="@+id/staff_refress_page_iv"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@id/add_staff_next_btn"
+                android:padding="8dp"
+                android:src="@android:drawable/ic_menu_rotate"
+                android:tint="@color/white" />
+
+            <TextView
+                android:id="@+id/add_staff_next_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="?selectableItemBackgroundBorderless"
+                android:padding="8dp"
+                android:text="NEXT"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_large" />
+
+
+        </RelativeLayout>
 
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:layout_marginBottom="1dp"
+            android:background="@color/white"
             android:padding="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Only me"
-                android:textSize="@dimen/text_large"
                 android:layout_alignParentLeft="true"
-
                 android:layout_centerVertical="true"
-                android:textColor="@color/black"/>
+                android:text="Only me"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_large"
+                android:visibility="gone" />
 
             <Switch
+                android:id="@+id/add_staff_onlyme_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/add_staff_onlyme_btn"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true"
+                android:visibility="gone" />
 
         </RelativeLayout>
 
@@ -91,43 +103,51 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="+ Add More"
-                android:textSize="@dimen/text_medium"
-                android:paddingRight="20dp"
-                android:layout_centerVertical="true"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:textColor="@color/blue"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:paddingBottom="5dp"
+                android:paddingRight="20dp"
+                android:paddingTop="5dp"
+                android:text="+ Add More"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/text_medium"
 
                 />
 
             <TextView
+                android:id="@+id/add_staff_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=" Staff"
-                android:textSize="@dimen/text_xlarge"
-                android:padding="10dp"
                 android:layout_marginBottom="1dp"
+                android:padding="10dp"
+                android:text=" Staff"
                 android:textColor="@color/blue"
-                android:id="@+id/add_staff_btn"
-                android:textStyle="bold"/>
+                android:textSize="@dimen/text_xlarge"
+                android:textStyle="bold" />
 
 
         </RelativeLayout>
 
 
         <ListView
+            android:id="@+id/add_staff_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            android:padding="10dp"
             android:divider="@color/grey"
             android:dividerHeight="1dp"
-            android:id="@+id/add_staff_list"
-            ></ListView>
+            android:padding="10dp" />
 
 
+        <TextView
+            android:id="@+id/add_staff_no_staff_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="No Staff Found"
+            android:textColor="@color/black"
+            android:visibility="gone" />
 
 
     </LinearLayout>

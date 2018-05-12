@@ -22,7 +22,9 @@
 
             <ImageView
                 android:layout_width="40dp"
-                android:layout_height="25dp"
+                android:layout_height="40dp"
+                android:padding="10dp"
+                android:background="?selectableItemBackgroundBorderless"
                 android:id="@+id/new_staff_breaktime_back_btn"
                 android:src="@drawable/leftarrow_white"
                 android:layout_centerVertical="true"/>
@@ -43,11 +45,12 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:text="SAVE"
+                android:background="?selectableItemBackgroundBorderless"
                 android:textColor="@color/white"
                 android:id="@+id/new_staff_breaktime_next_btn"
                 android:layout_alignParentRight="true"
                 android:textSize="@dimen/text_large"
-                android:padding="5dp"/>
+                android:padding="8dp"/>
 
 
         </RelativeLayout>

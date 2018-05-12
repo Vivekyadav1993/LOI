@@ -6,6 +6,6 @@ package helper;
 
 public interface HttpresponseUpd {
 
-    public void getResponse(String response);
+   public void getResponse(String response);
 
 }

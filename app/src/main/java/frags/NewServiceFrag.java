@@ -32,6 +32,7 @@ import models.ResourceSpecification;
 import models.ServiceData;
 import r2stech.lifeoninternet.LandingActivity;
 import r2stech.lifeoninternet.R;
+import r2stech.lifeoninternet.utils.Utils;
 
 /**
  * Created by teknik on 10/5/2017.
@@ -92,10 +93,9 @@ public class NewServiceFrag extends HelperFrags implements HttpresponseUpd {
 
         serviceData = LandingActivity.service_data_array.get(bundle.getInt("pos"));
 
-        if (bundle.getString("src").equals("def")){
+        if (bundle.getString("src").equals("def")) {
 
-        }
-        else{
+        } else {
 
             new_serinfo_tag.setText(serviceData.getName());
 
@@ -110,13 +110,11 @@ public class NewServiceFrag extends HelperFrags implements HttpresponseUpd {
             new_serinfo_maxpeople_input.setText(serviceData.getMax_people_in_group());
 
 
-            if (serviceData.getService_type().equals("One")){
+            if (serviceData.getService_type().equals("One")) {
                 new_serinfo_oneonone_radiobtn.setChecked(true);
-            }
-            else if (serviceData.getService_type().equals("Group")){
+            } else if (serviceData.getService_type().equals("Group")) {
                 new_serinfo_group_radiobtn.setChecked(true);
-            }
-            else{
+            } else {
 
             }
         }
@@ -127,23 +125,20 @@ public class NewServiceFrag extends HelperFrags implements HttpresponseUpd {
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
 
 
-                if (i==R.id.new_serinfo_oneonone_radiobtn){
+                if (i == R.id.new_serinfo_oneonone_radiobtn) {
 
                     if (new_serinfo_oneonone_radiobtn.isChecked()) {
                         LandingActivity.service_data_array.get(bundle.getInt("pos"))
                                 .setService_type("One");
                         max_people_layout.setVisibility(View.GONE);
-                    }
-                    else{
+                    } else {
                         LandingActivity.service_data_array.get(bundle.getInt("pos")).setService_type("");
                     }
-                }
-                else{
+                } else {
                     if (new_serinfo_group_radiobtn.isChecked()) {
                         LandingActivity.service_data_array.get(bundle.getInt("pos")).setService_type("Group");
                         max_people_layout.setVisibility(View.VISIBLE);
-                    }
-                    else{
+                    } else {
                         LandingActivity.service_data_array.get(bundle.getInt("pos")).setService_type("");
                     }
                 }
@@ -151,14 +146,13 @@ public class NewServiceFrag extends HelperFrags implements HttpresponseUpd {
         });
 
 
-
         return Mroot;
     }
 
     @OnClick(R.id.new_serinfo_homeservice_btn)
-    void homeService(){
+    void homeService() {
 
-        LandingActivity.service_data_array.get(bundle.getInt("pos"))
+     /*   LandingActivity.service_data_array.get(bundle.getInt("pos"))
                 .setName(new_serinfo_name_input.getText().toString());
 
         LandingActivity.service_data_array.get(bundle.getInt("pos"))
@@ -190,39 +184,35 @@ public class NewServiceFrag extends HelperFrags implements HttpresponseUpd {
         _bundle.putInt("pos",bundle.getInt("pos"));
         _bundle.putInt("create_pos",bundle.getInt("create_pos"));
         // go next page
-        replaceFrag(new HomeServiceInfoFrag(), _bundle, NewServiceFrag.class.getName());
+        replaceFrag(new HomeServiceInfoFrag(), _bundle, NewServiceFrag.class.getName());*/
     }
 
     @OnClick(R.id.new_serinfo_back_btn)
-    void back(){
+    void back() {
         getActivity().onBackPressed();
 
     }
 
     @OnClick(R.id.new_serinfo_next_btn)
-    void next(){
+    void next() {
 
-        if (new_serinfo_name_input.getText().toString().equals("")){
+        if (new_serinfo_name_input.getText().toString().equals("")) {
             snackbar = Snackbar.make(Mroot, "Service name cannot blank!", Snackbar.LENGTH_LONG);
 
             snackbar.show();
-        }
-        else if (new_serinfo_duration_input.getText().toString().equals("")){
+        } else if (new_serinfo_duration_input.getText().toString().equals("")) {
             snackbar = Snackbar.make(Mroot, "Service duration cannot blank!", Snackbar.LENGTH_LONG);
 
             snackbar.show();
-        }
-        else if (new_serinfo_buffer_input.getText().toString().equals("")){
+        } else if (new_serinfo_buffer_input.getText().toString().equals("")) {
             snackbar = Snackbar.make(Mroot, "Service buffer time cannot blank!", Snackbar.LENGTH_LONG);
 
             snackbar.show();
-        }
-        else {
+        } else {
             JSONArray arrForA = new JSONArray();
-            if (serviceData.getData().size()==1&&serviceData.getData().get(0).getLocation().equals("")){
+            if (serviceData.getData().size() == 1 && serviceData.getData().get(0).getLocation().equals("")) {
 
-            }
-            else{
+            } else {
                 //Maint list object
                 JSONObject objMainList = new JSONObject();
 
@@ -236,7 +226,7 @@ public class NewServiceFrag extends HelperFrags implements HttpresponseUpd {
                     //prepare item array for "A"
 
 
-                    for (int i = 0; i <array.size() ; i++) {
+                    for (int i = 0; i < array.size(); i++) {
                         JSONObject itemA = new JSONObject();
                         itemA.put("homeservice_id", array.get(i).getId());
                         itemA.put("location", array.get(i).getLocation());
@@ -252,15 +242,11 @@ public class NewServiceFrag extends HelperFrags implements HttpresponseUpd {
                     }
 
 
-
-
-
                     //Finally add item arrays for "A" and "B" to main list with key
 
 
-                }
-                catch (JSONException e){
-                    snackbar = Snackbar.make(Mroot,e.getMessage(), Snackbar.LENGTH_LONG);
+                } catch (JSONException e) {
+                    snackbar = Snackbar.make(Mroot, e.getMessage(), Snackbar.LENGTH_LONG);
 
                     snackbar.show();
                 }
@@ -297,24 +283,24 @@ public class NewServiceFrag extends HelperFrags implements HttpresponseUpd {
             Uri.Builder builder = new Uri.Builder();
             builder.scheme("http")
                     .authority("lifeoninternet.com")
-                    .appendPath("new_service")
+                    .appendPath(Utils.stringBuilder())
                     .appendPath("api.php")
                     .appendQueryParameter("action", "createService")
                     .appendQueryParameter("service_id", LandingActivity.service_data_array.get(bundle.getInt("pos")).getSer_id())
                     .appendQueryParameter("address_id", LandingActivity.service_data_array.get(bundle.getInt("pos")).getAdd_id())
-                    .appendQueryParameter("user_id", AppConstants.app_data.getString("user_id",""))
+                    .appendQueryParameter("user_id", AppConstants.app_data.getString("user_id", ""))
                     .appendQueryParameter("name", LandingActivity.service_data_array.get(bundle.getInt("pos")).getName())
-                    .appendQueryParameter("duration",LandingActivity.service_data_array.get(bundle.getInt("pos")).getDuration())
+                    .appendQueryParameter("duration", LandingActivity.service_data_array.get(bundle.getInt("pos")).getDuration())
                     .appendQueryParameter("buffer_time", LandingActivity.service_data_array.get(bundle.getInt("pos")).getBuffer_time())
-                    .appendQueryParameter("cost",LandingActivity.service_data_array.get(bundle.getInt("pos")).getCost())
+                    .appendQueryParameter("cost", LandingActivity.service_data_array.get(bundle.getInt("pos")).getCost())
                     .appendQueryParameter("service_type", LandingActivity.service_data_array.get(bundle.getInt("pos")).getService_type())
                     .appendQueryParameter("max_people_in_group", LandingActivity.service_data_array.get(bundle.getInt("pos")).getMax_people_in_group())
-                    .appendQueryParameter("home_service",LandingActivity.service_data_array.get(bundle.getInt("pos")).getHome_service())
-                    .appendQueryParameter("homeservice",arrForA.toString())
+                    .appendQueryParameter("home_service", LandingActivity.service_data_array.get(bundle.getInt("pos")).getHome_service())
+                    .appendQueryParameter("homeservice", arrForA.toString())
 
             ;
 
-Log.e("url",builder.build().toString() );
+            Log.e("url", builder.build().toString());
             if (AppUtils.isNetworkAvailable(getActivity()))
                 AppUtils.getStringData(builder.build().toString(), getActivity(), callback);
             else {
@@ -327,7 +313,6 @@ Log.e("url",builder.build().toString() );
         }
 
 
-
     }
 
     @Override
@@ -335,13 +320,12 @@ Log.e("url",builder.build().toString() );
 
         Log.e("res", response);
 
-        if (response.contains("Error :")){
+        if (response.contains("Error :")) {
             snackbar = Snackbar.make(Mroot, response, Snackbar.LENGTH_LONG);
 
             snackbar.show();
 
-        }
-        else{
+        } else {
 
             try {
                 //parse data
@@ -349,41 +333,34 @@ Log.e("url",builder.build().toString() );
                 JSONArray arr = main_obj.getJSONArray("output");
                 JSONObject obj = arr.getJSONObject(0);
 
-                if (obj.getString("service_id").equals("0")){
+                if (obj.getString("service_id").equals("0")) {
                     snackbar = Snackbar.make(Mroot, obj.getString("message"), Snackbar.LENGTH_LONG);
 
                     snackbar.show();
-                }
-                else{
+                } else {
 
                     // save data
 
                     LandingActivity.service_data_array.get(bundle.getInt("pos")).setSer_id(obj.getString("service_id"));
 
 
-
-
                     snackbar = Snackbar.make(Mroot, obj.getString("message"), Snackbar.LENGTH_LONG);
 
                     snackbar.show();
 
-                    Bundle _bundle  = new Bundle();
+                    Bundle _bundle = new Bundle();
 
 
                     _bundle.putInt("create_pos", bundle.getInt("create_pos"));
                     _bundle.putString("ser_id", obj.getString("service_id"));
 
-                    replaceFrag(new NewServiceStaffSelectionFrag(), _bundle , NewServiceFrag.class.getName());
+                    replaceFrag(new NewServiceStaffSelectionFrag(), _bundle, NewServiceFrag.class.getName());
 
 
                 }
 
 
-
-
-
-            }
-            catch (JSONException e){
+            } catch (JSONException e) {
                 snackbar = Snackbar.make(Mroot, e.getMessage(), Snackbar.LENGTH_LONG);
                 snackbar.show();
             }

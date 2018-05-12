@@ -55,6 +55,7 @@ import models.ResourceData;
 import models.ResourceSpecification;
 import r2stech.lifeoninternet.LandingActivity;
 import r2stech.lifeoninternet.R;
+import r2stech.lifeoninternet.utils.Utils;
 
 /**
  * Created by teknik on 10/5/2017.
@@ -222,7 +223,7 @@ public class HomeServiceInfoFrag extends HelperFrags implements HttpresponseUpd 
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("http")
                 .authority("lifeoninternet.com")
-                .appendPath("new_service")
+                .appendPath(Utils.stringBuilder())
                 .appendPath("api.php")
                 .appendQueryParameter("action", "getStaff")
                 .appendQueryParameter("address_id",LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos")).getAddress_id());
@@ -325,8 +326,7 @@ public class HomeServiceInfoFrag extends HelperFrags implements HttpresponseUpd 
         };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder
-                .setTitle("Select Staff")
+        builder.setTitle("Select Staff")
                 .setMultiChoiceItems(receivers, checkedReceivers, receiversDialogListener)
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {

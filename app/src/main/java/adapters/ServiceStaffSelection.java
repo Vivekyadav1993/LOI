@@ -25,39 +25,20 @@ import r2stech.lifeoninternet.R;
 
 public class ServiceStaffSelection extends BaseAdapter {
 
-
-
-
-
     private Activity activity;
+    private Holder holder;
+    public ArrayList<StaffSelecData> data = new ArrayList<>();
 
 
-    Holder holder;
-
-    private ArrayList<StaffSelecData> data = new ArrayList<>();
-
-
-    public ServiceStaffSelection(Activity act , ArrayList<StaffSelecData> _data){
-
-
+    public ServiceStaffSelection(Activity act, ArrayList<StaffSelecData> _data) {
         data = _data;
-
-        activity= act;
-
+        activity = act;
     }
 
-    static class Holder{
-
-
-        TextView name_btn  ;
-
-
+    static class Holder {
+        TextView name_btn;
         CheckBox tic;
-
-
     }
-
-
 
     @Override
     public int getCount() {
@@ -80,93 +61,42 @@ public class ServiceStaffSelection extends BaseAdapter {
     @Override
     public View getView(final int position, View view, ViewGroup parent) {
         // TODO Auto-generated method stub
-
-
-        if(view == null){
-
-
-            LayoutInflater inflater = ((LayoutInflater)activity
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE));
-
-
-            view = inflater.inflate(R.layout.newser_staffselection_list_item_screen,parent,false);
-
-
+        if (view == null) {
+            LayoutInflater inflater = ((LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
+            view = inflater.inflate(R.layout.newser_staffselection_list_item_screen, parent, false);
             holder = new Holder();
-
-
-            holder.name_btn = (TextView)view.findViewById(R.id.staff_name);
-            holder.tic = (CheckBox)view.findViewById(R.id.select_btn);
-
-
-
-
-
-
-
-
-
-
+            holder.name_btn = (TextView) view.findViewById(R.id.staff_name);
+            holder.tic = (CheckBox) view.findViewById(R.id.select_btn);
             view.setTag(holder);
+        } else {
+            holder = (Holder) view.getTag();
         }
-        else{
-
-            holder =(Holder)view.getTag();
-
-        }
-
 
         holder.name_btn.setText(data.get(position).getStaff_name());
 
-
-        if (data.get(position).getSelect().equals("No")){
+        if (NewServiceStaffSelectionFrag.staffSelec_array.get(position).getSelect().equals("No")) {
             holder.tic.setChecked(false);
-        }
-        else{
+        } else {
             holder.tic.setChecked(true);
         }
-
-
-
-
-
-
-
-
         holder.tic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b){
-                   data.get(position).setSelect("yes");
+                if (b) {
+                    data.get(position).setSelect("Yes");
                     Log.e("okk", data.get(position).getSelect());
-                    NewServiceStaffSelectionFrag.staffSelec_array.get(position).setSelect("yes");
+                    NewServiceStaffSelectionFrag.staffSelec_array.get(position).setSelect("Yes");
 
-
-                }
-                else {
+                } else {
                     data.get(position).setSelect("");
-                    Log.e("disable", "-"+data.get(position).getSelect());
-                    NewServiceStaffSelectionFrag.staffSelec_array.get(position).setSelect("");
-
+                    Log.e("disable", "-" + data.get(position).getSelect());
+                    NewServiceStaffSelectionFrag.staffSelec_array.get(position).setSelect("No");
                 }
             }
         });
 
 
-
-
-
-
-
-
-
-
-
         return view;
+
     }
-
-
-
-
-
 }

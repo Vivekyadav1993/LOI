@@ -1,6 +1,7 @@
 package adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -18,27 +20,31 @@ import butterknife.ButterKnife;
 import frags.BusinessDetailsFrag;
 import frags.BusinessHourFrag;
 import frags.CustomerLandingFrag;
+import models.businesslist.BusinessListModel;
+import models.businesslist.Output;
 import r2stech.lifeoninternet.R;
 
 
 public class CustomerLandingRecyclerViewAdapter extends RecyclerView.Adapter<CustomerLandingRecyclerViewAdapter.ViewHolder> {
 
 
-    private ArrayList<String> data;
+    private ArrayList<Output> data;
     private CustomerLandingFrag mCustomerLandingFrag;
-    protected CustomerLandingButtonClick mClick;
+    private CustomerLandingButtonClick mClick;
+
     public interface CustomerLandingButtonClick {
-        void buttonOptionClick(int pos);
+        void onClick(int pos, String business_id, String addredd_id, String name);
 
     }
+
     Context mContext;
 
     LayoutInflater layoutInflater;
 
-    public CustomerLandingRecyclerViewAdapter(CustomerLandingFrag mContext, ArrayList<String> data,CustomerLandingButtonClick mCustomerLandingButtonClick) {
+    public CustomerLandingRecyclerViewAdapter(CustomerLandingFrag mContext, ArrayList<Output> data, CustomerLandingButtonClick Click) {
         this.mCustomerLandingFrag = mContext;
         this.data = data;
-        mCustomerLandingButtonClick=mCustomerLandingButtonClick;
+        this.mClick = Click;
     }
 
     @Override
@@ -48,16 +54,42 @@ public class CustomerLandingRecyclerViewAdapter extends RecyclerView.Adapter<Cus
         return new ViewHolder(v);
     }
 
+    public void filterList(ArrayList<Output> filterdNames) {
+        this.data = filterdNames;
+        notifyDataSetChanged();
+    }
+
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
+        holder.mName.setText(data.get(position).getName().toString());
+        holder.mAdd.setText(data.get(position).getAddress());
+        holder.mService.setText(data.get(position).getIndustry());
+        holder.mCompanyOpenTimeTextV.setText(data.get(position).getOpenStatus().toString());
+        holder.mOpentime.setText(data.get(position).getOpenTime());
+
+        if (data.get(position).getOpenStatus().equalsIgnoreCase("Closed Now")) {
+
+            holder.mCompanyOpenTimeTextV.setText(data.get(position).getOpenStatus().toString());
+            holder.mCompanyOpenTimeTextV.setBackgroundColor(Color.RED);
+            holder.mOpentime.setText(data.get(position).getOpenTime());
+            holder.mOpentime.setBackgroundColor(Color.RED);
+        } else {
+            holder.mCompanyOpenTimeTextV.setText("Open Now");
+            holder.mCompanyOpenTimeTextV.setBackgroundColor(Color.BLUE);
+            holder.mOpentime.setBackgroundColor(Color.BLUE);
+            holder.mOpentime.setText(data.get(position).getOpenTime());
+            //  holder.mOpentime.setText(data.get(position).getOpenNow().toString());
+            //  holder.mOpentime.setVisibility(View.GONE);
+        }
         holder.mBookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mClick.buttonOptionClick(position);
+
+                //   Log.d("CLRA", "" + position);
+                mClick.onClick(position, data.get(position).getBusinessId(), data.get(position).getBusinessAddressId(), data.get(position).getName());
             }
         });
-
     }
 
     @Override
@@ -69,6 +101,17 @@ public class CustomerLandingRecyclerViewAdapter extends RecyclerView.Adapter<Cus
 
         @BindView(R.id.company_book_btn)
         public Button mBookBtn;
+        @BindView(R.id.company_name_tv)
+        public TextView mName;
+        @BindView(R.id.company_address_tv)
+        public TextView mAdd;
+        @BindView(R.id.company_service_tv)
+        public TextView mService;
+        @BindView(R.id.company_open_time_tv)
+        public TextView mOpentime;
+
+        @BindView(R.id.company_open_time_text_tv)
+        public TextView mCompanyOpenTimeTextV;
 
         public ViewHolder(View itemView) {
             super(itemView);

@@ -29,6 +29,7 @@ import helper.HttpresponseUpd;
 import models.GroupData;
 import r2stech.lifeoninternet.LandingActivity;
 import r2stech.lifeoninternet.R;
+import r2stech.lifeoninternet.utils.Utils;
 
 /**
  * Created by teknik on 10/9/2017.
@@ -98,7 +99,7 @@ public class GroupSelectionFrag extends HelperFrags implements  HttpresponseUpd{
             builder = new Uri.Builder();
             builder.scheme("http")
                     .authority("lifeoninternet.com")
-                    .appendPath("new_service")
+                    .appendPath(Utils.stringBuilder())
                     .appendPath("api.php")
                     .appendQueryParameter("action", "privateGroupList")
                     .appendQueryParameter("user_id", AppConstants.app_data.getString("user_id" , ""));
@@ -109,7 +110,7 @@ public class GroupSelectionFrag extends HelperFrags implements  HttpresponseUpd{
             builder = new Uri.Builder();
             builder.scheme("http")
                     .authority("lifeoninternet.com")
-                    .appendPath("new_service")
+                    .appendPath(Utils.stringBuilder())
                     .appendPath("api.php")
                     .appendQueryParameter("action", "societyList")
                     .appendQueryParameter("user_id", AppConstants.app_data.getString("user_id" , ""));

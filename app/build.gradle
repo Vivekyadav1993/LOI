@@ -20,10 +20,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dexOptions {
+
+        javaMaxHeapSize "4g"
+
+    }
+
 }
 
 dependencies {
     implementation 'com.android.support:support-v4:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -38,9 +45,26 @@ dependencies {
     compile 'com.gmail.samehadar:iosdialog:1.0'
     compile 'com.android.support:cardview-v7:26.1.0'
     compile 'com.jakewharton:butterknife:8.5.1'
+    compile 'com.google.code.gson:gson:2.8.2'
+    compile 'com.github.satyan:sugar:1.4'
+    compile 'ru.egslava:MaskedEditText:1.0.5'
+    compile 'com.google.android.gms:play-services-location:11.4 .0'
+    compile 'com.google.android.gms:play-services:11.4.0'
+    compile 'com.github.badoualy:datepicker-timeline:c6dcd05737'
     compile 'com.wefika:collapse-calendar-view:0.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

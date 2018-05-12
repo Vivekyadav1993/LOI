@@ -9,11 +9,7 @@
                 />
 
             <corners android:radius="10dp"/>
-            <padding
-                android:bottom="10dp"
-                android:left="2dp"
-                android:right="10dp"
-                android:top="10dp" />
+
         </shape>
     </item>
 </layer-list>

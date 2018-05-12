@@ -27,6 +27,7 @@ import models.HomeSerData;
 import models.ServiceData;
 import r2stech.lifeoninternet.LandingActivity;
 import r2stech.lifeoninternet.R;
+import r2stech.lifeoninternet.utils.Utils;
 
 /**
  * Created by teknik on 10/6/2017.
@@ -65,7 +66,7 @@ public class NewCategoryFrag extends HelperFrags implements HttpresponseUpd {
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("http")
                 .authority("lifeoninternet.com")
-                .appendPath("new_service")
+                .appendPath(Utils.stringBuilder())
                 .appendPath("api.php")
                 .appendQueryParameter("action", "getService")
                 .appendQueryParameter("address_id", LandingActivity.service_data_array.get(bundle.getInt("pos")).getAdd_id())
@@ -93,31 +94,15 @@ public class NewCategoryFrag extends HelperFrags implements HttpresponseUpd {
 
         try {
 
-
-
             //prepare item array for "A"
-
-
-
 
             for (int i = 0; i <selectedReceivers.size() ; i++) {
                 JSONObject itemA = new JSONObject();
                 itemA.put("cat_id", bundle.getString("cat_id"));
                 itemA.put("service_id", selectedReceivers.get(i));
-
-
-
-
                 arrForA.put(itemA);
             }
-
-
-
-
-
             //Finally add item arrays for "A" and "B" to main list with key
-
-
         }
         catch (JSONException e){
             snackbar = Snackbar.make(Mroot,e.getMessage(), Snackbar.LENGTH_LONG);
@@ -132,7 +117,7 @@ public class NewCategoryFrag extends HelperFrags implements HttpresponseUpd {
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("http")
                 .authority("lifeoninternet.com")
-                .appendPath("new_service")
+                .appendPath(Utils.stringBuilder())
                 .appendPath("api.php")
                 .appendQueryParameter("action", "createserviceCategory")
                 .appendQueryParameter("servicecategory",
@@ -145,8 +130,8 @@ public class NewCategoryFrag extends HelperFrags implements HttpresponseUpd {
             post_tag= "create";
             AppUtils.getStringData(builder.build().toString(), getActivity(), callback);}
         else {
-            snackbar = Snackbar.make(Mroot, "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
 
+            snackbar = Snackbar.make(Mroot, "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
             snackbar.show();
 
         }
@@ -175,23 +160,31 @@ public class NewCategoryFrag extends HelperFrags implements HttpresponseUpd {
     }
 
     protected void showSelectReceiversDialog() {
-        boolean[] checkedReceivers = new boolean[receivers.length];
-        int count = receivers.length;
 
-        for(int i = 0; i < count; i++)
-            checkedReceivers[i] = selectedReceivers.contains(receivers_id[i]);
 
-        DialogInterface.OnMultiChoiceClickListener receiversDialogListener = new DialogInterface.OnMultiChoiceClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                if(isChecked)
-                    selectedReceivers.add(receivers[which]);
-                else
-                    selectedReceivers.remove(receivers[which]);
+        boolean[] checkedReceivers = new boolean[0];
+        DialogInterface.OnMultiChoiceClickListener receiversDialogListener = null;
+        try {
+            checkedReceivers = new boolean[receivers.length];
+            int count = receivers.length;
 
-                onChangeSelectedReceivers();
-            }
-        };
+            for(int i = 0; i < count; i++)
+                checkedReceivers[i] = selectedReceivers.contains(receivers_id[i]);
+
+            receiversDialogListener = new DialogInterface.OnMultiChoiceClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                    if(isChecked)
+                        selectedReceivers.add(receivers[which]);
+                    else
+                        selectedReceivers.remove(receivers[which]);
+
+                    onChangeSelectedReceivers();
+                }
+            };
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder
@@ -213,10 +206,8 @@ public class NewCategoryFrag extends HelperFrags implements HttpresponseUpd {
     public void getResponse(String response) {
         Log.e("res", response);
 
-
         if (response.contains("Error :")) {
             snackbar = Snackbar.make(Mroot, response, Snackbar.LENGTH_LONG);
-
             snackbar.show();
 
         } else if (post_tag.equals("get")) {
@@ -226,18 +217,16 @@ public class NewCategoryFrag extends HelperFrags implements HttpresponseUpd {
                 JSONObject main_obj = new JSONObject(response);
                 JSONArray arr = main_obj.getJSONArray("output");
 
+                Log.d("NCF",""+arr.toString());
+
                 receivers = new String[arr.length()];
                 receivers_id = new String[arr.length()];
 
 
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject obj = arr.getJSONObject(i);
-
                     receivers_id[i] = obj.getString("id");
                     receivers[i] = obj.getString("name");
-
-
-
                 }
 
 
@@ -261,9 +250,8 @@ public class NewCategoryFrag extends HelperFrags implements HttpresponseUpd {
                 else{
 
                     Bundle _bundle = new Bundle();
-
-                    _bundle.putString("add_id",LandingActivity.service_data_array.get(bundle.getInt("pos")).getAdd_id());
-                    replaceFrag(new SequentialFrag() , _bundle ,NewCategoryFrag.class.getName() );
+                //    _bundle.putString("add_id",LandingActivity.service_data_array.get(bundle.getInt("pos")).getAdd_id());
+                    replaceFrag(new AdDetailsEditFrag() , _bundle ,NewCategoryFrag.class.getName() );
 
                 }
 

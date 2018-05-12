@@ -1,26 +1,39 @@
 package frags;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +46,7 @@ import models.BusinessHourData;
 import r2stech.lifeoninternet.LandingActivity;
 import r2stech.lifeoninternet.R;
 import r2stech.lifeoninternet.SplashActivity;
+import r2stech.lifeoninternet.utils.Utils;
 
 /**
  * Created by teknik on 9/27/2017.
@@ -55,7 +69,7 @@ public class BusinessDetailsFrag extends HelperFrags implements HttpresponseUpd 
 
     //1st add
     @BindView(R.id.bd_add1_input)
-    EditText bd_add1_input;
+    AutoCompleteTextView bd_add1_input;
 
 
     //2nd add
@@ -64,7 +78,7 @@ public class BusinessDetailsFrag extends HelperFrags implements HttpresponseUpd 
 
 
     @BindView(R.id.bd_add2_input)
-    EditText bd_add2_input;
+    AutoCompleteTextView bd_add2_input;
 
 
     //3rd add
@@ -72,7 +86,7 @@ public class BusinessDetailsFrag extends HelperFrags implements HttpresponseUpd 
     RelativeLayout bd_add3_layout;
 
     @BindView(R.id.bd_add3_input)
-    EditText bd_add3_input;
+    AutoCompleteTextView bd_add3_input;
 
 
     //4th add
@@ -80,7 +94,7 @@ public class BusinessDetailsFrag extends HelperFrags implements HttpresponseUpd 
     RelativeLayout bd_add4_layout;
 
     @BindView(R.id.bd_add4_input)
-    EditText bd_add4_input;
+    AutoCompleteTextView bd_add4_input;
 
 
     //5th add
@@ -88,7 +102,7 @@ public class BusinessDetailsFrag extends HelperFrags implements HttpresponseUpd 
     RelativeLayout bd_add5_layout;
 
     @BindView(R.id.bd_add5_input)
-    EditText bd_add5_input;
+    AutoCompleteTextView bd_add5_input;
 
     /*@Bind(R.id.bd_scroll)
     ScrollView bd_scroll;*/
@@ -104,7 +118,10 @@ public class BusinessDetailsFrag extends HelperFrags implements HttpresponseUpd 
     private Bundle bundle;
 
     private Uri.Builder builder;
-
+    private ArrayList<String> address_list;
+    private HttpresponseUpd httpresponseUpd;
+    private String postTag;
+    private ArrayAdapter<String> autocomplete_adapter;
 
     @Nullable
     @Override
@@ -113,30 +130,243 @@ public class BusinessDetailsFrag extends HelperFrags implements HttpresponseUpd 
         ButterKnife.bind(this, Mroot);
 
         bundle = getArguments();
+        bd_add1_input.setThreshold(1);
+        bd_add2_input.setThreshold(1);
+        bd_add3_input.setThreshold(1);
+        bd_add4_input.setThreshold(1);
+        bd_add5_input.setThreshold(1);
+        httpresponseUpd = this;
 
+        bd_add1_input.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                address_list = new ArrayList<String>();
+
+                String input = "", url;
+
+
+                try {
+                    input = "input=" + URLEncoder.encode(editable.toString(), "utf-8");
+                } catch (UnsupportedEncodingException e1) {
+                    Toast.makeText(getActivity(), "UnsupportedEncodingException occurred!!Kindly try again.", Toast.LENGTH_SHORT).show();
+                }
+
+                String output = "json";
+                String parameter = input + "&types=geocode&sensor=true&key="
+                        + AppConstants.Google_place_APi_Key;
+
+                url = "https://maps.googleapis.com/maps/api/place/autocomplete/"
+                        + output + "?" + parameter;
+                postTag = "address_search";
+                hitApi(url, httpresponseUpd);
+
+            }
+        });
+        bd_add2_input.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                address_list = new ArrayList<String>();
+
+                String input = "", url;
+
+
+                try {
+                    input = "input=" + URLEncoder.encode(editable.toString(), "utf-8");
+                } catch (UnsupportedEncodingException e1) {
+                    Toast.makeText(getActivity(), "UnsupportedEncodingException occurred!!Kindly try again.", Toast.LENGTH_SHORT).show();
+                }
+
+                String output = "json";
+                String parameter = input + "&types=geocode&sensor=true&key="
+                        + AppConstants.Google_place_APi_Key;
+
+                url = "https://maps.googleapis.com/maps/api/place/autocomplete/"
+                        + output + "?" + parameter;
+                postTag = "address_search_2";
+                hitApi(url, httpresponseUpd);
+
+            }
+        });
+        bd_add3_input.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                address_list = new ArrayList<String>();
+
+                String input = "", url;
+
+
+                try {
+                    input = "input=" + URLEncoder.encode(editable.toString(), "utf-8");
+                } catch (UnsupportedEncodingException e1) {
+                    Toast.makeText(getActivity(), "UnsupportedEncodingException occurred!!Kindly try again.", Toast.LENGTH_SHORT).show();
+                }
+
+                String output = "json";
+                String parameter = input + "&types=geocode&sensor=true&key="
+                        + AppConstants.Google_place_APi_Key;
+
+                url = "https://maps.googleapis.com/maps/api/place/autocomplete/"
+                        + output + "?" + parameter;
+                postTag = "address_search_3";
+                hitApi(url, httpresponseUpd);
+
+            }
+        });
+        bd_add4_input.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                address_list = new ArrayList<String>();
+
+                String input = "", url;
+
+
+                try {
+                    input = "input=" + URLEncoder.encode(editable.toString(), "utf-8");
+                } catch (UnsupportedEncodingException e1) {
+                    Toast.makeText(getActivity(), "UnsupportedEncodingException occurred!!Kindly try again.", Toast.LENGTH_SHORT).show();
+                }
+
+                String output = "json";
+                String parameter = input + "&types=geocode&sensor=true&key="
+                        + AppConstants.Google_place_APi_Key;
+
+                url = "https://maps.googleapis.com/maps/api/place/autocomplete/"
+                        + output + "?" + parameter;
+                postTag = "address_search_4";
+                hitApi(url, httpresponseUpd);
+
+            }
+        });
+        bd_add5_input.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                address_list = new ArrayList<String>();
+
+                String input = "", url;
+
+
+                try {
+                    input = "input=" + URLEncoder.encode(editable.toString(), "utf-8");
+                } catch (UnsupportedEncodingException e1) {
+                    Toast.makeText(getActivity(), "UnsupportedEncodingException occurred!!Kindly try again.", Toast.LENGTH_SHORT).show();
+                }
+
+                String output = "json";
+                String parameter = input + "&types=geocode&sensor=true&key="
+                        + AppConstants.Google_place_APi_Key;
+
+                url = "https://maps.googleapis.com/maps/api/place/autocomplete/"
+                        + output + "?" + parameter;
+                postTag = "address_search_5";
+                hitApi(url, httpresponseUpd);
+
+            }
+        });
 
         callback = this;
-
 
         //hit api
         builder = new Uri.Builder();
         builder.scheme("http")
                 .authority("lifeoninternet.com")
-                .appendPath("new_service")
+                .appendPath(Utils.stringBuilder())
                 .appendPath("api.php")
                 .appendQueryParameter("action", "getIndustry");
 
-
+        postTag = "getIndustry";
         if (AppUtils.isNetworkAvailable(getActivity()))
             AppUtils.getStringData(builder.build().toString(), getActivity(), callback);
         else {
             snackbar = Snackbar.make(Mroot, "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
-
             snackbar.show();
 
         }
 
+        bd_phone_input.setFilters(new InputFilter[]{Utils.sepcialCharRemovalFilter});
+        bd_phone_input.setFilters(new InputFilter[]{Utils.sepcialCharRemovalFilter, new InputFilter.LengthFilter(10)});
+
         return Mroot;
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        try {
+            if (getView() != null) {
+                getView().setFocusableInTouchMode(true);
+                getView().requestFocus();
+                getView().setOnKeyListener(new View.OnKeyListener() {
+                    @Override
+                    public boolean onKey(View v, int keyCode, KeyEvent event) {
+                        if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("src", "def");
+
+                            replaceFrag(new AdPublishSelectionFrag(), bundle, BusinessDetailsFrag.class.getName());
+                        }
+                        return true;
+                    }
+                });
+            }
+        } catch (Exception e) {
+            Log.e("error", "" + e);
+        }
     }
 
     private void saveData(String address, int pos) {
@@ -146,7 +376,6 @@ public class BusinessDetailsFrag extends HelperFrags implements HttpresponseUpd 
         if (this.bundle.getString("src").equals("def")) {
 
             bundle.putString("src", "def");
-
 
             if (bd_name_input.getText().toString().equals("")) {
                 snackbar = Snackbar.make(Mroot, "Industry name cannot be blank!!!", Snackbar.LENGTH_LONG);
@@ -201,7 +430,6 @@ public class BusinessDetailsFrag extends HelperFrags implements HttpresponseUpd 
                 LandingActivity.business_data.setBusiness_phone(bd_phone_input.getText().toString());
                 LandingActivity.business_data.setBusiness_industry_id(industry_id_array[bd_industry_name_picker.getSelectedItemPosition()]);
 
-
                 if (LandingActivity.business_data.getAdderess_data().size() > pos) {
                     bundle.putString("src", "create");
                 } else {
@@ -211,11 +439,9 @@ public class BusinessDetailsFrag extends HelperFrags implements HttpresponseUpd 
                                     , "", "", "", "", "", ""
                                     , "", "", "", "", "", ""));
                     bundle.putString("src", "def");
-
                 }
                 bundle.putInt("pos", pos);
             }
-
         }
 
         LandingActivity.business_array_pos = pos;
@@ -228,24 +454,109 @@ public class BusinessDetailsFrag extends HelperFrags implements HttpresponseUpd 
     @OnClick(R.id.bd_add_one_next_btn)
     void oneNext() {
 
-        if (bd_add1_input.getText().toString().equals("")) {
+        InputMethodManager inputManager = (InputMethodManager) getActivity()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        // check if no view has focus:
+        View currentFocusedView = getActivity().getCurrentFocus();
+        if (currentFocusedView != null) {
+            inputManager.hideSoftInputFromWindow(currentFocusedView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+      /*  if (bd_add1_input.getText().toString().equals("")) {
             snackbar = Snackbar.make(Mroot, "Industry address cannot be blank!!!", Snackbar.LENGTH_LONG);
+            snackbar.show();*/
+        if (bd_name_input.getText().toString().equals("")) {
+
+            bd_name_input.setError("Industry name cannot be blank!!!");
+         /*   snackbar = Snackbar.make(Mroot, "Industry name cannot be blank!!!", Snackbar.LENGTH_LONG);
+            snackbar.show();*/
+        } else if (bd_phone_input.getText().toString().equals("")) {
+
+            bd_phone_input.setError("Industry phone number cannot be blank!!!");
+          /*  snackbar = Snackbar.make(Mroot, "Industry phone number cannot be blank!!!", Snackbar.LENGTH_LONG);
+
+            snackbar.show();*/
+        } else if (bd_industry_name_picker.getSelectedItemPosition() == 0) {
+            snackbar = Snackbar.make(Mroot, "Select Industry!!!", Snackbar.LENGTH_LONG);
             snackbar.show();
+        } else if (bd_add1_input.getText().toString().equals("")) {
+            bd_add1_input.setError("Industry address cannot be blank!!!");
+           /* snackbar = Snackbar.make(Mroot, "Industry address cannot be blank!!!", Snackbar.LENGTH_LONG);
+            snackbar.show();*/
+
         } else {
 
             saveData(bd_add1_input.getText().toString(), 0);
-
         }
     }
 
 
+    @OnClick({R.id.bd_add1_get_current_location_iv, R.id.bd_add2_get_current_location_iv, R.id.bd_add3_get_current_location_iv, R.id.bd_add4_get_current_location_iv,
+            R.id.bd_add5_get_current_location_iv})
+    void onClick(View view) {
+        switch (view.getId()) {
+
+            case R.id.bd_add1_get_current_location_iv:
+                getCurrentLocation();
+                break;
+            case R.id.bd_add2_get_current_location_iv:
+                bd_add2_input.setText("" + AppConstants.app_data.getString("address", "Life On Internet"));
+                break;
+            case R.id.bd_add3_get_current_location_iv:
+                bd_add3_input.setText("" + AppConstants.app_data.getString("address", "Life On Internet"));
+                break;
+            case R.id.bd_add4_get_current_location_iv:
+                bd_add4_input.setText("" + AppConstants.app_data.getString("address", "Life On Internet"));
+                break;
+            case R.id.bd_add5_get_current_location_iv:
+                bd_add5_input.setText("" + AppConstants.app_data.getString("address", "Life On Internet"));
+                break;
+
+        }
+    }
+
+    private void getCurrentLocation() {
+
+        bd_add1_input.setText("" + AppConstants.app_data.getString("address", "Life On Internet"));
+    }
+
     // 2nd next button
     @OnClick(R.id.bd_add_two_next_btn)
     void twoNext() {
-        if (bd_add2_input.getText().toString().equals("")) {
 
+        InputMethodManager inputManager = (InputMethodManager) getActivity()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        // check if no view has focus:
+        View currentFocusedView = getActivity().getCurrentFocus();
+        if (currentFocusedView != null) {
+            inputManager.hideSoftInputFromWindow(currentFocusedView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+
+          /*  if (bd_add1_input.getText().toString().equals("")) {
             snackbar = Snackbar.make(Mroot, "Industry address cannot be blank!!!", Snackbar.LENGTH_LONG);
+            snackbar.show();*/
+        if (bd_name_input.getText().toString().equals("")) {
+
+            bd_name_input.setError("Industry name cannot be blank!!!");
+         /*   snackbar = Snackbar.make(Mroot, "Industry name cannot be blank!!!", Snackbar.LENGTH_LONG);
+
+            snackbar.show();*/
+        } else if (bd_phone_input.getText().toString().equals("")) {
+
+            bd_phone_input.setError("Industry phone number cannot be blank!!!");
+          /*  snackbar = Snackbar.make(Mroot, "Industry phone number cannot be blank!!!", Snackbar.LENGTH_LONG);
+
+            snackbar.show();*/
+        } else if (bd_industry_name_picker.getSelectedItemPosition() == 0) {
+            snackbar = Snackbar.make(Mroot, "Select Industry!!!", Snackbar.LENGTH_LONG);
             snackbar.show();
+        } else if (bd_add2_input.getText().toString().equals("")) {
+
+            bd_add2_input.setError("Industry address cannot be blank!!!");
+/*
+            snackbar = Snackbar.make(Mroot, "Industry address cannot be blank!!!", Snackbar.LENGTH_LONG);
+            snackbar.show();*/
 
         } else {
 
@@ -259,9 +570,37 @@ public class BusinessDetailsFrag extends HelperFrags implements HttpresponseUpd 
     // 3rd next button
     @OnClick(R.id.bd_add_three_next_btn)
     void threeNext() {
-        if (bd_add3_input.getText().toString().equals("")) {
+
+        InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        // check if no view has focus:
+        View currentFocusedView = getActivity().getCurrentFocus();
+        if (currentFocusedView != null) {
+            inputManager.hideSoftInputFromWindow(currentFocusedView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+          /*  if (bd_add1_input.getText().toString().equals("")) {
             snackbar = Snackbar.make(Mroot, "Industry address cannot be blank!!!", Snackbar.LENGTH_LONG);
+            snackbar.show();*/
+        if (bd_name_input.getText().toString().equals("")) {
+
+            bd_name_input.setError("Industry name cannot be blank!!!");
+         /*   snackbar = Snackbar.make(Mroot, "Industry name cannot be blank!!!", Snackbar.LENGTH_LONG);
+
+            snackbar.show();*/
+        } else if (bd_phone_input.getText().toString().equals("")) {
+
+            bd_phone_input.setError("Industry phone number cannot be blank!!!");
+          /*  snackbar = Snackbar.make(Mroot, "Industry phone number cannot be blank!!!", Snackbar.LENGTH_LONG);
+
+            snackbar.show();*/
+        } else if (bd_industry_name_picker.getSelectedItemPosition() == 0) {
+            snackbar = Snackbar.make(Mroot, "Select Industry!!!", Snackbar.LENGTH_LONG);
             snackbar.show();
+        } else if (bd_add3_input.getText().toString().equals("")) {
+
+            bd_add3_input.setError("Industry address cannot be blank!!!");
+           /* snackbar = Snackbar.make(Mroot, "Industry address cannot be blank!!!", Snackbar.LENGTH_LONG);
+            snackbar.show();*/
         } else {
 
             saveData(bd_add3_input.getText().toString(), 2);
@@ -273,23 +612,74 @@ public class BusinessDetailsFrag extends HelperFrags implements HttpresponseUpd 
     // 4th next button
     @OnClick(R.id.bd_add_four_next_btn)
     void fourNext() {
-        if (bd_add4_input.getText().toString().equals("")) {
+        InputMethodManager inputManager = (InputMethodManager) getActivity()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        // check if no view has focus:
+        View currentFocusedView = getActivity().getCurrentFocus();
+        if (currentFocusedView != null) {
+            inputManager.hideSoftInputFromWindow(currentFocusedView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+          /*  if (bd_add1_input.getText().toString().equals("")) {
             snackbar = Snackbar.make(Mroot, "Industry address cannot be blank!!!", Snackbar.LENGTH_LONG);
+            snackbar.show();*/
+        if (bd_name_input.getText().toString().equals("")) {
+
+            bd_name_input.setError("Industry name cannot be blank!!!");
+         /*   snackbar = Snackbar.make(Mroot, "Industry name cannot be blank!!!", Snackbar.LENGTH_LONG);
+
+            snackbar.show();*/
+        } else if (bd_phone_input.getText().toString().equals("")) {
+
+            bd_phone_input.setError("Industry phone number cannot be blank!!!");
+          /*  snackbar = Snackbar.make(Mroot, "Industry phone number cannot be blank!!!", Snackbar.LENGTH_LONG);
+            snackbar.show();*/
+        } else if (bd_industry_name_picker.getSelectedItemPosition() == 0) {
+            snackbar = Snackbar.make(Mroot, "Select Industry!!!", Snackbar.LENGTH_LONG);
             snackbar.show();
+        } else if (bd_add4_input.getText().toString().equals("")) {
+            bd_add4_input.setError("Industry address cannot be blank!!!");
+          /*  snackbar = Snackbar.make(Mroot, "Industry address cannot be blank!!!", Snackbar.LENGTH_LONG);
+            snackbar.show();*/
         } else {
-
             saveData(bd_add4_input.getText().toString(), 3);
-
         }
     }
-
 
     // 5th next button
     @OnClick(R.id.bd_add_fifth_next_btn)
     void fifthNext() {
-        if (bd_add5_input.getText().toString().equals("")) {
+        InputMethodManager inputManager = (InputMethodManager) getActivity()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        // check if no view has focus:
+        View currentFocusedView = getActivity().getCurrentFocus();
+        if (currentFocusedView != null) {
+            inputManager.hideSoftInputFromWindow(currentFocusedView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+          /*  if (bd_add1_input.getText().toString().equals("")) {
             snackbar = Snackbar.make(Mroot, "Industry address cannot be blank!!!", Snackbar.LENGTH_LONG);
+            snackbar.show();*/
+        if (bd_name_input.getText().toString().equals("")) {
+
+            bd_name_input.setError("Industry name cannot be blank!!!");
+         /*   snackbar = Snackbar.make(Mroot, "Industry name cannot be blank!!!", Snackbar.LENGTH_LONG);
+
+            snackbar.show();*/
+        } else if (bd_phone_input.getText().toString().equals("")) {
+
+            bd_phone_input.setError("Industry phone number cannot be blank!!!");
+          /*  snackbar = Snackbar.make(Mroot, "Industry phone number cannot be blank!!!", Snackbar.LENGTH_LONG);
+
+            snackbar.show();*/
+        } else if (bd_industry_name_picker.getSelectedItemPosition() == 0) {
+            snackbar = Snackbar.make(Mroot, "Select Industry!!!", Snackbar.LENGTH_LONG);
             snackbar.show();
+        } else if (bd_add5_input.getText().toString().equals("")) {
+
+            bd_add5_input.setError("Industry address cannot be blank!!!");
+           /* snackbar = Snackbar.make(Mroot, "Industry address cannot be blank!!!", Snackbar.LENGTH_LONG);
+            snackbar.show();*/
         } else {
 
             saveData(bd_add5_input.getText().toString(), 4);
@@ -438,7 +828,7 @@ public class BusinessDetailsFrag extends HelperFrags implements HttpresponseUpd 
 
             snackbar.show();
 
-        } else {
+        } else if (postTag.equalsIgnoreCase("getIndustry")) {
 
             try {
                 //parse data
@@ -459,12 +849,10 @@ public class BusinessDetailsFrag extends HelperFrags implements HttpresponseUpd 
 
                 }
 
-
                 ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>
                         (getActivity(), android.R.layout.simple_spinner_item,
                                 industry_name_array); //selected item will look like a spinner set from XML
-                spinnerArrayAdapter.setDropDownViewResource(android.R.layout
-                        .simple_spinner_dropdown_item);
+                spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 bd_industry_name_picker.setAdapter(spinnerArrayAdapter);
 
                 if (bundle.getString("src").equals("def")) {
@@ -516,6 +904,193 @@ public class BusinessDetailsFrag extends HelperFrags implements HttpresponseUpd 
             }
 
 
+        } else if (postTag.equalsIgnoreCase("address_search")) {
+            Log.e("res_address", response);
+            try {
+                JSONObject obj = new JSONObject(response);
+                JSONArray ja = obj.getJSONArray("predictions");
+                Log.d("BDF", "ja" + ja.length());
+
+                for (int i = 0; i < ja.length(); i++) {
+                    JSONObject c = ja.getJSONObject(i);
+                    String description = c.getString("description");
+
+                    Log.d("BDF", "description" + description);
+
+                    address_list.add(description);
+                }
+                Log.d("BDF", "address_list" + address_list.size());
+                autocomplete_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, address_list) {
+                    @Override
+                    public View getView(int position,
+                                        View convertView, ViewGroup parent) {
+                        View view = super.getView(position,
+                                convertView, parent);
+                        TextView text = (TextView) view
+                                .findViewById(android.R.id.text1);
+                        text.setTextColor(Color.BLACK);
+                        return view;
+                    }
+                };
+
+                Log.e("array", address_list.size() + "---" + response);
+                bd_add1_input.setAdapter(autocomplete_adapter);
+                autocomplete_adapter.notifyDataSetChanged();
+            } catch (Exception e) {
+
+                Log.e("error", e.toString());
+            }
+        } else if (postTag.equalsIgnoreCase("address_search_2")) {
+            Log.e("res_address", response);
+            try {
+                JSONObject obj = new JSONObject(response);
+                JSONArray ja = obj.getJSONArray("predictions");
+                Log.d("BDF", "ja" + ja.length());
+
+                for (int i = 0; i < ja.length(); i++) {
+                    JSONObject c = ja.getJSONObject(i);
+                    String description = c.getString("description");
+
+                    Log.d("BDF", "description" + description);
+
+                    address_list.add(description);
+                }
+                Log.d("BDF", "address_list" + address_list.size());
+                autocomplete_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, address_list) {
+                    @Override
+                    public View getView(int position,
+                                        View convertView, ViewGroup parent) {
+                        View view = super.getView(position,
+                                convertView, parent);
+                        TextView text = (TextView) view
+                                .findViewById(android.R.id.text1);
+                        text.setTextColor(Color.BLACK);
+                        return view;
+                    }
+                };
+
+                Log.e("array", address_list.size() + "---" + response);
+                bd_add2_input.setAdapter(autocomplete_adapter);
+                autocomplete_adapter.notifyDataSetChanged();
+            } catch (Exception e) {
+
+                Log.e("error", e.toString());
+            }
+
+        } else if (postTag.equalsIgnoreCase("address_search_3")) {
+            Log.e("res_address", response);
+            try {
+                JSONObject obj = new JSONObject(response);
+                JSONArray ja = obj.getJSONArray("predictions");
+                Log.d("BDF", "ja" + ja.length());
+
+                for (int i = 0; i < ja.length(); i++) {
+                    JSONObject c = ja.getJSONObject(i);
+                    String description = c.getString("description");
+
+                    Log.d("BDF", "description" + description);
+
+                    address_list.add(description);
+                }
+                Log.d("BDF", "address_list" + address_list.size());
+                autocomplete_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, address_list) {
+                    @Override
+                    public View getView(int position,
+                                        View convertView, ViewGroup parent) {
+                        View view = super.getView(position,
+                                convertView, parent);
+                        TextView text = (TextView) view
+                                .findViewById(android.R.id.text1);
+                        text.setTextColor(Color.BLACK);
+                        return view;
+                    }
+                };
+
+                Log.e("array", address_list.size() + "---" + response);
+                bd_add3_input.setAdapter(autocomplete_adapter);
+                autocomplete_adapter.notifyDataSetChanged();
+            } catch (Exception e) {
+
+                Log.e("error", e.toString());
+            }
+
+        } else if (postTag.equalsIgnoreCase("address_search_4")) {
+            Log.e("res_address", response);
+            try {
+                JSONObject obj = new JSONObject(response);
+                JSONArray ja = obj.getJSONArray("predictions");
+                Log.d("BDF", "ja" + ja.length());
+
+                for (int i = 0; i < ja.length(); i++) {
+                    JSONObject c = ja.getJSONObject(i);
+                    String description = c.getString("description");
+
+                    Log.d("BDF", "description" + description);
+
+                    address_list.add(description);
+                }
+                Log.d("BDF", "address_list" + address_list.size());
+                autocomplete_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, address_list) {
+                    @Override
+                    public View getView(int position,
+                                        View convertView, ViewGroup parent) {
+                        View view = super.getView(position,
+                                convertView, parent);
+                        TextView text = (TextView) view
+                                .findViewById(android.R.id.text1);
+                        text.setTextColor(Color.BLACK);
+                        return view;
+                    }
+                };
+
+                Log.e("array", address_list.size() + "---" + response);
+                bd_add4_input.setAdapter(autocomplete_adapter);
+                autocomplete_adapter.notifyDataSetChanged();
+            } catch (Exception e) {
+
+                Log.e("error", e.toString());
+            }
+
+        }else if (postTag.equalsIgnoreCase("address_search_5")) {
+            Log.e("res_address", response);
+            try {
+                JSONObject obj = new JSONObject(response);
+                JSONArray ja = obj.getJSONArray("predictions");
+                Log.d("BDF", "ja" + ja.length());
+
+                for (int i = 0; i < ja.length(); i++) {
+                    JSONObject c = ja.getJSONObject(i);
+                    String description = c.getString("description");
+
+                    Log.d("BDF", "description" + description);
+
+                    address_list.add(description);
+                }
+                Log.d("BDF", "address_list" + address_list.size());
+                autocomplete_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, address_list) {
+                    @Override
+                    public View getView(int position,
+                                        View convertView, ViewGroup parent) {
+                        View view = super.getView(position,
+                                convertView, parent);
+                        TextView text = (TextView) view
+                                .findViewById(android.R.id.text1);
+                        text.setTextColor(Color.BLACK);
+                        return view;
+                    }
+                };
+
+                Log.e("array", address_list.size() + "---" + response);
+                bd_add5_input.setAdapter(autocomplete_adapter);
+                autocomplete_adapter.notifyDataSetChanged();
+            } catch (Exception e) {
+
+                Log.e("error", e.toString());
+            }
+
         }
+
+
     }
+
 }

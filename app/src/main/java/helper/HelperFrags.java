@@ -54,6 +54,7 @@ import java.util.Locale;
 
 import r2stech.lifeoninternet.LandingActivity;
 import r2stech.lifeoninternet.R;
+import r2stech.lifeoninternet.utils.Sharedpreferences;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -173,10 +174,7 @@ public class HelperFrags extends Fragment {
                 }, mYear, mMonth, mDay);
 
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-
-
         datePickerDialog.show();
-
 
     }
 

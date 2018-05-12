@@ -1,26 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent_linear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:id="@+id/parent_linear"
-
-    >
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bd_scroll">
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/dark_grey">
-
-
-
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -29,389 +13,458 @@
 
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="25dp"
             android:id="@+id/bd_back_btn"
-            android:src="@drawable/leftarrow_white"
-            android:layout_centerVertical="true"/>
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:background="?selectableItemBackground"
+            android:padding="10dp"
+            android:src="@drawable/leftarrow_white" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/bd_back_btn"
-            android:text="Business Details"
-            android:textSize="@dimen/text_large"
-            android:textColor="@color/white"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
             android:gravity="center"
-            android:layout_centerVertical="true"/>
-
+            android:text="Business Details"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_large" />
 
 
     </RelativeLayout>
 
-    <RelativeLayout
+    <ScrollView
+        android:id="@+id/bd_scroll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        >
+        android:layout_height="wrap_content">
 
-        <android.support.design.widget.TextInputLayout
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            >
+            android:background="@color/dark_grey"
+            android:orientation="vertical">
 
-            <EditText
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Business Name"
-                android:backgroundTint="@null"
-                android:inputType="text"
-                android:imeOptions="actionNext"
-                android:textSize="@dimen/text_medium"
-                android:id="@+id/bd_name_input"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                />
+                android:background="@color/white">
 
-        </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="8dp">
+
+                    <EditText
+                        android:id="@+id/bd_name_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Business Name"
+                        android:imeOptions="actionNext"
+                        android:inputType="textCapWords"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="10dp"
+                        android:textSize="@dimen/text_medium" />
+
+                </android.support.design.widget.TextInputLayout>
 
 
-    </RelativeLayout>
+            </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:layout_marginTop="1dp"
-        >
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-
-            <EditText
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Mobile Number"
-                android:backgroundTint="@null"
-                android:inputType="number"
-                android:id="@+id/bd_phone_input"
-                android:maxLength="10"
-                android:imeOptions="actionNext"
-                android:textSize="@dimen/text_medium"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                />
+                android:layout_marginTop="1dp"
+                android:background="@color/white">
 
-        </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="5dp">
+
+                    <EditText
+                        android:id="@+id/bd_phone_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@null"
+                        android:hint="Mobile Number"
+                        android:imeOptions="actionNext"
+                        android:inputType="phone"
+                        android:maxLength="10"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="10dp"
+                        android:textSize="@dimen/text_medium" />
+
+                </android.support.design.widget.TextInputLayout>
 
 
-    </RelativeLayout>
+            </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="1dp"
-        >
-
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white">
 
 
-            <Spinner
+                <Spinner
+                    android:id="@+id/bd_industry_name_picker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textSize="@dimen/text_small" />
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/bd_industry_name_picker"
-                android:backgroundTint="@null"
-                android:textSize="@dimen/text_medium"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                />
+                android:background="@color/white"
+                android:paddingBottom="5dp"
+                android:paddingTop="20dp">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/dark_grey"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="5dp"
+                    android:text="Address"
+                    android:textSize="@dimen/text_medium" />
+
+                <TextView
+                    android:id="@+id/bd_add_more_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingBottom="5dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="5dp"
+                    android:text="+ Add More"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/text_medium"
+
+                    />
+
+
+            </RelativeLayout>
+
+            //add 1st
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:background="@color/white">
+
+                <AutoCompleteTextView
+                    android:id="@+id/bd_add1_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@id/bd_add_one_next_btn"
+                    android:hint="Address 1"
+                    android:imeOptions="actionDone"
+                    android:inputType="textMultiLine"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="10dp"
+                    android:textSize="@dimen/text_medium" />
+
+                <TextView
+                    android:id="@+id/bd_add_one_next_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:padding="5dp"
+                    android:text="NEXT"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/text_small" />
+
+
+            </RelativeLayout>
+                <ImageView
+                    android:id="@+id/bd_add1_get_current_location_iv"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="18dp"
+                    android:padding="5dp"
+                    android:src="@drawable/location_icn_blue" />
+               </LinearLayout>
+
+
+            // add 2nd
+
+            <RelativeLayout
+                android:id="@+id/bd_add2_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:background="@color/white"
+                android:paddingTop="10dp"
+                android:visibility="gone">
+
+                <AutoCompleteTextView
+                    android:id="@+id/bd_add2_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toLeftOf="@id/bd_add_two_next_btn"
+                    android:hint="Address 2"
+                    android:imeOptions="actionDone"
+                    android:inputType="textMultiLine"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="10dp"
+                    android:textSize="@dimen/text_medium" />
+
+                <TextView
+                    android:id="@+id/bd_add_two_next_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:padding="5dp"
+                    android:text="NEXT"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/text_small" />
+
+                <ImageView
+                    android:id="@+id/bd_add2_get_current_location_iv"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="18dp"
+                    android:layout_below="@+id/bd_add2_input"
+                    android:padding="5dp"
+                    android:src="@drawable/location_icn_blue" />
+
+
+                <ImageView
+                    android:id="@+id/bd_add_two_delete_btn"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/bd_add2_input"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="5dp"
+                    android:padding="5dp"
+                    android:src="@drawable/close_smallicn" />
+
+
+            </RelativeLayout>
+
+
+            //add 3rd
+
+            <RelativeLayout
+                android:id="@+id/bd_add3_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:background="@color/white"
+                android:paddingTop="10dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/bd_add_three_next_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:padding="5dp"
+                    android:text="NEXT"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/text_small" />
+
+                <ImageView
+                    android:id="@+id/bd_add_three_delete_btn"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/bd_add3_input"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="5dp"
+                    android:padding="5dp"
+                    android:src="@drawable/close_smallicn" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/bd_add3_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="15dp"
+                    android:backgroundTint="@null"
+                    android:hint="Address 3"
+                    android:imeOptions="actionDone"
+                    android:inputType="textMultiLine"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="10dp"
+                    android:textSize="@dimen/text_medium" />
+                <ImageView
+                    android:id="@+id/bd_add3_get_current_location_iv"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="18dp"
+                    android:layout_below="@id/bd_add3_input"
+                    android:padding="5dp"
+                    android:src="@drawable/location_icn_blue" />
+
+
+            </RelativeLayout>
+
+            // add 4th
+
+            <RelativeLayout
+                android:id="@+id/bd_add4_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:background="@color/white"
+                android:paddingTop="10dp"
+                android:visibility="gone">
+
+                <AutoCompleteTextView
+                    android:id="@+id/bd_add4_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toLeftOf="@+id/bd_add_four_next_btn"
+                    android:backgroundTint="@null"
+                    android:hint="Address 4"
+                    android:imeOptions="actionDone"
+                    android:inputType="textMultiLine"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="10dp"
+                    android:textSize="@dimen/text_medium" />
+
+                <TextView
+                    android:id="@+id/bd_add_four_next_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:padding="5dp"
+                    android:text="NEXT"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/text_small" />
+
+                <ImageView
+                    android:id="@+id/bd_add_four_delete_btn"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:padding="5dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/bd_add4_input"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/close_smallicn" />
+                <ImageView
+                    android:id="@+id/bd_add4_get_current_location_iv"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="18dp"
+                    android:layout_below="@id/bd_add4_input"
+                    android:padding="5dp"
+                    android:src="@drawable/location_icn_blue" />
+
+
+            </RelativeLayout>
+
+            // add 5th
+
+            <RelativeLayout
+                android:id="@+id/bd_add5_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:background="@color/white"
+                android:paddingTop="10dp"
+                android:visibility="gone">
+
+                <AutoCompleteTextView
+                    android:id="@+id/bd_add5_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toLeftOf="@id/bd_add_fifth_next_btn"
+                    android:hint="Address 5"
+                    android:imeOptions="actionDone"
+                    android:inputType="textMultiLine"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="10dp"
+                    android:textSize="@dimen/text_medium" />
+
+                <TextView
+                    android:id="@+id/bd_add_fifth_next_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:padding="5dp"
+                    android:text="NEXT"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/text_small" />
+
+                <ImageView
+                    android:id="@+id/bd_add_five_delete_btn"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:padding="5dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/bd_add5_input"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/close_smallicn" />
+
+                <ImageView
+                    android:id="@+id/bd_add5_get_current_location_iv"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="18dp"
+                    android:layout_below="@id/bd_add5_input"
+                    android:padding="5dp"
+                    android:src="@drawable/location_icn_blue" />
 
 
 
-    </RelativeLayout>
+            </RelativeLayout>
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
-        >
-
-
-         <TextView
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:text="Address"
-             android:textSize="@dimen/text_medium"
-             android:paddingLeft="20dp"
-             android:paddingTop="5dp"
-             android:paddingBottom="5dp"
-             android:background="@color/dark_grey"
-             />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+ Add More"
-            android:textSize="@dimen/text_medium"
-            android:paddingRight="20dp"
-            android:paddingTop="5dp"
-            android:id="@+id/bd_add_more_btn"
-            android:paddingBottom="5dp"
-            android:textColor="@color/blue"
-            android:layout_alignParentRight="true"
-
-            />
-
-
-
-    </RelativeLayout>
-
-    //add 1st
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:layout_marginBottom="1dp">
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Address 1"
-            android:backgroundTint="@null"
-            android:inputType="text"
-            android:imeOptions="actionDone"
-            android:textSize="@dimen/text_medium"
-            android:id="@+id/bd_add1_input"
-            android:layout_centerVertical="true"
-            android:paddingLeft="20dp"
-            android:paddingRight="10dp"
-            android:layout_toLeftOf="@+id/bd_add_one_next_btn"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="NEXT"
-            android:textColor="@color/blue"
-            android:textSize="@dimen/text_large"
-            android:layout_centerVertical="true"
-            android:id="@+id/bd_add_one_next_btn"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"/>
-
-
-
-
-
-    </RelativeLayout>
-
-    // add 2nd
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:visibility="invisible"
-        android:id="@+id/bd_add2_layout"
-        android:layout_marginBottom="1dp"
-        android:paddingTop="10dp"
-        >
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Address 2"
-            android:backgroundTint="@null"
-            android:inputType="text"
-            android:imeOptions="actionDone"
-            android:textSize="@dimen/text_medium"
-            android:id="@+id/bd_add2_input"
-            android:paddingLeft="20dp"
-            android:paddingRight="10dp"
-            android:layout_toLeftOf="@+id/bd_add_two_next_btn"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="NEXT"
-            android:textSize="@dimen/text_large"
-            android:textColor="@color/blue"
-            android:id="@+id/bd_add_two_next_btn"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"/>
-
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/bd_add2_input"
-            android:id="@+id/bd_add_two_delete_btn"
-            android:src="@drawable/close_smallicn"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
-            />
-
-
-    </RelativeLayout>
-
-
-    //add 3rd
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:visibility="invisible"
-        android:id="@+id/bd_add3_layout"
-        android:layout_marginBottom="1dp"
-        android:paddingTop="10dp"
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="NEXT"
-            android:textSize="@dimen/text_large"
-            android:textColor="@color/blue"
-            android:id="@+id/bd_add_three_next_btn"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"/>
-
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/bd_add3_input"
-            android:id="@+id/bd_add_three_delete_btn"
-            android:src="@drawable/close_smallicn"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
-            />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Address 3"
-            android:backgroundTint="@null"
-            android:inputType="text"
-            android:imeOptions="actionDone"
-            android:textSize="@dimen/text_medium"
-            android:id="@+id/bd_add3_input"
-            android:paddingLeft="20dp"
-            android:paddingRight="10dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-    </RelativeLayout>
-
-    // add 4th
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:visibility="invisible"
-        android:id="@+id/bd_add4_layout"
-        android:layout_marginBottom="1dp"
-        android:paddingTop="10dp"
-        >
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Address 4"
-            android:backgroundTint="@null"
-            android:inputType="text"
-            android:imeOptions="actionDone"
-            android:textSize="@dimen/text_medium"
-            android:id="@+id/bd_add4_input"
-            android:paddingLeft="20dp"
-            android:paddingRight="10dp"
-            android:layout_toLeftOf="@+id/bd_add_four_next_btn"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="NEXT"
-            android:textColor="@color/blue"
-            android:textSize="@dimen/text_large"
-            android:id="@+id/bd_add_four_next_btn"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"/>
-
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/bd_add4_input"
-            android:id="@+id/bd_add_four_delete_btn"
-            android:src="@drawable/close_smallicn"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
-            />
-
-
-    </RelativeLayout>
-
-    // add 5th
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:visibility="invisible"
-        android:id="@+id/bd_add5_layout"
-        android:layout_marginBottom="1dp"
-        android:paddingTop="10dp"
-        >
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Address 5"
-            android:backgroundTint="@null"
-            android:inputType="text"
-            android:imeOptions="actionDone"
-            android:textSize="@dimen/text_medium"
-            android:id="@+id/bd_add5_input"
-            android:paddingLeft="20dp"
-            android:paddingRight="10dp"
-            android:layout_toLeftOf="@+id/bd_add_fifth_next_btn"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="NEXT"
-            android:textColor="@color/blue"
-            android:textSize="@dimen/text_large"
-            android:id="@+id/bd_add_fifth_next_btn"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"/>
-
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/bd_add5_input"
-            android:id="@+id/bd_add_five_delete_btn"
-            android:src="@drawable/close_smallicn"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
-            />
-
-
-    </RelativeLayout>
-
-
-
-
-    </LinearLayout>
+        </LinearLayout>
 
     </ScrollView>
 

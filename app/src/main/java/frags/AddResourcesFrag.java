@@ -29,6 +29,7 @@ import models.ResourceSpecification;
 import models.StaffData;
 import r2stech.lifeoninternet.LandingActivity;
 import r2stech.lifeoninternet.R;
+import r2stech.lifeoninternet.utils.Utils;
 
 /**
  * Created by teknik on 10/4/2017.
@@ -74,6 +75,7 @@ public class AddResourcesFrag extends HelperFrags implements HttpresponseUpd {
 
 
 
+
         res_spec_array.add(new ResourceSpecification("",""));
 
         LandingActivity.res_data_array = new ArrayList<>();
@@ -94,7 +96,7 @@ public class AddResourcesFrag extends HelperFrags implements HttpresponseUpd {
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("http")
                 .authority("lifeoninternet.com")
-                .appendPath("new_service")
+                .appendPath(Utils.stringBuilder())
                 .appendPath("api.php")
                 .appendQueryParameter("action", "resourceList")
                 .appendQueryParameter("address_id",LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos")).getAddress_id());
@@ -132,13 +134,15 @@ public class AddResourcesFrag extends HelperFrags implements HttpresponseUpd {
         Bundle _bundle =   new Bundle();
 
         _bundle.putInt("create_pos",bundle.getInt("create_pos"));
+        _bundle.putInt("address_id",bundle.getInt("address_id"));
+        _bundle.putInt("business_id",bundle.getInt("business_id"));
 
         replaceFrag(new AddServiceFrag(), _bundle , AddResourcesFrag.class.getName());
 
     }
 
 
-    @OnClick(R.id.add_res_btn)
+   /* @OnClick(R.id.add_res_btn)
     void addRes(){
 
         Bundle _bundle =   new Bundle();
@@ -206,7 +210,7 @@ public class AddResourcesFrag extends HelperFrags implements HttpresponseUpd {
 
 
     }
-
+*/
     @OnClick(R.id.add_res_back_btn)
     void backGo(){
         getActivity().onBackPressed();

@@ -28,6 +28,7 @@ import models.ResourceSpecification;
 import models.SpecQTYDATA;
 import r2stech.lifeoninternet.LandingActivity;
 import r2stech.lifeoninternet.R;
+import r2stech.lifeoninternet.utils.Utils;
 
 /**
  * Created by teknik on 10/10/2017.
@@ -172,7 +173,7 @@ public class ResSpecManageFrag extends HelperFrags implements HttpresponseUpd {
                 Uri.Builder builder = new Uri.Builder();
                 builder.scheme("http")
                         .authority("lifeoninternet.com")
-                        .appendPath("new_service")
+                        .appendPath(Utils.stringBuilder())
                         .appendPath("api.php")
                         .appendQueryParameter("action", "createPosition")
                         .appendQueryParameter("resource_id", LandingActivity.res_data_array.get(bundle.getInt("pos")).getRes_id())

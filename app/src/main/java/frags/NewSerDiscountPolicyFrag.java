@@ -30,6 +30,7 @@ import models.CancelPolicyData;
 import models.DiscountPolicyData;
 import r2stech.lifeoninternet.LandingActivity;
 import r2stech.lifeoninternet.R;
+import r2stech.lifeoninternet.utils.Utils;
 
 /**
  * Created by teknik on 10/6/2017.
@@ -39,10 +40,6 @@ public class NewSerDiscountPolicyFrag extends HelperFrags implements Httprespons
 
 
     private View Mroot;
-
-
-
-
 
     @BindView(R.id.discount_policy_classno_input)
     EditText discount_policy_classno_input;
@@ -89,7 +86,7 @@ public class NewSerDiscountPolicyFrag extends HelperFrags implements Httprespons
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("http")
                 .authority("lifeoninternet.com")
-                .appendPath("new_service")
+                .appendPath(Utils.stringBuilder())
                 .appendPath("api.php")
                 .appendQueryParameter("action", "getDiscount")
                 .appendQueryParameter("service_id", bundle.getString("ser_id"))
@@ -205,7 +202,7 @@ public class NewSerDiscountPolicyFrag extends HelperFrags implements Httprespons
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("http")
                 .authority("lifeoninternet.com")
-                .appendPath("new_service")
+                .appendPath(Utils.stringBuilder())
                 .appendPath("api.php")
                 .appendQueryParameter("action", "createDiscount")
                 .appendQueryParameter("service_id", bundle.getString("ser_id"))

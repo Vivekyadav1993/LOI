@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="r2stech.lifeoninternet.VenderDetailsActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/hesder_bg">
+
+
+            <ImageView
+                android:id="@+id/company_details_upload_back_btn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:src="@drawable/leftarrow_white" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_large" />
+
+            <TextView
+                android:id="@+id/upload_company_details_upload_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:padding="10dp"
+                android:text="Upload"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_large" />
+
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/company_details_profile_ivvv"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rectangle_background_border"
+            android:scaleType="fitXY" />
+
+        <EditText
+            android:id="@+id/company_details_upload_company_email_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:hint="Enter Business Email"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="" />
+
+        <EditText
+            android:id="@+id/company_details_upload_company_name_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:hint="Enter business number"
+            android:imeOptions="actionNext"
+            android:inputType="phone"
+            android:maxLength="10"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="" />
+
+        <EditText
+            android:id="@+id/company_details_upload_company_key_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:hint="Enter Key"
+            android:imeOptions="actionNext"
+            android:inputType="textMultiLine"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="" />
+
+        <EditText
+            android:id="@+id/company_details_upload_company_description_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:gravity="top|left"
+            android:hint="Description"
+            android:imeOptions="actionDone"
+            android:inputType="textMultiLine"
+            android:maxLines="15"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+
+    </LinearLayout>
+
+</ScrollView>

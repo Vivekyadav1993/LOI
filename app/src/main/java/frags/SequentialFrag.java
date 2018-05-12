@@ -37,7 +37,7 @@ import r2stech.lifeoninternet.R;
  * Created by teknik on 10/10/2017.
  */
 
-public class SequentialFrag extends HelperFrags implements HttpresponseUpd {
+public class SequentialFrag extends HelperFrags /*implements HttpresponseUpd */{
 
     private View Mroot;
 
@@ -69,14 +69,14 @@ public class SequentialFrag extends HelperFrags implements HttpresponseUpd {
         Mroot = inflater.inflate(R.layout.sequential_screen , null);
         ButterKnife.bind(this , Mroot);
 
-        callback = this;
+      //  callback = this;
 
         bundle = getArguments();
 
         // get service api
         //hit get service api
         //hit api
-        Uri.Builder builder = new Uri.Builder();
+     /*   Uri.Builder builder = new Uri.Builder();
         builder.scheme("http")
                 .authority("lifeoninternet.com")
                 .appendPath("new_service")
@@ -96,12 +96,6 @@ public class SequentialFrag extends HelperFrags implements HttpresponseUpd {
             snackbar.show();
 
         }
-
-
-
-
-
-
         seq_btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -122,7 +116,7 @@ public class SequentialFrag extends HelperFrags implements HttpresponseUpd {
             }
         });
 
-
+*/
         return Mroot;
     }
 
@@ -137,21 +131,12 @@ public class SequentialFrag extends HelperFrags implements HttpresponseUpd {
         JSONArray arrForA =  new JSONArray();
 
         try {
-
-
-
             //prepare item array for "A"
-
-
-
 
             for (int i = 0; i <data.size() ; i++) {
                 JSONObject itemA = new JSONObject();
                 itemA.put("position",data.get(i).getSer_id());
                 itemA.put("service_id", data.get(i).getSer_id());
-
-
-
 
                 arrForA.put(itemA);
             }
@@ -174,15 +159,14 @@ public class SequentialFrag extends HelperFrags implements HttpresponseUpd {
         // hit create api
         //hit get service api
         //hit api
-        Uri.Builder builder = new Uri.Builder();
+      /*  Uri.Builder builder = new Uri.Builder();
         builder.scheme("http")
                 .authority("lifeoninternet.com")
                 .appendPath("new_service")
                 .appendPath("api.php")
                 .appendQueryParameter("action", "serviceSequence")
                 .appendQueryParameter("address_id", bundle.getString("add_id"))
-                .appendQueryParameter("servicesequence",
-                        arrForA.toString())
+                .appendQueryParameter("servicesequence", arrForA.toString())
 
         ;
 
@@ -192,15 +176,11 @@ public class SequentialFrag extends HelperFrags implements HttpresponseUpd {
             AppUtils.getStringData(builder.build().toString(), getActivity(), callback);}
         else {
             snackbar = Snackbar.make(Mroot, "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
-
             snackbar.show();
-
         }
+*/    }
 
-
-    }
-
-    @Override
+  /*  @Override
     public void getResponse(String response) {
         Log.e("res", response);
 
@@ -219,16 +199,12 @@ public class SequentialFrag extends HelperFrags implements HttpresponseUpd {
 
                 service_name_array = new String[arr.length()];
 
-
-
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject obj = arr.getJSONObject(i);
 
                     service_name_array[i] = obj.getString("name");
 
                     data.add(new SequentialData(obj.getString("id"),0));
-
-
 
                 }
 
@@ -279,9 +255,7 @@ public class SequentialFrag extends HelperFrags implements HttpresponseUpd {
                 snackbar = Snackbar.make(Mroot, e.getMessage(), Snackbar.LENGTH_LONG);
                 snackbar.show();
             }
-
-
         }
 
-    }
+    }*/
 }

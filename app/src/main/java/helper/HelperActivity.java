@@ -135,10 +135,11 @@ protected String mLastUpdateTime;
         _savedInstanceState= savedInstanceState;
         updateValuesFromBundle(_savedInstanceState);
         // Kick off the process of building the GoogleApiClient, LocationRequest, and
-        // LocationSettingsRequest objects.
+         LocationSettingsRequest objects;
         buildGoogleApiClient();
         createLocationRequest();
         buildLocationSettingsRequest();
+
 
     }
 
@@ -184,19 +185,11 @@ protected String mLastUpdateTime;
          loc_tag = "continue";
         _callback = callback;
         startUpdatesButtonHandler();
-
-
-
-
     }
 
     public void showMSg(String msg){
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
-
-
-
-
 
     public void getDate(final TextView text, final TextView text2){
         // Get Current Date
@@ -431,9 +424,6 @@ protected String mLastUpdateTime;
 
 
     }
-
-
-
 
     public void getTime(final TextView text , final String previousTime){
         // Get Current Time
@@ -670,8 +660,6 @@ protected String mLastUpdateTime;
     /**
      * Requests location updates from the FusedLocationApi.
      */
-
-
     protected void startLocationUpdates() {
         int permissionCheck = ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION);
 
@@ -702,8 +690,7 @@ protected String mLastUpdateTime;
 
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
         switch (requestCode) {
             case 1: {
                 // If request is cancelled, the result arrays are empty.
@@ -721,14 +708,8 @@ protected String mLastUpdateTime;
                 }
                 return;
             }
-
-
-
-
         }
     }
-
-
 /**
  * Disables both buttons when functionality is disabled due to insuffucient location settings.
  * Otherwise ensures that only one button is enabled at any time. The Start Updates button is
@@ -862,7 +843,6 @@ protected String mLastUpdateTime;
 
     // Method for fetch address
     public void calculateLatLongi(String url , final LocationUpd callback) {
-
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
                 url, new JSONObject(),

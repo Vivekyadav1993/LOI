@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,10 +41,13 @@ public class AddCategoryFrag extends HelperFrags implements HttpresponseUpd {
 
     private View Mroot;
 
+    @BindView(R.id.ctg_name_input)
+    public EditText ctg_name_input;
+
     @BindView(R.id.add_ctg_list)
     ListView add_ctg_list;
 
-    private int pos = 0 ;
+    private int pos = 0;
 
     private AddCtgAdap adapter;
 
@@ -51,21 +55,15 @@ public class AddCategoryFrag extends HelperFrags implements HttpresponseUpd {
 
     private Bundle bundle;
 
-    private  ArrayList<CategoryData> ser_category_array = new ArrayList<>();
-
-
+    private ArrayList<CategoryData> ser_category_array = new ArrayList<>();
     private Snackbar snackbar;
-
-    @BindView(R.id.ctg_name_input)
-    EditText ctg_name_input;
-
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-       Mroot = inflater.inflate(R.layout.add_category_screen, null);
-        ButterKnife.bind(this , Mroot);
+        Mroot = inflater.inflate(R.layout.add_category_screen, null);
+        ButterKnife.bind(this, Mroot);
 
 
         bundle = getArguments();
@@ -76,7 +74,7 @@ public class AddCategoryFrag extends HelperFrags implements HttpresponseUpd {
         add_ctg_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                bundle.putString("cat_id",ser_category_array.get(i).getId());
+                bundle.putString("cat_id", ser_category_array.get(i).getId());
 
                 replaceFrag(new NewCategoryFrag(), bundle, AddStaffFrag.class.getName());
 
@@ -110,42 +108,40 @@ public class AddCategoryFrag extends HelperFrags implements HttpresponseUpd {
     }
 
 
-
-    @OnClick(R.id.ctg_done_btn)
-    void done(){
-        if (ctg_name_input.getText().toString().equals("")){
-
-        }
-        else {
+    @OnClick(R.id.add_ctg_next_btn)
+    void done() {
+        if (ctg_name_input.getText().equals("") && ctg_name_input.getText().equals(null)) {
+            ctg_name_input.setError("Category can't be blank");
+            Toast.makeText(getContext(), "Done", Toast.LENGTH_SHORT).show();
+        } else if (!ctg_name_input.getText().equals(null)) {
+            Toast.makeText(getContext(), "D", Toast.LENGTH_SHORT).show();
             bundle.putString("cat_id", ctg_name_input.getText().toString());
-
             replaceFrag(new NewCategoryFrag(), bundle, AddStaffFrag.class.getName());
         }
     }
 
     @OnClick(R.id.add_ctg_btn)
-    void addRes(){
+    void addRes() {
 
         // go next page
-       replaceFrag(new NewCategoryFrag(), new Bundle(), AddCategoryFrag.class.getName());
+        replaceFrag(new NewCategoryFrag(), new Bundle(), AddCategoryFrag.class.getName());
 
 
     }
 
     @OnClick(R.id.add_ctg_back_btn)
-    void backGo(){
+    void backGo() {
         getActivity().onBackPressed();
     }
 
 
-    @OnClick(R.id.add_ctg_next_btn)
-    void next(){
+  /*  @OnClick(R.id.add_ctg_next_btn)
+    void next() {
         Bundle _bundle = new Bundle();
+        _bundle.putString("add_id", LandingActivity.service_data_array.get(bundle.getInt("pos")).getAdd_id());
+        replaceFrag(new AdDetailsEditFrag(), _bundle, AddCategoryFrag.class.getName());
 
-        _bundle.putString("add_id",LandingActivity.service_data_array.get(bundle.getInt("pos")).getAdd_id());
-        replaceFrag(new SequentialFrag() , _bundle ,AddCategoryFrag.class.getName() );
-
-    }
+    }*/
 
 
     @Override
@@ -156,8 +152,8 @@ public class AddCategoryFrag extends HelperFrags implements HttpresponseUpd {
 
 
         if (response.contains("Error :")) {
-            snackbar = Snackbar.make(Mroot, response, Snackbar.LENGTH_LONG);
 
+            snackbar = Snackbar.make(Mroot, response, Snackbar.LENGTH_LONG);
             snackbar.show();
 
         } else {
@@ -167,33 +163,21 @@ public class AddCategoryFrag extends HelperFrags implements HttpresponseUpd {
                 JSONObject main_obj = new JSONObject(response);
                 JSONArray arr = main_obj.getJSONArray("output");
 
+                ser_category_array.clear();
 
+                for (int j = 0; j < arr.length(); j++) {
+                    JSONObject obja = arr.getJSONObject(j);
+                    ser_category_array.add(new CategoryData(obja.getString("id"), obja.getString("title")));
+                }
 
-                        ser_category_array.clear();
+                // set staff list
+                adapter = new AddCtgAdap(getActivity(), ser_category_array);
 
-                        for (int j = 0; j <arr.length() ; j++) {
-                            JSONObject obja = arr.getJSONObject(j);
-
-                            ser_category_array.add(new CategoryData(obja.getString("id") , obja.getString("title")));
-
-                           }
-
-
-
-
-
-
-
-                    // set staff list
-                    adapter = new AddCtgAdap(getActivity() , ser_category_array);
-
-                    add_ctg_list.setAdapter(adapter);
-
-
-
+                add_ctg_list.setAdapter(adapter);
 
 
             } catch (JSONException e) {
+
                 snackbar = Snackbar.make(Mroot, e.getMessage(), Snackbar.LENGTH_LONG);
                 snackbar.show();
             }

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     // header layout
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -12,33 +14,33 @@
 
 
         <ImageView
+            android:id="@+id/seq_back_btn"
             android:layout_width="40dp"
             android:layout_height="25dp"
-            android:id="@+id/seq_back_btn"
-            android:src="@drawable/leftarrow_white"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:src="@drawable/leftarrow_white" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/seq_back_btn"
+            android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/seq_next_btn"
-            android:text="SEQUENTIAL"
-            android:textSize="@dimen/text_large"
-            android:textColor="@color/white"
+            android:layout_toRightOf="@+id/seq_back_btn"
             android:gravity="center"
-            android:layout_centerVertical="true"/>
+            android:text="SEQUENTIAL"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_large" />
 
         <TextView
+            android:id="@+id/seq_next_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:padding="5dp"
             android:text="DONE"
             android:textColor="@color/white"
-            android:id="@+id/seq_next_btn"
-            android:layout_alignParentRight="true"
-            android:textSize="@dimen/text_large"
-            android:padding="5dp"/>
+            android:textSize="@dimen/text_large" />
 
 
     </RelativeLayout>
@@ -47,32 +49,33 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
         android:layout_marginBottom="1dp"
+        android:background="@color/white"
         android:padding="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SEQUENTIAL"
-            android:textSize="@dimen/text_large"
             android:layout_alignParentLeft="true"
-
             android:layout_centerVertical="true"
-            android:textColor="@color/black"/>
+            android:text="SEQUENTIAL"
+
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_large" />
 
         <Switch
+            android:id="@+id/seq_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/seq_btn"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true" />
 
     </RelativeLayout>
-<ImageView
-    android:layout_width="match_parent"
-    android:layout_height="2dp"
-    android:background="@color/dark_grey"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/dark_grey" />
 
     <ListView
         android:id="@+id/seq_listview"
@@ -80,8 +83,7 @@
         android:layout_height="match_parent"
         android:divider="@null"
         android:dividerHeight="5dp"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
 
 
 </LinearLayout>

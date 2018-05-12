@@ -128,19 +128,9 @@ public class NewStaffWorkingHourFrag extends HelperFrags implements CompoundButt
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Mroot = inflater.inflate(R.layout.new_staff_working_time_screen,null);
         ButterKnife.bind(this, Mroot);
-
         bundle = getArguments();
-
         callback = this;
-
-
-
-
         staffData = LandingActivity.staff_data_array.get(bundle.getInt("pos"));
-
-
-
-
         newstaff_working_date_switch_btn.setOnCheckedChangeListener(this);
 
         newstaff_working_timemon_switch_btn.setOnCheckedChangeListener(this);
@@ -151,33 +141,13 @@ public class NewStaffWorkingHourFrag extends HelperFrags implements CompoundButt
         newstaff_working_timesat_switch_btn.setOnCheckedChangeListener(this);
         newstaff_working_timesun_switch_btn.setOnCheckedChangeListener(this);
 
-
-
         businessHourData = LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos"));
 
         Log.e("o",businessHourData.getDate_start()+"--");
 
-
-
-
-     /*   if (businessHourData.getDate_start().equals(businessHourData.getDate_end())){
-            newstaff_working_date_start_btn.setText(businessHourData.getDate_start());
-            newstaff_working_date_end_btn.setText(businessHourData.getDate_end());
-            newstaff_working_date_switch_btn.setChecked(false);
-            newstaff_working_date_switch_btn.setEnabled(false);
-
-        }
-        else{
-            newstaff_working_date_start_btn.setText(businessHourData.getDate_start());
-            newstaff_working_date_end_btn.setText(businessHourData.getDate_end());
-        }
-*/
-
-
-
-
         //check working day of address
-        if (businessHourData.getMon_start_time().equals("")||businessHourData.getMon_end_time().equals("")||businessHourData.getMon_start_time().equals("null")||businessHourData.getMon_end_time().equals("null")){
+        if (businessHourData.getMon_start_time().equals("")||businessHourData.getMon_end_time().equals("")||
+                businessHourData.getMon_start_time().equals("null")||businessHourData.getMon_end_time().equals("null")){
             newstaff_working_timemon_switch_btn.setChecked(false);
             newstaff_working_timemon_switch_btn.setEnabled(false);
 
@@ -210,382 +180,9 @@ public class NewStaffWorkingHourFrag extends HelperFrags implements CompoundButt
         }
           if (businessHourData.getSun_start_time().equals("")||businessHourData.getSun_end_time().equals("")||businessHourData.getSun_start_time().equals("null")||businessHourData.getSun_end_time().equals("null")){
             newstaff_working_timesun_switch_btn.setChecked(false);
-
             newstaff_working_timesun_switch_btn.setEnabled(false);
         }
-
-
-
         if (LandingActivity.staff==false){
-            // get current date
-          /*  newstaff_working_date_start_btn.setText(getcurrentDate());*/
-
-
-          /*  // set start and end date
-            if (businessHourData.getDate_start().equals(businessHourData.getDate_end())){
-                newstaff_working_date_start_btn.setText(businessHourData.getDate_start());
-                newstaff_working_date_end_btn.setText(businessHourData.getDate_end());
-                newstaff_working_date_switch_btn.setChecked(false);
-                newstaff_working_date_switch_btn.setEnabled(false                                                                                                                                                                                                                          );
-            }
-            else{
-                newstaff_working_date_start_btn.setText(businessHourData.getDate_start());
-                newstaff_working_date_end_btn.setText(businessHourData.getDate_end());
-                newstaff_working_date_switch_btn.setChecked(true);
-            }
-
-
-
-            if (!newstaff_working_date_end_btn.getText().toString().equals("End date")&&newstaff_working_date_switch_btn.isChecked()) {
-
-
-                ArrayList<String> day_array = getListDate(newstaff_working_date_start_btn.getText().toString(), newstaff_working_date_end_btn.getText().toString());
-                String day = "";
-                boolean mon = false, tue = false, wed = false, thr = false, fri = false, sat = false, sun = false;
-
-                if (day_array.size() == 0) {
-
-                } else {
-
-                    newstaff_working_timemon_switch_btn.setEnabled(false);
-                    newstaff_working_timemon_switch_btn.setChecked(false);
-
-                    newstaff_working_timetue_switch_btn.setEnabled(false);
-                    newstaff_working_timemon_switch_btn.setChecked(false);
-
-                    newstaff_working_timewed_switch_btn.setEnabled(false);
-                    newstaff_working_timetue_switch_btn.setChecked(false);
-
-                    newstaff_working_timewed_switch_btn.setEnabled(false);
-                    newstaff_working_timewed_switch_btn.setChecked(false);
-
-                    newstaff_working_timethr_switch_btn.setEnabled(false);
-                    newstaff_working_timethr_switch_btn.setChecked(false);
-
-                    newstaff_working_timefri_switch_btn.setEnabled(false);
-                    newstaff_working_timefri_switch_btn.setChecked(false);
-
-                    newstaff_working_timesat_switch_btn.setEnabled(false);
-                    newstaff_working_timesat_switch_btn.setChecked(false);
-
-                    newstaff_working_timesun_switch_btn.setEnabled(false);
-                    newstaff_working_timesun_switch_btn.setChecked(false);
-                }
-
-                for (int i = 0; i < day_array.size(); i++) {
-
-                    day += day_array.get(i);
-
-                    Log.e("daytwo", day);
-
-
-                }
-                if (day.contains("Mon")) {
-
-
-                    newstaff_working_timemon_switch_btn.setEnabled(true);
-                    newstaff_working_timemon_switch_btn.setChecked(true);
-                    newstaff_working_timemon_start_btn.setText(businessHourData.getMon_start_time());
-                    newstaff_working_timemon_end_btn.setText(businessHourData.getMon_end_time());
-
-
-                }
-
-                if (day.contains("Tue")) {
-
-
-                    newstaff_working_timetue_switch_btn.setEnabled(true);
-                    newstaff_working_timetue_switch_btn.setChecked(true);
-                    newstaff_working_timetue_start_btn.setText(businessHourData.getTue_start_time());
-                    newstaff_working_timetue_end_btn.setText(businessHourData.getTue_end_time());
-
-
-                }
-                if (day.contains("Wed")) {
-
-
-                    newstaff_working_timewed_switch_btn.setEnabled(true);
-                    newstaff_working_timewed_switch_btn.setChecked(true);
-                    newstaff_working_timewed_start_btn.setText(businessHourData.getWed_start_time());
-                    newstaff_working_timewed_end_btn.setText(businessHourData.getWed_end_time());
-
-
-                }
-                if (day.contains("Thu")) {
-
-
-                    newstaff_working_timethr_switch_btn.setEnabled(true);
-                    newstaff_working_timethr_switch_btn.setChecked(true);
-                    newstaff_working_timethr_start_btn.setText(businessHourData.getThr_start_time());
-                    newstaff_working_timethr_end_btn.setText(businessHourData.getThr_end_time());
-
-
-                }
-
-                if (day.contains("Fri")) {
-
-
-                    newstaff_working_timefri_switch_btn.setEnabled(true);
-                    newstaff_working_timefri_switch_btn.setChecked(true);
-                    newstaff_working_timefri_start_btn.setText(businessHourData.getFri_start_time());
-                    newstaff_working_timefri_end_btn.setText(businessHourData.getFri_end_time());
-
-
-                }
-                if (day.contains("Sat")) {
-
-
-                    newstaff_working_timesat_switch_btn.setEnabled(true);
-                    newstaff_working_timesat_switch_btn.setChecked(true);
-                    newstaff_working_timesat_start_btn.setText(businessHourData.getSat_start_time());
-                    newstaff_working_timesat_end_btn.setText(businessHourData.getSat_end_time());
-
-                }
-                if (day.contains("Sun")) {
-
-
-                    newstaff_working_timesun_switch_btn.setEnabled(true);
-                    newstaff_working_timesun_switch_btn.setChecked(true);
-                    newstaff_working_timesun_start_btn.setText(businessHourData.getSun_start_time());
-                    newstaff_working_timesun_end_btn.setText(businessHourData.getSun_end_time());
-
-
-                }
-
-            }
-            else{
-
-                newstaff_working_timemon_switch_btn.setEnabled(false);
-                newstaff_working_timemon_switch_btn.setChecked(false);
-
-                newstaff_working_timetue_switch_btn.setEnabled(false);
-                newstaff_working_timemon_switch_btn.setChecked(false);
-
-                newstaff_working_timewed_switch_btn.setEnabled(false);
-                newstaff_working_timetue_switch_btn.setChecked(false);
-
-                newstaff_working_timewed_switch_btn.setEnabled(false);
-                newstaff_working_timewed_switch_btn.setChecked(false);
-
-                newstaff_working_timethr_switch_btn.setEnabled(false);
-                newstaff_working_timethr_switch_btn.setChecked(false);
-
-                newstaff_working_timefri_switch_btn.setEnabled(false);
-                newstaff_working_timefri_switch_btn.setChecked(false);
-
-                newstaff_working_timesat_switch_btn.setEnabled(false);
-                newstaff_working_timesat_switch_btn.setChecked(false);
-
-                newstaff_working_timesun_switch_btn.setEnabled(false);
-                newstaff_working_timesun_switch_btn.setChecked(false);
-
-
-                Date date = new Date();
-                SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
-                try {
-                    date = date_format.parse(newstaff_working_date_start_btn.getText().toString());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(date);// Note that Month value is 0-based. e.g., 0 for January.
-
-                int reslut = calendar.get(Calendar.DAY_OF_WEEK);
-
-                Log.e("day" , reslut+"") ;
-
-
-                switch (reslut) {
-
-                    case Calendar.MONDAY:
-                        newstaff_working_timemon_switch_btn.setEnabled(true);
-                        newstaff_working_timemon_switch_btn.setChecked(true);
-
-                        newstaff_working_timemon_start_btn.setText(businessHourData.getMon_start_time());
-                        newstaff_working_timemon_end_btn.setText(businessHourData.getMon_end_time());
-
-
-
-                        newstaff_working_timetue_switch_btn.setEnabled(false);
-                        newstaff_working_timetue_switch_btn.setChecked(false);
-
-                        newstaff_working_timewed_switch_btn.setEnabled(false);
-                        newstaff_working_timewed_switch_btn.setChecked(false);
-
-                        newstaff_working_timethr_switch_btn.setEnabled(false);
-                        newstaff_working_timethr_switch_btn.setChecked(false);
-
-                        newstaff_working_timefri_switch_btn.setEnabled(false);
-                        newstaff_working_timefri_switch_btn.setChecked(false);
-
-                        newstaff_working_timesat_switch_btn.setEnabled(false);
-                        newstaff_working_timesat_switch_btn.setChecked(false);
-
-                        newstaff_working_timesun_switch_btn.setEnabled(false);
-                        newstaff_working_timesun_switch_btn.setChecked(false);
-                        break;
-
-                    case Calendar.TUESDAY:
-                        newstaff_working_timetue_switch_btn.setEnabled(false);
-                        newstaff_working_timemon_switch_btn.setChecked(false);
-
-                        newstaff_working_timetue_switch_btn.setEnabled(true);
-                        newstaff_working_timetue_switch_btn.setChecked(true);
-                        newstaff_working_timetue_start_btn.setText(businessHourData.getTue_start_time());
-                        newstaff_working_timetue_end_btn.setText(businessHourData.getTue_end_time());
-
-
-                        newstaff_working_timewed_switch_btn.setEnabled(false);
-                        newstaff_working_timewed_switch_btn.setChecked(false);
-
-                        newstaff_working_timethr_switch_btn.setEnabled(false);
-                        newstaff_working_timethr_switch_btn.setChecked(false);
-
-                        newstaff_working_timefri_switch_btn.setEnabled(false);
-                        newstaff_working_timefri_switch_btn.setChecked(false);
-
-                        newstaff_working_timesat_switch_btn.setEnabled(false);
-                        newstaff_working_timesat_switch_btn.setChecked(false);
-
-                        newstaff_working_timesun_switch_btn.setEnabled(false);
-                        newstaff_working_timesun_switch_btn.setChecked(false);
-                        break;
-
-                    case Calendar.WEDNESDAY:
-                        newstaff_working_timetue_switch_btn.setEnabled(false);
-                        newstaff_working_timemon_switch_btn.setChecked(false);
-
-                        newstaff_working_timewed_switch_btn.setEnabled(false);
-                        newstaff_working_timetue_switch_btn.setChecked(false);
-
-                        newstaff_working_timewed_switch_btn.setEnabled(true);
-                        newstaff_working_timewed_switch_btn.setChecked(true);
-                        newstaff_working_timewed_start_btn.setText(businessHourData.getWed_start_time());
-                        newstaff_working_timewed_end_btn.setText(businessHourData.getWed_end_time());
-
-
-
-                        newstaff_working_timethr_switch_btn.setEnabled(false);
-                        newstaff_working_timethr_switch_btn.setChecked(false);
-
-                        newstaff_working_timefri_switch_btn.setEnabled(false);
-                        newstaff_working_timefri_switch_btn.setChecked(false);
-
-                        newstaff_working_timesat_switch_btn.setEnabled(false);
-                        newstaff_working_timesat_switch_btn.setChecked(false);
-
-                        newstaff_working_timesun_switch_btn.setEnabled(false);
-                        newstaff_working_timesun_switch_btn.setChecked(false);
-                        break;
-                    case Calendar.THURSDAY:
-                        newstaff_working_timetue_switch_btn.setEnabled(false);
-                        newstaff_working_timemon_switch_btn.setChecked(false);
-
-                        newstaff_working_timewed_switch_btn.setEnabled(false);
-                        newstaff_working_timetue_switch_btn.setChecked(false);
-
-                        newstaff_working_timewed_switch_btn.setEnabled(false);
-                        newstaff_working_timewed_switch_btn.setChecked(false);
-
-                        newstaff_working_timethr_switch_btn.setEnabled(true);
-                        newstaff_working_timethr_switch_btn.setChecked(true);
-
-                        newstaff_working_timethr_start_btn.setText(businessHourData.getThr_start_time());
-                        newstaff_working_timethr_end_btn.setText(businessHourData.getThr_end_time());
-
-
-                        newstaff_working_timefri_switch_btn.setEnabled(false);
-                        newstaff_working_timefri_switch_btn.setChecked(false);
-
-                        newstaff_working_timesat_switch_btn.setEnabled(false);
-                        newstaff_working_timesat_switch_btn.setChecked(false);
-
-                        newstaff_working_timesun_switch_btn.setEnabled(false);
-                        newstaff_working_timesun_switch_btn.setChecked(false);
-                        break;
-                    case Calendar.FRIDAY:
-                        newstaff_working_timetue_switch_btn.setEnabled(false);
-                        newstaff_working_timemon_switch_btn.setChecked(false);
-
-                        newstaff_working_timewed_switch_btn.setEnabled(false);
-                        newstaff_working_timetue_switch_btn.setChecked(false);
-
-                        newstaff_working_timewed_switch_btn.setEnabled(false);
-                        newstaff_working_timewed_switch_btn.setChecked(false);
-
-                        newstaff_working_timethr_switch_btn.setEnabled(false);
-                        newstaff_working_timethr_switch_btn.setChecked(false);
-
-                        newstaff_working_timefri_switch_btn.setEnabled(true);
-                        newstaff_working_timefri_switch_btn.setChecked(true);
-                        newstaff_working_timefri_start_btn.setText(businessHourData.getFri_start_time());
-                        newstaff_working_timefri_end_btn.setText(businessHourData.getFri_end_time());
-
-                        newstaff_working_timesat_switch_btn.setEnabled(false);
-                        newstaff_working_timesat_switch_btn.setChecked(false);
-
-                        newstaff_working_timesun_switch_btn.setEnabled(false);
-                        newstaff_working_timesun_switch_btn.setChecked(false);
-                        break;
-
-                    case Calendar.SATURDAY:
-                        newstaff_working_timetue_switch_btn.setEnabled(false);
-                        newstaff_working_timemon_switch_btn.setChecked(false);
-
-                        newstaff_working_timewed_switch_btn.setEnabled(false);
-                        newstaff_working_timetue_switch_btn.setChecked(false);
-
-                        newstaff_working_timewed_switch_btn.setEnabled(false);
-                        newstaff_working_timewed_switch_btn.setChecked(false);
-
-                        newstaff_working_timethr_switch_btn.setEnabled(false);
-                        newstaff_working_timethr_switch_btn.setChecked(false);
-
-                        newstaff_working_timefri_switch_btn.setEnabled(false);
-                        newstaff_working_timefri_switch_btn.setChecked(false);
-
-                        newstaff_working_timesat_switch_btn.setEnabled(true);
-                        newstaff_working_timesat_switch_btn.setChecked(true);
-                        newstaff_working_timesat_start_btn.setText(businessHourData.getSat_start_time());
-                        newstaff_working_timesat_end_btn.setText(businessHourData.getSat_end_time());
-
-                        newstaff_working_timesun_switch_btn.setEnabled(false);
-                        newstaff_working_timesun_switch_btn.setChecked(false);
-                        break;
-                    case Calendar.SUNDAY:
-                        newstaff_working_timetue_switch_btn.setEnabled(false);
-                        newstaff_working_timemon_switch_btn.setChecked(false);
-
-                        newstaff_working_timewed_switch_btn.setEnabled(false);
-                        newstaff_working_timetue_switch_btn.setChecked(false);
-
-                        newstaff_working_timewed_switch_btn.setEnabled(false);
-                        newstaff_working_timewed_switch_btn.setChecked(false);
-
-                        newstaff_working_timethr_switch_btn.setEnabled(false);
-                        newstaff_working_timethr_switch_btn.setChecked(false);
-
-                        newstaff_working_timefri_switch_btn.setEnabled(false);
-                        newstaff_working_timefri_switch_btn.setChecked(false);
-
-                        newstaff_working_timesat_switch_btn.setEnabled(false);
-                        newstaff_working_timesat_switch_btn.setChecked(false);
-
-                        newstaff_working_timesun_switch_btn.setEnabled(true);
-                        newstaff_working_timesun_switch_btn.setChecked(true);
-                        newstaff_working_timesun_start_btn.setText(businessHourData.getSun_start_time());
-                        newstaff_working_timesun_end_btn.setText(businessHourData.getSun_end_time());
-
-                        break;
-
-
-                }
-
-
-            }
-        }
-        else{*/
 
             newstaff_working_timemon_switch_btn.setEnabled(true);
             newstaff_working_timemon_switch_btn.setChecked(true);
@@ -817,15 +414,9 @@ public class NewStaffWorkingHourFrag extends HelperFrags implements CompoundButt
             }
         }
 
-
-
-
-
-
         return Mroot;
 
     }
-
 
 
     @OnClick(R.id.newstaff_working_next_btn)
@@ -897,7 +488,6 @@ public class NewStaffWorkingHourFrag extends HelperFrags implements CompoundButt
             LandingActivity.staff_data_array.get(bundle.getInt("pos")).setSat_from_time("");
             LandingActivity.staff_data_array.get(bundle.getInt("pos")).setSat_to_time("");
         }
-
 
         // Sun start and End Time
         if (newstaff_working_timesun_switch_btn.isChecked()){

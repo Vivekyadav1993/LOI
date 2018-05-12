@@ -3,6 +3,8 @@ package frags;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,23 +65,52 @@ public class AdPublishSelectionFrag extends HelperFrags {
     @OnClick(R.id.ad_pub_society_btn)
     void forSociety(){
 
-        // save Society in  publish type variable
+      /*  // save Society in  publish type variable
         LandingActivity.business_data.setPublish_type("Society");
 
         bundle = new Bundle();
         bundle.putString("src","society");
         replaceFrag(new GroupSelectionFrag(),bundle,AdPublishSelectionFrag.class.getName());
-
+*/
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        try {
+            if (getView() != null) {
+                getView().setFocusableInTouchMode(true);
+                getView().requestFocus();
+                getView().setOnKeyListener(new View.OnKeyListener() {
+                    @Override
+                    public boolean onKey(View v, int keyCode, KeyEvent event) {
+                        if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("src", "def");
+
+                            replaceFrag(new CustomerLandingFrag(), bundle, AdPublishSelectionFrag.class.getName());
+                        }
+                        return true;
+                    }
+                });
+            }
+        } catch (Exception e) {
+            Log.e("error", "" + e);
+        }
+    }
+
 
     @OnClick(R.id.ad_pub_private_btn)
     void forPrivate(){
         // save Private in  publish type variable
-        LandingActivity.business_data.setPublish_type("Private");
+    /*    LandingActivity.business_data.setPublish_type("Private");
 
         bundle = new Bundle();
         bundle.putString("src","private");
         replaceFrag(new GroupSelectionFrag(),bundle,AdPublishSelectionFrag.class.getName());
-
+*/
+    }
+    @OnClick(R.id.ad_pub_back_btn)
+    void forBack(){
+        getActivity().onBackPressed();
     }
 }

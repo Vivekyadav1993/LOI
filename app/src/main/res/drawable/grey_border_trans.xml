@@ -10,7 +10,7 @@
         ></corners>
 
     <stroke
-        android:color="@color/grey"
+        android:color="@color/blue"
         android:width="2dp"></stroke>
 
 

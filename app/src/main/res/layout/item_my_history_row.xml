@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="1dp"
+    android:layout_marginLeft="2dp"
+    android:layout_marginRight="2dp"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="3dp"
+    app:cardMaxElevation="3dp"
+    app:cardUseCompatPadding="true">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
+
+        <TextView
+            android:id="@+id/company_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="8dp"
+            android:text="Vivek kumar yadav"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/company_address_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/company_name_tv"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="60dp"
+            android:layout_toEndOf="@id/company_image_iv"
+            android:layout_toRightOf="@id/company_image_iv"
+            android:text="Service : Service 1"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/company_service_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/company_address_tv"
+            android:layout_marginLeft="5dp"
+            android:layout_toEndOf="@id/company_image_iv"
+            android:layout_toRightOf="@id/company_image_iv"
+            android:text="Status : Cancel"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/company_service_tv"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:text="Booking Time : 11:30pm"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

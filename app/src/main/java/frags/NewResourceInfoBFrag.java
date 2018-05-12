@@ -25,6 +25,7 @@ import helper.HttpresponseUpd;
 import models.ResourceSpecification;
 import r2stech.lifeoninternet.LandingActivity;
 import r2stech.lifeoninternet.R;
+import r2stech.lifeoninternet.utils.Utils;
 
 /**
  * Created by teknik on 10/4/2017.
@@ -107,7 +108,7 @@ public class NewResourceInfoBFrag extends HelperFrags implements HttpresponseUpd
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("http")
                 .authority("lifeoninternet.com")
-                .appendPath("new_service")
+                .appendPath(Utils.stringBuilder())
                 .appendPath("api.php")
                 .appendQueryParameter("action", "createResource")
                 .appendQueryParameter("address_id", LandingActivity.res_data_array.get(bundle.getInt("pos")).getAddress_id())

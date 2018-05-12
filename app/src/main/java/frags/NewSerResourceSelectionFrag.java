@@ -27,6 +27,7 @@ import helper.HttpresponseUpd;
 import models.StaffSelecData;
 import r2stech.lifeoninternet.LandingActivity;
 import r2stech.lifeoninternet.R;
+import r2stech.lifeoninternet.utils.Utils;
 
 /**
  * Created by teknik on 10/6/2017.
@@ -73,7 +74,7 @@ public class NewSerResourceSelectionFrag extends HelperFrags implements Httpresp
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("http")
                 .authority("lifeoninternet.com")
-                .appendPath("new_service")
+                .appendPath(Utils.stringBuilder())
                 .appendPath("api.php")
                 .appendQueryParameter("action", "getResource")
                 .appendQueryParameter("service_id",bundle.getString("ser_id"))
@@ -156,7 +157,7 @@ public class NewSerResourceSelectionFrag extends HelperFrags implements Httpresp
             Uri.Builder builder = new Uri.Builder();
             builder.scheme("http")
                     .authority("lifeoninternet.com")
-                    .appendPath("new_service")
+                    .appendPath(Utils.stringBuilder())
                     .appendPath("api.php")
                     .appendQueryParameter("action", "createserviceResource")
                     .appendQueryParameter("service_id", bundle.getString("ser_id"))

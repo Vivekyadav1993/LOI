@@ -44,9 +44,9 @@ import r2stech.lifeoninternet.R;
 
 public class AppUtils {
 
-   private  static int mHour , mMinute ,mYear ,mMonth ,mDay  ;
+    private static int mHour, mMinute, mYear, mMonth, mDay;
 
-   public static IOSDialog dialog ;
+    public static IOSDialog dialog;
 
 
     public static boolean isNetworkAvailable(Context c) {
@@ -57,7 +57,7 @@ public class AppUtils {
     }
 
 
-    public static void getStringData(String url , Context c , final HttpresponseUpd updateCallback){
+    public static void getStringData(String url, Context c, final HttpresponseUpd updateCallback) {
  /*String Request*/
 
         dialog = new IOSDialog.Builder(c)
@@ -65,11 +65,10 @@ public class AppUtils {
                 .setTitleColorRes(R.color.colorAccent)
                 .build();
 
-        try{
+        try {
             dialog.show();
 
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
 
         }
 
@@ -79,11 +78,10 @@ public class AppUtils {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        try{
+                        try {
 
                             dialog.dismiss();
-                        }
-                        catch (IllegalArgumentException e) {
+                        } catch (IllegalArgumentException e) {
 
                         }
 
@@ -93,13 +91,13 @@ public class AppUtils {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        try{
+                        try {
 
                             dialog.dismiss();
-                        }
-                        catch (IllegalArgumentException e) {
+                        } catch (IllegalArgumentException e) {
 
-                        }                        updateCallback.getResponse("Error : "+error.getMessage());
+                        }
+                        updateCallback.getResponse("Error : " + error.getMessage());
                     }
                 });
         //add request to queue
@@ -107,8 +105,7 @@ public class AppUtils {
     }
 
     // Method for fetch address
-    public static void getAdd(String url , Context c , final HttpresponseUpd callback) {
-
+    public static void getAdd(String url, Context c, final HttpresponseUpd callback) {
 
         RequestQueue requestQueue = Volley.newRequestQueue(c);
 
@@ -117,23 +114,17 @@ public class AppUtils {
                 new Response.Listener<JSONObject>() {
 
                     @Override
-                    public void onResponse(JSONObject response)throws IllegalArgumentException {
-
-
-
+                    public void onResponse(JSONObject response) throws IllegalArgumentException {
 
 
                         try {
 
-                            JSONArray results =       response.getJSONArray("results");
+                            JSONArray results = response.getJSONArray("results");
 
                             JSONObject obj = results.getJSONObject(0);
 
 
-
-
                             callback.getResponse(obj.getString("formatted_address"));
-
 
 
                         } catch (JSONException e) {
@@ -142,14 +133,13 @@ public class AppUtils {
                         }
 
 
-
                     }
                 }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("VolleyError", error.toString());
-                callback.getResponse("Error :"+error.getMessage());
+                callback.getResponse("Error :" + error.getMessage());
 
 
             }
@@ -164,7 +154,6 @@ public class AppUtils {
                 headers.put("Content-Type", "application/json; charset=utf-8");
                 return headers;
             }
-
 
 
         };
@@ -286,11 +275,11 @@ public class AppUtils {
     }
 */
 
-    public void getTime(final Context context, final TextView text , final String previousTime){
+    public void getTime(final Context context, final TextView text, final String previousTime) {
         // Get Current Time
 
 
-        Calendar  c = Calendar.getInstance();
+        Calendar c = Calendar.getInstance();
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
 
@@ -302,7 +291,7 @@ public class AppUtils {
                     public void onTimeSet(TimePicker view, int hourOfDay,
                                           int minute) {
 
-                        Log.e("time",mHour+""+mMinute);
+                        Log.e("time", mHour + "" + mMinute);
 
 
                         mHour = hourOfDay;
@@ -316,49 +305,43 @@ public class AppUtils {
                         } else if (mHour == 0) {
                             mHour += 12;
                             timeSet = "AM";
-                        } else if (mHour == 12){
+                        } else if (mHour == 12) {
                             timeSet = "PM";
-                        }else{
+                        } else {
                             timeSet = "AM";
                         }
 
                         String min = "";
                         if (mMinute < 10)
-                            min = "0" + mMinute ;
+                            min = "0" + mMinute;
                         else
                             min = String.valueOf(mMinute);
 
 
-                        String hr="";
+                        String hr = "";
 
                         if (mHour < 10)
-                            hr = "0" + mHour ;
+                            hr = "0" + mHour;
                         else
                             hr = String.valueOf(mHour);
 
 
-
-
                         // Append in a StringBuilder
                         String aTime = new StringBuilder().append(hr).append(':')
-                                .append(min ).append(" ").append(timeSet).toString();
+                                .append(min).append(" ").append(timeSet).toString();
 
 
-
-
-                        if (previousTime.equals("")){
+                        if (previousTime.equals("")) {
                             text.setText(aTime);
 
-                        }
-
-                        else {
+                        } else {
 
                             // text.setText(aTime);
 
                             try {
                                 Date mToday = new Date();
 
-                                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("hh:mm a", Locale.ENGLISH );
+                                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("hh:mm a", Locale.ENGLISH);
                                 String curTime = sdf.format(mToday);
                                 Date start = sdf.parse(previousTime);
                                 Date end = sdf.parse(aTime);
@@ -391,15 +374,15 @@ public class AppUtils {
 
 
                                 long mills = start.getTime() - end.getTime();
-                                int hours = (int) (mills/(1000 * 60 * 60));
-                                int mins = (int) mills % (1000*60*60);
+                                int hours = (int) (mills / (1000 * 60 * 60));
+                                int mins = (int) mills % (1000 * 60 * 60);
 
                                 String diff = hours + ":" + mins;
 
-                                Log.e("diff" , diff);
+                                Log.e("diff", diff);
 
 
-                                if (hours==24||hours<24){
+                                if (hours == 24 || hours < 24) {
 
                                     if (start.before(end)) {
 
@@ -407,8 +390,7 @@ public class AppUtils {
                                         Toast.makeText(context, "Invalid Time!!!", Toast.LENGTH_SHORT).show();
 
 
-                                    }
-                                    else{
+                                    } else {
 
 
                                         text.setText(aTime);
@@ -417,34 +399,24 @@ public class AppUtils {
                                     }
 
 
-                                }
-                                else{
+                                } else {
                                     Toast.makeText(context, "Invalid Time!!!", Toast.LENGTH_SHORT).show();
 
                                 }
 
 
-
-
-                            }
-
-
-                            catch (ParseException e) {
+                            } catch (ParseException e) {
                                 // Invalid date was entered
 
-                                Log.e("error",e.toString());
+                                Log.e("error", e.toString());
                             }
-
 
 
                         }
 
 
-
-
                     }
                 }, mHour, mMinute, false);
-
 
 
         timePickerDialog.show();
@@ -453,15 +425,12 @@ public class AppUtils {
     }
 
 
-
-    public static void getDate(final TextView text,final Context context , final String from_date , final String to_date){
+    public static void getDate(final TextView text, final Context context, final String from_date, final String to_date) {
         // Get Current Date
-        Calendar  c = Calendar.getInstance();
+        Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
-
-
 
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(context,
@@ -471,16 +440,16 @@ public class AppUtils {
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
 
-                        String oldFormat= "yyyy-MM-dd";
+                        String oldFormat = "yyyy-MM-dd";
 
                         java.text.SimpleDateFormat dateFormat = new java.text.SimpleDateFormat(oldFormat);
-                        Date startDate = null , end_date = null ,  currentdate= null;
+                        Date startDate = null, end_date = null, currentdate = null;
 
                         try {
 
                             startDate = dateFormat.parse(from_date);
                             end_date = dateFormat.parse(to_date);
-                            currentdate= dateFormat.parse(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                            currentdate = dateFormat.parse(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
 
 
                         } catch (java.text.ParseException e) {
@@ -488,20 +457,11 @@ public class AppUtils {
                         }
 
 
-                        if (currentdate.after(startDate)&&currentdate.before(end_date)||currentdate.equals(startDate)||currentdate.equals(end_date)){
+                        if (currentdate.after(startDate) && currentdate.before(end_date) || currentdate.equals(startDate) || currentdate.equals(end_date)) {
                             text.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
-                        }
-                        else{
+                        } else {
                             Toast.makeText(context, "Invalid date!!", Toast.LENGTH_SHORT).show();
                         }
-
-
-
-
-
-
-
-
 
 
                     }
@@ -510,22 +470,19 @@ public class AppUtils {
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
 
 
-
         datePickerDialog.show();
 
 
     }
 
 
-    public static void getDatewithCallback(final TextView text, final Context context , final String from_date ,
-                                           final String to_date , final HttpresponseUpd callback){
+    public static void getDatewithCallback(final TextView text, final Context context, final String from_date,
+                                           final String to_date, final HttpresponseUpd callback) {
         // Get Current Date
-        Calendar  c = Calendar.getInstance();
+        Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
-
-
 
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(context,
@@ -535,16 +492,16 @@ public class AppUtils {
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
 
-                        String oldFormat= "yyyy-MM-dd";
+                        String oldFormat = "yyyy-MM-dd";
 
                         java.text.SimpleDateFormat dateFormat = new java.text.SimpleDateFormat(oldFormat);
-                        Date startDate = null , end_date = null ,  currentdate= null;
+                        Date startDate = null, end_date = null, currentdate = null;
 
                         try {
 
                             startDate = dateFormat.parse(from_date);
                             end_date = dateFormat.parse(to_date);
-                            currentdate= dateFormat.parse(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                            currentdate = dateFormat.parse(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
 
 
                         } catch (java.text.ParseException e) {
@@ -552,21 +509,12 @@ public class AppUtils {
                         }
 
 
-                        if (currentdate.after(startDate)&&currentdate.before(end_date)||currentdate.equals(startDate)||currentdate.equals(end_date)){
+                        if (currentdate.after(startDate) && currentdate.before(end_date) || currentdate.equals(startDate) || currentdate.equals(end_date)) {
                             text.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
                             callback.getResponse("Date");
-                        }
-                        else{
+                        } else {
                             Toast.makeText(context, "Invalid date!!", Toast.LENGTH_SHORT).show();
                         }
-
-
-
-
-
-
-
-
 
 
                     }
@@ -575,17 +523,16 @@ public class AppUtils {
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
 
 
-
         datePickerDialog.show();
 
 
     }
 
 
-    public void getTimeback(final Context context , final TextView text , final String previousTime){
+    public void getTimeback(final Context context, final TextView text, final String previousTime) {
         // Get Current Time
 
-        Calendar  c = Calendar.getInstance();
+        Calendar c = Calendar.getInstance();
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
 
@@ -597,7 +544,7 @@ public class AppUtils {
                     public void onTimeSet(TimePicker view, int hourOfDay,
                                           int minute) {
 
-                        Log.e("time",mHour+""+mMinute);
+                        Log.e("time", mHour + "" + mMinute);
 
 
                         mHour = hourOfDay;
@@ -611,49 +558,43 @@ public class AppUtils {
                         } else if (mHour == 0) {
                             mHour += 12;
                             timeSet = "AM";
-                        } else if (mHour == 12){
+                        } else if (mHour == 12) {
                             timeSet = "PM";
-                        }else{
+                        } else {
                             timeSet = "AM";
                         }
 
                         String min = "";
                         if (mMinute < 10)
-                            min = "0" + mMinute ;
+                            min = "0" + mMinute;
                         else
                             min = String.valueOf(mMinute);
 
 
-                        String hr="";
+                        String hr = "";
 
                         if (mHour < 10)
-                            hr = "0" + mHour ;
+                            hr = "0" + mHour;
                         else
                             hr = String.valueOf(mHour);
 
 
-
-
                         // Append in a StringBuilder
                         String aTime = new StringBuilder().append(hr).append(':')
-                                .append(min ).append(" ").append(timeSet).toString();
+                                .append(min).append(" ").append(timeSet).toString();
 
 
-
-
-                        if (previousTime.equals("")){
+                        if (previousTime.equals("")) {
                             text.setText(aTime);
 
-                        }
-
-                        else {
+                        } else {
 
                             // text.setText(aTime);
 
                             try {
                                 Date mToday = new Date();
 
-                                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("hh:mm a", Locale.ENGLISH );
+                                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("hh:mm a", Locale.ENGLISH);
                                 String curTime = sdf.format(mToday);
                                 Date start = sdf.parse(previousTime);
                                 Date end = sdf.parse(aTime);
@@ -686,15 +627,15 @@ public class AppUtils {
 
 
                                 long mills = start.getTime() - end.getTime();
-                                int hours = (int) (mills/(1000 * 60 * 60));
-                                int mins = (int) mills % (1000*60*60);
+                                int hours = (int) (mills / (1000 * 60 * 60));
+                                int mins = (int) mills % (1000 * 60 * 60);
 
                                 String diff = hours + ":" + mins;
 
-                                Log.e("diff" , diff);
+                                Log.e("diff", diff);
 
 
-                                if (hours==24||hours<24||hours<-24){
+                                if (hours == 24 || hours < 24 || hours < -24) {
 
                                     if (end.before(start)) {
 
@@ -702,8 +643,7 @@ public class AppUtils {
                                         Toast.makeText(context, "Invalid Time!!!", Toast.LENGTH_SHORT).show();
 
 
-                                    }
-                                    else{
+                                    } else {
 
 
                                         text.setText(aTime);
@@ -712,8 +652,7 @@ public class AppUtils {
                                     }
 
 
-                                }
-                                else{
+                                } else {
 
 
                                     Toast.makeText(context, "Invalid Time!!!", Toast.LENGTH_SHORT).show();
@@ -722,27 +661,18 @@ public class AppUtils {
                                 }
 
 
-
-
-                            }
-
-
-                            catch (ParseException e) {
+                            } catch (ParseException e) {
                                 // Invalid date was entered
 
-                                Log.e("error",e.toString());
+                                Log.e("error", e.toString());
                             }
-
 
 
                         }
 
 
-
-
                     }
                 }, mHour, mMinute, false);
-
 
 
         timePickerDialog.show();

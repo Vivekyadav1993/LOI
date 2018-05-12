@@ -7,21 +7,25 @@
 
 
     <TextView
+        android:id="@+id/staff_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
         android:text="Ram"
-        android:id="@+id/staff_name"
-        android:textSize="@dimen/text_xxlarge"
-        android:layout_alignParentLeft="true"/>
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_xlarge" />
 
 
     <CheckBox
+        android:id="@+id/select_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_large"
-        android:focusable="true"
-        android:id="@+id/select_btn"
         android:layout_alignParentRight="true"
-        android:layout_margin="5dp"/>
+        android:layout_centerVertical="true"
+        android:layout_margin="5dp"
+        android:focusable="true"
+        android:textSize="@dimen/text_medium" />
 
 </RelativeLayout>

@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/dark_grey">
-
-
-
+        android:background="@color/dark_grey"
+        android:orientation="vertical">
 
         // header layout
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -21,37 +20,36 @@
 
 
             <ImageView
+                android:id="@+id/new_ctg_back_btn"
                 android:layout_width="40dp"
                 android:layout_height="25dp"
-                android:id="@+id/new_ctg_back_btn"
-                android:src="@drawable/leftarrow_white"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true"
+                android:src="@drawable/leftarrow_white" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/new_ctg_back_btn"
+                android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/new_ctg_next_btn"
-                android:text="Choose  Services"
-                android:textSize="@dimen/text_large"
-                android:textColor="@color/white"
+                android:layout_toRightOf="@+id/new_ctg_back_btn"
                 android:gravity="center"
-                android:layout_centerVertical="true"/>
+                android:text="Choose  Services"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_large" />
 
             <TextView
+                android:id="@+id/new_ctg_next_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:padding="5dp"
                 android:text="SAVE"
                 android:textColor="@color/white"
-                android:id="@+id/new_ctg_next_btn"
-                android:layout_alignParentRight="true"
-                android:textSize="@dimen/text_large"
-                android:padding="5dp"/>
+                android:textSize="@dimen/text_large" />
 
 
         </RelativeLayout>
-
 
 
         // Name layout
@@ -59,31 +57,28 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"   android:visibility="gone"
-
             android:layout_marginBottom="1dp"
-            >
+            android:background="@color/white"
+
+            android:visibility="gone">
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Name"
-
                     android:backgroundTint="@null"
-                    android:inputType="text"
+
+                    android:hint="Name"
                     android:imeOptions="actionNext"
-                    android:textSize="@dimen/text_medium"
+                    android:inputType="text"
                     android:paddingLeft="20dp"
                     android:paddingRight="10dp"
-                    />
+                    android:textSize="@dimen/text_medium" />
 
             </android.support.design.widget.TextInputLayout>
-
 
 
         </RelativeLayout>
@@ -93,47 +88,42 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:visibility="gone"
             android:layout_marginBottom="1dp"
-            >
+            android:background="@color/white"
+            android:visibility="gone">
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Detail"
                     android:backgroundTint="@null"
-                    android:inputType="text"
+                    android:hint="Detail"
                     android:imeOptions="actionNext"
-                    android:textSize="@dimen/text_medium"
+                    android:inputType="text"
                     android:paddingLeft="20dp"
                     android:paddingRight="10dp"
-                    />
+                    android:textSize="@dimen/text_medium" />
 
             </android.support.design.widget.TextInputLayout>
-
 
 
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/new_ctg_service_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="   Service"
-            android:padding="10dp"
-            android:textColor="#000"
-            android:id="@+id/new_ctg_service_btn"
-            android:drawableRight="@drawable/next_icn_black"
-            android:background="@color/white"
-            android:textSize="@dimen/text_medium"
-            android:gravity="center_vertical"
             android:layout_marginBottom="1dp"
-            />
+            android:background="@color/white"
+            android:drawableRight="@drawable/next_icn_black"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="   Service"
+            android:textColor="#000"
+            android:textSize="@dimen/text_medium" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -141,10 +131,7 @@
             android:background="@color/white"></LinearLayout>
 
 
-
     </LinearLayout>
-
-
 
 
 </LinearLayout>

@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_cordinate"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:id="@+id/parent_cordinate"
     tools:context="r2stech.lifeoninternet.LandingActivity">
 
     <android.support.design.widget.AppBarLayout
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
@@ -20,78 +19,86 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorAccent"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:titleTextAppearance="@style/Toolbar.TitleText"
-            >
+            app:titleTextAppearance="@style/Toolbar.TitleText">
 
             <TextView
+                android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Life On Internet"
                 android:layout_marginLeft="50dp"
-                android:textSize="@dimen/text_large"
-                android:textStyle="bold"
-                android:id="@+id/toolbar_title"
-                android:drawableLeft="@drawable/loc_headericn"
-                android:drawablePadding="10dp"/>
+                android:drawablePadding="10dp"
+
+                android:drawableRight="@drawable/loc_headericn"
+                android:text="Life On Internet"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="normal" />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:drawablePadding="10dp"
+                android:visibility="gone"
+                android:text="Life On Internet"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="normal" />
 
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
     <FrameLayout
+        android:id="@+id/parentcontainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/parentcontainer"
-        android:layout_marginBottom="?attr/actionBarSize"
         android:layout_marginTop="?attr/actionBarSize"></FrameLayout>
 
     <ImageView
         android:id="@+id/live_event_icon"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:visibility="gone"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-       android:src="@drawable/live_eventicn"
+        android:src="@drawable/live_eventicn"
+        android:visibility="gone"
 
         ></ImageView>
 
     <RelativeLayout
+        android:id="@+id/header_search_layout"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:id="@+id/header_search_layout"
         android:layout_marginTop="?attr/actionBarSize"
-        android:visibility="gone"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/dark_grey"
-            android:layout_alignParentBottom="true"/>
+            android:layout_alignParentBottom="true"
+            android:background="@color/dark_grey" />
 
 
         <EditText
+            android:id="@+id/header_search_input"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Search Ads by name"
+            android:layout_toLeftOf="@+id/header_search_btn"
             android:gravity="center_vertical"
-            android:padding="5dp"
-            android:textSize="@dimen/text_large"
+            android:hint="Search Ads by name"
             android:imeOptions="actionDone"
             android:inputType="text"
-            android:layout_toLeftOf="@+id/header_search_btn"
-            android:id="@+id/header_search_input"/>
+            android:padding="5dp"
+            android:textSize="@dimen/text_large" />
 
         <ImageView
+            android:id="@+id/header_search_btn"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/search_icn"
-            android:id="@+id/header_search_btn"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"/>
-
+            android:layout_marginRight="5dp"
+            android:src="@drawable/search_icn" />
 
 
     </RelativeLayout>
@@ -100,105 +107,95 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="bottom"
-        android:paddingLeft="5dp"
-        android:paddingTop="2dp"
         android:background="@color/dark_grey"
         android:paddingBottom="2dp"
-        >
-
-
+        android:paddingLeft="5dp"
+        android:paddingTop="2dp"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/white_round_bg"
             android:weightSum="5">
 
             //1st
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                >
 
+            <RelativeLayout
+
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
 
             </RelativeLayout>
 
             //2nd
+
             <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
-                >
+                android:layout_weight="1">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/home_ena"
-                    android:layout_centerInParent="true"/>
-
-
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/home_ena" />
 
 
             </RelativeLayout>
 
 
             //3rd
+
             <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
-                >
+                android:layout_weight="1">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/society_dis"
-                    android:layout_centerInParent="true"/>
-
-
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/society_dis" />
 
 
             </RelativeLayout>
 
             //4th
+
             <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
-                >
+                android:layout_weight="1">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/invites_dis"
-                    android:layout_centerInParent="true"/>
-
-
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/invites_dis" />
 
 
             </RelativeLayout>
 
 
             //5th
+
             <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
-                >
+                android:layout_weight="1">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/shop_dis"
-                    android:layout_centerInParent="true"/>
-
-
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/shop_dis" />
 
 
             </RelativeLayout>
@@ -210,9 +207,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/my_listicn"
-            android:layout_alignParentLeft="true"/>
-
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/my_listicn" />
 
 
     </RelativeLayout>

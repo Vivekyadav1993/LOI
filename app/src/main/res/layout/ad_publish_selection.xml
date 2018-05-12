@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_grey"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -13,9 +13,10 @@
 
         <ImageView
             android:id="@+id/ad_pub_back_btn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:padding="5dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="10dp"
+            android:background="?selectableItemBackgroundBorderless"
             android:layout_marginLeft="8dp"
             android:layout_centerVertical="true"
             android:src="@drawable/leftarrow_white" />
@@ -58,7 +59,7 @@
         android:id="@+id/ad_pub_forall_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="?selectableItemBackground"
         android:drawableRight="@drawable/next_icn_black"
         android:gravity="center_vertical"
         android:padding="10dp"
@@ -71,12 +72,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
-        android:background="@color/white"
+        android:background="?selectableItemBackground"
         android:drawableRight="@drawable/next_icn_black"
         android:gravity="center_vertical"
         android:padding="10dp"
         android:text="Service For Society Members Only"
-        android:textColor="#000"
+        android:textColor="@color/gray"
         android:textSize="@dimen/text_medium" />
 
     <TextView
@@ -85,12 +86,12 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="1dp"
         android:layout_marginTop="1dp"
-        android:background="@color/white"
+        android:background="?selectableItemBackground"
         android:drawableRight="@drawable/next_icn_black"
         android:gravity="center_vertical"
         android:padding="10dp"
         android:text="For Private Event"
-        android:textColor="#000"
+        android:textColor="@color/gray"
         android:textSize="@dimen/text_medium" />
 
     <View

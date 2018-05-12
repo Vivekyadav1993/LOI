@@ -1,0 +1,18 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="frags.MyHistoryFrag">
+
+
+    <com.github.badoualy.datepicker.DatePickerTimeline
+        android:id="@+id/frag_calendar_view"
+        android:layout_width="match_parent"
+        android:layout_height="120dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_history_frag_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
