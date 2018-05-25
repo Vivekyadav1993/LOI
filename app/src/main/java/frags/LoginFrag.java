@@ -3,6 +3,7 @@ package frags;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,10 +51,34 @@ public class LoginFrag extends HelperFrags implements HttpresponseUpd {
     private View Mroot;
 
     @BindView(R.id.login_password_input)
-    EditText password_input;
+    public EditText password_input;
 
     @BindView(R.id.login_phone_input)
-    EditText phone_input;
+    public EditText phone_input;
+
+    @BindView(R.id.staff_login_phone_input)
+    public EditText staff_phone_input;
+
+    @BindView(R.id.staff_login_password_input)
+    public EditText staff_password_input;
+
+
+    @BindView(R.id.frag_login_staff_ll)
+    public LinearLayout mStaffLi;
+
+    @BindView(R.id.frag_login_user_ll)
+    public LinearLayout mUserLl;
+
+    @BindView(R.id.frag_login_user_tv)
+    public TextView mUserTv;
+
+    @BindView(R.id.frag_login_staff_tv)
+    public TextView mStaffTv;
+
+    @BindView(R.id.login_btn)
+    public TextView mLoginBtn;
+    @BindView(R.id.staff_login_btn)
+    public TextView mStaffLoginBtn;
 
     private HttpresponseUpd callback;
 
@@ -77,12 +103,81 @@ public class LoginFrag extends HelperFrags implements HttpresponseUpd {
         mPrefs = Sharedpreferences.getUserDataObj(getActivity());
 
         initializeSharedData();
-
+        mUserTv.setTextColor(Color.WHITE);
+        mUserTv.setBackgroundColor(Color.BLUE);
         callback = this;
 
 
         return Mroot;
     }
+
+    @OnClick({R.id.frag_login_user_tv, R.id.frag_login_staff_tv, R.id.staff_login_btn})
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.frag_login_user_tv:
+                mUserLl.setVisibility(View.VISIBLE);
+                mStaffLi.setVisibility(View.GONE);
+                mLoginBtn.setVisibility(View.VISIBLE);
+                mStaffLoginBtn.setVisibility(View.GONE);
+                mStaffTv.setBackgroundColor(Color.WHITE);
+                mStaffTv.setTextColor(Color.BLUE);
+                mUserTv.setTextColor(Color.WHITE);
+                mUserTv.setBackgroundColor(Color.BLUE);
+
+
+                break;
+            case R.id.frag_login_staff_tv:
+                mUserLl.setVisibility(View.GONE);
+                mStaffLi.setVisibility(View.VISIBLE);
+                mLoginBtn.setVisibility(View.GONE);
+                mStaffLoginBtn.setVisibility(View.VISIBLE);
+                mStaffTv.setBackgroundColor(Color.BLUE);
+                mStaffTv.setTextColor(Color.WHITE);
+                mUserTv.setTextColor(Color.BLUE);
+                mUserTv.setBackgroundColor(Color.WHITE);
+
+                break;
+            case R.id.staff_login_btn:
+                staffLoginFun();
+                break;
+
+
+        }
+
+    }
+
+    private void staffLoginFun() {
+        if (staff_phone_input.getText().toString().equals(""))
+            staff_phone_input.setError("Phone Number cannot be blank!!!");
+        else if (staff_password_input.getText().toString().equals(""))
+            staff_password_input.setError("Password cannot be blank!!!");
+        else {
+            Uri.Builder builder = new Uri.Builder();
+            builder.scheme("http")
+                    .authority("lifeoninternet.com")
+                    .appendPath(Utils.stringBuilder())
+                    .appendPath("api.php")
+                    .appendQueryParameter("action", "staffSignin")
+                    .appendQueryParameter("password", staff_password_input.getText().toString())
+                    .appendQueryParameter("mobile", staff_phone_input.getText().toString());
+
+            String myUrl = builder.build().toString();
+            Log.e("urlStafflogin", myUrl);
+
+            if (AppUtils.isNetworkAvailable(getActivity())) {
+                post_tag = "StaffLogin";
+                AppUtils.getStringData(myUrl, getActivity(), callback);
+            } else {
+                snackbar = Snackbar.make(Mroot, "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
+
+                snackbar.show();
+
+            }
+        }
+
+    }
+
 
     @OnClick(R.id.login_btn)
     void login() {
@@ -164,13 +259,11 @@ public class LoginFrag extends HelperFrags implements HttpresponseUpd {
 
                     }
 
-
                 }
             }
         });
 
     }
-
 
     @Override
     public void getResponse(String response) {
@@ -199,6 +292,10 @@ public class LoginFrag extends HelperFrags implements HttpresponseUpd {
                     } else {
                         mPrefs.setEmailId(obj.getString("email"));
                         mPrefs.setName(obj.getString("name"));
+                        mPrefs.setUserId(obj.getString("user_id"));
+                        mPrefs.setCustId(obj.getString("cust_id"));
+                        mPrefs.setBusnessId(obj.getString("business_id"));
+                        mPrefs.setIsUserLoggedIn(true);
                         // save user info
                         editor = AppConstants.app_data.edit();
                         editor.putString("name", obj.getString("name"));
@@ -218,6 +315,48 @@ public class LoginFrag extends HelperFrags implements HttpresponseUpd {
                     snackbar = Snackbar.make(Mroot, "" + obj.getString("message"), Snackbar.LENGTH_LONG);
                     snackbar.show();
                 }
+
+            } catch (JSONException e) {
+                snackbar = Snackbar.make(Mroot, " " + e.getMessage(), Snackbar.LENGTH_LONG);
+
+                snackbar.show();
+            }
+
+
+        } else if (post_tag.equals("StaffLogin")) {
+
+            try {
+
+                JSONObject main_obj = new JSONObject(response);
+                JSONArray main_array = main_obj.getJSONArray("output");
+                String message= main_obj.getString("message");
+                JSONObject obj = main_array.getJSONObject(0);
+
+                Toast.makeText(getActivity(), ""+message, Toast.LENGTH_SHORT).show();
+
+                        mPrefs.setEmailId(obj.getString("email"));
+                        mPrefs.setName(obj.getString("name"));
+                        mPrefs.setUserId(obj.getString("user_id"));
+                        mPrefs.setCustId(obj.getString("cust_id"));
+                        mPrefs.setStaffId(obj.getString("staff_id"));
+                        mPrefs.setBusnessId(obj.getString("business_id"));
+                        mPrefs.setIsUserLoggedIn(true);
+                        // save user info
+                        editor = AppConstants.app_data.edit();
+                        editor.putString("name", obj.getString("name"));
+                        editor.putString("email", obj.getString("email"));
+                        editor.putString("phone", obj.getString("mobile"));
+
+                        editor.putString("user_id", obj.getString("user_id"));
+                        editor.commit();
+
+                        Intent intent = new Intent(getActivity(), LandingActivity.class);
+                        intent.putExtra("src", "stafflogin");
+                        startActivity(intent);
+                        getActivity().finish();
+
+
+
 
             } catch (JSONException e) {
                 snackbar = Snackbar.make(Mroot, "Parsing error occurred!!! " + e.getMessage(), Snackbar.LENGTH_LONG);

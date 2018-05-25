@@ -34,6 +34,7 @@ import helper.HttpresponseUpd;
 import models.PackageConfigData;
 import r2stech.lifeoninternet.LandingActivity;
 import r2stech.lifeoninternet.R;
+import r2stech.lifeoninternet.utils.Sharedpreferences;
 import r2stech.lifeoninternet.utils.Utils;
 
 /**
@@ -86,6 +87,7 @@ public class NewSerCustomerPolicyFrag extends HelperFrags implements Httprespons
 
     public TextView mSaveTv, mCancleTv;
     private String days;
+    private Sharedpreferences mPref;
 
     @Nullable
     @Override
@@ -97,6 +99,7 @@ public class NewSerCustomerPolicyFrag extends HelperFrags implements Httprespons
 
         bundle = getArguments();
 
+        mPref = Sharedpreferences.getUserDataObj(getActivity());
       /*  Boolean state= newser_cuspolicy_advnoof_day_switch.isChecked();
 
         if(state==true){
@@ -293,7 +296,7 @@ public class NewSerCustomerPolicyFrag extends HelperFrags implements Httprespons
                 .appendPath("api.php")
                 .appendQueryParameter("action", "createcustomerPolicy")
                 .appendQueryParameter("service_id", bundle.getString("ser_id"))
-                .appendQueryParameter("address_id", LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos")).getAddress_id())
+                .appendQueryParameter("address_id", /*LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos")).getAddress_id()*/mPref.getAddressId())
                 .appendQueryParameter("staffwise_booking", LandingActivity.staffwise_booking_switch)
                 .appendQueryParameter("advance_no_of_days", LandingActivity.advnoof_day_switch)
                 .appendQueryParameter("package_conf", LandingActivity.packageconfig_switch)

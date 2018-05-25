@@ -3,6 +3,7 @@ package frags;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
@@ -44,6 +45,7 @@ import models.ConsumerListData;
 import models.StaffListData;
 import r2stech.lifeoninternet.R;
 import r2stech.lifeoninternet.interfaces.UpdateListData;
+import r2stech.lifeoninternet.utils.Sharedpreferences;
 import r2stech.lifeoninternet.utils.Utils;
 
 /**
@@ -84,12 +86,21 @@ public class MyAdsFrag extends HelperFrags implements UpdateListData {
     @BindView(R.id.add_cuctomers)
     public TextView mAddCust;
 
+    @BindView(R.id.my_ads_business_tv)
+    public TextView mBusinessTv;
+
+    private final int FIVE_SECONDS = 30000;
+    private Handler handler;
+    private Runnable runnable;
+
 
     private BottomSheetBehavior<View> behavior;
 
     public static String business_id = "", address_id = "";
     public static String staff_id = "";
-    public String staff_service_started;
+    public String staff_service_started, business_name;
+
+    private Sharedpreferences mPref;
 
     //   private DetailListModel detailListModel;
     public MyAdsFrag() {
@@ -107,17 +118,59 @@ public class MyAdsFrag extends HelperFrags implements UpdateListData {
         raw_data = new ArrayList<>();
         consumer_array = new ArrayList<>();
         updateListData = this;
+        mPref = Sharedpreferences.getUserDataObj(getActivity());
+        handler = new Handler();
         address_id = bundle.getString("address_id");
         business_id = bundle.getString("business_id");
         //  initView();
         post_tag = "getDATA";
-        hitAPI("http://lifeoninternet.com/"+Utils.stringBuilder()+"/api.php?action=bookingList&business_id=" +
+
+
+      /*  hitAPI("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=bookingList&business_id=" +
                 business_id + "&address_id=" +
                 address_id);
+*/
         bottomsheetFun();
         openBottomSheetFunc();
         return Mroot;
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Log.d("MAF", "Staff----id" + mPref.getStaffId());
+        if (mPref.getStaffId().equalsIgnoreCase("")) {
+            runnable = new Runnable() {
+                @Override
+                public void run() {
+
+                    handler.postDelayed(this, FIVE_SECONDS);
+                    hitAPI("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=bookingList&business_id=" +
+                            business_id + "&address_id=" + address_id);
+                    Utils.stopProgress(getActivity());
+
+
+                }
+            };
+            runnable.run();
+        } else {
+            runnable = new Runnable() {
+                @Override
+                public void run() {
+
+                    handler.postDelayed(this, FIVE_SECONDS);
+                    hitAPI("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=bookingList&business_id=" +
+                            business_id + "&address_id=" + address_id + "&staff_id=" + mPref.getStaffId());
+                    Utils.stopProgress(getActivity());
+
+
+                }
+            };
+            runnable.run();
+
+        }
     }
 
     private void openBottomSheetFunc() {
@@ -145,6 +198,7 @@ public class MyAdsFrag extends HelperFrags implements UpdateListData {
 
                 _bundle.putString("address_id", address_id);
                 _bundle.putString("business_id", business_id);
+                _bundle.putString("business_name", business_name);
                 replaceFrag(new AddManualCustomer(), _bundle, AddStaffFrag.class.getName());
                 break;
 
@@ -168,7 +222,7 @@ public class MyAdsFrag extends HelperFrags implements UpdateListData {
                 Log.e("urlres", response);
                 Utils.stopProgress(getActivity());
                 try {
-                    hitAPI("http://lifeoninternet.com/"+Utils.stringBuilder()+"/api.php?action=bookingList&business_id=" +
+                    hitAPI("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=bookingList&business_id=" +
                             business_id + "&address_id=" +
                             address_id);
 
@@ -177,7 +231,7 @@ public class MyAdsFrag extends HelperFrags implements UpdateListData {
                     JSONObject main_obj = new JSONObject(response);
                     JSONArray output_array = main_obj.getJSONArray("output");
                     String message = output_array.getJSONObject(0).getString("message");
-                   // mStartService.setVisibility(View.INVISIBLE);
+                    // mStartService.setVisibility(View.INVISIBLE);
                     Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -256,6 +310,28 @@ public class MyAdsFrag extends HelperFrags implements UpdateListData {
 
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        handler.removeCallbacks(runnable);
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        handler.removeCallbacks(runnable);
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacks(runnable);
+
+    }
+
     public void hitAPI(final String url) {
 
         Utils.showProgress(getActivity());
@@ -271,11 +347,14 @@ public class MyAdsFrag extends HelperFrags implements UpdateListData {
                     JSONObject main_obj = new JSONObject(response);
                     JSONArray output_array = main_obj.getJSONArray("output");
 
+
                     raw_data.clear();
                     consumer_array.clear();
                     for (int i = 0; i < output_array.length(); i++) {
                         JSONObject obj = output_array.getJSONObject(i);
                         staff_id = obj.getString("staff_id");
+                        business_name = obj.getString("business_name");
+                        mBusinessTv.setText(business_name);
                       /*  staff_service_started = obj.getString("staff_service_started");
 
                         Log.d("staff_service_started ", "staff_service_started " + staff_service_started);
@@ -298,7 +377,7 @@ public class MyAdsFrag extends HelperFrags implements UpdateListData {
                                         , ""
                                         , ""
                                         , ""
-                                        ,obj.getString("staff_service_started")
+                                        , obj.getString("staff_service_started")
                                 ));
 
                             } else if (obj.getJSONArray("customer").length() == 1) {
@@ -313,7 +392,7 @@ public class MyAdsFrag extends HelperFrags implements UpdateListData {
                                             , obj.getJSONArray("customer").getJSONObject(0).getString("status")
                                             , obj.getJSONArray("customer").getJSONObject(0).getString("appointment_date")
                                             , obj.getJSONArray("customer").getJSONObject(0).getString("id")
-                                            ,obj.getString("staff_service_started")
+                                            , obj.getString("staff_service_started")
                                     ));
 
                                 } catch (JSONException e) {
@@ -327,7 +406,7 @@ public class MyAdsFrag extends HelperFrags implements UpdateListData {
                                             , ""
                                             , ""
                                             , ""
-                                            ,obj.getString("staff_service_started")
+                                            , obj.getString("staff_service_started")
                                     ));
 
                                 }
@@ -342,7 +421,7 @@ public class MyAdsFrag extends HelperFrags implements UpdateListData {
                                         , obj.getJSONArray("customer").getJSONObject(0).getString("status")
                                         , obj.getJSONArray("customer").getJSONObject(0).getString("appointment_date")
                                         , obj.getJSONArray("customer").getJSONObject(0).getString("id")
-                                        ,obj.getString("staff_service_started")
+                                        , obj.getString("staff_service_started")
                                 ));
 
 
@@ -373,9 +452,10 @@ public class MyAdsFrag extends HelperFrags implements UpdateListData {
                     consumerListAdap = new ConsumerListAdap(getActivity(), consumer_array, updateListData);
                     customer_list.setAdapter(consumerListAdap);
                     Utils.stopProgress(getActivity());
-                    Toast.makeText(getActivity(), "list updated successfully!!!", Toast.LENGTH_SHORT).show();
+
+                    // Toast.makeText(getActivity(), "list updated successfully!!!", Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
-                    Utils.stopProgress(getActivity());
+                    //  Utils.stopProgress(getActivity());
                     Log.e("error", e.getMessage());
 
                 }
@@ -406,6 +486,7 @@ public class MyAdsFrag extends HelperFrags implements UpdateListData {
 
         Volley.newRequestQueue(getActivity()).add(strReq);
     }
+
 
     @Override
     public void doUpdate(String url) {

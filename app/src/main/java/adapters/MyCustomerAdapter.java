@@ -1,12 +1,18 @@
 package adapters;
 
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,6 +21,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import frags.MyAdsAddressFrag;
 import frags.MyCustomerFrag;
+import frags.NewServiceStaffSelectionFrag;
+import models.CancelCustomerSelection;
+import models.StaffSelecData;
 import models.myadsaddress.Businessaddress;
 import models.mycustomer.Booking;
 import models.mycustomer.MyCustomer;
@@ -29,10 +38,14 @@ public class MyCustomerAdapter extends RecyclerView.Adapter<MyCustomerAdapter.Vi
     private Boolean checked_status;
     private boolean isSelectedAll;
 
+    private String cancel, str = "";
+
     public MyCustomerAdapter(MyCustomerFrag mContext, ArrayList<Booking> data) {
         this.mMyCustomerFrag = mContext;
         this.data = data;
-        Collections.sort(data);
+
+        // Collections.sort(data);
+      //  customerCancelArray = new ArrayList<>();
 
     }
 
@@ -44,26 +57,50 @@ public class MyCustomerAdapter extends RecyclerView.Adapter<MyCustomerAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         holder.mName.setText("Customer Name   :" + data.get(position).getUserName());
         holder.mSerialNo.setText((position + 1) + ".");
         holder.mService.setText("Service                   :" + data.get(position).getServiceName());
         holder.mEstimateTime.setText("Estimate Time      :" + data.get(position).getEstimateTime());
 
-        if(isSelectedAll){
+        if (isSelectedAll) {
             holder.mCheckbox.setChecked(true);
-        }else {
+        } else {
             holder.mCheckbox.setChecked(false);
         }
+        try {
+            holder.mCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+
+                    if (b) {
+                        data.get(position).setStatus("Yes");
+                        Log.e("okk", data.get(position).getBookingId());
+                        MyCustomerFrag.customerCancelArray.get(position).setStatus("Yes");
+
+                    } else {
+                        data.get(position).setStatus("No");
+                        Log.e("disable", "-" + data.get(position).getStatus());
+                        MyCustomerFrag.customerCancelArray.get(position).setStatus("No");
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //Finally add item arrays for "A" and "B" to main list with key
+
+
     }
 
-    public void selectAll(boolean b){
-        Log.e("onClickSelectAll","yes");
-        if(b) {
+    public void selectAll(boolean b) {
+        Log.e("onClickSelectAll", "yes");
+        if (b) {
             isSelectedAll = true;
             notifyDataSetChanged();
-        }else {
+        } else {
             isSelectedAll = false;
             notifyDataSetChanged();
 

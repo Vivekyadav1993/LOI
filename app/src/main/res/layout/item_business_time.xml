@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="1dp">
+
+    <TextView
+        android:id="@+id/serial_number_business_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="11"
+        android:layout_marginLeft="8dp"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/business_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@id/business_time"
+        android:padding="5dp"
+        android:text="fsfdsfsf"
+        android:textColor="@color/blue"
+        android:textSize="14sp" />
+     <TextView
+        android:id="@+id/business_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+       android:layout_alignParentRight="true"
+        android:padding="5dp"
+        android:text="5:30 pm"
+         android:textColor="@color/blue"
+        android:textSize="14sp" />
+
+
+</RelativeLayout>

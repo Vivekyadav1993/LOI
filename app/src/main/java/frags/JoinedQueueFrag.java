@@ -48,6 +48,7 @@ import r2stech.lifeoninternet.utils.Sharedpreferences;
 import r2stech.lifeoninternet.utils.Utils;
 
 import static frags.MyAdsFrag.business_id;
+import static helper.AppUtils.dialog;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,6 +66,12 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
     @BindView(R.id.frag_joined_queue_service_status_tv)
     public TextView mServiceStatus;
 
+    @BindView(R.id.frag_joined_queue_service_status_hide_tv)
+    public TextView mServiceStatusHide;
+
+    @BindView(R.id.frag_joined_queue_service_absent_hide_tv)
+    public TextView mServiceAbsentHide;
+
     @BindView(R.id.frag_joined_queue_cancel_btn)
     public Button mCancel;
     @BindView(R.id.frag_joined_queue_push_back_btn)
@@ -80,7 +87,7 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
     private HttpresponseUpd callback;
 
     private Bundle bundle;
-    private String businessid, addreddid, serviceid, appointment_date, staff_id;
+    private String businessid, addreddid, serviceid, appointment_date, staff_id,staff_status;
     private Snackbar snackbar;
     private String token_number, your_place, estimate_time, a_date, message, booking_id, cust_id;
     private String post_tag, busines_sid, addred_did, service_id, appointmen_tdate, staf_fid, bookin_gid, service_status, setvices_tatus;
@@ -162,7 +169,7 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
                     handler.postDelayed(this, FIVE_SECONDS);
                     Log.d("Api hiting", "2");
                     hitBookingApi();          // this method will contain your almost-finished HTTP calls
-
+                    dialog.dismiss();
                 }
             };
             runnable.run();
@@ -180,7 +187,8 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
 
                     handler.postDelayed(this, FIVE_SECONDS);
                     Log.d("Api hiting", "5");
-                    hitBookingApi();          // this method will contain your almost-finished HTTP calls
+                    hitBookingApi();
+                    dialog.dismiss();// this method will contain your almost-finished HTTP calls
 
                 }
             };
@@ -230,6 +238,7 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
                 if (AppUtils.isNetworkAvailable(getActivity())) {
                     post_tag = "booking_id";
                     AppUtils.getStringData(builder.build().toString(), getActivity(), callback);
+
                 } else {
                     snackbar = Snackbar.make(getView(), "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
                     snackbar.show();
@@ -431,18 +440,19 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
                 service_status = objt.getString("staff_service_started");
                 cust_id = objt.getString("cust_id");
 
-
                 mPref.setCustId(cust_id);
 
                 if (service_status.equalsIgnoreCase("yes")) {
-
                     mServiceStatus.setText("Service started");
                     mServiceStatus.setTextColor(Color.GREEN);
-                } else {
+                } else if (service_status.equalsIgnoreCase("no")) {
                     mServiceStatus.setText("Service not started yet");
                     mServiceStatus.setTextColor(Color.RED);
 
                 }
+                mServiceStatus.setText("Service on hold");
+                mServiceStatus.setTextColor(Color.BLACK);
+
 
                 //  Toast.makeText(getContext(), "" + message, Toast.LENGTH_SHORT).show();
                 mPositionInQueue.setText(your_place);
@@ -450,19 +460,6 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
                 mPosition_in_queue.setText("Token No." + token_number);
                 mDate.setText(a_date);
 
-
-             /*   runnable = new Runnable() {
-                    @Override
-                    public void run() {
-
-                        handler.postDelayed(this, FIVE_SECONDS);
-                        Log.d("Api hiting", "hiting api");
-                        hitBookingApi();          // this method will contain your almost-finished HTTP calls
-
-                    }
-                };
-                runnable.run();
-*/
                 hitRefreshApi(booking_id);
                 Log.d("Api hiting", "4");
             } catch (JSONException e) {
@@ -512,18 +509,59 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
                 a_date = objt.getString("appointment_date");
                 message = objt.getString("message");
                 booking_id = objt.getString("booking_id");
+                staff_status = objt.getString("staff_status");
+                String status = objt.getString("status");
+                String business_name = objt.getString("business_name");
+
                 //  Toast.makeText(getContext(), "" + message, Toast.LENGTH_SHORT).show();
-                mPositionInQueue.setText(your_place);
-                mEst_time.setText(estimate_time);
+
+                mHeaderTitle.setText(business_name);
+
+                if (status.equalsIgnoreCase("In")) {
+                    mPositionInQueue.setText("IN");
+                    mEst_time.setText("");
+                    mCancel.setVisibility(View.INVISIBLE);
+                    mPushBack.setVisibility(View.INVISIBLE);
+                    mServiceStatusHide.setVisibility(View.GONE);
+                    mServiceAbsentHide.setVisibility(View.GONE);
+
+                } else if (status.equalsIgnoreCase("Out")) {
+                    mPositionInQueue.setText("");
+                    mEst_time.setText("");
+                    mServiceStatusHide.setVisibility(View.VISIBLE);
+                    mServiceAbsentHide.setVisibility(View.GONE);
+                    mCancel.setVisibility(View.INVISIBLE);
+                    mPushBack.setVisibility(View.INVISIBLE);
+
+
+                } else if (status.equalsIgnoreCase("Absent")) {
+                    mPositionInQueue.setText("");
+                    mEst_time.setText("");
+                    mServiceStatusHide.setVisibility(View.GONE);
+                    mServiceAbsentHide.setVisibility(View.VISIBLE);
+
+                } else {
+                    mPositionInQueue.setText(your_place);
+                    mEst_time.setText(estimate_time);
+                    mServiceStatusHide.setVisibility(View.GONE);
+                    mServiceAbsentHide.setVisibility(View.GONE);
+
+                }
 
                 if (setvices_tatus.equalsIgnoreCase("yes")) {
 
                     mServiceStatus.setText("Service started");
-                    mServiceStatus.setTextColor(Color.GREEN);
-                } else {
-                    mServiceStatus.setText("Service not started yet");
+                    mServiceStatus.setTextColor(Color.BLUE);
+                } else if (setvices_tatus.equalsIgnoreCase("no")) {
+                    mServiceStatus.setText("Service Not Started Yet");
                     mServiceStatus.setTextColor(Color.RED);
                 }
+                if (staff_status.equalsIgnoreCase("Hold")) {
+                    mServiceStatus.setText("Service On Hold");
+                    mServiceStatus.setTextColor(Color.DKGRAY);
+                }
+
+                Log.d("JQF","staff_status"+staff_status+"setvices_tatus"+setvices_tatus);
                 //  mServiceStatus.setText(setvices_tatus);
                 mPosition_in_queue.setText("Token No." + token_number);
                 mDate.setText(a_date);
@@ -542,7 +580,8 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
 
                     handler.postDelayed(this, FIVE_SECONDS);
                     Log.d("Api hiting", "5");
-                    hitBookingApi();          // this method will contain your almost-finished HTTP calls
+                    hitBookingApi();
+                    dialog.dismiss();
 
                 }
             };

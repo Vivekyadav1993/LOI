@@ -157,6 +157,7 @@ public class MyAppointmentFrag extends HelperFrags implements HttpresponseUpd {
                     myAppointment.setBookingid(obj.getString("booking_id"));
                     myAppointment.setServiceid(obj.getString("service_id"));
                     myAppointment.setAppointmentdate(obj.getString("appointment_date"));
+                    myAppointment.setStatus(obj.getString("status"));
 
                     list.add(myAppointment);
 
@@ -171,7 +172,7 @@ public class MyAppointmentFrag extends HelperFrags implements HttpresponseUpd {
 
             try {
                 mRecyclerView.setHasFixedSize(true);
-                mMyAppointmentAdapter = new MyAppointmentAdapter(this, list, new MyAppointmentAdapter.MyApponClick() {
+                mMyAppointmentAdapter = new MyAppointmentAdapter(getContext(), list, new MyAppointmentAdapter.MyApponClick() {
                     @Override
                     public void onClick(int pos, String adddress_id, String bookingid, String apontmentdate, String Serviceid, String businessid) {
                         Bundle _bundle = new Bundle();

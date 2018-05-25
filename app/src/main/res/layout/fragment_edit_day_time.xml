@@ -1,0 +1,773 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="frags.EditDayTimeFrag">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/dark_grey"
+        android:orientation="vertical">
+
+
+        // header layout
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/hesder_bg">
+
+
+            <ImageView
+                android:id="@+id/frag_day_time_back_btn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:background="?selectableItemBackgroundBorderless"
+                android:padding="10dp"
+                android:src="@drawable/leftarrow_white" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/frag_day_time_back_btn"
+                android:layout_toRightOf="@id/frag_day_time_back_btn"
+                android:gravity="center"
+                android:text="Set Your Business Hours"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_large" />
+
+            <TextView
+                android:id="@+id/frag_day_time_next_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:padding="8dp"
+                android:text="SAVE"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_medium" />
+
+
+        </RelativeLayout>
+
+
+        // select Date layout
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="@color/grey"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+
+            // switch layout
+
+            <RelativeLayout
+                android:id="@+id/frag_day_time_date_switch_layout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+
+                <Switch
+                    android:id="@+id/frag_day_time_date_switch_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true" />
+
+            </RelativeLayout>
+
+
+            // date icon layout
+
+            <RelativeLayout
+                android:id="@+id/frag_day_time_date_icon_layout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/date_icn" />
+
+            </RelativeLayout>
+
+            // event layout
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/frag_day_time_date_switch_layout"
+                android:layout_toRightOf="@id/frag_day_time_date_icon_layout">
+
+                <TextView
+                    android:id="@+id/frag_day_time_date_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date" />
+
+                <TextView
+                    android:id="@+id/frag_day_time_date_start_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/frag_day_time_date_tag"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:text="28/09/2017"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/frag_day_time_date_end_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/bh_date_tag"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/frag_day_time_date_start_btn"
+                    android:minWidth="55dp"
+                    android:text="End date"
+                    android:textColor="@color/grey" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+        // monday layout
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="@color/white"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+
+            // switch layout
+
+            <RelativeLayout
+                android:id="@+id/frag_day_time_timemon_switch_layout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+
+                <Switch
+                    android:id="@+id/frag_day_time_timemon_switch_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:checked="true" />
+
+            </RelativeLayout>
+
+
+            // date icon layout
+
+            <RelativeLayout
+                android:id="@+id/frag_day_time_timemon_icon_layout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/clock_icn" />
+
+            </RelativeLayout>
+
+            // event layout
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/frag_day_time_timemon_switch_layout"
+                android:layout_toRightOf="@id/frag_day_time_timemon_icon_layout">
+
+                <TextView
+                    android:id="@+id/frag_day_time_timemon_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Monday" />
+
+                <TextView
+                    android:id="@+id/frag_day_time_timemon_start_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/frag_day_time_timemon_tag"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:minWidth="55dp"
+                    android:text="08:00 AM"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/frag_day_time_timemon_end_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/frag_day_time_timemon_tag"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/frag_day_time_timemon_start_btn"
+                    android:minWidth="55dp"
+                    android:text="05:00 PM"
+                    android:textColor="@color/black" />
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+        // Tuesday layout
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="@color/white"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+
+            // switch layout
+
+            <RelativeLayout
+                android:id="@+id/frag_day_time_timetue_switch_layout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+
+                <Switch
+                    android:id="@+id/frag_day_time_timetue_switch_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:checked="true" />
+
+            </RelativeLayout>
+
+
+            // date icon layout
+
+            <RelativeLayout
+                android:id="@+id/frag_day_time_timetue_icon_layout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/clock_icn" />
+
+            </RelativeLayout>
+
+            // event layout
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/frag_day_time_timetue_switch_layout"
+                android:layout_toRightOf="@id/frag_day_time_timetue_icon_layout">
+
+                <TextView
+                    android:id="@+id/frag_day_time_timetue_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tuesday" />
+
+                <TextView
+                    android:id="@+id/frag_day_time_timetue_start_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/frag_day_time_timetue_tag"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:minWidth="55dp"
+                    android:text="08:00 AM"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/frag_day_time_timetue_end_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/frag_day_time_timetue_tag"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/frag_day_time_timetue_start_btn"
+                    android:minWidth="55dp"
+                    android:text="05:00 PM"
+                    android:textColor="@color/black" />
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+        // wednesday layout
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="@color/white"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+
+            // switch layout
+
+            <RelativeLayout
+                android:id="@+id/frag_day_time_timewed_switch_layout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+
+                <Switch
+                    android:id="@+id/frag_day_time_timewed_switch_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:checked="true" />
+
+            </RelativeLayout>
+
+
+            // date icon layout
+
+            <RelativeLayout
+                android:id="@+id/frag_day_time_timewed_icon_layout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/clock_icn" />
+
+            </RelativeLayout>
+
+            // event layout
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/frag_day_time_timewed_switch_layout"
+                android:layout_toRightOf="@id/frag_day_time_timewed_icon_layout">
+
+                <TextView
+                    android:id="@+id/frag_day_time_timewed_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Wednesday" />
+
+                <TextView
+                    android:id="@+id/frag_day_time_timewed_start_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/frag_day_time_timewed_tag"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:minWidth="55dp"
+                    android:text="08:00 AM"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/frag_day_time_timewed_end_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/frag_day_time_timewed_tag"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/frag_day_time_timewed_start_btn"
+                    android:minWidth="55dp"
+                    android:text="05:00 PM"
+                    android:textColor="@color/black" />
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+        // thursday layout
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="@color/white"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+
+            // switch layout
+
+            <RelativeLayout
+                android:id="@+id/frag_day_time_timethr_switch_layout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+
+                <Switch
+                    android:id="@+id/frag_day_time_timethr_switch_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:checked="true" />
+
+            </RelativeLayout>
+
+
+            // date icon layout
+
+            <RelativeLayout
+                android:id="@+id/frag_day_time_timethr_icon_layout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/clock_icn" />
+
+            </RelativeLayout>
+
+            // event layout
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/frag_day_time_timethr_switch_layout"
+                android:layout_toRightOf="@id/frag_day_time_timethr_icon_layout">
+
+                <TextView
+                    android:id="@+id/frag_day_time_timethr_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thursday" />
+
+                <TextView
+                    android:id="@+id/frag_day_time_timethr_start_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/frag_day_time_timethr_tag"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:minWidth="55dp"
+                    android:text="08:00 AM"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/frag_day_time_timethr_end_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/frag_day_time_timethr_tag"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/frag_day_time_timethr_start_btn"
+                    android:minWidth="55dp"
+                    android:text="05:00 PM"
+                    android:textColor="@color/black" />
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+        // friday layout
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="@color/white"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+
+            // switch layout
+
+            <RelativeLayout
+                android:id="@+id/frag_day_time_timefri_switch_layout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+
+                <Switch
+                    android:id="@+id/frag_day_time_timefri_switch_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:checked="true" />
+
+            </RelativeLayout>
+
+
+            // date icon layout
+
+            <RelativeLayout
+                android:id="@+id/frag_day_time_timefri_icon_layout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/clock_icn" />
+
+            </RelativeLayout>
+
+            // event layout
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/frag_day_time_timefri_switch_layout"
+                android:layout_toRightOf="@+id/frag_day_time_timefri_icon_layout">
+
+                <TextView
+                    android:id="@+id/frag_day_time_timefri_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Friday" />
+
+                <TextView
+                    android:id="@+id/frag_day_time_timefri_start_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/frag_day_time_timefri_tag"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:minWidth="55dp"
+                    android:text="08:00 AM"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/frag_day_time_timefri_end_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/frag_day_time_timefri_tag"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/frag_day_time_timefri_start_btn"
+                    android:minWidth="55dp"
+                    android:text="05:00 PM"
+                    android:textColor="@color/black" />
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+        // saturday layout
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="@color/white"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+
+            // switch layout
+
+            <RelativeLayout
+                android:id="@+id/frag_day_time_timesat_switch_layout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+
+                <Switch
+                    android:id="@+id/frag_day_time_timesat_switch_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:checked="true" />
+
+            </RelativeLayout>
+
+
+            // date icon layout
+
+            <RelativeLayout
+                android:id="@+id/frag_day_time_timesat_icon_layout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/clock_icn" />
+
+            </RelativeLayout>
+
+            // event layout
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/frag_day_time_timesat_switch_layout"
+                android:layout_toRightOf="@id/frag_day_time_timesat_icon_layout">
+
+                <TextView
+                    android:id="@+id/frag_day_time_timesat_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Saturday" />
+
+                <TextView
+                    android:id="@+id/frag_day_time_timesat_start_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/frag_day_time_timesat_tag"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:minWidth="55dp"
+                    android:text="08:00 AM"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/frag_day_time_timesat_end_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/frag_day_time_timesat_tag"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/frag_day_time_timesat_start_btn"
+                    android:minWidth="55dp"
+                    android:text="05:00 PM"
+                    android:textColor="@color/black" />
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+        // sunday layout
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="@color/white"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+
+            // switch layout
+
+            <RelativeLayout
+                android:id="@+id/frag_day_time_timesun_switch_layout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+
+                <Switch
+                    android:id="@+id/frag_day_time_timesun_switch_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:checked="true" />
+
+            </RelativeLayout>
+
+
+            // date icon layout
+
+            <RelativeLayout
+                android:id="@+id/frag_day_time_timesun_icon_layout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/clock_icn" />
+
+            </RelativeLayout>
+
+            // event layout
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/frag_day_time_timesun_switch_layout"
+                android:layout_toRightOf="@+id/frag_day_time_timesun_icon_layout">
+
+                <TextView
+                    android:id="@+id/frag_day_time_timesun_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sunday" />
+
+                <TextView
+                    android:id="@+id/frag_day_time_timesun_start_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/frag_day_time_timesun_tag"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:minWidth="55dp"
+                    android:text="08:00 AM"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/frag_day_time_timesun_end_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/frag_day_time_timesun_tag"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/frag_day_time_timesun_start_btn"
+                    android:minWidth="55dp"
+                    android:text="05:00 PM"
+                    android:textColor="@color/black" />
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+</ScrollView>

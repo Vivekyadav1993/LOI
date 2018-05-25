@@ -63,7 +63,7 @@ public class AddManualCustomer extends HelperFrags implements HttpresponseUpd {
 
     private String address_id, business_id;
     private String name, date;
-    private String spinner_service;
+    private String spinner_service,business_name;
     private String post_tag = "";
 
     public AddManualCustomer() {
@@ -80,6 +80,7 @@ public class AddManualCustomer extends HelperFrags implements HttpresponseUpd {
         bundle = getArguments();
         address_id = bundle.getString("address_id");
         business_id = bundle.getString("business_id");
+        business_name = bundle.getString("business_name");
 
         initView();
         return view;

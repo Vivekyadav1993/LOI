@@ -28,16 +28,10 @@
                 android:id="@+id/nav_my_cust_list"
                 android:title="My Customer List" />
 
-            <item
-                android:id="@+id/nav_add_line"
-                android:title="Address Line" />
+
             <item
                 android:id="@+id/nav_edit_ads"
                 android:title="Edit Ads" />
-
-            <item
-                android:id="@+id/nav_booking_history"
-                android:title="History" />
 
             <item
                 android:id="@+id/nav_logout"

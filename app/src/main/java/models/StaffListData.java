@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
  * Created by ROINET on 2/21/2018.
  */
 
-public class StaffListData implements Comparable<StaffListData> {
+public class StaffListData /*implements Comparable<StaffListData> */{
 
     private String staff_id, staff_name, hold_id, staff_status, service_name, customer_name, estimate_time, status, appointment_date, token_id, staff_service_started;
 
@@ -113,10 +113,10 @@ public class StaffListData implements Comparable<StaffListData> {
         this.staff_service_started = staff_service_started;
     }
 
-    @Override
+  /*  @Override
     public int compareTo(@NonNull StaffListData staffListData) {
 
         return getCustomer_name().compareTo(staffListData.getCustomer_name());
 
-    }
+    }*/
 }

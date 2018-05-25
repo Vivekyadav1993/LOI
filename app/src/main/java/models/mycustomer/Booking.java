@@ -1,12 +1,9 @@
 package models.mycustomer;
-import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import models.ConsumerListData;
-
-public class Booking implements Comparable<Booking> {
+public class Booking {
 
     @SerializedName("booking_id")
     @Expose
@@ -29,6 +26,9 @@ public class Booking implements Comparable<Booking> {
     @SerializedName("status")
     @Expose
     private String status;
+    @SerializedName("chk_status")
+    @Expose
+    private String chkStatus;
 
     public String getBookingId() {
         return bookingId;
@@ -85,9 +85,12 @@ public class Booking implements Comparable<Booking> {
     public void setStatus(String status) {
         this.status = status;
     }
-
-    @Override
-    public int compareTo(@NonNull Booking booking) {
-        return getEstimateTime().compareTo(booking.getEstimateTime());
+    public String getChkStatus() {
+        return chkStatus;
     }
+
+    public void setChkStatus(String chkStatus) {
+        this.chkStatus = chkStatus;
+    }
+
 }

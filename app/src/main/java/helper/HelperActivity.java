@@ -62,55 +62,54 @@ import java.util.Map;
 import r2stech.lifeoninternet.R;
 
 
-public class HelperActivity extends AppCompatActivity implements  GoogleApiClient.ConnectionCallbacks,
+public class HelperActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         com.google.android.gms.location.LocationListener,
         ResultCallback<LocationSettingsResult> {
 
-protected static final String TAG = "location-settings";
-/**
- * Constant used in the location settings dialog.
- */
-protected static final int REQUEST_CHECK_SETTINGS = 0x1;
-/**
- * The desired interval for location updates. Inexact. Updates may be more or less frequent.
- */
-public static final long UPDATE_INTERVAL_IN_MILLISECONDS = 50000;
-/**
- * The fastest rate for active location updates. Exact. Updates will never be more frequent
- * than this value.
- */
-public static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS =
-        UPDATE_INTERVAL_IN_MILLISECONDS / 2;
-// Keys for storing activity state in the Bundle.
-protected final static String KEY_REQUESTING_LOCATION_UPDATES = "requesting-location-updates";
-protected final static String KEY_LOCATION = "location";
-protected final static String KEY_LAST_UPDATED_TIME_STRING = "last-updated-time-string";
-/**
- * Provides the entry point to Google Play services.
- */
-protected GoogleApiClient mGoogleApiClient;
-/**
- * Stores parameters for requests to the FusedLocationProviderApi.
- */
-protected LocationRequest mLocationRequest;
-/**
- * Stores the types of location services the client is interested in using. Used for checking
- * settings to determine if the device has optimal location settings.
- */
-protected LocationSettingsRequest mLocationSettingsRequest;
-/**
- * Represents a geographical location.
- */
-protected Location mCurrentLocation;
+    protected static final String TAG = "location-settings";
+    /**
+     * Constant used in the location settings dialog.
+     */
+    protected static final int REQUEST_CHECK_SETTINGS = 0x1;
+    /**
+     * The desired interval for location updates. Inexact. Updates may be more or less frequent.
+     */
+    public static final long UPDATE_INTERVAL_IN_MILLISECONDS = 50000;
+    /**
+     * The fastest rate for active location updates. Exact. Updates will never be more frequent
+     * than this value.
+     */
+    public static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS =
+            UPDATE_INTERVAL_IN_MILLISECONDS / 2;
+    // Keys for storing activity state in the Bundle.
+    protected final static String KEY_REQUESTING_LOCATION_UPDATES = "requesting-location-updates";
+    protected final static String KEY_LOCATION = "location";
+    protected final static String KEY_LAST_UPDATED_TIME_STRING = "last-updated-time-string";
+    /**
+     * Provides the entry point to Google Play services.
+     */
+    protected GoogleApiClient mGoogleApiClient;
+    /**
+     * Stores parameters for requests to the FusedLocationProviderApi.
+     */
+    protected LocationRequest mLocationRequest;
+    /**
+     * Stores the types of location services the client is interested in using. Used for checking
+     * settings to determine if the device has optimal location settings.
+     */
+    protected LocationSettingsRequest mLocationSettingsRequest;
+    /**
+     * Represents a geographical location.
+     */
+    protected Location mCurrentLocation;
 
-protected Boolean mRequestingLocationUpdates;
-/**
- * Time when the location was updated represented as a String.
- */
-protected String mLastUpdateTime;
+    protected Boolean mRequestingLocationUpdates;
+    /**
+     * Time when the location was updated represented as a String.
+     */
+    protected String mLastUpdateTime;
 // 28.5273° N, 77.1515° E
-
 
 
     private int mYear, mMonth, mDay, mHour, mMinute;
@@ -132,10 +131,10 @@ protected String mLastUpdateTime;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        _savedInstanceState= savedInstanceState;
+        _savedInstanceState = savedInstanceState;
         updateValuesFromBundle(_savedInstanceState);
         // Kick off the process of building the GoogleApiClient, LocationRequest, and
-         LocationSettingsRequest objects;
+        LocationSettingsRequest objects;
         buildGoogleApiClient();
         createLocationRequest();
         buildLocationSettingsRequest();
@@ -163,42 +162,40 @@ protected String mLastUpdateTime;
 */
 
 
-    public void initializeSharedData(){
+    public void initializeSharedData() {
 
-         //initialize share preference
-        AppConstants.app_data =getSharedPreferences("AppData", MODE_PRIVATE);
+        //initialize share preference
+        AppConstants.app_data = getSharedPreferences("AppData", MODE_PRIVATE);
 
     }
 
-    public void triggerLocation( LocationUpd callback){
+    public void triggerLocation(LocationUpd callback) {
 
         _callback = callback;
-       startUpdatesButtonHandler();
+        startUpdatesButtonHandler();
 
-        Log.e("location","okk");
+        Log.e("location", "okk");
 
 
     }
 
 
-    public void triggerLocationConti( LocationUpd callback){
-         loc_tag = "continue";
+    public void triggerLocationConti(LocationUpd callback) {
+        loc_tag = "continue";
         _callback = callback;
         startUpdatesButtonHandler();
     }
 
-    public void showMSg(String msg){
+    public void showMSg(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
-    public void getDate(final TextView text, final TextView text2){
+    public void getDate(final TextView text, final TextView text2) {
         // Get Current Date
         c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
-
-
 
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
@@ -208,17 +205,17 @@ protected String mLastUpdateTime;
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
 
-                        String oldFormat= "yyyy-MM-dd";
-                        String newFormat= "dd-MMM-yy";
+                        String oldFormat = "yyyy-MM-dd";
+                        String newFormat = "dd-MMM-yy";
 
                         String formatedDate = "";
                         java.text.SimpleDateFormat dateFormat = new java.text.SimpleDateFormat(oldFormat);
-                        Date startDate = null , currentdate= null;
+                        Date startDate = null, currentdate = null;
 
                         try {
 
                             startDate = dateFormat.parse(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
-                            currentdate= dateFormat.parse(mYear + "-" + (mMonth + 1) + "-" + mDay);
+                            currentdate = dateFormat.parse(mYear + "-" + (mMonth + 1) + "-" + mDay);
 
 
                         } catch (java.text.ParseException e) {
@@ -229,14 +226,11 @@ protected String mLastUpdateTime;
                         formatedDate = timeFormat.format(startDate);
 
 
-
-                        if (text==text2) {
+                        if (text == text2) {
 
                             text.setText(formatedDate);
 
-                        }
-                        else{
-
+                        } else {
 
 
                             text.setText(formatedDate);
@@ -244,13 +238,7 @@ protected String mLastUpdateTime;
                             text2.setText(formatedDate);
 
 
-
-
-
                         }
-
-
-
 
 
                     }
@@ -259,14 +247,12 @@ protected String mLastUpdateTime;
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
 
 
-
         datePickerDialog.show();
 
 
     }
 
-    public void getBreakTime(final TextView text , final String frmTime , final String toTime){
-
+    public void getBreakTime(final TextView text, final String frmTime, final String toTime) {
 
 
         c = Calendar.getInstance();
@@ -293,69 +279,56 @@ protected String mLastUpdateTime;
                         } else if (mHour == 0) {
                             mHour += 12;
                             timeSet = "AM";
-                        } else if (mHour == 12){
+                        } else if (mHour == 12) {
                             timeSet = "PM";
-                        }else{
+                        } else {
                             timeSet = "AM";
                         }
 
                         String min = "";
                         if (mMinute < 10)
-                            min = "0" + mMinute ;
+                            min = "0" + mMinute;
                         else
                             min = String.valueOf(mMinute);
 
 
-                        String hr="";
+                        String hr = "";
 
                         if (mHour < 10)
-                            hr = "0" + mHour ;
+                            hr = "0" + mHour;
                         else
                             hr = String.valueOf(mHour);
 
 
-
-
                         // Append in a StringBuilder
                         String aTime = new StringBuilder().append(hr).append(':')
-                                .append(min ).append(" ").append(timeSet).toString();
+                                .append(min).append(" ").append(timeSet).toString();
 
 
+                        try {
+                            Date mToday = new Date();
+
+                            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("hh:mm aa");
+                            String curTime = sdf.format(mToday);
+                            Date start = sdf.parse(frmTime);
+                            Date end = sdf.parse(toTime);
+                            Date taken = sdf.parse(aTime);
 
 
+                            if (taken.before(end) && taken.after(start)) {
+                                text.setText(aTime);
 
-                            try {
-                                Date mToday = new Date();
+                            } else {
+                                showMSg("Invalid Time!!!");
 
-                                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("hh:mm aa");
-                                String curTime = sdf.format(mToday);
-                                Date start = sdf.parse(frmTime);
-                                Date end = sdf.parse(toTime);
-                                Date taken = sdf.parse(aTime);
-
-
-
-
-                                if (taken.before(end)&&taken.after(start)) {
-                                    text.setText(aTime);
-
-                                } else {
-                                    showMSg("Invalid Time!!!");
-
-                                }
-                            } catch (ParseException e) {
-                                // Invalid date was entered
                             }
-
-
-
-
-
+                        } catch (ParseException e) {
+                            // Invalid date was entered
+                        }
 
 
                     }
                 }, mHour, mMinute, false);
-
 
 
         timePickerDialog.show();
@@ -363,7 +336,7 @@ protected String mLastUpdateTime;
 
     }
 
-    public String getcurrentTime(){
+    public String getcurrentTime() {
 
         Calendar datetime = Calendar.getInstance();
 
@@ -379,53 +352,49 @@ protected String mLastUpdateTime;
         } else if (mHour == 0) {
             mHour += 12;
             timeSet = "AM";
-        } else if (mHour == 12){
+        } else if (mHour == 12) {
             timeSet = "PM";
-        }else{
+        } else {
             timeSet = "AM";
         }
 
         String min = "";
         if (mMinute < 10)
-            min = "0" + mMinute ;
+            min = "0" + mMinute;
         else
             min = String.valueOf(mMinute);
 
 
-        String hr="";
+        String hr = "";
 
         if (mHour < 10)
-            hr = "0" + mHour ;
+            hr = "0" + mHour;
         else
             hr = String.valueOf(mHour);
 
 
-
-
         // Append in a StringBuilder
         String aTime = new StringBuilder().append(hr).append(':')
-                .append(min ).append(" ").append(timeSet).toString();
+                .append(min).append(" ").append(timeSet).toString();
 
 
-
-
-        return  aTime;
+        return aTime;
 
 
     }
 
-    public String getcurrentDate(){
+    public String getcurrentDate() {
         c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
 
-      return  (mYear+ "-" + (mMonth + 1) + "-" +mDay);
+        return (mYear + "-" + (mMonth + 1) + "-" + mDay);
 
 
     }
 
-    public void getTime(final TextView text , final String previousTime){
+    public void getTime(final TextView text, final String previousTime) {
         // Get Current Time
         Calendar datetime = Calendar.getInstance();
 
@@ -441,7 +410,7 @@ protected String mLastUpdateTime;
                     public void onTimeSet(TimePicker view, int hourOfDay,
                                           int minute) {
 
-                        Log.e("time",mHour+""+mMinute);
+                        Log.e("time", mHour + "" + mMinute);
 
 
                         mHour = hourOfDay;
@@ -455,51 +424,44 @@ protected String mLastUpdateTime;
                         } else if (mHour == 0) {
                             mHour += 12;
                             timeSet = "AM";
-                        } else if (mHour == 12){
+                        } else if (mHour == 12) {
                             timeSet = "PM";
-                        }else{
+                        } else {
                             timeSet = "AM";
                         }
 
                         String min = "";
                         if (mMinute < 10)
-                            min = "0" + mMinute ;
+                            min = "0" + mMinute;
                         else
                             min = String.valueOf(mMinute);
 
 
-                       String hr="";
+                        String hr = "";
 
                         if (mHour < 10)
-                            hr = "0" + mHour ;
+                            hr = "0" + mHour;
                         else
                             hr = String.valueOf(mHour);
 
 
-
-
                         // Append in a StringBuilder
                         String aTime = new StringBuilder().append(hr).append(':')
-                                .append(min ).append(" ").append(timeSet).toString();
+                                .append(min).append(" ").append(timeSet).toString();
 
 
-
-
-                        if (previousTime.equals("")){
+                        if (previousTime.equals("")) {
                             text.setText(aTime);
 
-                        }
-
-                        else {
+                        } else {
 
                             try {
                                 Date mToday = new Date();
 
-                                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("hh:mm a", Locale.ENGLISH );
+                                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("hh:mm a", Locale.ENGLISH);
                                 String curTime = sdf.format(mToday);
                                 Date start = sdf.parse(previousTime);
                                 Date end = sdf.parse(aTime);
-
 
 
                                 if (end.before(start)) {
@@ -508,23 +470,19 @@ protected String mLastUpdateTime;
                                 } else {
 
 
-
                                 }
                             } catch (ParseException e) {
                                 // Invalid date was entered
 
-                                Log.e("error",e.toString());
+                                Log.e("error", e.toString());
                             }
 
 
                         }
 
 
-
-
                     }
                 }, mHour, mMinute, false);
-
 
 
         timePickerDialog.show();
@@ -560,6 +518,7 @@ protected String mLastUpdateTime;
             //updateUI();
         }
     }
+
     /**
      * Builds a GoogleApiClient. Uses the {@code #addApi} method to request the
      * LocationServices API.
@@ -624,6 +583,7 @@ protected String mLastUpdateTime;
                 break;
         }
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -641,6 +601,7 @@ protected String mLastUpdateTime;
                 break;
         }
     }
+
     /**
      * Handles the Start Updates button and requests start of location updates. Does nothing if
      * updates have already been requested.
@@ -648,6 +609,7 @@ protected String mLastUpdateTime;
     public void startUpdatesButtonHandler() {
         checkLocationSettings();
     }
+
     /**
      * Handles the Stop Updates button, and requests removal of location updates.
      */
@@ -657,6 +619,7 @@ protected String mLastUpdateTime;
         // recommended in applications that request frequent location updates.
         stopLocationUpdates();
     }
+
     /**
      * Requests location updates from the FusedLocationApi.
      */
@@ -677,9 +640,7 @@ protected String mLastUpdateTime;
                     //setButtonsEnabledState();
                 }
             });
-        }
-
-        else{
+        } else {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
 
 
@@ -690,7 +651,7 @@ protected String mLastUpdateTime;
 
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case 1: {
                 // If request is cancelled, the result arrays are empty.
@@ -701,9 +662,9 @@ protected String mLastUpdateTime;
                     startLocationUpdates();
 
                 } else {
-                    Log.e("loc","null");
+                    Log.e("loc", "null");
 
-                     _callback.getLoc(null);
+                    _callback.getLoc(null);
                     showMSg("Location permission denied by user!!!");
                 }
                 return;
@@ -741,18 +702,14 @@ protected String mLastUpdateTime;
     }
 
 
-
-
-
-
     @Override
     public void onStart() {
         super.onStart();
-     if (mGoogleApiClient==null){
+        if (mGoogleApiClient == null) {
 
-        }else {
-    mGoogleApiClient.connect();
-     }
+        } else {
+            mGoogleApiClient.connect();
+        }
 
     }
 
@@ -760,14 +717,15 @@ protected String mLastUpdateTime;
     public void onStop() {
         super.onStop();
 
-        if (mGoogleApiClient==null){
+        if (mGoogleApiClient == null) {
 
-        }else {
+        } else {
             mGoogleApiClient.disconnect();
         }
 
 
     }
+
     /**
      * Runs when a GoogleApiClient object successfully connects.
      */
@@ -792,9 +750,7 @@ protected String mLastUpdateTime;
                 mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
                 mLastUpdateTime = DateFormat.getTimeInstance().format(new java.util.Date());
 
-            }
-
-            else{
+            } else {
 
                 ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 3);
 
@@ -812,17 +768,16 @@ protected String mLastUpdateTime;
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.e("failed",connectionResult.toString());
+        Log.e("failed", connectionResult.toString());
     }
 
     @Override
     public void onLocationChanged(Location location) {
 
 
-        if (_callback==null) {
+        if (_callback == null) {
             Toast.makeText(this, "Location Interface is null!!! Kindly Try again .", Toast.LENGTH_SHORT).show();
-        }
-        else{
+        } else {
             _callback.getLoc(location);
         }
 
@@ -838,25 +793,22 @@ protected String mLastUpdateTime;
     }
 
 
-
-
-
     // Method for fetch address
-    public void calculateLatLongi(String url , final LocationUpd callback) {
+    public void calculateLatLongi(String url, final LocationUpd callback) {
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
                 url, new JSONObject(),
                 new Response.Listener<JSONObject>() {
 
                     @Override
-                    public void onResponse(JSONObject response)throws IllegalArgumentException {
+                    public void onResponse(JSONObject response) throws IllegalArgumentException {
 
 
-                        Log.e("response",response.toString());
+                        Log.e("response", response.toString());
 
                         try {
 
-                            JSONArray results =       response.getJSONArray("results");
+                            JSONArray results = response.getJSONArray("results");
 
                             JSONObject obj = results.getJSONObject(0);
 
@@ -871,20 +823,11 @@ protected String mLastUpdateTime;
                             callback.getLoc(loc);
 
 
-
-
-
-
-
-
                         } catch (JSONException e) {
                             Log.e("JSONException", e.toString());
 
                             e.printStackTrace();
                         }
-
-
-
 
 
                     }
@@ -909,14 +852,13 @@ protected String mLastUpdateTime;
             }
 
 
-
         };
 
         Volley.newRequestQueue(this).add(jsonObjReq);
     }
 
 
-    public void hitApi(final String url , final LocationUpd callback) {
+    public void hitApi(final String url, final LocationUpd callback) {
 
         String tag_string_req = "login_req";
 
@@ -925,59 +867,48 @@ protected String mLastUpdateTime;
         pDialog.setMessage("Processing...");
         try {
             pDialog.show();
-        }
-        catch (WindowManager.BadTokenException e){
+        } catch (WindowManager.BadTokenException e) {
 
         }
         Log.e("url", url);
 
-try {
+        try {
 
-    String _url = url.replaceAll(" ","%20");
+            String _url = url.replaceAll(" ", "%20");
 
-    StringRequest strReq = new StringRequest(Request.Method.GET,
-            _url, new Response.Listener<String>() {
+            StringRequest strReq = new StringRequest(Request.Method.GET,
+                    _url, new Response.Listener<String>() {
 
-        @Override
-        public void onResponse(String response)   {
+                @Override
+                public void onResponse(String response) {
 
 
-         //   callback.updateValues(response);
+                    //   callback.updateValues(response);
 
-            pDialog.dismiss();
+                    pDialog.dismiss();
 
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                    pDialog.hide();
+                }
+            });
+
+            Volley.newRequestQueue(this).add(strReq);
+
+
+        } catch (IndexOutOfBoundsException e1) {
+
+        } catch (IllegalArgumentException e) {
 
         }
-    }, new Response.ErrorListener() {
-
-        @Override
-        public void onErrorResponse(VolleyError error) {
-
-            pDialog.hide();
-        }
-    });
-
-    Volley.newRequestQueue(this).add(strReq);
-
-
-}
-catch (IndexOutOfBoundsException e1){
-
-}
-catch (IllegalArgumentException e){
-
-}
 
 
     }
-
-
-
-
-
-
-
-
 
 
 }

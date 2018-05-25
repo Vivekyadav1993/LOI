@@ -49,6 +49,18 @@
             android:padding="3dp"
             android:textColor="@color/black"
             android:textSize="14sp" />
+ <TextView
+            android:id="@+id/my_ads_status_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+             android:layout_below="@id/my_ads_estimale_time_item_tv"
+            android:layout_toEndOf="@id/serial_no"
+            android:layout_toRightOf="@id/serial_no"
+            android:padding="3dp"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
 
 
     </RelativeLayout>

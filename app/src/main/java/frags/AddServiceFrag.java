@@ -104,7 +104,7 @@ public class AddServiceFrag extends HelperFrags implements HttpresponseUpd {
         // businessid=bundle.getInt("business_id");
         addressid = mPrefs.getAddressId();
         // businessid = LandingActivity.business_data.getBusiness_id();
-        businessid = mPrefs.getBusinessId();
+        businessid = mPrefs.getBusnessId();
 
 
         Log.d("Business", "b" + businessid + "add" + addressid);

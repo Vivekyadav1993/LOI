@@ -25,8 +25,13 @@ public class Sharedpreferences {
     public static final String TAG_BUSNESS_ID = "business_id";
     public static final String TAG_CUST_ID = "cust_id";
     public static final String TAG_EMAIL_ID = "email";
+    public static final String TAG_STAFF_ID = "staffId";
+    public static final String TAG_USER_ID = "userid";
+    public static final String TAG_SELECT_ADDRESS_ID = "selectaddress";
+    public static final String TAG_SELECT_BUSINESS_ID = "selectbusiiness";
     public static final String TAG_ADDRESS= "address";
     public static final String TAG_NAME_ID = "name";
+    public static final String TAG_USER_LOGGED_IN = "userloggedinstatus";
 
 
     public Sharedpreferences(Context c) {
@@ -64,6 +69,28 @@ public class Sharedpreferences {
         } catch (Exception e) {
         }
     }
+    public String getSelectAddressId() {
+        return pref.getString(TAG_SELECT_ADDRESS_ID, "");
+    }
+
+    public void setselecttAddressId(String addressselectId) {
+        try {
+            editor.putString(TAG_SELECT_ADDRESS_ID, addressselectId);
+            editor.commit();
+        } catch (Exception e) {
+        }
+    }
+    public String getSelecttBusinessId() {
+        return pref.getString(TAG_SELECT_BUSINESS_ID, "");
+    }
+
+    public void setSelecttBusinessId(String businessSelectId) {
+        try {
+            editor.putString(TAG_SELECT_BUSINESS_ID, businessSelectId);
+            editor.commit();
+        } catch (Exception e) {
+        }
+    }
     public String getMainAddress() {
         return pref.getString(TAG_ADDRESS, "");
     }
@@ -86,6 +113,17 @@ public class Sharedpreferences {
         } catch (Exception e) {
         }
     }
+    public String getStaffId() {
+        return pref.getString(TAG_STAFF_ID, "");
+    }
+
+    public void setStaffId(String staffId) {
+        try {
+            editor.putString(TAG_STAFF_ID, staffId);
+            editor.commit();
+        } catch (Exception e) {
+        }
+    }
   public String getBusnessId() {
         return pref.getString(TAG_BUSNESS_ID, "");
     }
@@ -93,6 +131,17 @@ public class Sharedpreferences {
     public void setBusnessId(String busness_Id) {
         try {
             editor.putString(TAG_BUSNESS_ID, busness_Id);
+            editor.commit();
+        } catch (Exception e) {
+        }
+    }
+    public String getUserId() {
+        return pref.getString(TAG_USER_ID, "");
+    }
+
+    public void setUserId(String userId) {
+        try {
+            editor.putString(TAG_USER_ID,userId);
             editor.commit();
         } catch (Exception e) {
         }
@@ -117,6 +166,21 @@ public class Sharedpreferences {
     public void setEmailId(String emailId) {
         try {
             editor.putString(TAG_EMAIL_ID, emailId);
+            editor.commit();
+        } catch (Exception e) {
+        }
+    }
+
+    /*
+      *  Loggedin username
+      **/
+    public Boolean getIsUserLoggedIn() {
+        return pref.getBoolean(TAG_USER_LOGGED_IN, false);
+    }
+
+    public void setIsUserLoggedIn(Boolean status) {
+        try {
+            editor.putBoolean(TAG_USER_LOGGED_IN, status);
             editor.commit();
         } catch (Exception e) {
         }

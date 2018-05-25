@@ -12,6 +12,7 @@ public class MyAppointment {
     public String bookingid;
     public String appointmentdate;
     public String serviceid;
+    public String status;
 
     public String getBusinessid() {
         return businessid;
@@ -51,6 +52,14 @@ public class MyAppointment {
 
     public void setAppointmentdate(String appointmentdate) {
         this.appointmentdate = appointmentdate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getServiceid() {

@@ -18,6 +18,7 @@ import frags.MyAdsFrag;
 import models.ConsumerListData;
 import r2stech.lifeoninternet.R;
 import r2stech.lifeoninternet.interfaces.UpdateListData;
+import r2stech.lifeoninternet.utils.Sharedpreferences;
 import r2stech.lifeoninternet.utils.Utils;
 
 /**
@@ -31,12 +32,14 @@ public class ConsumerListAdap extends BaseAdapter {
     private ConsumerListData set;
     Holder holder;
     private UpdateListData updateListData;
+    private Sharedpreferences mPref;
 
     public ConsumerListAdap(Activity act, ArrayList<ConsumerListData> _data, UpdateListData _updateListData) {
         activity = act;
         data = _data;
         updateListData = _updateListData;
-       // Collections.sort(data);
+        mPref = Sharedpreferences.getUserDataObj(act);
+        // Collections.sort(data);
 
     }
 
@@ -107,16 +110,35 @@ public class ConsumerListAdap extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
 
-                    if (data.get(position).getStatus().equalsIgnoreCase("Active")) {
-                        updateListData.doUpdate("http://lifeoninternet.com/"+ Utils.stringBuilder()+"/api.php?action=updateUserStatusAtPermise&id="
-                                + data.get(position).getId() + "&business_id=" + MyAdsFrag.business_id + "&address_id=" + MyAdsFrag.address_id);
-                        holder.status.setText("At Premise");
+                    if (mPref.getStaffId().equalsIgnoreCase("")) {
+
+                        if (data.get(position).getStatus().equalsIgnoreCase("Active")) {
+                            updateListData.doUpdate("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=updateUserStatusAtPermise&id="
+                                    + data.get(position).getId() + "&business_id=" + MyAdsFrag.business_id + "&address_id="
+                                    + MyAdsFrag.address_id);
+                            holder.status.setText("At Premise");
+                        } else {
+
+                            //   holder.status.setText("At Premise");
+                            //   holder.status.setText("At Premise");
+
+                            //   Toast.makeText(get, "You already ", Toast.LENGTH_SHORT).show();
+                        }
+
                     } else {
 
-                        //   holder.status.setText("At Premise");
-                        //   holder.status.setText("At Premise");
+                        if (data.get(position).getStatus().equalsIgnoreCase("Active")) {
+                            updateListData.doUpdate("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=updateUserStatusAtPermise&id="
+                                    + data.get(position).getId() + "&business_id=" + MyAdsFrag.business_id + "&address_id="
+                                    + MyAdsFrag.address_id + "&staff_id=" + mPref.getStaffId());
+                            holder.status.setText("At Premise");
+                        } else {
 
-                        //   Toast.makeText(get, "You already ", Toast.LENGTH_SHORT).show();
+                            //   holder.status.setText("At Premise");
+                            //   holder.status.setText("At Premise");
+
+                            //   Toast.makeText(get, "You already ", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                 }
@@ -125,10 +147,18 @@ public class ConsumerListAdap extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
 
-                    Log.d("CLA", "" + data.get(position).getId());
-                    updateListData.doUpdate("http://lifeoninternet.com/"+Utils.stringBuilder()+"/api.php?action=updateUserStatusAbsent&id="
-                            + data.get(position).getId() + "&business_id=" + MyAdsFrag.business_id + "&address_id="
-                            + MyAdsFrag.address_id + "&appointment_date=" + data.get(position).getAppointment_date());
+                    if (mPref.getStaffId().equalsIgnoreCase("")) {
+                        updateListData.doUpdate("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=updateUserStatusAbsent&id="
+                                + data.get(position).getId() + "&business_id=" + MyAdsFrag.business_id + "&address_id="
+                                + MyAdsFrag.address_id + "&appointment_date=" + data.get(position).getAppointment_date());
+
+
+                    } else {
+                        Log.d("CLA", "" + data.get(position).getId());
+                        updateListData.doUpdate("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=updateUserStatusAbsent&id="
+                                + data.get(position).getId() + "&business_id=" + MyAdsFrag.business_id + "&address_id="
+                                + MyAdsFrag.address_id + "&appointment_date=" + data.get(position).getAppointment_date() + "&staff_id=" + mPref.getStaffId());
+                    }
                 }
             });
 
@@ -136,9 +166,9 @@ public class ConsumerListAdap extends BaseAdapter {
             holder.token.setText(set.getToken_id() + ".");
 
             if (set.getStatus().equals("IN") || set.getStatus().equals("At Permise")) {
-                holder.info.setText(set.getCustomer_name() + " has arrived at " + set.getEstimate_time() + "\nService : " + set.getService_name());
+                holder.info.setText(set.getCustomer_name() + "\nEstimated time :" + set.getEstimate_time() + "\nService : " + set.getService_name());
             } else {
-                holder.info.setText(set.getCustomer_name() + " will arrive at " + set.getEstimate_time() + "\nService : " + set.getService_name());
+                holder.info.setText(set.getCustomer_name() + "\nEstimated time :" + set.getEstimate_time() + "\nService : " + set.getService_name());
 
             }
             if (set.getStatus().equals("Active")) {

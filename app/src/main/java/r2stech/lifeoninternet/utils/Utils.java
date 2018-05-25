@@ -182,16 +182,12 @@ public class Utils {
     }
 
     public static String stringBuilder() {
-      /*  Uri.Builder builder = new Uri.Builder();
-        builder.scheme("http")
-                .authority("lifeoninternet.com")
-                .appendPath("new_service")
-                .appendPath("api.php");
-    */    String baseUrl="new_service";
-        // String baseUrl = "production";
+
+        //   String baseUrl = "new_service";
+
+          String baseUrl = "production";
 
         return baseUrl;
-
     }
 
     public static void showProgress(Context context, String message) {
@@ -213,6 +209,7 @@ public class Utils {
             e.printStackTrace();
         }
     }
+
     /*
      * display Toast message
      */
@@ -686,7 +683,7 @@ public class Utils {
 
 
     public static void selectImage(final Activity activity) {
-        final CharSequence[] items = {"Take Photo", "Choose from Library","Cancel"};
+        final CharSequence[] items = {"Take Photo", "Choose from Library", "Cancel"};
 
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(activity);
         builder.setTitle("Upload Photo!");

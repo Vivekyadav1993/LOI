@@ -44,6 +44,7 @@ import helper.HelperActivity;
 import helper.HttpresponseUpd;
 import helper.LocationUpd;
 import r2stech.lifeoninternet.services.LocationMonitoringService;
+import r2stech.lifeoninternet.utils.Sharedpreferences;
 import r2stech.lifeoninternet.utils.Utils;
 
 /**
@@ -75,13 +76,14 @@ public class SplashActivity extends HelperActivity implements LocationUpd, Httpr
 
 
     private boolean mAlreadyStartedService = false;
+    private Sharedpreferences mPref;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
-
+        mPref = Sharedpreferences.getUserDataObj(this);
         loc_callback = this;
 
         http_callback = this;
@@ -161,11 +163,11 @@ public class SplashActivity extends HelperActivity implements LocationUpd, Httpr
             editor.putString("long", loc.getLongitude() + "");
             editor.commit();
 
-            post_tag = "address";
 
-            if (AppUtils.isNetworkAvailable(this))
+            if (AppUtils.isNetworkAvailable(this)) {
+                post_tag = "address";
                 AppUtils.getAdd("http://maps.googleapis.com/maps/api/geocode/json?latlng=" + loc.getLatitude() + "," + loc.getLongitude() + "&sensor=true", this, http_callback);
-            else {
+            } else {
                 snackbar = Snackbar.make(parent, "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
 
                 snackbar.show();
@@ -182,41 +184,23 @@ public class SplashActivity extends HelperActivity implements LocationUpd, Httpr
 
         Log.e("res", response + "tag" + post_tag);
 
-
         if (response.contains("error")) {
-            Snackbar snackbar = Snackbar.make(parent, response, Snackbar.LENGTH_LONG);
-            snackbar.show();
+            if (mPref.getIsUserLoggedIn() == Boolean.FALSE) {
+                Intent intent = new Intent(getApplicationContext(), UserAuthACtivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                        | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            } else {
 
-            if (AppConstants.app_data.getString("user_id", "").equals("")) {
-
-                Intent intent = new Intent(SplashActivity.this, UserAuthACtivity.class);
+                Intent intent = new Intent(getApplicationContext(), LandingActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.putExtra("src", "def");
                 startActivity(intent);
                 finish();
 
-            } else {
-
-                //hit api
-                Uri.Builder builder = new Uri.Builder();
-                builder.scheme("http")
-                        .authority("lifeoninternet.com")
-                        .appendPath("new_service")
-                        .appendPath("api.php")
-                        .appendQueryParameter("action", "getBusiness")
-                        .appendQueryParameter("user_id", AppConstants.app_data.getString("user_id", ""));
-
-
-                Log.e("url", builder.build().toString());
-                post_tag = "check";
-                if (AppUtils.isNetworkAvailable(this))
-                    AppUtils.getStringData(builder.build().toString(), this, http_callback);
-                else {
-                    snackbar = Snackbar.make(parent, "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
-
-                    snackbar.show();
-
-                }
             }
+            Snackbar snackbar = Snackbar.make(parent, response, Snackbar.LENGTH_LONG);
+            snackbar.show();
         } else if (post_tag.equals("address")) {
 
             String[] address_array = response.split(",");
@@ -234,78 +218,24 @@ public class SplashActivity extends HelperActivity implements LocationUpd, Httpr
             editor.putString("address", response);
             editor.putString("short_add", short_address);
             editor.commit();
+            Log.d("SplashActivity", "data is" + mPref.getIsUserLoggedIn());
 
-            Log.d("SplashActivity", "short_address"+response);
-            if (AppConstants.app_data.getString("user_id", "").equals("")) {
-
-                Intent intent = new Intent(SplashActivity.this, UserAuthACtivity.class);
-                intent.putExtra("src", "def");
+            if (mPref.getIsUserLoggedIn() == Boolean.FALSE) {
+                Intent intent = new Intent(getApplicationContext(), UserAuthACtivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                        | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
-                finish();
-
             } else {
 
-                //hit api
-                Uri.Builder builder = new Uri.Builder();
-                builder.scheme("http")
-                        .authority("lifeoninternet.com")
-                        .appendPath("new_service")
-                        .appendPath("api.php")
-                        .appendQueryParameter("action", "getBusiness")
-                        .appendQueryParameter("user_id", AppConstants.app_data.getString("user_id", ""));
-
-
-                Log.e("url", builder.build().toString());
-                post_tag = "check";
-                try {
-                    if (AppUtils.isNetworkAvailable(this))
-                        AppUtils.getStringData(builder.build().toString(), this, http_callback);
-                    else {
-                        snackbar = Snackbar.make(parent, "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
-
-                        snackbar.show();
-
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-              /*  Intent intent = new Intent(SplashActivity.this, LandingActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LandingActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.putExtra("src", "def");
                 startActivity(intent);
                 finish();
-*/
+
             }
-        } else {
 
-            try {
-                JSONObject main_obj = new JSONObject(response);
-                JSONArray output_array = main_obj.getJSONArray("output");
-                JSONObject obj = output_array.getJSONObject(0);
-
-                //  Toast.makeText(this, "" + obj.getString("message"), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(SplashActivity.this, LandingActivity.class);
-                intent.putExtra("src", "def");
-                startActivity(intent);
-                finish();
-             /*   if (obj.getString("message").equals("No Record Found")) {
-                    Intent intent = new Intent(SplashActivity.this, LandingActivity.class);
-                    intent.putExtra("src", "def");
-                    startActivity(intent);
-                    finish();
-                } else {
-
-                    Intent intent = new Intent(SplashActivity.this, LandingActivity.class);
-                    intent.putExtra("src", "create_event");
-                    intent.putExtra("data", response);
-                    startActivity(intent);
-                    finish();
-                }*/
-            } catch (JSONException e) {
-                snackbar = Snackbar.make(parent, e.getMessage(), Snackbar.LENGTH_LONG);
-
-                snackbar.show();
-            }
+            Log.d("SplashActivity", "short_address" + response);
         }
     }
 }

@@ -21,6 +21,7 @@ import frags.MyAdsFrag;
 import models.StaffListData;
 import r2stech.lifeoninternet.R;
 import r2stech.lifeoninternet.interfaces.UpdateListData;
+import r2stech.lifeoninternet.utils.Sharedpreferences;
 import r2stech.lifeoninternet.utils.Utils;
 
 import static frags.MyAdsFrag.address_id;
@@ -37,12 +38,14 @@ public class LiveAdap extends BaseAdapter {
     private StaffListData set;
     private UpdateListData updateListData;
     Holder holder;
+    private Sharedpreferences mPref;
 
     public LiveAdap(Activity act, ArrayList<StaffListData> _data, UpdateListData _updateListData) {
         activity = act;
         data = _data;
         updateListData = _updateListData;
-        Collections.sort(data);
+        mPref=Sharedpreferences.getUserDataObj(act);
+       // Collections.sort(data);
     }
 
     static class Holder {
@@ -114,6 +117,8 @@ public class LiveAdap extends BaseAdapter {
                     holder.service_name.setVisibility(View.INVISIBLE);
                     holder.serve_customer_name.setVisibility(View.INVISIBLE);
                     holder.customer_est.setVisibility(View.INVISIBLE);
+
+                    Log.d("LAA", "hold" + data.get(position).getStaff_status());
                     if (data.get(position).getStaff_status().equalsIgnoreCase("Hold")) {
                         holder.hold_spinner.setVisibility(View.GONE);
                         holder.unhold_btn.setVisibility(View.VISIBLE);
@@ -122,7 +127,7 @@ public class LiveAdap extends BaseAdapter {
                         holder.serve_btn.setEnabled(false);
                         holder.serve_btn.setText("No customer found!");
                     } else {
-                        holder.hold_spinner.setVisibility(View.GONE);
+                        holder.hold_spinner.setVisibility(View.VISIBLE);
                         holder.unhold_btn.setVisibility(View.GONE);
                         holder.serve_btn.setVisibility(View.VISIBLE);
                         holder.serve_btn.setClickable(false);
@@ -204,7 +209,7 @@ public class LiveAdap extends BaseAdapter {
                     @Override
                     public void onClick(View view) {
 
-                        updateListData.doUpdate("http://lifeoninternet.com/"+ Utils.stringBuilder()+"/api.php?action=staffserviceStarted&business_id=" + business_id + "&address_id=" + address_id +
+                        updateListData.doUpdate("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=staffserviceStarted&business_id=" + business_id + "&address_id=" + address_id +
                                 "&staff_id=" + data.get(position).getStaff_id() + "&appointment_date="
                                 + GetDateFormat(calendar.get(Calendar.YEAR), (calendar.get(Calendar.MONTH) + 1), calendar.get(Calendar.DATE)));
 
@@ -225,13 +230,14 @@ public class LiveAdap extends BaseAdapter {
                   /*  if(data.get(position).getAppointment_date()!=null) {
                         updateListData.doUpdate("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=updateStaffStatusUnHold&staff_id=" + data.get((int) v.getTag()).getStaff_id() + "&hold_id=" + data.get(position).getHold_id() + "&business_id=" + business_id + "&address_id=" + address_id + "&appointment_date=" + data.get(position).getAppointment_date());
                     }else {
-                    */    updateListData.doUpdate("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=updateStaffStatusUnHold&staff_id=" +
-                                data.get((int) v.getTag()).getStaff_id() + "&hold_id=" + data.get(position).getHold_id() + "&business_id=" +
-                                business_id + "&address_id=" + address_id + "&appointment_date=" +
-                                GetDateFormat(calendar.get(Calendar.YEAR), (calendar.get(Calendar.MONTH) + 1), calendar.get(Calendar.DATE)));
+                    */
+                    updateListData.doUpdate("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=updateStaffStatusUnHold&staff_id=" +
+                            data.get((int) v.getTag()).getStaff_id() + "&hold_id=" + data.get(position).getHold_id() + "&business_id=" +
+                            business_id + "&address_id=" + address_id + "&appointment_date=" +
+                            GetDateFormat(calendar.get(Calendar.YEAR), (calendar.get(Calendar.MONTH) + 1), calendar.get(Calendar.DATE)));
 
-                    Log.d("Date",""+GetDateFormat(calendar.get(Calendar.YEAR), (calendar.get(Calendar.MONTH) + 1), calendar.get(Calendar.DATE)));
-                  //  }
+                    Log.d("Date", "" + GetDateFormat(calendar.get(Calendar.YEAR), (calendar.get(Calendar.MONTH) + 1), calendar.get(Calendar.DATE)));
+                    //  }
                 }
             });
 
@@ -241,11 +247,13 @@ public class LiveAdap extends BaseAdapter {
 
                     if (data.get(position).getStatus().equals("At Permise")) {
                         //      holder.hold_spinner.setVisibility(View.INVISIBLE);
-                        updateListData.doUpdate("http://lifeoninternet.com/"+Utils.stringBuilder()+"/api.php?action=updateUserStatusIn&id=" + data.get(position).getToken_id() + "&business_id=" + business_id + "&address_id=" + address_id + "&staff_id=" + data.get(position).getStaff_id() + "&appointment_date=" + data.get(position).getAppointment_date());
+                        updateListData.doUpdate("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=updateUserStatusIn&id=" +
+                                data.get(position).getToken_id() + "&business_id=" + business_id + "&address_id=" + address_id + "&staff_id=" +
+                                data.get(position).getStaff_id() + "&appointment_date=" + data.get(position).getAppointment_date());
 
                     } else {
                         //   holder.hold_spinner.setVisibility(View.VISIBLE);
-                        updateListData.doUpdate("http://lifeoninternet.com/"+Utils.stringBuilder()+"/api.php?action=updateUserStatusOut&id=" +
+                        updateListData.doUpdate("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=updateUserStatusOut&id=" +
                                 data.get(position).getToken_id() + "&business_id=" + business_id + "&address_id=" + address_id + "&staff_id=" +
                                 data.get(position).getStaff_id() + "&appointment_date=" + data.get(position).getAppointment_date());
 
@@ -263,38 +271,39 @@ public class LiveAdap extends BaseAdapter {
                         case 1:
                             Log.d("Ta", "5 min" + data.get(position).getStaff_id());
                             // 5 min
-                            updateListData.doUpdate("http://lifeoninternet.com/"+Utils.stringBuilder()+"/api.php?action=updateStaffStatusHold&id=" + data.get(position).getToken_id() + "&business_id=" + business_id + "&address_id=" + address_id + "&staff_id=" + data.get(position).getStaff_id() + "&appointment_date=" + data.get(position).getAppointment_date() + "&hold_time_interval=5");
+                            updateListData.doUpdate("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=updateStaffStatusHold&id=" +
+                                    data.get(position).getToken_id() + "&business_id=" + business_id + "&address_id=" + address_id + "&staff_id=" + data.get(position).getStaff_id() + "&appointment_date=" + data.get(position).getAppointment_date() + "&hold_time_interval=5");
 
                             break;
 
                         case 2:
                             //10 min
                             Log.d("Ta", "10 min" + data.get(position).getStaff_id());
-                            updateListData.doUpdate("http://lifeoninternet.com/"+Utils.stringBuilder()+"/api.php?action=updateStaffStatusHold&id=" + data.get(position).getToken_id() + "&business_id=" + business_id + "&address_id=" + address_id + "&staff_id=" + data.get(position).getStaff_id() + "&appointment_date=" + data.get(position).getAppointment_date() + "&hold_time_interval=10");
+                            updateListData.doUpdate("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=updateStaffStatusHold&id=" + data.get(position).getToken_id() + "&business_id=" + business_id + "&address_id=" + address_id + "&staff_id=" + data.get(position).getStaff_id() + "&appointment_date=" + data.get(position).getAppointment_date() + "&hold_time_interval=10");
 
                             break;
 
                         case 3:
                             //15 min
-                            updateListData.doUpdate("http://lifeoninternet.com/"+Utils.stringBuilder()+"/api.php?action=updateStaffStatusHold&id=" + data.get(position).getToken_id() + "&business_id=" + business_id + "&address_id=" + address_id + "&staff_id=" + data.get(position).getStaff_id() + "&appointment_date=" + data.get(position).getAppointment_date() + "&hold_time_interval=15");
+                            updateListData.doUpdate("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=updateStaffStatusHold&id=" + data.get(position).getToken_id() + "&business_id=" + business_id + "&address_id=" + address_id + "&staff_id=" + data.get(position).getStaff_id() + "&appointment_date=" + data.get(position).getAppointment_date() + "&hold_time_interval=15");
 
                             break;
 
                         case 4:
                             //20 min
-                            updateListData.doUpdate("http://lifeoninternet.com/"+Utils.stringBuilder()+"/api.php?action=updateStaffStatusHold&id=" + data.get(position).getToken_id() + "&business_id=" + business_id + "&address_id=" + address_id + "&staff_id=" + data.get(position).getStaff_id() + "&appointment_date=" + data.get(position).getAppointment_date() + "&hold_time_interval=20");
+                            updateListData.doUpdate("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=updateStaffStatusHold&id=" + data.get(position).getToken_id() + "&business_id=" + business_id + "&address_id=" + address_id + "&staff_id=" + data.get(position).getStaff_id() + "&appointment_date=" + data.get(position).getAppointment_date() + "&hold_time_interval=20");
 
                             break;
 
                         case 5:
                             //25 min
-                            updateListData.doUpdate("http://lifeoninternet.com/"+Utils.stringBuilder()+"/api.php?action=updateStaffStatusHold&id=" + data.get(position).getToken_id() + "&business_id=" + business_id + "&address_id=" + address_id + "&staff_id=" + data.get(position).getStaff_id() + "&appointment_date=" + data.get(position).getAppointment_date() + "&hold_time_interval=25");
+                            updateListData.doUpdate("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=updateStaffStatusHold&id=" + data.get(position).getToken_id() + "&business_id=" + business_id + "&address_id=" + address_id + "&staff_id=" + data.get(position).getStaff_id() + "&appointment_date=" + data.get(position).getAppointment_date() + "&hold_time_interval=25");
 
                             break;
 
                         case 6:
                             //30 min
-                            updateListData.doUpdate("http://lifeoninternet.com/"+Utils.stringBuilder()+"/api.php?action=updateStaffStatusHold&id=" + data.get(position).getToken_id() + "&business_id=" + business_id + "&address_id=" + address_id + "&staff_id=" + data.get(position).getStaff_id() + "&appointment_date=" + data.get(position).getAppointment_date() + "&hold_time_interval=30");
+                            updateListData.doUpdate("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=updateStaffStatusHold&id=" + data.get(position).getToken_id() + "&business_id=" + business_id + "&address_id=" + address_id + "&staff_id=" + data.get(position).getStaff_id() + "&appointment_date=" + data.get(position).getAppointment_date() + "&hold_time_interval=30");
 
                             break;
                     }

@@ -1,8 +1,11 @@
 package frags;
 
 
+import android.app.Dialog;
 import android.arch.lifecycle.LifecycleOwner;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -12,10 +15,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -32,6 +38,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import adapters.AddStaffAdap;
+import adapters.BusinessTimeAdapter;
 import adapters.CustomerLandingRecyclerViewAdapter;
 import adapters.ExpandableListAdapter;
 import adapters.FaqChildAdapter;
@@ -43,6 +50,7 @@ import butterknife.OnClick;
 import helper.AppUtils;
 import helper.HelperFrags;
 import helper.HttpresponseUpd;
+import models.BusinessDayTime;
 import models.StaffData;
 import models.addetailsEdit.Business;
 import models.addetailsEdit.DetailsEditModel;
@@ -96,9 +104,6 @@ public class AdDetailsEditFrag extends HelperFrags implements HttpresponseUpd {
     @BindView(R.id.ad_details_edit_phone_tv)
     public TextView mPhone;
 
-    @BindView(R.id.ad_details_edit_day_tv)
-    public TextView mDate;
-
     @BindView(R.id.frag_add_edit_details_staff_rv)
     public RecyclerView mStaffRv;
 
@@ -107,6 +112,10 @@ public class AdDetailsEditFrag extends HelperFrags implements HttpresponseUpd {
 
     @BindView(R.id.frag_details_edit_chield_staff_rv)
     public RecyclerView mChildRv;
+
+
+    @BindView(R.id.frag_add_edit_details_business_date_rv)
+    public RecyclerView mBusinessTimeRv;
 
     @BindView(R.id.frag_ad_details_edit_Sv)
     public ScrollView mScrollView;
@@ -127,10 +136,17 @@ public class AdDetailsEditFrag extends HelperFrags implements HttpresponseUpd {
     private LinearLayoutManager linearLayoutManager;
 
     private ServiceStaffAdapter mAdapter;
+    private BusinessTimeAdapter mBusinessAdapter;
 
     private Sharedpreferences mPrefs;
 
     public String business_id, address_id;
+
+    private List<BusinessDayTime> businessDayTimesList;
+    private Dialog mDialougeBox;
+    private String post_tag;
+    private ArrayList<String> dayDay, dayTo, day;
+    private String Mon, Tue, Wed, Thru, Fri, Sat, Sun, MonTo, TueTo, WedTo, ThruTo, FriTo, SatTo, SunTo, StartDate, EndDate;
 
     public AdDetailsEditFrag() {
 
@@ -150,6 +166,7 @@ public class AdDetailsEditFrag extends HelperFrags implements HttpresponseUpd {
         staffList = new ArrayList<>();
         resourcesList = new ArrayList<>();
         listDataHeader = new ArrayList<String>();
+        businessDayTimesList = new ArrayList<>();
         listDataChild = new HashMap<String, List<String>>();
         staff_name_service = new ArrayList<>();
         bundle = getArguments();
@@ -178,9 +195,10 @@ public class AdDetailsEditFrag extends HelperFrags implements HttpresponseUpd {
                     .appendQueryParameter("address_id", address_id);
 
             Log.e("stafflist", builder.build().toString());
-            if (AppUtils.isNetworkAvailable(getActivity()))
+            if (AppUtils.isNetworkAvailable(getActivity())) {
+                post_tag = "businessdetails";
                 AppUtils.getStringData(builder.build().toString(), getActivity(), callback);
-            else {
+            } else {
                 snackbar = Snackbar.make(getView(), "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
                 snackbar.show();
 
@@ -195,7 +213,7 @@ public class AdDetailsEditFrag extends HelperFrags implements HttpresponseUpd {
     }
 
     @OnClick({R.id.ad_details_edit_back_btn, R.id.ad_details_edit_submit_btn, R.id.ad_details_edit_business_iv, R.id.ad_details_edit_staff_iv,
-            R.id.ad_details_edit_resource_iv, R.id.ad_details_edit_category_iv, R.id.ad_details_edit_service_iv})
+            R.id.ad_details_edit_resource_iv, R.id.ad_details_edit_category_iv, R.id.ad_details_edit_service_iv, R.id.ad_details_edit_staff_business_date_iv})
     public void onClick(View v) {
         switch (v.getId()) {
 
@@ -216,8 +234,9 @@ public class AdDetailsEditFrag extends HelperFrags implements HttpresponseUpd {
 
             case R.id.ad_details_edit_business_iv:
 
-                bundle.putString("src", "value");
-                replaceFrag(new BusinessDetailsFrag(), bundle, BusinessDetailsFrag.class.getName());
+                openEditBusinessDialougeBox();
+                // bundle.putString("src", "value");
+                //  replaceFrag(new BusinessDetailsFrag(), bundle, BusinessDetailsFrag.class.getName());
               /*  Fragment fragment = new BusinessDetailsFrag();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -242,7 +261,94 @@ public class AdDetailsEditFrag extends HelperFrags implements HttpresponseUpd {
 
                 break;
 
+            case R.id.ad_details_edit_staff_business_date_iv:
+
+                editDayTimeFun();
+
+                break;
         }
+    }
+
+    private void editDayTimeFun() {
+
+
+        Bundle bundle = new Bundle();
+        bundle.putString("Mon", Mon);
+        bundle.putString("MonTo", MonTo);
+        bundle.putString("Tue", Tue);
+        bundle.putString("TueTo", TueTo);
+        bundle.putString("Wed", Wed);
+        bundle.putString("WedTo", WedTo);
+        bundle.putString("Thru", Thru);
+        bundle.putString("ThruTo", ThruTo);
+        bundle.putString("Fri", Fri);
+        bundle.putString("FriTo", FriTo);
+        bundle.putString("Sat", Sat);
+        bundle.putString("SatTo", SatTo);
+        bundle.putString("Sun", Sun);
+        bundle.putString("SunTo", SunTo);
+        bundle.putString("StartDate", StartDate);
+        bundle.putString("EndDate", EndDate);
+        // mfragment.setArguments(bundle); //data b
+        replaceFrag(new EditDayTimeFrag(), bundle, AdDetailsEditFrag.class.getName());
+    }
+
+    private void openEditBusinessDialougeBox() {
+        mDialougeBox = new Dialog(getContext());
+        mDialougeBox.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        mDialougeBox.setContentView(R.layout.item_edit_business);
+        mDialougeBox.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        mDialougeBox.getWindow().setGravity(Gravity.CENTER);
+        mDialougeBox.show();
+        final EditText name = (EditText) mDialougeBox.findViewById(R.id.edit_business_name);
+        final EditText address = (EditText) mDialougeBox.findViewById(R.id.edit_business_address);
+        final EditText phone = (EditText) mDialougeBox.findViewById(R.id.edit_business_phone);
+        TextView done = (TextView) mDialougeBox.findViewById(R.id.business_done_tv);
+        TextView cancel = (TextView) mDialougeBox.findViewById(R.id.business_cancel_tv);
+
+
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (name.getText().length() == 0) {
+                    name.setError("Name can't be blank");
+                } else if (address.getText().length() == 0) {
+                    address.setError("Address can't be blank");
+                } else if (phone.getText().length() == 0) {
+                    phone.setError("Phone can't be blank");
+                } else {
+                    Uri.Builder builder = new Uri.Builder();
+                    builder.scheme("http")
+                            .authority("lifeoninternet.com")
+                            .appendPath(Utils.stringBuilder())
+                            .appendPath("api.php")
+                            .appendQueryParameter("action", "editBusiness")
+                            .appendQueryParameter("business_id", business_id)
+                            .appendQueryParameter("address_id", address_id)
+                            .appendQueryParameter("business_name", name.getText().toString())
+                            .appendQueryParameter("business_phone", phone.getText().toString())
+                            .appendQueryParameter("address", address.getText().toString());
+
+                    Log.e("stafflist", builder.build().toString());
+                    if (AppUtils.isNetworkAvailable(getActivity())) {
+                        post_tag = "editbusiness";
+                        AppUtils.getStringData(builder.build().toString(), getActivity(), callback);
+                    } else {
+                        snackbar = Snackbar.make(getView(), "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
+                        snackbar.show();
+
+                    }
+                }
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDialougeBox.dismiss();
+            }
+        });
+
 
     }
 
@@ -256,7 +362,22 @@ public class AdDetailsEditFrag extends HelperFrags implements HttpresponseUpd {
             snackbar = Snackbar.make(getView(), response, Snackbar.LENGTH_LONG);
             snackbar.show();
 
-        } else {
+        } else if (post_tag.equalsIgnoreCase("editbusiness")) {
+            mDialougeBox.dismiss();
+            try {
+                JSONObject main_obj = new JSONObject(response);
+                String business_name = main_obj.getString("business_name");
+                String business_phone = main_obj.getString("business_phone");
+                String address = main_obj.getString("address");
+                mBusinessNametv.setText(business_name);
+                mBusinessAdd.setText(address);
+                mPhone.setText(business_phone);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            Toast.makeText(getActivity(), "Update successfully", Toast.LENGTH_SHORT).show();
+        } else if (post_tag.equals("businessdetails")) {
 
             try {
                 //parse data
@@ -340,131 +461,63 @@ public class AdDetailsEditFrag extends HelperFrags implements HttpresponseUpd {
                     mRecyclerView.setAdapter(mAdapter);
 
                 }
-             /*   listAdapter = new ExpandableListAdapter(getContext(), listDataHeader, listDataChild);
-                // setting list adapter
-                expListView.setAdapter(listAdapter);
-*/
-             /*   for (int i=0; i<listDataHeader.size();i++){
+                JSONArray arr = main_obj.getJSONArray("business");
+                JSONObject jo = arr.getJSONObject(0);
 
-                    Log.d("ADF","header" + listDataHeader.get(i));
-                }
-*/
-                //   listAdapter = new ExpandableListAdapter(getContext(), listDataHeader, listDataChild);
-                // setting list adapter
-                //   expListView.setAdapter(listAdapter);
-
-
-                //  mPhone.setText(detailsEditModel.getBusiness().get(0).);
-
-                // JSONArray arr = main_obj.getJSONArray("business");
-                //   JSONObject jo = arr.getJSONObject(0);
-
-             /*   mBusinessNametv.setText(jo.getString("business_name"));
+                mBusinessNametv.setText(jo.getString("business_name"));
                 mBusinessAdd.setText(jo.getString("business_address"));
                 mPhone.setText(jo.getString("business_phone"));
+                StartDate = jo.getString("start_date");
+                EndDate = jo.getString("end_date");
 
-                String Mon = jo.getString("mon_from_time");
-                String Tue = jo.getString("tue_from_time");
-                String Wed = jo.getString("wed_from_time");
-                String Thru = jo.getString("thru_from_time");
-                String Fri = jo.getString("fri_from_time");
-                String Sat = jo.getString("sat_from_time");
-                String Sun = jo.getString("sun_from_time");
+                Mon = jo.getString("mon_from_time");
+                Tue = jo.getString("tue_from_time");
+                Wed = jo.getString("wed_from_time");
+                Thru = jo.getString("thru_from_time");
+                Fri = jo.getString("fri_from_time");
+                Sat = jo.getString("sat_from_time");
+                Sun = jo.getString("sun_from_time");
+                MonTo = jo.getString("mon_to_time");
+                TueTo = jo.getString("tue_to_time");
+                WedTo = jo.getString("wed_to_time");
+                ThruTo = jo.getString("thru_to_time");
+                FriTo = jo.getString("fri_to_time");
+                SatTo = jo.getString("sat_to_time");
+                SunTo = jo.getString("sun_to_time");
+                day = new ArrayList<>();
+                day.add(Mon);
+                day.add(Tue);
+                day.add(Wed);
+                day.add(Thru);
+                day.add(Fri);
+                day.add(Sat);
+                day.add(Sun);
 
-                if (!Mon.equals(null)) {
-                    mDate.setText("Mon");
-                } else {
-                    mDate.setText("");
+                dayTo = new ArrayList<>();
+                dayTo.add(MonTo);
+                dayTo.add(TueTo);
+                dayTo.add(WedTo);
+                dayTo.add(ThruTo);
+                dayTo.add(FriTo);
+                dayTo.add(SatTo);
+                dayTo.add(SunTo);
+
+                dayDay = new ArrayList<>();
+                {
+                    dayDay.add("Mon");
+                    dayDay.add("Tue");
+                    dayDay.add("Wed");
+                    dayDay.add("Thru");
+                    dayDay.add("Fri");
+                    dayDay.add("Sat");
+                    dayDay.add("Sun");
                 }
-                if (!Tue.equals(null)) {
-                    mDate.append(" Tue");
-                } else {
-                    mDate.append("");
-                }
-                if (!Wed.equals(null)) {
-                    mDate.append(" Wed");
-                } else {
-                    mDate.append("");
-                }
-                if (!Thru.equals(null)) {
-                    mDate.append(" Thru");
-                } else {
-                    mDate.append("");
-                }
-                if (!Fri.equals(null)) {
-                    mDate.append(" Fri");
-                } else {
-                    mDate.append("");
-                }
-                if (!Sat.equals(null)) {
-                    mDate.append(" Sat");
-                } else {
-                    mDate.append("");
-                }
-                if (!Sun.equals(null)) {
-                    mDate.append(" Sun");
-                } else {
-                    mDate.append("");
-                }
 
-                JSONArray arr1 = main_obj.getJSONArray("staff");
-                Log.d("AEF", "" + arr1);
-                ArrayList<Staff> staffList = new ArrayList<>();
-                Staff staff = new Staff();
-                JSONObject obj;
-                for (int i = 0; i < arr1.length(); i++) {
-                    obj = arr1.getJSONObject(i);
-                    staff.setStaffId(obj.getString("staff_id"));
-                    staff.setStaffName(obj.getString("staff_name"));
+                mBusinessTimeRv.setHasFixedSize(true);
+                mBusinessAdapter = new BusinessTimeAdapter(this, day, dayTo, dayDay);
+                mBusinessTimeRv.setLayoutManager(new LinearLayoutManager(getActivity()));
+                mBusinessTimeRv.setAdapter(mBusinessAdapter);
 
-                }
-                staffList.add(staff);
-
-                JSONArray arrResource = main_obj.getJSONArray("resource");
-                ArrayList<Resource> resourceList = new ArrayList<>();
-                Resource resource = new Resource();
-                JSONObject robj;
-                for (int i = 0; i < arr1.length(); i++) {
-                    robj = arrResource.getJSONObject(i);
-
-                    // resource.setMessage(robj .getString("staff_id"));
-                    //  resource.setStaffName(robj .getString("staff_name"));
-
-                }
-                //resourceList.add(staff);
-
-                JSONArray arrService = main_obj.getJSONArray("service");
-                ArrayList<Service> serviceList = new ArrayList<>();
-                Service service = new Service();
-                JSONObject sobj;
-                Services taff servicestaff = new Servicestaff();
-                for (int i = 0; i < arr1.length(); i++) {
-                    sobj = arrResource.getJSONObject(i);
-
-                    service.setServiceId(sobj.getString("service_id"));
-                    service.setServiceName(sobj.getString("service_name"));
-                    service.setServiceDuration(sobj.getString("service_duration"));
-                    service.setServiceBuffertime(sobj.getString("service_buffertime"));
-                    //  service.setServicestaff(sobj.getJSONArray("servicestaff"));
-                    JSONArray serviceStafff = sobj.getJSONArray("servicestaff");
-                *//*
-                    for (int j=0;j>serviceStafff.length();j++){
-
-                        JSONObject objectStaff =
-                                servicestaff.setStaffId(serviceStafff.getString("staff_id"));
-                        servicestaff.setStaffName(serviceStafff.getString("staff_name"));
-
-
-                    }*//*
-
-
-                    // resource.setMessage(robj .getString("staff_id"));
-                    //  resource.setStaffName(robj .getString("staff_name"));
-
-                }
-                staffList.add(staff);
-                // Log.d("ADF","staff list size"+staffList.get(0).getStaffName());
-*/
 
             } catch (JSONException e) {
                 snackbar = Snackbar.make(getView(), e.getMessage(), Snackbar.LENGTH_LONG);

@@ -13,9 +13,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import frags.CustomerLandingFrag;
 import frags.MyCustomerFrag;
+import helper.HelperActivity;
 import r2stech.lifeoninternet.R;
+import r2stech.lifeoninternet.utils.Sharedpreferences;
 
-public class AppointmentDashbord extends AppCompatActivity {
+public class AppointmentDashbord extends HelperActivity {
 
 
     @BindView(R.id.act_appointment_dashbord_viewpager)
@@ -25,6 +27,8 @@ public class AppointmentDashbord extends AppCompatActivity {
     public TabLayout mTabLayout;
 
     String businessId, addressId;
+
+    private Sharedpreferences mPref;
 
     private AppointmentDashbordAdapter mAppointmentDashbordAdapter;
 
@@ -48,10 +52,12 @@ public class AppointmentDashbord extends AppCompatActivity {
 
 
     private void initView() {
+        mPref = Sharedpreferences.getUserDataObj(getApplication());
+        businessId = getIntent().getExtras().getString("business_id");
+        addressId = getIntent().getExtras().getString("address_id");
 
-        businessId = this.getIntent().getExtras().getString("business_id");
-        addressId = this.getIntent().getExtras().getString("address_id");
-
+        mPref.setselecttAddressId(addressId);
+        mPref.setSelecttBusinessId(businessId);
         Log.d("AD", "businessId" + businessId + "addressId" + addressId);
 
         settingUpTabLayout();

@@ -122,17 +122,16 @@
 
     </LinearLayout>
 
-
     <TextView
         android:id="@+id/tv2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/token_ll"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="Present Status"
         android:textColor="@color/black"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
     <LinearLayout
         android:id="@+id/present_status_ll"
@@ -157,7 +156,7 @@
 
             <TextView
 
-                android:layout_width="140dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
@@ -170,7 +169,7 @@
 
             <TextView
                 android:id="@+id/frag_joined_queue_position_in_queue_tv"
-                android:layout_width="140dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
@@ -196,7 +195,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="140dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center_horizontal"
@@ -207,7 +206,7 @@
 
             <TextView
                 android:id="@+id/est_time"
-                android:layout_width="140dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center_horizontal"
@@ -228,15 +227,50 @@
 
     <TextView
         android:id="@+id/frag_joined_queue_service_status_tv"
-        android:layout_marginTop="25dp"
-        android:layout_marginLeft="20dp"
-        android:textColor="@color/black"
-        android:layout_marginRight="15dp"
-        android:textSize="16sp"
-        android:layout_below="@id/present_status_ll"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Service status" />
+        android:layout_below="@id/present_status_ll"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/spinner_background"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text=""
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/frag_joined_queue_service_status_hide_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/frag_joined_queue_service_status_tv"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/spinner_background"
+        android:gravity="center"
+        android:padding="8dp"
+        android:visibility="gone"
+        android:text="Thank You For Using Life On Internet"
+        android:textColor="@color/wallet_holo_blue_light"
+        android:textSize="16sp" />
+    <TextView
+        android:id="@+id/frag_joined_queue_service_absent_hide_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/frag_joined_queue_service_status_tv"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/spinner_background"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="Booking cancelled due to non-avaliability "
+        android:textColor="@color/wallet_holo_blue_light"
+        android:textSize="16sp"
+         android:visibility="gone"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"

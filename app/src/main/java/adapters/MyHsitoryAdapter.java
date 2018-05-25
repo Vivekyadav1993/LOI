@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import frags.CustomerLandingFrag;
+import models.History;
 import models.businesslist.Output;
 import r2stech.lifeoninternet.R;
 
@@ -21,8 +22,8 @@ import r2stech.lifeoninternet.R;
 public class MyHsitoryAdapter extends RecyclerView.Adapter<MyHsitoryAdapter.ViewHolder> {
 
 
-    private ArrayList<String> data;
-    private Context context ;
+    private ArrayList<History> data;
+    private Context context;
     private CustomerLandingButtonClick mClick;
 
     public interface CustomerLandingButtonClick {
@@ -34,10 +35,10 @@ public class MyHsitoryAdapter extends RecyclerView.Adapter<MyHsitoryAdapter.View
 
     LayoutInflater layoutInflater;
 
-    public MyHsitoryAdapter(Context context, ArrayList<String> data/*, CustomerLandingButtonClick Click*/) {
+    public MyHsitoryAdapter(Context context, ArrayList<History> data/*, CustomerLandingButtonClick Click*/) {
         this.context = context;
         this.data = data;
-       // this.mClick = Click;
+        // this.mClick = Click;
     }
 
     @Override
@@ -50,19 +51,28 @@ public class MyHsitoryAdapter extends RecyclerView.Adapter<MyHsitoryAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-
-
+        holder.mName.setText(data.get(position).getBusinessname());
+        holder.mService.setText(data.get(position).getServicename());
+        holder.mStatus.setText(data.get(position).getStatus());
+        holder.mEstimateTime.setText(data.get(position).getEstimatetime());
 
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return data.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-
+        @BindView(R.id.company_name_tv)
+        public TextView mName;
+        @BindView(R.id.company_service_tv)
+        public TextView mService;
+        @BindView(R.id.company_status_tv)
+        public TextView mStatus;
+        @BindView(R.id.estimate_time_tv)
+        public TextView mEstimateTime;
 
         public ViewHolder(View itemView) {
             super(itemView);

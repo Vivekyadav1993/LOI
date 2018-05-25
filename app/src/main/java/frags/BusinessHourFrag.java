@@ -1077,9 +1077,10 @@ public class BusinessHourFrag extends HelperFrags implements CompoundButton.OnCh
                     // save data
 
                     mPrefs.setAddressId(obj.getString("address_id"));
+                    mPrefs.setBusnessId(obj.getString("business_id"));
                     LandingActivity.business_data.setBusiness_id(obj.getString("business_id"));
                     Log.d("BusinessHourFrag", "business_id" + obj.getString("business_id"));
-                    mPrefs.setBusnessId(obj.getString("business_id"));
+
                     LandingActivity.business_data.getAdderess_data().get(pos).setAddress_id(obj.getString("address_id"));
 
                     snackbar = Snackbar.make(Mroot, obj.getString("message"), Snackbar.LENGTH_LONG);

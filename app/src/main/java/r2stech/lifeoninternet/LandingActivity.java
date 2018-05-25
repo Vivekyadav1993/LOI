@@ -112,6 +112,8 @@ public class LandingActivity extends HelperActivity
     private DrawerLayout drawer;
     private LinearLayout header_ll;
     private boolean click = false;
+    public String status_login;
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,7 +127,9 @@ public class LandingActivity extends HelperActivity
 
         ButterKnife.bind(this);
         mPrefs = Sharedpreferences.getUserDataObj(this);
+        status_login=getIntent().getStringExtra("src");
 
+        Log.d("LandingActivity","login status"+status_login);
         //initialize share preference
         AppConstants.app_data = getSharedPreferences("AppData", MODE_PRIVATE);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -215,11 +219,29 @@ public class LandingActivity extends HelperActivity
 
         bundle = getIntent().getExtras();
 
+        Log.d("LA","StaffId"+mPrefs.getStaffId());
+        if(mPrefs.getStaffId().equalsIgnoreCase("")){
+
+            navigationView = (NavigationView) findViewById(R.id.nav_view);
+            Menu nav_Menu = navigationView.getMenu();
+            nav_Menu.findItem(R.id.nav_create_ads).setVisible(true);
+            nav_Menu.findItem(R.id.nav_edit_ads).setVisible(true);
+
+
+        }else {
+            hideItem();
+        }
 
         if (bundle.getString("src").equals("def")) {
             // def means current location dialog appear as well as get data by its lat long
             Log.e("erc0", bundle.getString("src"));
-              getLocConfirmDialog();
+            getLocConfirmDialog();
+
+        } else if (bundle.getString("src").equals("stafflogin")) {
+            // def means current location dialog appear as well as get data by its lat long
+            Log.e("erc110", bundle.getString("src"));
+            getLocConfirmDialog();
+
 
         } else if (bundle.getString("src").equals("deff")) {
             // deff means previous saved location but no dialog appear as well as get data by its lat long
@@ -285,6 +307,13 @@ public class LandingActivity extends HelperActivity
 
             }
         }
+    }
+    private void hideItem()
+    {
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.findItem(R.id.nav_create_ads).setVisible(false);
+        nav_Menu.findItem(R.id.nav_edit_ads).setVisible(false);
     }
 
     private void updateNavigationViewHeader() {
@@ -360,9 +389,10 @@ public class LandingActivity extends HelperActivity
             fragmentTransaction.add(R.id.parentcontainer, frag).addToBackStack(LandingActivity.class.getName()).commit();
         } else if (id == R.id.nav_logout) {
 
+            mPrefs.setIsUserLoggedIn(false);
             // save current location
             editor = AppConstants.app_data.edit();
-          //  editor.putString("user_id", "");
+            //  editor.putString("user_id", "");
             editor.remove("user_id");
             editor.remove("name");
             editor.remove("email");
@@ -408,7 +438,6 @@ public class LandingActivity extends HelperActivity
                     fragmentTransaction = fragmentManager.beginTransaction();
                     Fragment frag = new AdDetailsEditFrag();
                     Bundle bundle = new Bundle();
-                    bundle.putString("commingfrom", "editads");
                     frag.setArguments(bundle);
                     fragmentTransaction.replace(R.id.parentcontainer, frag).addToBackStack(LandingActivity.class.getName()).commit();
                 }
@@ -425,14 +454,14 @@ public class LandingActivity extends HelperActivity
             Fragment frag = new MyAppointmentFrag();
             Bundle bundle = new Bundle();
             fragmentTransaction.replace(R.id.parentcontainer, frag).addToBackStack(LandingActivity.class.getName()).commit();
-        } else if (id == R.id.nav_booking_history) {
+        }/* else if (id == R.id.nav_booking_history) {
 
             fragmentManager = getSupportFragmentManager();
             fragmentTransaction = fragmentManager.beginTransaction();
             Fragment frag = new MyHistoryFrag();
             Bundle bundle = new Bundle();
             fragmentTransaction.replace(R.id.parentcontainer, frag).addToBackStack(LandingActivity.class.getName()).commit();
-        }
+        }*/
         /*else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {

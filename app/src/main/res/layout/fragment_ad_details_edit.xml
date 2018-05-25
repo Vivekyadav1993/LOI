@@ -46,13 +46,11 @@
     </RelativeLayout>
 
 
-
     <ScrollView
+        android:id="@+id/frag_ad_details_edit_Sv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:id="@+id/frag_ad_details_edit_Sv"
-        android:visibility="gone">
+        android:padding="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,6 +61,7 @@
                 android:id="@+id/edit_business_rl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:background="@color/white"
@@ -89,7 +88,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="1dp"
-                        android:text="HipHop"
+                        android:text=""
                         android:textColor="@color/blue"
                         android:textSize="14sp" />
 
@@ -109,7 +108,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="1dp"
-                        android:text="Delhi"
+                        android:text=""
                         android:textColor="@color/blue"
                         android:textSize="14sp" />
 
@@ -126,26 +125,6 @@
                         android:id="@+id/ad_details_edit_phone_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="1dp"
-                        android:text="Dance"
-                        android:textColor="@color/blue"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="5dp"
-                        android:text="Business Day:"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/ad_details_edit_day_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="1dp"
                         android:text=""
@@ -319,14 +298,8 @@
                     android:layout_alignParentRight="true"
                     android:padding="8dp"
                     android:src="@drawable/ic_edit" />
-            </RelativeLayout>
 
-            <ExpandableListView
-                android:id="@+id/frag_details_edit_lvExp"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:visibility="gone"
-                 />
+            </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/frag_details_edit_rv"
@@ -342,7 +315,56 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="5dp"/>
+                android:layout_marginRight="5dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:elevation="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/edit_date_time"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/frag_add_edit_details_business_date_rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp" />
+
+                </LinearLayout>
+
+
+                <ImageView
+                    android:id="@+id/ad_details_edit_staff_business_date_iv"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_edit" />
+
+            </RelativeLayout>
+
+            <ExpandableListView
+                android:id="@+id/frag_details_edit_lvExp"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:visibility="gone" />
+
 
         </LinearLayout>
 

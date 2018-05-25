@@ -51,6 +51,7 @@
     <string name="msg_location_service_started">Location Tracking Started</string>
     <string name="btn_label_refresh">Refresh</string>
     <string name="otp_dilg_login">Your number is not verified, Verify first</string>
+    <string name="edit_date_time"><![CDATA[Business day & Time :]]></string>
 
 
 </resources>

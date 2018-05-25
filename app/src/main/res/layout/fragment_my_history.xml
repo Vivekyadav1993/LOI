@@ -15,4 +15,13 @@
         android:id="@+id/my_history_frag_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/no_history_tv"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:text="No History For This Date"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_height="match_parent" />
 </LinearLayout>

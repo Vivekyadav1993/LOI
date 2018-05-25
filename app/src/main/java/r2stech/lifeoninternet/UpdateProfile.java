@@ -19,6 +19,7 @@ import helper.AppConstants;
 import helper.AppUtils;
 import helper.HelperActivity;
 import helper.HttpresponseUpd;
+import r2stech.lifeoninternet.utils.Sharedpreferences;
 import r2stech.lifeoninternet.utils.Utils;
 
 public class UpdateProfile extends HelperActivity implements HttpresponseUpd {
@@ -32,7 +33,7 @@ public class UpdateProfile extends HelperActivity implements HttpresponseUpd {
     private HttpresponseUpd callback;
     private Snackbar snackbar;
 
-    //   private Sharedpreferences mPrefs;
+    private Sharedpreferences mPrefs;
 
     private SharedPreferences.Editor editor;
 
@@ -41,7 +42,7 @@ public class UpdateProfile extends HelperActivity implements HttpresponseUpd {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_profile);
         ButterKnife.bind(this);
-
+        mPrefs = Sharedpreferences.getUserDataObj(this);
         initView();
     }
 
@@ -86,7 +87,7 @@ public class UpdateProfile extends HelperActivity implements HttpresponseUpd {
                 .appendPath(Utils.stringBuilder())
                 .appendPath("api.php")
                 .appendQueryParameter("action", "updateUserProfile")
-                .appendQueryParameter("user_id", AppConstants.app_data.getString("user_id", ""))
+                .appendQueryParameter("user_id", /*AppConstants.app_data.getString("user_id", "")*/mPrefs.getUserId().toString())
                 .appendQueryParameter("name", mName.getText().toString())
                 .appendQueryParameter("email", mEmail.getText().toString());
 
@@ -121,10 +122,10 @@ public class UpdateProfile extends HelperActivity implements HttpresponseUpd {
                 Log.d("UpdateProfile", "0" + statuscode);
                 if (statuscode.equals("200")) {
 
-                      editor.putString("name", mName.getText().toString());
+                    editor.putString("name", mName.getText().toString());
                     editor.putString("email", mEmail.getText().toString());
                     editor.commit();
-                         Toast.makeText(this, "" + main_obj.getString("message"), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "" + main_obj.getString("message"), Toast.LENGTH_SHORT).show();
 
                 } else if (statuscode.equals("404")) {
 
