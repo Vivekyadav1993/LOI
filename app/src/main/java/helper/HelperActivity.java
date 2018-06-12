@@ -59,7 +59,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import r2stech.lifeoninternet.R;
 
 
 public class HelperActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,

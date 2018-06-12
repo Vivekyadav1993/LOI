@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import atw.lifeoninternet.R;
 import models.DiscountPolicyData;
-import r2stech.lifeoninternet.R;
 
 /**
  * Created by teknik on 10/9/2017.

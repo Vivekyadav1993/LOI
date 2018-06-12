@@ -12,9 +12,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import atw.lifeoninternet.R;
 import models.ContactsData;
 import models.StaffData;
-import r2stech.lifeoninternet.R;
 
 /**
  * Created by teknik on 11/14/2017.

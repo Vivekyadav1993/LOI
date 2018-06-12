@@ -16,10 +16,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import atw.lifeoninternet.R;
 import frags.ResSpecManageFrag;
 import models.ManageSpecPosData;
 import models.SpecQTYDATA;
-import r2stech.lifeoninternet.R;
 
 /**
  * Created by teknik on 10/10/2017.

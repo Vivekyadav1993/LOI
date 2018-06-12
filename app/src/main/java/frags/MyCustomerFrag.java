@@ -47,6 +47,10 @@ import adapters.MyAdsAddressAdapter;
 import adapters.MyCustomerAdapter;
 import adapters.ServiceStaffAdapter;
 import adapters.ShowStaffAdapter;
+import atw.lifeoninternet.R;
+import atw.lifeoninternet.utils.Sharedpreferences;
+import atw.lifeoninternet.utils.Utils;
+import atw.lifeoninternet.views.AppointmentDashbord;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -63,11 +67,6 @@ import models.myadsaddress.Businessaddress;
 import models.myadsaddress.MyAdsAddress;
 import models.mycustomer.Booking;
 import models.mycustomer.MyCustomer;
-import r2stech.lifeoninternet.LandingActivity;
-import r2stech.lifeoninternet.R;
-import r2stech.lifeoninternet.utils.Sharedpreferences;
-import r2stech.lifeoninternet.utils.Utils;
-import r2stech.lifeoninternet.views.AppointmentDashbord;
 
 import static frags.MyAdsFrag.address_id;
 import static frags.MyAdsFrag.business_id;
@@ -136,6 +135,7 @@ public class MyCustomerFrag extends HelperFrags implements HttpresponseUpd {
       /*  businessid = bundle.getString("businessId");
         addressid = bundle.getString("addressId");
 */
+        arrForA = new JSONArray();
         return view;
     }
 
@@ -171,9 +171,9 @@ public class MyCustomerFrag extends HelperFrags implements HttpresponseUpd {
 
 
         Log.d("MCF", "array_size" + customerCancelArray.size());
-        Log.d("MCF", "status11" + customerCancelArray.get(1).getStatus());
+        //  Log.d("MCF", "status11" + customerCancelArray.get(1).getStatus());
 
-        if (customerCancelArray.size() == 0) {
+      /*  if (customerCancelArray.size() == 0) {
         } else {
             try {
                 for (int i = 0; i < customerCancelArray.size(); i++) {
@@ -196,7 +196,7 @@ public class MyCustomerFrag extends HelperFrags implements HttpresponseUpd {
 
             Log.d("MCF", "arrForA--->" + arrForA.toString());
         }
-
+*/
         TextView submitBtn = (TextView) mDialougeBox.findViewById(R.id.booking_cancel_submit_tv);
         TextView cancelBtn = (TextView) mDialougeBox.findViewById(R.id.booking_cancel_cancel_tv);
         final EditText reasonInput = (EditText) mDialougeBox.findViewById(R.id.cancel_booking_et);
@@ -221,26 +221,51 @@ public class MyCustomerFrag extends HelperFrags implements HttpresponseUpd {
 
                     Toast.makeText(activity, "Select any reason", Toast.LENGTH_SHORT).show();
                 }
+                if (customerCancelArray.size() == 0) {
 
-                Uri.Builder builder = new Uri.Builder();
-                builder.scheme("http")
-                        .authority("lifeoninternet.com")
-                        .appendPath(Utils.stringBuilder())
-                        .appendPath("api.php")
-                        .appendQueryParameter("action", "cancelBooking")
-                        .appendQueryParameter("booking_id", arrForA.toString())
-                        .appendQueryParameter("reason", reasonInput.getText().toString());
-
-                String myUrl = builder.build().toString();
-                Log.e("cancelUrl", myUrl);
-
-                if (AppUtils.isNetworkAvailable(getActivity())) {
-                    post_tag = "bookingcancel";
-                    AppUtils.getStringData(builder.build().toString(), getActivity(), callback);
-
+                    Toast.makeText(activity, "Heee", Toast.LENGTH_SHORT).show();
                 } else {
-                    snackbar = Snackbar.make(getView(), "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
-                    snackbar.show();
+                    try {
+                        for (int i = 0; i < customerCancelArray.size(); i++) {
+                            JSONObject itemA = new JSONObject();
+                            itemA.put("service_id", customerCancelArray.get(i).getBooking_id());
+                            Log.d("MCF", "status1" + customerCancelArray.get(i).getStatus());
+
+                            if (customerCancelArray.get(i).getStatus().equals("Yes")) {
+                                arrForA.put(itemA);
+
+                            } else {
+
+                            }
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    Log.d("MCF", "arrForA" + arrForA);
+
+                    Uri.Builder builder = new Uri.Builder();
+                    builder.scheme("http")
+                            .authority("lifeoninternet.com")
+                            .appendPath(Utils.stringBuilder())
+                            .appendPath("api.php")
+                            .appendQueryParameter("action", "cancelBooking")
+                            .appendQueryParameter("booking_id", arrForA.toString())
+                            .appendQueryParameter("reason", reasonInput.getText().toString());
+
+                    String myUrl = builder.build().toString();
+                    Log.e("cancelUrl", myUrl);
+
+                    if (AppUtils.isNetworkAvailable(getActivity())) {
+                        post_tag = "bookingcancel";
+                        AppUtils.getStringData(builder.build().toString(), getActivity(), callback);
+
+                    } else {
+                        snackbar = Snackbar.make(getView(), "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
+                        snackbar.show();
+                    }
+
                 }
 
             }
@@ -493,7 +518,6 @@ public class MyCustomerFrag extends HelperFrags implements HttpresponseUpd {
                 spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 mStaffSpinner.setAdapter(spinnerStaffArrayAdapter);
 
-
                 if (main_obj.getString("message").equalsIgnoreCase("No Record Found")) {
                     mNoCustomerTv.setVisibility(View.VISIBLE);
                     mRecyclerView.setVisibility(View.GONE);
@@ -513,6 +537,7 @@ public class MyCustomerFrag extends HelperFrags implements HttpresponseUpd {
                             booking.setServiceName(myCustomer.getOutput().getBooking().get(j).getServiceName());
                             booking.setBookingId(myCustomer.getOutput().getBooking().get(j).getBookingId());
                             booking.setEstimateTime(myCustomer.getOutput().getBooking().get(j).getEstimateTime());
+                            booking.setChkStatus(myCustomer.getOutput().getBooking().get(j).getChkStatus());
                             bookingList.add(booking);
                             CancelCustomerSelection cancelCustomerSelection = new CancelCustomerSelection();
                             cancelCustomerSelection.setBooking_id(myCustomer.getOutput().getBooking().get(j).getBookingId());
@@ -560,6 +585,7 @@ public class MyCustomerFrag extends HelperFrags implements HttpresponseUpd {
                             booking.setBookingId(myCustomer.getOutput().getBooking().get(j).getBookingId());
                             booking.setServiceName(myCustomer.getOutput().getBooking().get(j).getServiceName());
                             booking.setEstimateTime(myCustomer.getOutput().getBooking().get(j).getEstimateTime());
+                            booking.setChkStatus(myCustomer.getOutput().getBooking().get(j).getChkStatus());
                             bookingList.add(booking);
 
                         }
@@ -605,6 +631,7 @@ public class MyCustomerFrag extends HelperFrags implements HttpresponseUpd {
                             booking.setBookingId(myCustomer.getOutput().getBooking().get(j).getBookingId());
                             booking.setServiceName(myCustomer.getOutput().getBooking().get(j).getServiceName());
                             booking.setEstimateTime(myCustomer.getOutput().getBooking().get(j).getEstimateTime());
+                            booking.setChkStatus(myCustomer.getOutput().getBooking().get(j).getChkStatus());
                             bookingList.add(booking);
 
                         }
@@ -650,6 +677,7 @@ public class MyCustomerFrag extends HelperFrags implements HttpresponseUpd {
                             booking.setBookingId(myCustomer.getOutput().getBooking().get(j).getBookingId());
                             booking.setServiceName(myCustomer.getOutput().getBooking().get(j).getServiceName());
                             booking.setEstimateTime(myCustomer.getOutput().getBooking().get(j).getEstimateTime());
+                            booking.setChkStatus(myCustomer.getOutput().getBooking().get(j).getChkStatus());
                             bookingList.add(booking);
 
                         }
@@ -677,6 +705,8 @@ public class MyCustomerFrag extends HelperFrags implements HttpresponseUpd {
             try {
                 JSONObject main_obj = new JSONObject(response);
                 Log.d("MCF", "" + main_obj.getString("message"));
+                mDialougeBox.dismiss();
+                hitMainApi();
 
             } catch (JSONException e) {
                 e.printStackTrace();

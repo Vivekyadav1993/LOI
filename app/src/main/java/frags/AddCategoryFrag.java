@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 import adapters.AddCtgAdap;
 import adapters.AddSerAdap;
+import atw.lifeoninternet.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -30,8 +31,6 @@ import helper.HttpresponseUpd;
 import models.CategoryData;
 import models.HomeSerData;
 import models.ServiceData;
-import r2stech.lifeoninternet.LandingActivity;
-import r2stech.lifeoninternet.R;
 
 /**
  * Created by teknik on 10/6/2017.

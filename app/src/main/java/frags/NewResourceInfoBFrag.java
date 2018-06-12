@@ -16,6 +16,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import atw.lifeoninternet.LandingActivity;
+import atw.lifeoninternet.R;
+import atw.lifeoninternet.utils.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -23,9 +26,6 @@ import helper.AppUtils;
 import helper.HelperFrags;
 import helper.HttpresponseUpd;
 import models.ResourceSpecification;
-import r2stech.lifeoninternet.LandingActivity;
-import r2stech.lifeoninternet.R;
-import r2stech.lifeoninternet.utils.Utils;
 
 /**
  * Created by teknik on 10/4/2017.

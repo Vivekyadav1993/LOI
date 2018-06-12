@@ -7,10 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import atw.lifeoninternet.R;
+import atw.lifeoninternet.interfaces.UpdateListData;
 import butterknife.ButterKnife;
 import helper.HelperFrags;
-import r2stech.lifeoninternet.R;
-import r2stech.lifeoninternet.interfaces.UpdateListData;
+
 
 /**
  * A simple {@link Fragment} subclass.

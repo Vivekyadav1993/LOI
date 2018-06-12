@@ -15,9 +15,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import atw.lifeoninternet.R;
 import frags.SequentialFrag;
 import models.SequentialData;
-import r2stech.lifeoninternet.R;
 
 /**
  * Created by teknik on 10/10/2017.

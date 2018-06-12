@@ -25,19 +25,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import adapters.CustomerLandingRecyclerViewAdapter;
+import atw.lifeoninternet.LandingActivity;
+import atw.lifeoninternet.R;
+import atw.lifeoninternet.interfaces.customerbusiness.CustomerBusinessPresenterImpl;
+import atw.lifeoninternet.interfaces.customerbusiness.ICustomerBusinessPresenter;
+import atw.lifeoninternet.interfaces.customerbusiness.ICustomerBusinessView;
+import atw.lifeoninternet.utils.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import helper.HelperFrags;
 import models.businesslist.BusinessListModel;
 import models.businesslist.Output;
-import r2stech.lifeoninternet.LandingActivity;
-import r2stech.lifeoninternet.R;
-import r2stech.lifeoninternet.interfaces.customerbusiness.CustomerBusinessPresenterImpl;
-import r2stech.lifeoninternet.interfaces.customerbusiness.ICustomerBusinessPresenter;
-import r2stech.lifeoninternet.interfaces.customerbusiness.ICustomerBusinessView;
-import r2stech.lifeoninternet.utils.Utils;
 
-import static r2stech.lifeoninternet.utils.Utils.context;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -173,6 +172,7 @@ public class CustomerLandingFrag extends HelperFrags implements ICustomerBusines
                 output.setMobile(businessListModel.getOutput().get(i).getMobile().toString());
                 output.setOpenStatus(businessListModel.getOutput().get(i).getOpenStatus().toString());
                 output.setOpenTime(businessListModel.getOutput().get(i).getOpenTime().toString());
+                output.setPic(businessListModel.getOutput().get(i).getPic().toString());
                 list.add(output);
 
             }

@@ -1,6 +1,8 @@
 package adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import atw.lifeoninternet.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import frags.MyAdsAddressFrag;
@@ -22,7 +25,6 @@ import frags.MyAppointmentFrag;
 import models.MyAppointment;
 import models.myadsaddress.Businessaddress;
 import models.myadsaddress.Output;
-import r2stech.lifeoninternet.R;
 
 
 public class MyAppointmentAdapter extends RecyclerView.Adapter<MyAppointmentAdapter.ViewHolder> {
@@ -52,6 +54,7 @@ public class MyAppointmentAdapter extends RecyclerView.Adapter<MyAppointmentAdap
         return new ViewHolder(v);
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
@@ -62,21 +65,25 @@ public class MyAppointmentAdapter extends RecyclerView.Adapter<MyAppointmentAdap
 
         if (data.get(position).getStatus().equalsIgnoreCase("Out")) {
             holder.mStatus.setText("Status : Served");
+            holder.itemView.setBackgroundColor(R.color.blue);
             holder.itemView.setClickable(false);
             holder.itemView.setEnabled(false);
 
         } else if (data.get(position).getStatus().equalsIgnoreCase("Cancel")) {
             holder.mStatus.setText("Status :" + data.get(position).getStatus());
+            holder.itemView.setBackgroundColor(Color.RED);
             holder.itemView.setClickable(false);
             holder.itemView.setEnabled(false);
         }else if (data.get(position).getStatus().equalsIgnoreCase("Absent")) {
             holder.mStatus.setText("Status :" + data.get(position).getStatus());
+            holder.itemView.setBackgroundColor(Color.BLUE);
             holder.itemView.setClickable(false);
             holder.itemView.setEnabled(false);
         } else {
             holder.mStatus.setText("Status :" + data.get(position).getStatus());
             holder.itemView.setClickable(true);
             holder.itemView.setEnabled(true);
+            holder.itemView.setBackgroundColor(Color.GREEN);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

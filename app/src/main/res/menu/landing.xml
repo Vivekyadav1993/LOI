@@ -9,9 +9,5 @@
         android:iconTint="@color/white"
         app:showAsAction="always" />
 
-    <item android:id="@+id/action_search"
-        android:title="Search"
-        android:icon="@drawable/search_icn"
-        app:showAsAction="always"
-        android:visible="false"/>
+
 </menu>

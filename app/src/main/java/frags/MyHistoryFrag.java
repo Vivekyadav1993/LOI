@@ -29,6 +29,10 @@ import java.util.Calendar;
 
 import adapters.CustomerLandingRecyclerViewAdapter;
 import adapters.MyHsitoryAdapter;
+import atw.lifeoninternet.R;
+import atw.lifeoninternet.utils.Sharedpreferences;
+import atw.lifeoninternet.utils.Utils;
+import atw.lifeoninternet.views.AppointmentDashbord;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -36,10 +40,6 @@ import helper.AppUtils;
 import helper.HelperFrags;
 import helper.HttpresponseUpd;
 import models.History;
-import r2stech.lifeoninternet.R;
-import r2stech.lifeoninternet.utils.Sharedpreferences;
-import r2stech.lifeoninternet.utils.Utils;
-import r2stech.lifeoninternet.views.AppointmentDashbord;
 
 import static helper.AppUtils.dialog;
 
@@ -113,6 +113,7 @@ public class MyHistoryFrag extends HelperFrags implements HttpresponseUpd {
                     .appendPath(Utils.stringBuilder())
                     .appendPath("api.php")
                     .appendQueryParameter("action", "appointmentList")
+                    .appendQueryParameter("type", "history")
                     .appendQueryParameter("business_id", mPref.getSelecttBusinessId())
                     .appendQueryParameter("business_address_id",mPref.getSelectAddressId())
                     .appendQueryParameter("bookingdate", GetDateFormat(calendar.get(Calendar.YEAR), (calendar.get(Calendar.MONTH) + 1), calendar.get(Calendar.DATE)));
@@ -198,10 +199,11 @@ public class MyHistoryFrag extends HelperFrags implements HttpresponseUpd {
                 mNoHistory.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
 
+                Log.d("MHF","history list size"+list.size());
                 mRecyclerView.setVisibility(View.VISIBLE);
                     mRecyclerView.setHasFixedSize(true);
-                    mMyHsitoryAdapter = new MyHsitoryAdapter(activity, list);
-                    mRecyclerView.setLayoutManager(new LinearLayoutManager(activity));
+                    mMyHsitoryAdapter = new MyHsitoryAdapter(getActivity(), list);
+                    mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     mRecyclerView.setAdapter(mMyHsitoryAdapter);
 
             } catch (JSONException e) {
@@ -240,8 +242,8 @@ public class MyHistoryFrag extends HelperFrags implements HttpresponseUpd {
 
                 Log.d("MHF", "listSize1" + list.size());
                     mRecyclerView.setHasFixedSize(true);
-                    mMyHsitoryAdapter = new MyHsitoryAdapter(activity, list);
-                    mRecyclerView.setLayoutManager(new LinearLayoutManager(activity));
+                    mMyHsitoryAdapter = new MyHsitoryAdapter(getActivity(), list);
+                    mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     mRecyclerView.setAdapter(mMyHsitoryAdapter);
 
 

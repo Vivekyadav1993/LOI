@@ -10,13 +10,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import atw.lifeoninternet.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import frags.CustomerLandingFrag;
 import frags.MyAdsAddressFrag;
 import models.businesslist.Output;
 import models.myadsaddress.Businessaddress;
-import r2stech.lifeoninternet.R;
 
 
 public class MyAdsAddressAdapter extends RecyclerView.Adapter<MyAdsAddressAdapter.ViewHolder> {

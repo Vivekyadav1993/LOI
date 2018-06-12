@@ -18,26 +18,26 @@ public class BusinessHourData {
               ,String _fri_start_time , String _fri_end_time , String _sat_start_time , String _sat_end_time , String _sun_start_time , String _sun_end_time) {
 
 
-          full_address  = _full_address;
+          this.full_address  = _full_address;
 
-          address_id = _address_id;
+          this.address_id = _address_id;
 
-          date_start = _date_start;
-          date_end = _date_end;
-          mon_start_time  = _mon_start_time;
-          mon_end_time = _mon_end_time;
-          tue_start_time = _tue_start_time;
-          tue_end_time = _tue_end_time;
-          wed_start_time  = _wed_start_time;
-          wed_end_time  = _wed_end_time;
-          thr_start_time = _thr_start_time;
-          thr_end_time = _thr_end_time;
-          fri_start_time = _fri_start_time;
-          fri_end_time  = _fri_end_time;
-          sat_start_time = _sat_start_time;
-          sat_end_time = _sat_end_time ;
-          sun_start_time = _sun_start_time ;
-          sun_end_time   = _sun_end_time;
+          this.date_start = _date_start;
+          this.date_end = _date_end;
+          this.mon_start_time  = _mon_start_time;
+          this.mon_end_time = _mon_end_time;
+          this.tue_start_time = _tue_start_time;
+          this.tue_end_time = _tue_end_time;
+          this.wed_start_time  = _wed_start_time;
+          this.wed_end_time  = _wed_end_time;
+          this.thr_start_time = _thr_start_time;
+          this.thr_end_time = _thr_end_time;
+          this.fri_start_time = _fri_start_time;
+          this.fri_end_time  = _fri_end_time;
+          this.sat_start_time = _sat_start_time;
+          this.sat_end_time = _sat_end_time ;
+          this.sun_start_time = _sun_start_time ;
+          this.sun_end_time   = _sun_end_time;
 
 
       }

@@ -4,10 +4,10 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
     defaultConfig {
-        applicationId "r2stech.lifeoninternet"
+        applicationId "atw.lifeoninternet"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 1
+        versionCode 16
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -19,6 +19,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
     }
     dexOptions {
 
@@ -48,8 +49,10 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.github.satyan:sugar:1.4'
     compile 'ru.egslava:MaskedEditText:1.0.5'
-    compile 'com.google.android.gms:play-services-location:11.4 .0'
-    compile 'com.google.android.gms:play-services:11.4.0'
+    compile 'com.google.android.gms:play-services-location:8.4.0'
+    compile 'com.google.android.gms:play-services:8.4.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    compile 'com.daasuu:BubbleLayout:1.2.0'
     compile 'com.github.badoualy:datepicker-timeline:c6dcd05737'
     compile 'com.wefika:collapse-calendar-view:0.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'

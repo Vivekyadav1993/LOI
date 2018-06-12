@@ -15,9 +15,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import atw.lifeoninternet.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import r2stech.lifeoninternet.R;
+
 
 public class FaqChildAdapter extends RecyclerView.Adapter<FaqChildAdapter.DataObjectHolder> {
 

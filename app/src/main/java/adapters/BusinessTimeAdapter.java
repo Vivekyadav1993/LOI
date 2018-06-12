@@ -11,11 +11,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import atw.lifeoninternet.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import frags.AdDetailsEditFrag;
 import models.addetailsEdit.Staff;
-import r2stech.lifeoninternet.R;
 
 
 public class BusinessTimeAdapter extends RecyclerView.Adapter<BusinessTimeAdapter.ViewHolder> {

@@ -1,10 +1,15 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="frags.AddManualCustomer">
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="30dp">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -30,20 +35,46 @@
             android:textColor="@color/white"
             android:textSize="@dimen/text_large" />
 
-        <TextView
-            android:id="@+id/add_customer_done"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:padding="10dp"
-            android:text="ADD"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_large" />
+
 
 
     </RelativeLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:padding="3dp"
+            android:background="@drawable/login_background"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="Walk-in"
+                android:background="@color/blue"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_xlarge" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="On-Call"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/text_xlarge" />
+
+        </LinearLayout>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -102,26 +133,26 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginTop="15dp"
-        android:background="@drawable/rectangle_background_border"
-        android:backgroundTint="@color/hesder_bg"
-        android:drawableRight="@drawable/ic_arrow_right_disabled"
+        android:background="@color/blue"
         android:gravity="center_vertical"
         android:padding="5dp"
         android:text="Select date"
         android:textColor="@color/white"
         android:textSize="14sp" />
 
-
     <TextView
-        android:id="@+id/date_tv"
+        android:id="@+id/add_customer_done"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="5dp"
-        android:text=""
-        android:textColor="@color/blue"
-        android:textSize="16sp" />
+        android:padding="8dp"
+        android:layout_marginLeft="22dp"
+        android:layout_marginRight="22dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/blue"
+        android:text="Add Customer"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_large" />
+    </LinearLayout>
 
-
-</LinearLayout>
+</ScrollView>

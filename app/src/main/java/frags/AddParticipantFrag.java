@@ -42,12 +42,12 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import adapters.ParticipantList;
+import atw.lifeoninternet.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import helper.HelperFrags;
 import models.ContactsData;
-import r2stech.lifeoninternet.R;
 
 /**
  * Created by teknik on 10/9/2017.

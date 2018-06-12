@@ -1,11 +1,16 @@
 package adapters;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,12 +19,16 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import atw.lifeoninternet.LandingActivity;
+import atw.lifeoninternet.R;
+import atw.lifeoninternet.interfaces.UpdateListData;
+import atw.lifeoninternet.utils.Sharedpreferences;
+import atw.lifeoninternet.utils.Utils;
 import frags.MyAdsFrag;
 import models.ConsumerListData;
-import r2stech.lifeoninternet.R;
-import r2stech.lifeoninternet.interfaces.UpdateListData;
-import r2stech.lifeoninternet.utils.Sharedpreferences;
-import r2stech.lifeoninternet.utils.Utils;
+
+import static frags.MyAdsFrag.business_id;
+
 
 /**
  * Created by ROINET on 3/6/2018.
@@ -33,15 +42,23 @@ public class ConsumerListAdap extends BaseAdapter {
     Holder holder;
     private UpdateListData updateListData;
     private Sharedpreferences mPref;
+    private Dialog mDialougeBox;
 
     public ConsumerListAdap(Activity act, ArrayList<ConsumerListData> _data, UpdateListData _updateListData) {
         activity = act;
         data = _data;
         updateListData = _updateListData;
         mPref = Sharedpreferences.getUserDataObj(act);
-        // Collections.sort(data);
+         Collections.sort(data);
 
     }
+
+    public void filterList(ArrayList<ConsumerListData> filterdNames) {
+        this.data = filterdNames;
+        notifyDataSetChanged();
+    }
+
+
 
     static class Holder {
         TextView token, info, status;
@@ -90,13 +107,7 @@ public class ConsumerListAdap extends BaseAdapter {
         try {
 
             set = data.get(position);
-           /* if (set.getMessage() == "No Customer Found") {
 
-                holder.status.setText(data.get(position).getMessage());
-
-            }
-
-*/
             if (data.get(position).getStatus().equalsIgnoreCase("Active")) {
                 holder.absent_btn.setVisibility(View.VISIBLE);
                 //  holder.status.setText("At Premise");
@@ -114,7 +125,7 @@ public class ConsumerListAdap extends BaseAdapter {
 
                         if (data.get(position).getStatus().equalsIgnoreCase("Active")) {
                             updateListData.doUpdate("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=updateUserStatusAtPermise&id="
-                                    + data.get(position).getId() + "&business_id=" + MyAdsFrag.business_id + "&address_id="
+                                    + data.get(position).getId() + "&business_id=" + business_id + "&address_id="
                                     + MyAdsFrag.address_id);
                             holder.status.setText("At Premise");
                         } else {
@@ -129,7 +140,7 @@ public class ConsumerListAdap extends BaseAdapter {
 
                         if (data.get(position).getStatus().equalsIgnoreCase("Active")) {
                             updateListData.doUpdate("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=updateUserStatusAtPermise&id="
-                                    + data.get(position).getId() + "&business_id=" + MyAdsFrag.business_id + "&address_id="
+                                    + data.get(position).getId() + "&business_id=" + business_id + "&address_id="
                                     + MyAdsFrag.address_id + "&staff_id=" + mPref.getStaffId());
                             holder.status.setText("At Premise");
                         } else {
@@ -147,18 +158,46 @@ public class ConsumerListAdap extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
 
-                    if (mPref.getStaffId().equalsIgnoreCase("")) {
-                        updateListData.doUpdate("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=updateUserStatusAbsent&id="
-                                + data.get(position).getId() + "&business_id=" + MyAdsFrag.business_id + "&address_id="
-                                + MyAdsFrag.address_id + "&appointment_date=" + data.get(position).getAppointment_date());
+
+                    mDialougeBox = new Dialog(activity);
+                    mDialougeBox.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    mDialougeBox.setContentView(R.layout.item_absent_customer);
+                    mDialougeBox.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    mDialougeBox.getWindow().setGravity(Gravity.CENTER);
+                    mDialougeBox.show();
+
+                    TextView mDelete = (TextView) mDialougeBox.findViewById(R.id.absent_customer_tv);
+                    TextView mCancleTv = (TextView) mDialougeBox.findViewById(R.id.cancel_customer_tv) ;
+
+                    mDelete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (mPref.getStaffId().equalsIgnoreCase("")) {
+                                updateListData.doUpdate("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=updateUserStatusAbsent&id="
+                                        + data.get(position).getId() + "&business_id=" + business_id + "&address_id="
+                                        + MyAdsFrag.address_id + "&appointment_date=" + data.get(position).getAppointment_date());
 
 
-                    } else {
-                        Log.d("CLA", "" + data.get(position).getId());
-                        updateListData.doUpdate("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=updateUserStatusAbsent&id="
-                                + data.get(position).getId() + "&business_id=" + MyAdsFrag.business_id + "&address_id="
-                                + MyAdsFrag.address_id + "&appointment_date=" + data.get(position).getAppointment_date() + "&staff_id=" + mPref.getStaffId());
-                    }
+                            } else {
+                                Log.d("CLA", "" + data.get(position).getId());
+                                updateListData.doUpdate("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=updateUserStatusAbsent&id="
+                                        + data.get(position).getId() + "&business_id=" + business_id + "&address_id="
+                                        + MyAdsFrag.address_id + "&appointment_date=" + data.get(position).getAppointment_date() + "&staff_id=" + mPref.getStaffId());
+                            }
+                            mDialougeBox.hide();
+                        }
+                    });
+
+                    mCancleTv.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            mDialougeBox.hide();
+
+                        }
+                    });
+
+
                 }
             });
 
@@ -184,6 +223,8 @@ public class ConsumerListAdap extends BaseAdapter {
         return view;
 
     }
+
+
 }
 
 

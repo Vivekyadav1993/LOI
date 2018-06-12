@@ -3,6 +3,7 @@ package frags;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -35,6 +36,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
+import atw.lifeoninternet.LandingActivity;
+import atw.lifeoninternet.R;
+import atw.lifeoninternet.utils.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -42,17 +46,15 @@ import helper.AppConstants;
 import helper.AppUtils;
 import helper.HelperFrags;
 import helper.HttpresponseUpd;
+import helper.LocationUpd;
 import models.BusinessHourData;
-import r2stech.lifeoninternet.LandingActivity;
-import r2stech.lifeoninternet.R;
-import r2stech.lifeoninternet.SplashActivity;
-import r2stech.lifeoninternet.utils.Utils;
+
 
 /**
  * Created by teknik on 9/27/2017.
  */
 
-public class BusinessDetailsFrag extends HelperFrags implements HttpresponseUpd {
+public class BusinessDetailsFrag extends HelperFrags implements HttpresponseUpd , LocationUpd {
 
     private View Mroot;
 
@@ -136,6 +138,7 @@ public class BusinessDetailsFrag extends HelperFrags implements HttpresponseUpd 
         bd_add4_input.setThreshold(1);
         bd_add5_input.setThreshold(1);
         httpresponseUpd = this;
+
 
         bd_add1_input.addTextChangedListener(new TextWatcher() {
             @Override
@@ -485,6 +488,7 @@ public class BusinessDetailsFrag extends HelperFrags implements HttpresponseUpd 
             snackbar.show();*/
 
         } else {
+
 
             saveData(bd_add1_input.getText().toString(), 0);
         }
@@ -1093,4 +1097,8 @@ public class BusinessDetailsFrag extends HelperFrags implements HttpresponseUpd 
 
     }
 
+    @Override
+    public void getLoc(Location loc) {
+
+    }
 }

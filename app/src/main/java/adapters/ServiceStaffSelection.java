@@ -14,10 +14,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import atw.lifeoninternet.R;
 import frags.NewServiceStaffSelectionFrag;
 import models.StaffSelecData;
-import r2stech.lifeoninternet.LandingActivity;
-import r2stech.lifeoninternet.R;
 
 /**
  * Created by teknik on 10/5/2017.

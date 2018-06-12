@@ -44,16 +44,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import atw.lifeoninternet.LandingActivity;
+import atw.lifeoninternet.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import helper.AppConstants;
 import helper.HelperFrags;
 import helper.HttpresponseUpd;
-import r2stech.lifeoninternet.LandingActivity;
-import r2stech.lifeoninternet.R;
-import r2stech.lifeoninternet.SplashActivity;
-import r2stech.lifeoninternet.UserAuthACtivity;
+
 
 /**
  * Created by teknik on 9/26/2017.
@@ -167,20 +166,20 @@ public class Search_location_frag extends HelperFrags implements HttpresponseUpd
             String postalCode = addresses.get(0).getPostalCode();
             String knownName = addresses.get(0).getFeatureName();
 
-            String current_address= address + "," + city + "," + state + "," + country;
+            String current_address = address + "," + city + "," + state + "," + country;
             Log.d("SLF", "address" + address + "ss" + city + "statr" + state + "country" + country);
             String[] add_array = address.split(",");
 
             // save current location
             editor = AppConstants.app_data.edit();
-            editor.putString("address",current_address );
+            editor.putString("address", current_address);
             editor.putString("short_add", add_array[0]);
-            editor.putString("lat", location.getLatitude()+"");
-            editor.putString("long", location.getLongitude()+"");
+            editor.putString("lat", location.getLatitude() + "");
+            editor.putString("long", location.getLongitude() + "");
             editor.commit();
 
-            Intent intent = new Intent(getActivity() , LandingActivity.class);
-            intent.putExtra("src","search_current");
+            Intent intent = new Intent(getActivity(), LandingActivity.class);
+            intent.putExtra("src", "search_current");
             startActivity(intent);
 
         } catch (IOException e) {
@@ -218,7 +217,7 @@ public class Search_location_frag extends HelperFrags implements HttpresponseUpd
         intent.putExtra("src","search_current");
         startActivity(intent);
 */
-      currentLocationFun();
+        currentLocationFun();
 
     }
 
@@ -256,7 +255,6 @@ public class Search_location_frag extends HelperFrags implements HttpresponseUpd
         intent.putExtra("src", "deff");
         startActivity(intent);
     }
-
 
 
     @OnClick(R.id.locd_done_button)

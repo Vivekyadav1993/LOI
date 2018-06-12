@@ -38,6 +38,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import adapters.AddStaffAdap;
+import atw.lifeoninternet.LandingActivity;
+import atw.lifeoninternet.R;
+import atw.lifeoninternet.utils.Sharedpreferences;
+import atw.lifeoninternet.utils.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -45,10 +49,7 @@ import helper.AppUtils;
 import helper.HelperFrags;
 import helper.HttpresponseUpd;
 import models.StaffData;
-import r2stech.lifeoninternet.LandingActivity;
-import r2stech.lifeoninternet.R;
-import r2stech.lifeoninternet.utils.Sharedpreferences;
-import r2stech.lifeoninternet.utils.Utils;
+
 
 /**
  * Created by teknik on 9/28/2017.
@@ -104,38 +105,44 @@ public class AddStaffFrag extends HelperFrags implements HttpresponseUpd {
                 "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""));
 
 
-        //hit api
-        Uri.Builder builder = new Uri.Builder();
-        builder.scheme("http")
-                .authority("lifeoninternet.com")
-                .appendPath(Utils.stringBuilder())
-                .appendPath("api.php")
-                .appendQueryParameter("action", "staffList")
-                .appendQueryParameter("address_id", /*LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos")).getAddress_id()*/
-                mPref.getAddressId());
+        try {
+            //hit api
+            Uri.Builder builder = new Uri.Builder();
+            builder.scheme("http")
+                    .authority("lifeoninternet.com")
+                    .appendPath(Utils.stringBuilder())
+                    .appendPath("api.php")
+                    .appendQueryParameter("action", "staffList")
+                    .appendQueryParameter("address_id", /*LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos")).getAddress_id()*/
+                    mPref.getAddressId());
 
-        Log.e("stafflist", builder.build().toString());
-        if (AppUtils.isNetworkAvailable(getActivity()))
-            AppUtils.getStringData(builder.build().toString(), getActivity(), callback);
-        else {
-            snackbar = Snackbar.make(Mroot, "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
-            snackbar.show();
+            Log.e("stafflist", builder.build().toString());
+            if (AppUtils.isNetworkAvailable(getActivity()))
+                AppUtils.getStringData(builder.build().toString(), getActivity(), callback);
+            else {
+                snackbar = Snackbar.make(Mroot, "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
+                snackbar.show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
 
-        add_staff_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Bundle bundle = new Bundle();
-                bundle.putString("src", "createstaff");
-                bundle.putInt("pos", i);
-                bundle.putInt("create_pos", create_pos);
-                // go next page
-                replaceFrag(new NewStaffFrag(), bundle, AddStaffFrag.class.getName());
-            }
-        });
-
-
+        try {
+            add_staff_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("src", "createstaff");
+                    bundle.putInt("pos", i);
+                    bundle.putInt("create_pos", create_pos);
+                    // go next page
+                    replaceFrag(new NewStaffFrag(), bundle, AddStaffFrag.class.getName());
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return Mroot;
     }
 
@@ -223,38 +230,46 @@ public class AddStaffFrag extends HelperFrags implements HttpresponseUpd {
 
         } else {
             //save address id
-            LandingActivity.staff_data_array.get(pos).setAddress_id(LandingActivity.business_data.getAdderess_data().get(create_pos).getAddress_id());
-            Bundle _bundle = new Bundle();
-            _bundle.putString("src", bundle.getString("src"));
-            if (src_pos) {
-                _bundle.putInt("pos", pos + 1);
-                LandingActivity.staff_data_array.add(pos + 1, new StaffData("No", "No",
-                        LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos")).getAddress_id()
-                        , "", "", "", "", "", "", LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos")).getDate_start(),
-                        LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos")).getDate_end()
-                        , "", "", "",
-                        "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-                        "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-                        "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+
+            try {
+                LandingActivity.staff_data_array.get(pos).setAddress_id(LandingActivity.business_data.getAdderess_data().get(create_pos).getAddress_id());
+                Bundle _bundle = new Bundle();
+                _bundle.putString("src", bundle.getString("src"));
+                if (src_pos) {
+                    _bundle.putInt("pos", pos + 1);
+                    LandingActivity.staff_data_array.add(pos + 1, new StaffData("No", "No",
+                            LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos")).getAddress_id()
+                            , "", "", "", "", "", "", LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos")).getDate_start(),
+                            LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos")).getDate_end()
+                            , "", "", "",
+                            "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+                            "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+                            "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""));
 
 
-            } else {
-                LandingActivity.staff_data_array.add(pos, new StaffData("No", "No",
-                        LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos")).getAddress_id()
-                        , "", "", "", "", "", "", LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos")).getDate_start(),
-                        LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos")).getDate_end()
-                        , "", "", "",
-                        "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-                        "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-                        "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+                } else {
+                    LandingActivity.staff_data_array.add(pos, new StaffData("No", "No",
+                            LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos")).getAddress_id()
+                            , "", "", "", "", "", "", LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos")).getDate_start(),
+                            LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos")).getDate_end()
+                            , "", "", "",
+                            "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+                            "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+                            "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""));
 
 
-                _bundle.putInt("pos", pos);
+                    _bundle.putInt("pos", pos);
+                }
+
+                _bundle.putInt("create_pos", create_pos);
+                // go next page
+                replaceFrag(new NewStaffFrag(), _bundle, AddStaffFrag.class.getName());
+            } catch (Exception e) {
+                Bundle _bundle = new Bundle();
+                _bundle.putInt("create_pos", create_pos);
+                // go next page
+                replaceFrag(new NewStaffFrag(), _bundle, AddStaffFrag.class.getName());
             }
-
-            _bundle.putInt("create_pos", create_pos);
-            // go next page
-            replaceFrag(new NewStaffFrag(), _bundle, AddStaffFrag.class.getName());
 
         }
     }

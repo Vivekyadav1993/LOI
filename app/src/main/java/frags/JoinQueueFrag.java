@@ -28,11 +28,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
+import atw.lifeoninternet.R;
+import atw.lifeoninternet.utils.Sharedpreferences;
+import atw.lifeoninternet.utils.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -41,9 +47,6 @@ import helper.AppUtils;
 import helper.HelperFrags;
 import helper.HttpresponseUpd;
 import models.ServiceList;
-import r2stech.lifeoninternet.R;
-import r2stech.lifeoninternet.utils.Sharedpreferences;
-import r2stech.lifeoninternet.utils.Utils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -132,7 +135,7 @@ public class JoinQueueFrag extends HelperFrags implements HttpresponseUpd {
                     .appendQueryParameter("business_id", business_id)
                     .appendQueryParameter("address_id", addredd_id)
                     .appendQueryParameter("bookingdate", GetDateFormat(mCalendarView.getSelectedYear(), (mCalendarView.getSelectedMonth() + 1), mCalendarView.getSelectedDay())/*mCalendarView.getSelectedDate()*/)
-                    .appendQueryParameter("user_id", AppConstants.app_data.getString("user_id", ""))
+                    .appendQueryParameter("user_id", mPref.getUserId())
                     .appendQueryParameter("cust_id", mPref.getCustId());
 
             Log.e("stafflist", builder.build().toString());
@@ -176,7 +179,6 @@ public class JoinQueueFrag extends HelperFrags implements HttpresponseUpd {
             }
         });
         mCalendarView.setFirstVisibleDate(mCalendarView.getSelectedYear(), mCalendarView.getSelectedMonth(), mCalendarView.getSelectedDay());
-        mCalendarView.setLastVisibleDate(mCalendarView.getSelectedYear(), mCalendarView.getSelectedMonth(), (mCalendarView.getSelectedDay() + 5));
 
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -268,7 +270,18 @@ public class JoinQueueFrag extends HelperFrags implements HttpresponseUpd {
            /*     if (staffwise_booking.equalsIgnoreCase("Yes")) {
 
                 } else {*/
+                try {
+                    if(!no_of_days.equalsIgnoreCase(null) || no_of_days!=null){
 
+                        mCalendarView.setLastVisibleDate(mCalendarView.getSelectedYear(), mCalendarView.getSelectedMonth(), (mCalendarView.getSelectedDay() + Integer.parseInt(no_of_days)));
+
+                    }else {
+                        mCalendarView.setLastVisibleDate(mCalendarView.getSelectedYear(), mCalendarView.getSelectedMonth(), (mCalendarView.getSelectedDay() + 15));
+
+                    }
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
                 Log.d("JQF", "status" + status + "message" + message);
            /*     if (status.equals("1")) {*/
                /* } else if (status.equals("2")) {
@@ -353,6 +366,16 @@ public class JoinQueueFrag extends HelperFrags implements HttpresponseUpd {
                 } else if (status.equals("3")) {
                     mWaitingTv.setText(message);
                 } else*/
+                Calendar cCal = Calendar.getInstance();
+
+               int cYear = cCal.get(Calendar.YEAR);
+                int cMonth = cCal.get(Calendar.MONTH);
+                int cDay = cCal.get(Calendar.DAY_OF_MONTH);
+                getCountOfDays(cDay+"/"+(cMonth+1)+"/"+cYear,  (mCalendarView.getSelectedDay()+"/"+(mCalendarView.getSelectedMonth()+1)+"/"+mCalendarView.getSelectedYear()));
+
+                Log.d("selecte date",""+cDay+"/"+(cMonth+1)+"/"+cYear+"datte"+ (mCalendarView.getSelectedDay()+"/"+(mCalendarView.getSelectedMonth()+1)+"/"+mCalendarView.getSelectedYear()));
+
+
                 if (status.equals("0")) {
                     mWaitingTv.setText(message);
                     mfragJoinQueueButton.setOnClickListener(new View.OnClickListener() {
@@ -419,5 +442,84 @@ public class JoinQueueFrag extends HelperFrags implements HttpresponseUpd {
             }
         }
 
+    }
+
+    public String getCountOfDays(String createdDateString, String expireDateString) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+        Date createdConvertedDate = null, expireCovertedDate = null, todayWithZeroTime = null;
+        try {
+            createdConvertedDate = dateFormat.parse(createdDateString);
+            expireCovertedDate = dateFormat.parse(expireDateString);
+
+            Date today = new Date();
+
+            todayWithZeroTime = dateFormat.parse(dateFormat.format(today));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        int cYear = 0, cMonth = 0, cDay = 0;
+
+        if (createdConvertedDate.after(todayWithZeroTime)) {
+            Calendar cCal = Calendar.getInstance();
+            cCal.setTime(createdConvertedDate);
+            cYear = cCal.get(Calendar.YEAR);
+            cMonth = cCal.get(Calendar.MONTH);
+            cDay = cCal.get(Calendar.DAY_OF_MONTH);
+
+        } else {
+            Calendar cCal = Calendar.getInstance();
+            cCal.setTime(todayWithZeroTime);
+            cYear = cCal.get(Calendar.YEAR);
+            cMonth = cCal.get(Calendar.MONTH);
+            cDay = cCal.get(Calendar.DAY_OF_MONTH);
+        }
+
+
+    /*Calendar todayCal = Calendar.getInstance();
+    int todayYear = todayCal.get(Calendar.YEAR);
+    int today = todayCal.get(Calendar.MONTH);
+    int todayDay = todayCal.get(Calendar.DAY_OF_MONTH);
+    */
+
+        Calendar eCal = Calendar.getInstance();
+        eCal.setTime(expireCovertedDate);
+
+        int eYear = eCal.get(Calendar.YEAR);
+        int eMonth = eCal.get(Calendar.MONTH);
+        int eDay = eCal.get(Calendar.DAY_OF_MONTH);
+
+        Calendar date1 = Calendar.getInstance();
+        Calendar date2 = Calendar.getInstance();
+
+        date1.clear();
+        date1.set(cYear, cMonth, cDay);
+        date2.clear();
+        date2.set(eYear, eMonth, eDay);
+
+        long diff = 0;
+        int dayCount = 0;
+        try {
+            diff = date2.getTimeInMillis() - date1.getTimeInMillis();
+
+            dayCount = (int) diff / (24 * 60 * 60 * 1000);
+
+            int dayDiff= Integer.parseInt(no_of_days)-dayCount;
+
+            if(!no_of_days.equalsIgnoreCase(null) || no_of_days!=null){
+
+                mCalendarView.setLastVisibleDate(mCalendarView.getSelectedYear(), mCalendarView.getSelectedMonth(), (mCalendarView.getSelectedDay() + dayDiff));
+
+            }else {
+                mCalendarView.setLastVisibleDate(mCalendarView.getSelectedYear(), mCalendarView.getSelectedMonth(), (mCalendarView.getSelectedDay() + 15));
+
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("JQF","diff"+diff+"dayCount"+dayCount);
+        return ("" + (int) dayCount + " Days");
     }
 }

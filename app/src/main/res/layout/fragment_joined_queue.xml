@@ -81,7 +81,6 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="15dp"
-        android:src="@drawable/group_queue_icon"
         android:tint="@color/gray" />
 
 
@@ -195,13 +194,14 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/est_dummy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center_horizontal"
                 android:paddingLeft="5dp"
                 android:paddingTop="1dp"
-                android:text="Est. Time"
+                android:text="Estimated Time"
                 android:textColor="@color/amber_700" />
 
             <TextView

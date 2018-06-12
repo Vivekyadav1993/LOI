@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,6 +24,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import atw.lifeoninternet.LandingActivity;
+import atw.lifeoninternet.R;
+import atw.lifeoninternet.utils.Sharedpreferences;
+import atw.lifeoninternet.utils.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -29,9 +35,7 @@ import helper.AppConstants;
 import helper.AppUtils;
 import helper.HelperFrags;
 import helper.HttpresponseUpd;
-import r2stech.lifeoninternet.LandingActivity;
-import r2stech.lifeoninternet.R;
-import r2stech.lifeoninternet.utils.Utils;
+
 
 /**
  * Created by teknik on 9/25/2017.
@@ -63,8 +67,14 @@ public class RegisterFrag extends HelperFrags implements HttpresponseUpd {
     private SharedPreferences.Editor editor;
     private Dialog verifyOtpDialog;
 
+
+    private FragmentManager fragmentManager;
+
+    private FragmentTransaction fragmentTransaction;
+
     private Snackbar snackbar;
     String post_tag = "";
+    private Sharedpreferences mPref;
 
     @Nullable
     @Override
@@ -73,7 +83,7 @@ public class RegisterFrag extends HelperFrags implements HttpresponseUpd {
         ButterKnife.bind(this, Mroot);
 
         callback = this;
-
+        mPref = Sharedpreferences.getUserDataObj(getActivity());
         initializeSharedData();
 
         return Mroot;
@@ -140,10 +150,10 @@ public class RegisterFrag extends HelperFrags implements HttpresponseUpd {
                 JSONObject main_obj = new JSONObject(response);
                 JSONArray main_array = main_obj.getJSONArray("output");
                 JSONObject obj = main_array.getJSONObject(0);
-
-                Log.d("RF","user_id"+obj.getString("user_id"));
-
-                if (!obj.getString("user_id").equals("0")) {
+                String otp_number = obj.getString("otp_number");
+                //   Log.d("RF","user_id"+obj.getString("user_id"));
+                mPref.setOtpNumber(otp_number);
+                if (obj.getString("message").equals("Verify OTP Number")) {
 
                     // save user info
                   /*  editor = AppConstants.app_data.edit();
@@ -154,11 +164,10 @@ public class RegisterFrag extends HelperFrags implements HttpresponseUpd {
                     editor.putString("user_id", obj.getString("user_id"));
                     editor.commit();
 */
-                    snackbar = Snackbar.make(Mroot, "" + obj.getString("message"), Snackbar.LENGTH_LONG);
-                    snackbar.show();
-                    showVerifyOtpDialog(obj.getString("user_id"));
+                    showVerifyOtpDialog();
 
                 } else {
+
                     snackbar = Snackbar.make(Mroot, obj.getString("message"), Snackbar.LENGTH_LONG);
                     snackbar.show();
                 }
@@ -172,12 +181,40 @@ public class RegisterFrag extends HelperFrags implements HttpresponseUpd {
 
                 String message = obj.getString("message");
                 String statuscode = obj.getString("statuscode");
+
                 if (statuscode.equals("200")) {
+                    verifyOtpDialog.dismiss();
                     Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+
+                    mPref.setEmailId(obj.getString("email"));
+                    mPref.setName(obj.getString("name"));
+                    mPref.setMobile(obj.getString("mobile"));
+                    mPref.setUserId(obj.getString("user_id"));
+                    mPref.setCustId(obj.getString("cust_id"));
+                    mPref.setBusnessId(obj.getString("business_id"));
+                    mPref.setAddressId(obj.getString("address_id"));
+                    mPref.setLat(AppConstants.app_data.getString("lat", ""));
+                    mPref.setLong(AppConstants.app_data.getString("long", ""));
+                    mPref.setIsUserLoggedIn(true);
+                    // save user info
+                    editor = AppConstants.app_data.edit();
+                    editor.putString("name", obj.getString("name"));
+                    editor.putString("email", obj.getString("email"));
+                    editor.putString("phone", obj.getString("mobile"));
+
+                    editor.putString("user_id", obj.getString("user_id"));
+                    editor.commit();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("src", "def");
                     Intent intent = new Intent(getActivity(), LandingActivity.class);
                     intent.putExtra("src", "def");
                     startActivity(intent);
                     getActivity().finish();
+
+                 /*   fragmentManager = getActivity().getSupportFragmentManager();
+                    fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.userauth_container, new LoginFrag()).commit();
+*/
 
                 } else {
                     Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
@@ -189,7 +226,7 @@ public class RegisterFrag extends HelperFrags implements HttpresponseUpd {
         }
     }
 
-    private void showVerifyOtpDialog(final String user_id) {
+    private void showVerifyOtpDialog() {
 
         verifyOtpDialog = new Dialog(getContext());
         verifyOtpDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -201,29 +238,44 @@ public class RegisterFrag extends HelperFrags implements HttpresponseUpd {
 
         verifyOtpDialog.getWindow().setGravity(Gravity.CENTER);
         verifyOtpDialog.show();
+
+
         mOtpSubmitTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri.Builder builder = new Uri.Builder();
-                builder.scheme("http")
-                        .authority("lifeoninternet.com")
-                        .appendPath(Utils.stringBuilder())
-                        .appendPath("api.php")
-                        .appendQueryParameter("action", "verify_otp")
-                        .appendQueryParameter("user_id", user_id)
-                        .appendQueryParameter("otp", mOtpEt.getText().toString());
 
-                String myUrl = builder.build().toString();
-                Log.e("urlotp", myUrl);
+                Log.d("RF", "otp" + mPref.getOtpNumber() + "otp edit" + mOtpEt.getText().toString());
 
-                if (AppUtils.isNetworkAvailable(getActivity())) {
-                    post_tag = "otp";
-                    AppUtils.getStringData(myUrl, getActivity(), callback);
+                if (mOtpEt.getText().toString().equalsIgnoreCase(mPref.getOtpNumber())) {
+                    Uri.Builder builder = new Uri.Builder();
+                    builder.scheme("http")
+                            .authority("lifeoninternet.com")
+                            .appendPath(Utils.stringBuilder())
+                            .appendPath("api.php")
+                            .appendQueryParameter("action", "verify_otp")
+                            .appendQueryParameter("otp", mOtpEt.getText().toString())
+                            .appendQueryParameter("name", name_input.getText().toString())
+                            .appendQueryParameter("email", email_input.getText().toString())
+                            .appendQueryParameter("password", pwd_input.getText().toString())
+                            .appendQueryParameter("mobile", phone_input.getText().toString())
+                            .appendQueryParameter("lat", AppConstants.app_data.getString("lat", ""))
+                            .appendQueryParameter("longi", AppConstants.app_data.getString("long", ""));
+
+                    String myUrl = builder.build().toString();
+                    Log.e("urlotp", myUrl);
+
+                    if (AppUtils.isNetworkAvailable(getActivity())) {
+                        post_tag = "otp";
+                        AppUtils.getStringData(myUrl, getActivity(), callback);
+                    } else {
+                        snackbar = Snackbar.make(Mroot, "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
+                        snackbar.show();
+
+                    }
                 } else {
-                    snackbar = Snackbar.make(Mroot, "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
-                    snackbar.show();
-
+                    Toast.makeText(getActivity(), "Opt is not correct", Toast.LENGTH_SHORT).show();
                 }
+
 
             }
         });

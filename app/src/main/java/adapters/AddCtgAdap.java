@@ -10,9 +10,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import atw.lifeoninternet.R;
 import models.CategoryData;
 import models.ResourceData;
-import r2stech.lifeoninternet.R;
 
 /**
  * Created by teknik on 11/27/2017.

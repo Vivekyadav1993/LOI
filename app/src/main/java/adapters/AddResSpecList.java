@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import atw.lifeoninternet.R;
 import models.ResourceSpecification;
-import r2stech.lifeoninternet.R;
 
 /**
  * Created by teknik on 10/10/2017.

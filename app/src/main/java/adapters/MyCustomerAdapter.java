@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import atw.lifeoninternet.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import frags.MyAdsAddressFrag;
@@ -27,7 +28,6 @@ import models.StaffSelecData;
 import models.myadsaddress.Businessaddress;
 import models.mycustomer.Booking;
 import models.mycustomer.MyCustomer;
-import r2stech.lifeoninternet.R;
 
 
 public class MyCustomerAdapter extends RecyclerView.Adapter<MyCustomerAdapter.ViewHolder> {
@@ -38,6 +38,13 @@ public class MyCustomerAdapter extends RecyclerView.Adapter<MyCustomerAdapter.Vi
     private Boolean checked_status;
     private boolean isSelectedAll;
 
+    private MyCustomerAdapter.CheckBoxChecked mCheck;
+
+    public interface CheckBoxChecked {
+        void onClick(int pos, String business_id, String addredd_id, String name);
+
+    }
+
     private String cancel, str = "";
 
     public MyCustomerAdapter(MyCustomerFrag mContext, ArrayList<Booking> data) {
@@ -45,7 +52,7 @@ public class MyCustomerAdapter extends RecyclerView.Adapter<MyCustomerAdapter.Vi
         this.data = data;
 
         // Collections.sort(data);
-      //  customerCancelArray = new ArrayList<>();
+        //  customerCancelArray = new ArrayList<>();
 
     }
 
@@ -66,25 +73,45 @@ public class MyCustomerAdapter extends RecyclerView.Adapter<MyCustomerAdapter.Vi
 
         if (isSelectedAll) {
             holder.mCheckbox.setChecked(true);
+
+            for (int i=0;i<data.size();i++){
+                data.get(i).setStatus("Yes");
+                MyCustomerFrag.customerCancelArray.get(i).setStatus("Yes");
+            }
+
         } else {
             holder.mCheckbox.setChecked(false);
+            for (int i=0;i<data.size();i++){
+                data.get(i).setStatus("No");
+                MyCustomerFrag.customerCancelArray.get(i).setStatus("No");
+            }
+
         }
+
+    /*    if (data.get(position).getChkStatus().equalsIgnoreCase("No")) {
+            MyCustomerFrag.customerCancelArray.get(position).setStatus("No");
+        } else {
+            //   holder.mCheckbox.setChecked(true);
+        }*/
         try {
+
             holder.mCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
-
                     if (b) {
                         data.get(position).setStatus("Yes");
                         Log.e("okk", data.get(position).getBookingId());
+
                         MyCustomerFrag.customerCancelArray.get(position).setStatus("Yes");
 
                     } else {
                         data.get(position).setStatus("No");
                         Log.e("disable", "-" + data.get(position).getStatus());
                         MyCustomerFrag.customerCancelArray.get(position).setStatus("No");
+
                     }
+
                 }
             });
         } catch (Exception e) {

@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import atw.lifeoninternet.LandingActivity;
+import atw.lifeoninternet.R;
+import atw.lifeoninternet.utils.Sharedpreferences;
+import atw.lifeoninternet.utils.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -43,9 +48,6 @@ import helper.AppConstants;
 import helper.AppUtils;
 import helper.HelperFrags;
 import helper.HttpresponseUpd;
-import r2stech.lifeoninternet.R;
-import r2stech.lifeoninternet.utils.Sharedpreferences;
-import r2stech.lifeoninternet.utils.Utils;
 
 import static frags.MyAdsFrag.business_id;
 import static helper.AppUtils.dialog;
@@ -82,22 +84,30 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
     @BindView(R.id.appoitment_date_in_queue)
     public TextView mDate;
 
+    @BindView(R.id.est_dummy)
+    public TextView mEstDummy;
+
+    @BindView(R.id.iv1)
+    public ImageView mStatusIv;
+
     @BindView(R.id.frag_toolbar_title_tv)
     public TextView mHeaderTitle;
     private HttpresponseUpd callback;
 
     private Bundle bundle;
-    private String businessid, addreddid, serviceid, appointment_date, staff_id,staff_status;
+    private String businessid, addreddid, serviceid, appointment_date, staff_id, staff_status;
     private Snackbar snackbar;
     private String token_number, your_place, estimate_time, a_date, message, booking_id, cust_id;
     private String post_tag, busines_sid, addred_did, service_id, appointmen_tdate, staf_fid, bookin_gid, service_status, setvices_tatus;
 
+    private Dialog mDialougeBox;
     public Boolean Comming = false;
 
     private Sharedpreferences mPref;
     private final int FIVE_SECONDS = 15000;
     private Handler handler;
     private Runnable runnable;
+
 
     public JoinedQueueFrag() {
         // Required empty public constructor
@@ -131,6 +141,8 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
 
 
         handler = new Handler();
+
+        hitDistanceApi();
 
         Log.d("JQ", "before hiting api");
 
@@ -170,6 +182,7 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
                     Log.d("Api hiting", "2");
                     hitBookingApi();          // this method will contain your almost-finished HTTP calls
                     dialog.dismiss();
+
                 }
             };
             runnable.run();
@@ -180,7 +193,11 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
     @Override
     public void onResume() {
         super.onResume();
+
         if (booking_id != null) {
+
+            hitDistanceApi();
+
             runnable = new Runnable() {
                 @Override
                 public void run() {
@@ -196,7 +213,42 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
         } else {
             Log.d("booking_id", "null value comming");
         }
+
+
         Log.d("Api hiting", "3");
+
+    }
+
+    private void hitDistanceApi() {
+
+        Log.d("JQF", "lat" + mPref.getLat() + "long" + mPref.getLong());
+        try {
+            Uri.Builder builder = new Uri.Builder();
+            builder.scheme("http")
+                    .authority("lifeoninternet.com")
+                    .appendPath(Utils.stringBuilder())
+                    .appendPath("api.php")
+                    .appendQueryParameter("action", "gpsAtPermise")
+                    .appendQueryParameter("booking_id", mPref.getBookingId())
+                    .appendQueryParameter("lat", mPref.getLat())
+                    .appendQueryParameter("longi", mPref.getLong());
+
+            Log.e("stafflist", builder.build().toString());
+            if (AppUtils.isNetworkAvailable(getActivity())) {
+                post_tag = "sendLatLong";
+                dialog.dismiss();
+                AppUtils.getStringData(builder.build().toString(), getActivity(), callback);
+                dialog.dismiss();
+
+            } else {
+                snackbar = Snackbar.make(getView(), "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
+                snackbar.show();
+
+                Toast.makeText(getActivity(), "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -282,15 +334,18 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
                 .appendQueryParameter("staff_id", "")
                 .appendQueryParameter("service_id", serviceid)
                 .appendQueryParameter("appointment_date", appointment_date)
-                .appendQueryParameter("user_id", AppConstants.app_data.getString("user_id", ""));
+                .appendQueryParameter("user_id", AppConstants.app_data.getString("user_id", ""))
+                .appendQueryParameter("lat", mPref.getLat())
+                .appendQueryParameter("longi", mPref.getLong());
 
         Log.e("stafflist", builder.build().toString());
         if (AppUtils.isNetworkAvailable(getActivity())) {
             post_tag = "joinqueue";
             AppUtils.getStringData(builder.build().toString(), getActivity(), callback);
         } else {
-            snackbar = Snackbar.make(getView(), "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
-            snackbar.show();
+
+            Toast.makeText(getActivity(), "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Toast.LENGTH_SHORT).show();
+
         }
 
     }
@@ -371,50 +426,75 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
 
     private void appointmentCancleFun() {
 
-        if (Comming == true) {
-            Uri.Builder builder = new Uri.Builder();
-            builder.scheme("http")
-                    .authority("lifeoninternet.com")
-                    .appendPath(Utils.stringBuilder())
-                    .appendPath("api.php")
-                    .appendQueryParameter("action", "updateUserStatusCancel")
-                    .appendQueryParameter("id", booking_id)
-                    .appendQueryParameter("business_id", businessid)
-                    .appendQueryParameter("address_id", addreddid)
-                    .appendQueryParameter("appointment_date", appointment_date);
 
-            Log.e("stafflist", builder.build().toString());
-            if (AppUtils.isNetworkAvailable(getActivity())) {
-                post_tag = "cancel";
-                AppUtils.getStringData(builder.build().toString(), getActivity(), callback);
-            } else {
-                snackbar = Snackbar.make(getView(), "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
-                snackbar.show();
+        mDialougeBox = new Dialog(getContext());
+        mDialougeBox.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        mDialougeBox.setContentView(R.layout.item_cancel_appointment);
+        mDialougeBox.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        mDialougeBox.getWindow().setGravity(Gravity.CENTER);
+        mDialougeBox.show();
+
+        TextView mDelete = (TextView) mDialougeBox.findViewById(R.id.cancel_appointment_tv);
+        TextView mCancleTv = (TextView) mDialougeBox.findViewById(R.id.cancel_tv);
+
+        mDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Comming == true) {
+                    Uri.Builder builder = new Uri.Builder();
+                    builder.scheme("http")
+                            .authority("lifeoninternet.com")
+                            .appendPath(Utils.stringBuilder())
+                            .appendPath("api.php")
+                            .appendQueryParameter("action", "updateUserStatusCancel")
+                            .appendQueryParameter("id", booking_id)
+                            .appendQueryParameter("business_id", businessid)
+                            .appendQueryParameter("address_id", addreddid)
+                            .appendQueryParameter("appointment_date", appointment_date);
+
+                    Log.e("stafflist", builder.build().toString());
+                    if (AppUtils.isNetworkAvailable(getActivity())) {
+                        post_tag = "cancel";
+                        AppUtils.getStringData(builder.build().toString(), getActivity(), callback);
+                    } else {
+                        snackbar = Snackbar.make(getView(), "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
+                        snackbar.show();
+                    }
+                } else {
+                    Uri.Builder builder = new Uri.Builder();
+                    builder.scheme("http")
+                            .authority("lifeoninternet.com")
+                            .appendPath(Utils.stringBuilder())
+                            .appendPath("api.php")
+                            .appendQueryParameter("action", "updateUserStatusCancel")
+                            .appendQueryParameter("id", bookin_gid)
+                            .appendQueryParameter("business_id", busines_sid)
+                            .appendQueryParameter("address_id", addred_did)
+                            .appendQueryParameter("appointment_date", appointmen_tdate);
+
+                    Log.e("stafflist", builder.build().toString());
+                    if (AppUtils.isNetworkAvailable(getActivity())) {
+                        post_tag = "cancel";
+                        AppUtils.getStringData(builder.build().toString(), getActivity(), callback);
+                    } else {
+                        snackbar = Snackbar.make(getView(), "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
+                        snackbar.show();
+                    }
+
+                }
+                //    Toast.makeText(getContext(), "" + LandingActivity.staff_data_array.get(i).getStaff_id() + "bid" + business_id + "add" + address_id, Toast.LENGTH_SHORT).show();
+                mDialougeBox.hide();
             }
-        } else {
-            Uri.Builder builder = new Uri.Builder();
-            builder.scheme("http")
-                    .authority("lifeoninternet.com")
-                    .appendPath(Utils.stringBuilder())
-                    .appendPath("api.php")
-                    .appendQueryParameter("action", "updateUserStatusCancel")
-                    .appendQueryParameter("id", bookin_gid)
-                    .appendQueryParameter("business_id", busines_sid)
-                    .appendQueryParameter("address_id", addred_did)
-                    .appendQueryParameter("appointment_date", appointmen_tdate);
+        });
 
-            Log.e("stafflist", builder.build().toString());
-            if (AppUtils.isNetworkAvailable(getActivity())) {
-                post_tag = "cancel";
-                AppUtils.getStringData(builder.build().toString(), getActivity(), callback);
-            } else {
-                snackbar = Snackbar.make(getView(), "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
-                snackbar.show();
+        mCancleTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mDialougeBox.hide();
+
             }
-
-        }
-
-
+        });
     }
 
     @Override
@@ -497,12 +577,21 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        } else if (post_tag.equalsIgnoreCase("booking_id")) {
+        }/* else if (post_tag.equalsIgnoreCase("sendLatLong")) {
+            try {
+                JSONObject obj = new JSONObject(response);
+                String message = obj.getString("message");
+                Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }*/ else if (post_tag.equalsIgnoreCase("booking_id")) {
             try {
                 JSONObject obj = new JSONObject(response);
                 JSONArray arr = obj.getJSONArray("output");
                 JSONObject objt = arr.getJSONObject(0);
                 setvices_tatus = objt.getString("staff_service_started");
+                String servuce_status = objt.getString("staff_service");
                 token_number = objt.getString("token_no");
                 estimate_time = objt.getString("estimate_time");
                 your_place = objt.getString("your_place");
@@ -510,24 +599,34 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
                 message = objt.getString("message");
                 booking_id = objt.getString("booking_id");
                 staff_status = objt.getString("staff_status");
+                String cancel_reson = objt.getString("cancel_reason");
                 String status = objt.getString("status");
                 String business_name = objt.getString("business_name");
-
+                String staff_name = objt.getString("staff_name");
+                String queue_status = objt.getString("queue_status");
                 //  Toast.makeText(getContext(), "" + message, Toast.LENGTH_SHORT).show();
 
+                mPref.setBooingId(booking_id);
                 mHeaderTitle.setText(business_name);
+
 
                 if (status.equalsIgnoreCase("In")) {
                     mPositionInQueue.setText("IN");
                     mEst_time.setText("");
+                    mStatusIv.setBackgroundResource(R.drawable.welcome);
                     mCancel.setVisibility(View.INVISIBLE);
                     mPushBack.setVisibility(View.INVISIBLE);
                     mServiceStatusHide.setVisibility(View.GONE);
-                    mServiceAbsentHide.setVisibility(View.GONE);
+                    mServiceAbsentHide.setVisibility(View.VISIBLE);
+                    mEst_time.setText(staff_name);
+                    mEstDummy.setText("");
+                    mServiceAbsentHide.setText("Come in. Your turn has come ");
+                    mServiceAbsentHide.setTextColor(Color.RED);
 
                 } else if (status.equalsIgnoreCase("Out")) {
                     mPositionInQueue.setText("");
                     mEst_time.setText("");
+                    mStatusIv.setBackgroundResource(R.drawable.visitagain);
                     mServiceStatusHide.setVisibility(View.VISIBLE);
                     mServiceAbsentHide.setVisibility(View.GONE);
                     mCancel.setVisibility(View.INVISIBLE);
@@ -537,22 +636,48 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
                 } else if (status.equalsIgnoreCase("Absent")) {
                     mPositionInQueue.setText("");
                     mEst_time.setText("");
+                    mStatusIv.setBackgroundResource(R.drawable.absent);
                     mServiceStatusHide.setVisibility(View.GONE);
                     mServiceAbsentHide.setVisibility(View.VISIBLE);
 
+                } else if (status.equalsIgnoreCase("Cancel")) {
+                    //  mPositionInQueue.setText("IN");
+                    mEst_time.setText("");
+                    mStatusIv.setBackgroundResource(R.drawable.canceled);
+                    mCancel.setVisibility(View.INVISIBLE);
+                    mPushBack.setVisibility(View.INVISIBLE);
+                    mServiceAbsentHide.setVisibility(View.VISIBLE);
+                    mServiceAbsentHide.setText(cancel_reson);
                 } else {
                     mPositionInQueue.setText(your_place);
                     mEst_time.setText(estimate_time);
+                    mStatusIv.setBackgroundResource(R.drawable.group_queue_icon);
                     mServiceStatusHide.setVisibility(View.GONE);
                     mServiceAbsentHide.setVisibility(View.GONE);
 
                 }
 
-                if (setvices_tatus.equalsIgnoreCase("yes")) {
+              /*  if (queue_status.equalsIgnoreCase("second")) {
+                    mPositionInQueue.setText(your_place);
+                    mEst_time.setText(estimate_time);
+                    mCancel.setVisibility(View.VISIBLE);
+                    mPushBack.setVisibility(View.VISIBLE);
+                    mServiceAbsentHide.setVisibility(View.VISIBLE);
+                    mServiceAbsentHide.setText("Be ready.  You are 2nd in queue");
+                } else if (queue_status.equalsIgnoreCase("one")) {
+                    mPositionInQueue.setText(your_place);
+                    mEst_time.setText(estimate_time);
+                    mCancel.setVisibility(View.VISIBLE);
+                    mPushBack.setVisibility(View.VISIBLE);
+                    mServiceAbsentHide.setVisibility(View.VISIBLE);
+                    mServiceAbsentHide.setText("Be ready.  You are next in queue");
+                }
+*/
+                if (servuce_status.equalsIgnoreCase("yes")) {
 
                     mServiceStatus.setText("Service started");
                     mServiceStatus.setTextColor(Color.BLUE);
-                } else if (setvices_tatus.equalsIgnoreCase("no")) {
+                } else if (servuce_status.equalsIgnoreCase("no")) {
                     mServiceStatus.setText("Service Not Started Yet");
                     mServiceStatus.setTextColor(Color.RED);
                 }
@@ -561,10 +686,11 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
                     mServiceStatus.setTextColor(Color.DKGRAY);
                 }
 
-                Log.d("JQF","staff_status"+staff_status+"setvices_tatus"+setvices_tatus);
+                Log.d("JQF", "staff_status" + staff_status + "setvices_tatus" + setvices_tatus);
                 //  mServiceStatus.setText(setvices_tatus);
                 mPosition_in_queue.setText("Token No." + token_number);
                 mDate.setText(a_date);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }

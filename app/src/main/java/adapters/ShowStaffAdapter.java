@@ -11,13 +11,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import atw.lifeoninternet.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import frags.AdDetailsEditFrag;
 import frags.CustomerLandingFrag;
 import models.addetailsEdit.Staff;
 import models.businesslist.Output;
-import r2stech.lifeoninternet.R;
+
 
 
 public class ShowStaffAdapter extends RecyclerView.Adapter<ShowStaffAdapter.ViewHolder> {

@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import atw.lifeoninternet.LandingActivity;
+import atw.lifeoninternet.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -24,8 +26,6 @@ import helper.HelperFrags;
 import helper.HttpresponseUpd;
 import models.BusinessHourData;
 import models.ResourceData;
-import r2stech.lifeoninternet.LandingActivity;
-import r2stech.lifeoninternet.R;
 
 /**
  * Created by teknik on 10/5/2017.

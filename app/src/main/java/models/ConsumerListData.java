@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
  * Created by Vivek on 2/26/2018.
  */
 
-public class ConsumerListData/* implements Comparable<ConsumerListData> */{
+public class ConsumerListData implements Comparable<ConsumerListData> {
     private String id, service_name, customer_name, estimate_time, status, appointment_date, token_id, message;
 
     public ConsumerListData(String id, String _service_name, String _customer_name, String _estimate_time, String _status,
@@ -85,8 +85,8 @@ public class ConsumerListData/* implements Comparable<ConsumerListData> */{
         this.token_id = token_id;
     }
 
-  /*  @Override
+    @Override
     public int compareTo(@NonNull ConsumerListData consumerListData) {
         return getEstimate_time().compareTo(consumerListData.getEstimate_time());
-    }*/
+    }
 }

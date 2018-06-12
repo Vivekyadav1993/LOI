@@ -1,6 +1,7 @@
 package frags;
 
 import android.content.Context;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,6 +27,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import atw.lifeoninternet.LandingActivity;
+import atw.lifeoninternet.R;
+import atw.lifeoninternet.utils.Sharedpreferences;
+import atw.lifeoninternet.utils.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -33,10 +38,6 @@ import helper.AppConstants;
 import helper.AppUtils;
 import helper.HelperFrags;
 import helper.HttpresponseUpd;
-import r2stech.lifeoninternet.LandingActivity;
-import r2stech.lifeoninternet.R;
-import r2stech.lifeoninternet.utils.Sharedpreferences;
-import r2stech.lifeoninternet.utils.Utils;
 
 /**
  * Created by teknik on 9/28/2017.
@@ -138,6 +139,8 @@ public class BusinessHourFrag extends HelperFrags implements CompoundButton.OnCh
 
     private Sharedpreferences mPrefs;
 
+    Geocoder geocoder = null;
+
 
     @Nullable
     @Override
@@ -155,13 +158,13 @@ public class BusinessHourFrag extends HelperFrags implements CompoundButton.OnCh
         }
 */
         callback = this;
-
+        geocoder = new Geocoder(getActivity());
         bundle = getArguments();
 
         // get current date
         bh_date_start_btn.setText(getcurrentDate());
 
-
+        Log.d("BHF", "Lat" + mPrefs.getLat() + "Long" + mPrefs.getLong());
         bh_date_switch_btn.setOnCheckedChangeListener(this);
         bh_timemon_switch_btn.setOnCheckedChangeListener(this);
         bh_timetue_switch_btn.setOnCheckedChangeListener(this);
@@ -408,11 +411,15 @@ public class BusinessHourFrag extends HelperFrags implements CompoundButton.OnCh
     @OnClick(R.id.bh_next_btn)
     void goNext() {
         // save data in address array
-
+        Calendar c = Calendar.getInstance();
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        int month = c.get(Calendar.MONTH);
+        int year = c.get(Calendar.YEAR);
+        String date = year + "-" + (month + 1) + "-" + day;
         // date start and End
         if (bh_date_switch_btn.isChecked()) {
             LandingActivity.business_data.getAdderess_data().get(pos).setDate_start(bh_date_start_btn.getText().toString());
-            LandingActivity.business_data.getAdderess_data().get(pos).setDate_end(bh_date_end_btn.getText().toString());
+            LandingActivity.business_data.getAdderess_data().get(pos).setDate_end(date);
         } else {
             LandingActivity.business_data.getAdderess_data().get(pos).setDate_start(bh_date_start_btn.getText().toString());
             LandingActivity.business_data.getAdderess_data().get(pos).setDate_end("2019-12-11"/*bh_date_start_btn.getText().toString()*/);
@@ -525,7 +532,9 @@ public class BusinessHourFrag extends HelperFrags implements CompoundButton.OnCh
                 .appendQueryParameter("sat_to_time", LandingActivity.business_data.getAdderess_data().get(pos).getSat_end_time())
 
                 .appendQueryParameter("sun_from_time", LandingActivity.business_data.getAdderess_data().get(pos).getSun_start_time())
-                .appendQueryParameter("sun_to_time", LandingActivity.business_data.getAdderess_data().get(pos).getSun_end_time());
+                .appendQueryParameter("sun_to_time", LandingActivity.business_data.getAdderess_data().get(pos).getSun_end_time())
+                .appendQueryParameter("lat", mPrefs.getLat())
+                .appendQueryParameter("longi", mPrefs.getLong());
 
 
         Log.e("url", builder.build().toString());
@@ -1078,6 +1087,8 @@ public class BusinessHourFrag extends HelperFrags implements CompoundButton.OnCh
 
                     mPrefs.setAddressId(obj.getString("address_id"));
                     mPrefs.setBusnessId(obj.getString("business_id"));
+                    mPrefs.setBusnessName(obj.getString("business_name"));
+
                     LandingActivity.business_data.setBusiness_id(obj.getString("business_id"));
                     Log.d("BusinessHourFrag", "business_id" + obj.getString("business_id"));
 

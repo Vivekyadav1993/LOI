@@ -37,7 +37,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import r2stech.lifeoninternet.R;
+import atw.lifeoninternet.R;
+
 
 /**
  * Created by teknik on 10/12/2017.

@@ -25,9 +25,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="3dp"
-            android:background="@drawable/edittext_background"
-            android:scaleType="fitXY"
-            android:src="@drawable/placeholder_images" />
+            android:scaleType="fitXY" />
 
 
         <TextView

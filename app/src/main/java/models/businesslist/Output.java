@@ -23,6 +23,9 @@ public class Output {
     @SerializedName("mobile")
     @Expose
     private String mobile;
+    @SerializedName("pic")
+    @Expose
+    private String pic;
     @SerializedName("address")
     @Expose
     private String address;
@@ -33,6 +36,14 @@ public class Output {
     @Expose
     private String openTime;
 
+
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
+    }
     public String getBusinessId() {
         return businessId;
     }

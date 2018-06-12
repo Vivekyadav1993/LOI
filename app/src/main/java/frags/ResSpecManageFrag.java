@@ -17,6 +17,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import adapters.ManageResSpecificationGrid;
+import atw.lifeoninternet.LandingActivity;
+import atw.lifeoninternet.R;
+import atw.lifeoninternet.utils.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -26,9 +29,7 @@ import helper.HttpresponseUpd;
 import models.ManageSpecPosData;
 import models.ResourceSpecification;
 import models.SpecQTYDATA;
-import r2stech.lifeoninternet.LandingActivity;
-import r2stech.lifeoninternet.R;
-import r2stech.lifeoninternet.utils.Utils;
+
 
 /**
  * Created by teknik on 10/10/2017.

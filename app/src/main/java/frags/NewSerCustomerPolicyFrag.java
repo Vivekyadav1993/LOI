@@ -25,6 +25,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import adapters.NewSerPackConfigManageList;
+import atw.lifeoninternet.LandingActivity;
+import atw.lifeoninternet.R;
+import atw.lifeoninternet.utils.Sharedpreferences;
+import atw.lifeoninternet.utils.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -32,10 +36,6 @@ import helper.AppUtils;
 import helper.HelperFrags;
 import helper.HttpresponseUpd;
 import models.PackageConfigData;
-import r2stech.lifeoninternet.LandingActivity;
-import r2stech.lifeoninternet.R;
-import r2stech.lifeoninternet.utils.Sharedpreferences;
-import r2stech.lifeoninternet.utils.Utils;
 
 /**
  * Created by teknik on 10/6/2017.

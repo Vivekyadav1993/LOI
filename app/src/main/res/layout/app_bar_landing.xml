@@ -5,8 +5,7 @@
     android:id="@+id/parent_cordinate"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="r2stech.lifeoninternet.LandingActivity">
+    android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -46,6 +45,7 @@
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
+
 
     <FrameLayout
         android:id="@+id/parentcontainer"

@@ -9,11 +9,11 @@
 
     <TextView
         android:id="@+id/token"
-        android:layout_width="wrap_content"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="1dp"
         android:gravity="center_vertical"
-        android:text="123"
+        android:text="12"
         android:layout_marginTop="5dp"
         android:padding="5dp"
         android:textColor="@color/colorAccent"
@@ -41,7 +41,7 @@
         android:layout_marginRight="10dp"
         android:layout_toLeftOf="@+id/token_status"
         android:background="@color/accent"
-        android:text="Absent"
+        android:text="Cancel"
         android:layout_marginTop="5dp"
         android:textColor="@color/standard_white"
         android:textSize="8sp" />

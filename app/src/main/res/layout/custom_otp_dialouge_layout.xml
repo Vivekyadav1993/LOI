@@ -50,6 +50,7 @@
         android:layout_below="@id/item_otp_et"
         android:layout_marginTop="30dp"
         android:gravity="center"
+        android:visibility="gone"
         android:text="Didn't get the OTP?"
         android:textColor="@color/black"
         android:textSize="14sp"

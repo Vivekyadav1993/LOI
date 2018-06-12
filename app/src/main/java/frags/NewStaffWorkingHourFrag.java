@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import atw.lifeoninternet.LandingActivity;
+import atw.lifeoninternet.R;
+import atw.lifeoninternet.utils.Sharedpreferences;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -24,9 +27,7 @@ import helper.HelperFrags;
 import helper.HttpresponseUpd;
 import models.BusinessHourData;
 import models.StaffData;
-import r2stech.lifeoninternet.LandingActivity;
-import r2stech.lifeoninternet.R;
-import r2stech.lifeoninternet.utils.Sharedpreferences;
+
 
 /**
  * Created by teknik on 10/3/2017.
@@ -144,264 +145,268 @@ public class NewStaffWorkingHourFrag extends HelperFrags implements CompoundButt
 
        // businessHourData = LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos"));
 
-        businessHourData = LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos"));
+        try {
+            businessHourData = LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos"));
 
-        Log.e("o", businessHourData.getDate_start() + "--");
+            Log.e("o", businessHourData.getDate_start() + "--");
 
-        //check working day of address
-        if (businessHourData.getMon_start_time().equals("") || businessHourData.getMon_end_time().equals("") ||
-                businessHourData.getMon_start_time().equals("null") || businessHourData.getMon_end_time().equals("null")) {
-            newstaff_working_timemon_switch_btn.setChecked(false);
-            newstaff_working_timemon_switch_btn.setEnabled(false);
-
-        }
-
-        if (businessHourData.getTue_start_time().equals("") || businessHourData.getTue_end_time().equals("") || businessHourData.getTue_start_time().equals("null") || businessHourData.getTue_end_time().equals("null")) {
-            newstaff_working_timetue_switch_btn.setChecked(false);
-            newstaff_working_timetue_switch_btn.setEnabled(false);
-
-        }
-        if (businessHourData.getWed_start_time().equals("") || businessHourData.getWed_end_time().equals("") || businessHourData.getWed_start_time().equals("null") || businessHourData.getWed_end_time().equals("null")) {
-            newstaff_working_timewed_switch_btn.setChecked(false);
-
-            newstaff_working_timewed_switch_btn.setEnabled(false);
-        }
-        if (businessHourData.getThr_start_time().equals("") || businessHourData.getThr_end_time().equals("") || businessHourData.getThr_start_time().equals("null") || businessHourData.getThr_end_time().equals("null")) {
-            newstaff_working_timethr_switch_btn.setChecked(false);
-
-            newstaff_working_timethr_switch_btn.setEnabled(false);
-        }
-        if (businessHourData.getFri_start_time().equals("") || businessHourData.getFri_end_time().equals("") || businessHourData.getFri_start_time().equals("null") || businessHourData.getFri_end_time().equals("null")) {
-            newstaff_working_timefri_switch_btn.setChecked(false);
-
-            newstaff_working_timefri_switch_btn.setEnabled(false);
-        }
-        if (businessHourData.getSat_start_time().equals("") || businessHourData.getSat_end_time().equals("") || businessHourData.getSat_start_time().equals("null") || businessHourData.getSat_end_time().equals("null")) {
-            newstaff_working_timesat_switch_btn.setChecked(false);
-
-            newstaff_working_timesat_switch_btn.setEnabled(false);
-        }
-        if (businessHourData.getSun_start_time().equals("") || businessHourData.getSun_end_time().equals("") || businessHourData.getSun_start_time().equals("null") || businessHourData.getSun_end_time().equals("null")) {
-            newstaff_working_timesun_switch_btn.setChecked(false);
-            newstaff_working_timesun_switch_btn.setEnabled(false);
-        }
-        if (LandingActivity.staff == false) {
-
-            newstaff_working_timemon_switch_btn.setEnabled(true);
-            newstaff_working_timemon_switch_btn.setChecked(true);
-
-            newstaff_working_timetue_switch_btn.setEnabled(true);
-            newstaff_working_timetue_switch_btn.setChecked(true);
-
-            newstaff_working_timewed_switch_btn.setEnabled(true);
-            newstaff_working_timewed_switch_btn.setChecked(true);
-
-            newstaff_working_timethr_switch_btn.setEnabled(true);
-            newstaff_working_timethr_switch_btn.setChecked(true);
-
-            newstaff_working_timefri_switch_btn.setEnabled(true);
-            newstaff_working_timefri_switch_btn.setChecked(true);
-
-            newstaff_working_timesat_switch_btn.setEnabled(true);
-            newstaff_working_timesat_switch_btn.setChecked(true);
-
-            newstaff_working_timesun_switch_btn.setEnabled(true);
-            newstaff_working_timesun_switch_btn.setChecked(true);
-
-            // set start and end date
-            if (businessHourData.getDate_start().equals(businessHourData.getDate_end())) {
-                newstaff_working_date_start_btn.setText(businessHourData.getDate_start());
-                newstaff_working_date_end_btn.setText(businessHourData.getDate_end());
-                newstaff_working_date_switch_btn.setChecked(false);
-                newstaff_working_date_switch_btn.setEnabled(false);
-            } else {
-                newstaff_working_date_start_btn.setText(businessHourData.getDate_start());
-                newstaff_working_date_end_btn.setText(businessHourData.getDate_end());
-                newstaff_working_date_switch_btn.setChecked(true);
-            }
-
-
-            // set Mon Start and End Time
-            if (businessHourData.getMon_start_time().equals("") ||
-                    businessHourData.getMon_end_time().equals("")) {
+            //check working day of address
+            if (businessHourData.getMon_start_time().equals("") || businessHourData.getMon_end_time().equals("") ||
+                    businessHourData.getMon_start_time().equals("null") || businessHourData.getMon_end_time().equals("null")) {
                 newstaff_working_timemon_switch_btn.setChecked(false);
-            } else {
+                newstaff_working_timemon_switch_btn.setEnabled(false);
 
-
-                newstaff_working_timemon_start_btn.setText(businessHourData.getMon_start_time());
-                newstaff_working_timemon_end_btn.setText(businessHourData.getMon_end_time());
             }
 
-
-            // set Tue Start and End Time
-            if (businessHourData.getTue_start_time().equals("") ||
-                    businessHourData.getTue_end_time().equals("")) {
+            if (businessHourData.getTue_start_time().equals("") || businessHourData.getTue_end_time().equals("") || businessHourData.getTue_start_time().equals("null") || businessHourData.getTue_end_time().equals("null")) {
                 newstaff_working_timetue_switch_btn.setChecked(false);
-            } else {
-
-                newstaff_working_timetue_start_btn.setText(businessHourData.getTue_start_time());
-                newstaff_working_timetue_end_btn.setText(businessHourData.getTue_end_time());
-
+                newstaff_working_timetue_switch_btn.setEnabled(false);
 
             }
-
-            // set Wed Start and End Time
-            if (businessHourData.getWed_start_time().equals("") || businessHourData.getWed_end_time().equals("")) {
+            if (businessHourData.getWed_start_time().equals("") || businessHourData.getWed_end_time().equals("") || businessHourData.getWed_start_time().equals("null") || businessHourData.getWed_end_time().equals("null")) {
                 newstaff_working_timewed_switch_btn.setChecked(false);
-            } else {
 
-                newstaff_working_timewed_start_btn.setText(businessHourData.getWed_start_time());
-                newstaff_working_timewed_end_btn.setText(businessHourData.getWed_end_time());
+                newstaff_working_timewed_switch_btn.setEnabled(false);
             }
-
-
-            // set Thru Start and End Time
-            if (businessHourData.getThr_start_time().equals("") || businessHourData.getThr_end_time().equals("")) {
+            if (businessHourData.getThr_start_time().equals("") || businessHourData.getThr_end_time().equals("") || businessHourData.getThr_start_time().equals("null") || businessHourData.getThr_end_time().equals("null")) {
                 newstaff_working_timethr_switch_btn.setChecked(false);
-            } else {
 
-                newstaff_working_timethr_start_btn.setText(businessHourData.getThr_start_time());
-                newstaff_working_timethr_end_btn.setText(businessHourData.getThr_end_time());
+                newstaff_working_timethr_switch_btn.setEnabled(false);
             }
-
-
-            // set Fri Start and End Time
-            if (businessHourData.getFri_start_time().equals("") ||
-                    businessHourData.getFri_end_time().equals("")) {
+            if (businessHourData.getFri_start_time().equals("") || businessHourData.getFri_end_time().equals("") || businessHourData.getFri_start_time().equals("null") || businessHourData.getFri_end_time().equals("null")) {
                 newstaff_working_timefri_switch_btn.setChecked(false);
-            } else {
 
-                newstaff_working_timefri_start_btn.setText(businessHourData.getFri_start_time());
-                newstaff_working_timefri_end_btn.setText(businessHourData.getFri_end_time());
+                newstaff_working_timefri_switch_btn.setEnabled(false);
             }
-
-
-            // set Sat Start and End Time
-            if (businessHourData.getSat_start_time().equals("") ||
-                    businessHourData.getSat_end_time().equals("")) {
+            if (businessHourData.getSat_start_time().equals("") || businessHourData.getSat_end_time().equals("") || businessHourData.getSat_start_time().equals("null") || businessHourData.getSat_end_time().equals("null")) {
                 newstaff_working_timesat_switch_btn.setChecked(false);
-            } else {
 
-                newstaff_working_timesat_start_btn.setText(businessHourData.getSat_start_time());
-                newstaff_working_timesat_end_btn.setText(businessHourData.getSat_end_time());
+                newstaff_working_timesat_switch_btn.setEnabled(false);
             }
-
-
-            // set Sun Start and End Time
-            if (businessHourData.getSun_start_time().equals("") ||
-                    businessHourData.getSun_end_time().equals("")) {
+            if (businessHourData.getSun_start_time().equals("") || businessHourData.getSun_end_time().equals("") || businessHourData.getSun_start_time().equals("null") || businessHourData.getSun_end_time().equals("null")) {
                 newstaff_working_timesun_switch_btn.setChecked(false);
-            } else {
-
-                newstaff_working_timesun_start_btn.setText(businessHourData.getSun_start_time());
-                newstaff_working_timesun_end_btn.setText(businessHourData.getSun_end_time());
+                newstaff_working_timesun_switch_btn.setEnabled(false);
             }
+            if (LandingActivity.staff == false) {
 
+                newstaff_working_timemon_switch_btn.setEnabled(true);
+                newstaff_working_timemon_switch_btn.setChecked(true);
 
-        } else {
-            // set start and end date
-            if (staffData.getStart_date().equals(staffData.getEnd_date())) {
-                newstaff_working_date_start_btn.setText(staffData.getStart_date());
-                newstaff_working_date_end_btn.setText(staffData.getEnd_date());
-                newstaff_working_date_switch_btn.setChecked(false);
-                newstaff_working_date_switch_btn.setEnabled(false);
-            } else {
-                newstaff_working_date_start_btn.setText(staffData.getStart_date());
-                newstaff_working_date_end_btn.setText(staffData.getEnd_date());
-                newstaff_working_date_switch_btn.setChecked(true);
-            }
+                newstaff_working_timetue_switch_btn.setEnabled(true);
+                newstaff_working_timetue_switch_btn.setChecked(true);
 
+                newstaff_working_timewed_switch_btn.setEnabled(true);
+                newstaff_working_timewed_switch_btn.setChecked(true);
 
-            // set Mon Start and End Time
-            if (staffData.getMon_from_time().equals("") ||
-                    staffData.getMon_to_time().equals("")) {
-                newstaff_working_timemon_switch_btn.setChecked(false);
-            } else {
+                newstaff_working_timethr_switch_btn.setEnabled(true);
+                newstaff_working_timethr_switch_btn.setChecked(true);
 
-                if (staffData.getMon_from_time().equals("")) {
+                newstaff_working_timefri_switch_btn.setEnabled(true);
+                newstaff_working_timefri_switch_btn.setChecked(true);
 
+                newstaff_working_timesat_switch_btn.setEnabled(true);
+                newstaff_working_timesat_switch_btn.setChecked(true);
+
+                newstaff_working_timesun_switch_btn.setEnabled(true);
+                newstaff_working_timesun_switch_btn.setChecked(true);
+
+                // set start and end date
+                if (businessHourData.getDate_start().equals(businessHourData.getDate_end())) {
+                    newstaff_working_date_start_btn.setText(businessHourData.getDate_start());
+                    newstaff_working_date_end_btn.setText(businessHourData.getDate_end());
+                    newstaff_working_date_switch_btn.setChecked(false);
+                    newstaff_working_date_switch_btn.setEnabled(false);
                 } else {
-                    newstaff_working_timemon_start_btn.setText(staffData.getMon_from_time());
-                    newstaff_working_timemon_end_btn.setText(staffData.getMon_to_time());
-                }
-            }
-
-            // set Tue Start and End Time
-            if (staffData.getTue_from_time().equals("") ||
-                    staffData.getTue_to_time().equals("")) {
-                newstaff_working_timetue_switch_btn.setChecked(false);
-            } else {
-                if (staffData.getTue_from_time().equals("")) {
-
-                } else {
-                    newstaff_working_timetue_start_btn.setText(staffData.getTue_from_time());
-                    newstaff_working_timetue_end_btn.setText(staffData.getTue_to_time());
+                    newstaff_working_date_start_btn.setText(businessHourData.getDate_start());
+                    newstaff_working_date_end_btn.setText(businessHourData.getDate_end());
+                    newstaff_working_date_switch_btn.setChecked(true);
                 }
 
-            }
 
-            // set Wed Start and End Time
-            if (staffData.getWed_from_time().equals("") || staffData.getWed_to_time().equals("")) {
-                newstaff_working_timewed_switch_btn.setChecked(false);
-            } else {
-                if (staffData.getWed_from_time().equals("")) {
-
+                // set Mon Start and End Time
+                if (businessHourData.getMon_start_time().equals("") ||
+                        businessHourData.getMon_end_time().equals("")) {
+                    newstaff_working_timemon_switch_btn.setChecked(false);
                 } else {
-                    newstaff_working_timewed_start_btn.setText(staffData.getWed_from_time());
-                    newstaff_working_timewed_end_btn.setText(staffData.getWed_to_time());
+
+
+                    newstaff_working_timemon_start_btn.setText(businessHourData.getMon_start_time());
+                    newstaff_working_timemon_end_btn.setText(businessHourData.getMon_end_time());
+                }
+
+
+                // set Tue Start and End Time
+                if (businessHourData.getTue_start_time().equals("") ||
+                        businessHourData.getTue_end_time().equals("")) {
+                    newstaff_working_timetue_switch_btn.setChecked(false);
+                } else {
+
+                    newstaff_working_timetue_start_btn.setText(businessHourData.getTue_start_time());
+                    newstaff_working_timetue_end_btn.setText(businessHourData.getTue_end_time());
+
+
+                }
+
+                // set Wed Start and End Time
+                if (businessHourData.getWed_start_time().equals("") || businessHourData.getWed_end_time().equals("")) {
+                    newstaff_working_timewed_switch_btn.setChecked(false);
+                } else {
+
+                    newstaff_working_timewed_start_btn.setText(businessHourData.getWed_start_time());
+                    newstaff_working_timewed_end_btn.setText(businessHourData.getWed_end_time());
+                }
+
+
+                // set Thru Start and End Time
+                if (businessHourData.getThr_start_time().equals("") || businessHourData.getThr_end_time().equals("")) {
+                    newstaff_working_timethr_switch_btn.setChecked(false);
+                } else {
+
+                    newstaff_working_timethr_start_btn.setText(businessHourData.getThr_start_time());
+                    newstaff_working_timethr_end_btn.setText(businessHourData.getThr_end_time());
+                }
+
+
+                // set Fri Start and End Time
+                if (businessHourData.getFri_start_time().equals("") ||
+                        businessHourData.getFri_end_time().equals("")) {
+                    newstaff_working_timefri_switch_btn.setChecked(false);
+                } else {
+
+                    newstaff_working_timefri_start_btn.setText(businessHourData.getFri_start_time());
+                    newstaff_working_timefri_end_btn.setText(businessHourData.getFri_end_time());
+                }
+
+
+                // set Sat Start and End Time
+                if (businessHourData.getSat_start_time().equals("") ||
+                        businessHourData.getSat_end_time().equals("")) {
+                    newstaff_working_timesat_switch_btn.setChecked(false);
+                } else {
+
+                    newstaff_working_timesat_start_btn.setText(businessHourData.getSat_start_time());
+                    newstaff_working_timesat_end_btn.setText(businessHourData.getSat_end_time());
+                }
+
+
+                // set Sun Start and End Time
+                if (businessHourData.getSun_start_time().equals("") ||
+                        businessHourData.getSun_end_time().equals("")) {
+                    newstaff_working_timesun_switch_btn.setChecked(false);
+                } else {
+
+                    newstaff_working_timesun_start_btn.setText(businessHourData.getSun_start_time());
+                    newstaff_working_timesun_end_btn.setText(businessHourData.getSun_end_time());
+                }
+
+
+            } else {
+                // set start and end date
+                if (staffData.getStart_date().equals(staffData.getEnd_date())) {
+                    newstaff_working_date_start_btn.setText(staffData.getStart_date());
+                    newstaff_working_date_end_btn.setText(staffData.getEnd_date());
+                    newstaff_working_date_switch_btn.setChecked(false);
+                    newstaff_working_date_switch_btn.setEnabled(false);
+                } else {
+                    newstaff_working_date_start_btn.setText(staffData.getStart_date());
+                    newstaff_working_date_end_btn.setText(staffData.getEnd_date());
+                    newstaff_working_date_switch_btn.setChecked(true);
+                }
+
+
+                // set Mon Start and End Time
+                if (staffData.getMon_from_time().equals("") ||
+                        staffData.getMon_to_time().equals("")) {
+                    newstaff_working_timemon_switch_btn.setChecked(false);
+                } else {
+
+                    if (staffData.getMon_from_time().equals("")) {
+
+                    } else {
+                        newstaff_working_timemon_start_btn.setText(staffData.getMon_from_time());
+                        newstaff_working_timemon_end_btn.setText(staffData.getMon_to_time());
+                    }
+                }
+
+                // set Tue Start and End Time
+                if (staffData.getTue_from_time().equals("") ||
+                        staffData.getTue_to_time().equals("")) {
+                    newstaff_working_timetue_switch_btn.setChecked(false);
+                } else {
+                    if (staffData.getTue_from_time().equals("")) {
+
+                    } else {
+                        newstaff_working_timetue_start_btn.setText(staffData.getTue_from_time());
+                        newstaff_working_timetue_end_btn.setText(staffData.getTue_to_time());
+                    }
+
+                }
+
+                // set Wed Start and End Time
+                if (staffData.getWed_from_time().equals("") || staffData.getWed_to_time().equals("")) {
+                    newstaff_working_timewed_switch_btn.setChecked(false);
+                } else {
+                    if (staffData.getWed_from_time().equals("")) {
+
+                    } else {
+                        newstaff_working_timewed_start_btn.setText(staffData.getWed_from_time());
+                        newstaff_working_timewed_end_btn.setText(staffData.getWed_to_time());
+                    }
+                }
+
+                // set Thru Start and End Time
+                if (staffData.getThru_from_time().equals("") || staffData.getThru_to_time().equals("")) {
+                    newstaff_working_timethr_switch_btn.setChecked(false);
+                } else {
+                    if (staffData.getThru_from_time().equals("")) {
+
+                    } else {
+                        newstaff_working_timethr_start_btn.setText(staffData.getThru_from_time());
+                        newstaff_working_timethr_end_btn.setText(staffData.getThru_to_time());
+                    }
+                }
+
+                // set Fri Start and End Time
+                if (staffData.getFri_from_time().equals("") ||
+                        staffData.getFri_to_time().equals("")) {
+                    newstaff_working_timefri_switch_btn.setChecked(false);
+                } else {
+                    if (staffData.getFri_from_time().equals("")) {
+
+                    } else {
+                        newstaff_working_timefri_start_btn.setText(staffData.getFri_from_time());
+                        newstaff_working_timefri_end_btn.setText(staffData.getFri_to_time());
+                    }
+                }
+
+                // set Sat Start and End Time
+                if (staffData.getSat_from_time().equals("") ||
+                        staffData.getSat_to_time().equals("")) {
+                    newstaff_working_timesat_switch_btn.setChecked(false);
+                } else {
+                    if (staffData.getFri_from_time().equals("")) {
+
+                    } else {
+                        newstaff_working_timesat_start_btn.setText(staffData.getSat_from_time());
+                        newstaff_working_timesat_end_btn.setText(staffData.getSat_to_time());
+                    }
+                }
+
+                // set Sun Start and End Time
+                if (staffData.getSun_from_time().equals("") ||
+                        staffData.getSun_to_time().equals("")) {
+                    newstaff_working_timesun_switch_btn.setChecked(false);
+                } else {
+                    if (staffData.getSun_from_time().equals("")) {
+
+                    } else {
+                        newstaff_working_timesun_start_btn.setText(staffData.getSun_from_time());
+                        newstaff_working_timesun_end_btn.setText(staffData.getSun_to_time());
+                    }
                 }
             }
-
-            // set Thru Start and End Time
-            if (staffData.getThru_from_time().equals("") || staffData.getThru_to_time().equals("")) {
-                newstaff_working_timethr_switch_btn.setChecked(false);
-            } else {
-                if (staffData.getThru_from_time().equals("")) {
-
-                } else {
-                    newstaff_working_timethr_start_btn.setText(staffData.getThru_from_time());
-                    newstaff_working_timethr_end_btn.setText(staffData.getThru_to_time());
-                }
-            }
-
-            // set Fri Start and End Time
-            if (staffData.getFri_from_time().equals("") ||
-                    staffData.getFri_to_time().equals("")) {
-                newstaff_working_timefri_switch_btn.setChecked(false);
-            } else {
-                if (staffData.getFri_from_time().equals("")) {
-
-                } else {
-                    newstaff_working_timefri_start_btn.setText(staffData.getFri_from_time());
-                    newstaff_working_timefri_end_btn.setText(staffData.getFri_to_time());
-                }
-            }
-
-            // set Sat Start and End Time
-            if (staffData.getSat_from_time().equals("") ||
-                    staffData.getSat_to_time().equals("")) {
-                newstaff_working_timesat_switch_btn.setChecked(false);
-            } else {
-                if (staffData.getFri_from_time().equals("")) {
-
-                } else {
-                    newstaff_working_timesat_start_btn.setText(staffData.getSat_from_time());
-                    newstaff_working_timesat_end_btn.setText(staffData.getSat_to_time());
-                }
-            }
-
-            // set Sun Start and End Time
-            if (staffData.getSun_from_time().equals("") ||
-                    staffData.getSun_to_time().equals("")) {
-                newstaff_working_timesun_switch_btn.setChecked(false);
-            } else {
-                if (staffData.getSun_from_time().equals("")) {
-
-                } else {
-                    newstaff_working_timesun_start_btn.setText(staffData.getSun_from_time());
-                    newstaff_working_timesun_end_btn.setText(staffData.getSun_to_time());
-                }
-            }
+        } catch (Exception e) {
+            businessHourData = LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos"));
         }
 
         return Mroot;

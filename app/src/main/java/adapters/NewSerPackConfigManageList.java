@@ -15,9 +15,9 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+import atw.lifeoninternet.R;
 import helper.HelperFrags;
 import models.PackageConfigData;
-import r2stech.lifeoninternet.R;
 
 /**
  * Created by teknik on 10/10/2017.

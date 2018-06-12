@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +29,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.daasuu.bl.BubbleLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,16 +40,17 @@ import java.util.Collections;
 
 import adapters.ConsumerListAdap;
 import adapters.LiveAdap;
+import atw.lifeoninternet.R;
+import atw.lifeoninternet.interfaces.UpdateListData;
+import atw.lifeoninternet.utils.Sharedpreferences;
+import atw.lifeoninternet.utils.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import helper.HelperFrags;
 import models.ConsumerListData;
 import models.StaffListData;
-import r2stech.lifeoninternet.R;
-import r2stech.lifeoninternet.interfaces.UpdateListData;
-import r2stech.lifeoninternet.utils.Sharedpreferences;
-import r2stech.lifeoninternet.utils.Utils;
+import models.businesslist.Output;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -83,22 +87,36 @@ public class MyAdsFrag extends HelperFrags implements UpdateListData {
     @BindView(R.id.my_add_back_btn)
     public ImageView mBack;
 
+    @BindView(R.id.my_ads_bubble_layout)
+    public BubbleLayout mBubbleLayout;
+
     @BindView(R.id.add_cuctomers)
-    public TextView mAddCust;
+    public ImageView mAddCust;
 
     @BindView(R.id.my_ads_business_tv)
     public TextView mBusinessTv;
+
+    @BindView(R.id.my_ads_frag_total_customer_tv)
+    public TextView mTotalCust;
+
+    @BindView(R.id.my_ads_frag_left_customer_tv)
+    public TextView mLeftCust;
+
+
+    @BindView(R.id.fragment_customer_name_search_et)
+    public TextView mSearchNameEt;
 
     private final int FIVE_SECONDS = 30000;
     private Handler handler;
     private Runnable runnable;
 
+    private boolean info = true;
 
     private BottomSheetBehavior<View> behavior;
 
     public static String business_id = "", address_id = "";
     public static String staff_id = "";
-    public String staff_service_started, business_name;
+    public String staff_service_started, business_name, no_of_days;
 
     private Sharedpreferences mPref;
 
@@ -132,7 +150,47 @@ public class MyAdsFrag extends HelperFrags implements UpdateListData {
 */
         bottomsheetFun();
         openBottomSheetFunc();
+
+        mSearchNameEt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                filter(editable.toString());
+
+            }
+        });
+
+
         return Mroot;
+
+    }
+
+    private void filter(String text) {
+
+        //new array list that will hold the filtered data
+        ArrayList<ConsumerListData> filterdNames = new ArrayList<>();
+
+        //looping through existing elements
+        for (ConsumerListData s : consumer_array) {
+            //if the existing elements contains the search input
+            if (s.getCustomer_name().toLowerCase().contains(text.toLowerCase())) {
+                //adding the element to filtered list
+                filterdNames.add(s);
+            }
+        }
+
+        //calling a method of the adapter class and passing the filtered list
+        consumerListAdap.filterList(filterdNames);
 
     }
 
@@ -185,7 +243,7 @@ public class MyAdsFrag extends HelperFrags implements UpdateListData {
         }
     }
 
-    @OnClick({R.id.my_add_back_btn, R.id.add_cuctomers/*, R.id.frag_my_ads_start_service_tv*/})
+    @OnClick({R.id.my_add_back_btn, R.id.add_cuctomers, R.id.my_ads_info_iv})
     public void onClick(View v) {
         switch (v.getId()) {
 
@@ -202,10 +260,16 @@ public class MyAdsFrag extends HelperFrags implements UpdateListData {
                 replaceFrag(new AddManualCustomer(), _bundle, AddStaffFrag.class.getName());
                 break;
 
-          /*  case R.id.frag_my_ads_start_service_tv:
+            case R.id.my_ads_info_iv:
 
-                Log.d("MAF", "Staff_id" + staff_id);
-                  break;*/
+                if (info == true) {
+                    mBubbleLayout.setVisibility(View.VISIBLE);
+                    info = false;
+                } else {
+                    mBubbleLayout.setVisibility(View.GONE);
+                    info = true;
+                }
+                break;
         }
 
     }
@@ -345,6 +409,10 @@ public class MyAdsFrag extends HelperFrags implements UpdateListData {
                 try {
                     //parse data and put all to list
                     JSONObject main_obj = new JSONObject(response);
+                    business_name = main_obj.getString("business_name");
+                    no_of_days = main_obj.getString("no_of_days");
+                    mPref.setNoOfDays(no_of_days);
+                    mBusinessTv.setText(business_name);
                     JSONArray output_array = main_obj.getJSONArray("output");
 
 
@@ -353,8 +421,8 @@ public class MyAdsFrag extends HelperFrags implements UpdateListData {
                     for (int i = 0; i < output_array.length(); i++) {
                         JSONObject obj = output_array.getJSONObject(i);
                         staff_id = obj.getString("staff_id");
-                        business_name = obj.getString("business_name");
-                        mBusinessTv.setText(business_name);
+
+
                       /*  staff_service_started = obj.getString("staff_service_started");
 
                         Log.d("staff_service_started ", "staff_service_started " + staff_service_started);
@@ -445,8 +513,14 @@ public class MyAdsFrag extends HelperFrags implements UpdateListData {
                     }
 
 
-                    Log.d("MAF", "" + raw_data.size());
+                    try {
+                        Log.d("MAF", "" + consumer_array.size());
+                        mLeftCust.setText(consumer_array.size());
+                      //  mTotalCust.setText(consumer_array.get(consumer_array.size()-1).getToken_id());
+                    } catch (Exception e) {
+                        mTotalCust.setText("0");
 
+                    }
                     liveAdap = new LiveAdap(getActivity(), raw_data, updateListData);
                     staff_list.setAdapter(liveAdap);
                     consumerListAdap = new ConsumerListAdap(getActivity(), consumer_array, updateListData);
@@ -486,7 +560,6 @@ public class MyAdsFrag extends HelperFrags implements UpdateListData {
 
         Volley.newRequestQueue(getActivity()).add(strReq);
     }
-
 
     @Override
     public void doUpdate(String url) {

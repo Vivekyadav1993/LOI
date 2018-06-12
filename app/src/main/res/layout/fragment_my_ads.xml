@@ -17,6 +17,7 @@
         // header layout
 
         <RelativeLayout
+            android:id="@+id/header_rl"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/hesder_bg">
@@ -28,6 +29,7 @@
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
                 android:padding="10dp"
+                android:background="?selectableItemBackground"
                 android:src="@drawable/leftarrow_white" />
 
 
@@ -36,33 +38,192 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text=""
-                android:layout_toEndOf="@id/my_add_back_btn"
                 android:layout_marginLeft="10dp"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_large"
-                android:layout_toRightOf="@id/my_add_back_btn" />
-
-
-            <TextView
-                android:id="@+id/add_cuctomers"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="5dp"
-                android:padding="8dp"
-                android:text="Add Customer"
+                android:layout_toRightOf="@id/my_add_back_btn"
+                android:layout_toEndOf="@id/my_add_back_btn"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_large" />
 
 
+            <ImageView
+                android:id="@+id/my_ads_info_iv"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="8dp"
+                android:layout_toLeftOf="@id/add_cuctomers"
+                android:layout_toStartOf="@id/add_cuctomers"
+                android:padding="12dp"
+                android:background="?selectableItemBackground"
+                android:src="@drawable/ic_info_outline"
+                android:tint="@color/white" />
+
+
+            <ImageView
+                android:id="@+id/add_cuctomers"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:padding="12dp"
+                android:background="?selectableItemBackground"
+                android:src="@drawable/addcustomer"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_large"
+                android:tint="@color/white" />
+
+
         </RelativeLayout>
+
+        <com.daasuu.bl.BubbleLayout
+            android:id="@+id/my_ads_bubble_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/header_rl"
+            android:layout_marginTop="-12dp"
+            android:padding="8dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:visibility="gone"
+            app:bl_arrowDirection="top"
+            app:bl_arrowHeight="8dp"
+            app:bl_arrowPosition="265dp"
+            app:bl_arrowWidth="8dp"
+            app:bl_cornersRadius="6dp"
+            app:bl_strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="4dp"
+                        android:text="Served"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="4dp"
+                        android:layout_marginTop="10dp"
+                        android:text="20"
+                        android:textColor="@android:color/holo_green_dark"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="4dp"
+                        android:text="Left"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/my_ads_frag_left_customer_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="4dp"
+                        android:layout_marginTop="10dp"
+                        android:text="10"
+                        android:textColor="@android:color/holo_orange_light"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="4dp"
+                        android:text="Cancel"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="4dp"
+                        android:layout_marginTop="10dp"
+                        android:text="20"
+                        android:textColor="@android:color/holo_red_dark"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="4dp"
+                        android:text="Total"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/my_ads_frag_total_customer_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="4dp"
+                        android:layout_marginTop="10dp"
+                        android:text="20"
+                        android:textColor="@color/blue"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </com.daasuu.bl.BubbleLayout>
 
         <ListView
             android:id="@+id/staff_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@id/header_rl"
             android:layout_margin="5dp"></ListView>
     </LinearLayout>
 
@@ -117,45 +278,30 @@
 
         </RelativeLayout>
 
-
-        <LinearLayout
-            android:id="@+id/lll"
+        <EditText
+            android:id="@+id/fragment_customer_name_search_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rl"
+            android:layout_below="@+id/rl"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_marginTop="1dp"
-            android:background="@color/colorPrimary"
-            android:orientation="horizontal">
+            android:background="@drawable/edittext_background"
+            android:drawableRight="@drawable/ic_search"
+            android:hint="Search"
+            android:imeOptions="actionSearch"
+            android:padding="8dp"
+            android:textSize="14sp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:padding="5dp"
-                android:text="Token No."
-                android:textColor="@color/white"
-                android:textSize="12sp" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/white" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="Details"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
-
-        </LinearLayout>
+            <requestFocus />
+        </EditText>
 
         <ListView
             android:id="@+id/customer_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/lll"
+            android:layout_below="@id/fragment_customer_name_search_et"
             android:layout_margin="5dp" />
     </RelativeLayout>
 

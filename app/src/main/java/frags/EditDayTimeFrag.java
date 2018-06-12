@@ -24,6 +24,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import atw.lifeoninternet.R;
+import atw.lifeoninternet.utils.Sharedpreferences;
+import atw.lifeoninternet.utils.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -31,10 +34,6 @@ import helper.AppConstants;
 import helper.AppUtils;
 import helper.HelperFrags;
 import helper.HttpresponseUpd;
-import r2stech.lifeoninternet.LandingActivity;
-import r2stech.lifeoninternet.R;
-import r2stech.lifeoninternet.utils.Sharedpreferences;
-import r2stech.lifeoninternet.utils.Utils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -181,7 +180,35 @@ public class EditDayTimeFrag extends HelperFrags implements CompoundButton.OnChe
         EndDate = bundle.getString("EndDate");
         StartDate = bundle.getString("StartDate");
         // get current date
+
+
+        frag_day_time_date_start_btn.setText(StartDate);
+        frag_day_time_date_end_btn.setText(EndDate);
+        frag_day_time_timemon_start_btn.setText(Mon);
+        frag_day_time_timemon_end_btn.setText(MonTo);
+        frag_day_time_timetue_start_btn.setText(Tue);
+        frag_day_time_timetue_end_btn.setText(TueTo);
+        frag_day_time_timewed_start_btn.setText(Wed);
+        frag_day_time_timewed_end_btn.setText(WedTo);
+        frag_day_time_timethr_start_btn.setText(Thru);
+        frag_day_time_timethr_end_btn.setText(ThruTo);
+        frag_day_time_timefri_start_btn.setText(Fri);
+        frag_day_time_timefri_end_btn.setText(FriTo);
+        frag_day_time_timesat_start_btn.setText(Sat);
+        frag_day_time_timesat_end_btn.setText(SatTo);
+        frag_day_time_timesun_start_btn.setText(Sun);
+        frag_day_time_timesun_end_btn.setText(SunTo);
+
+
+
+
+
+
+
+
+
         frag_day_time_date_start_btn.setText(getcurrentDate());
+        Log.d("ADEF","MonTo"+MonTo+"TueTo"+TueTo+"WedTo"+WedTo+"ThruTo"+ThruTo+"FriTo"+FriTo+"SatTo"+SatTo+"SunTo"+SunTo);
 
 
         frag_day_time_date_switch_btn.setOnCheckedChangeListener(this);

@@ -120,7 +120,7 @@
                     android:id="@+id/newstaff_working_date_start_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/newstaff_working_date_tag"
+                    android:layout_below="@id/newstaff_working_date_tag"
                     android:drawablePadding="10dp"
                     android:drawableRight="@drawable/arrow_black"
                     android:text="28/09/2017"

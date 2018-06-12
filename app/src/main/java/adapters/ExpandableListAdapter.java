@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.HashMap;
 import java.util.List;
 
-import r2stech.lifeoninternet.R;
+import atw.lifeoninternet.R;
 
 /**
  * Created by vivek on 3/22/2018.

@@ -23,16 +23,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.Date;
 
+import atw.lifeoninternet.R;
+import atw.lifeoninternet.utils.Sharedpreferences;
+import atw.lifeoninternet.utils.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import helper.AppUtils;
 import helper.HelperFrags;
 import helper.HttpresponseUpd;
-import r2stech.lifeoninternet.LandingActivity;
-import r2stech.lifeoninternet.R;
-import r2stech.lifeoninternet.utils.Utils;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,8 +52,6 @@ public class AddManualCustomer extends HelperFrags implements HttpresponseUpd {
     @BindView(R.id.ctg_name_input)
     public EditText mName;
 
-    @BindView(R.id.date_tv)
-    public TextView mDate;
     @BindView(R.id.open_calenderdate_tv)
     public TextView mOpencalender;
 
@@ -66,6 +66,7 @@ public class AddManualCustomer extends HelperFrags implements HttpresponseUpd {
     private String spinner_service,business_name;
     private String post_tag = "";
 
+    private Sharedpreferences mPref;
     public AddManualCustomer() {
         // Required empty public constructor
     }
@@ -77,6 +78,7 @@ public class AddManualCustomer extends HelperFrags implements HttpresponseUpd {
         View view = inflater.inflate(R.layout.fragment_add_manual_customer, container, false);
 
         ButterKnife.bind(this, view);
+        mPref=Sharedpreferences.getUserDataObj(getActivity());
         bundle = getArguments();
         address_id = bundle.getString("address_id");
         business_id = bundle.getString("business_id");
@@ -93,7 +95,7 @@ public class AddManualCustomer extends HelperFrags implements HttpresponseUpd {
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
-        mDate.setText(mYear + "-" + (mMonth + 1) + "-" + mDay);
+        mOpencalender.setText(mYear + "-" + (mMonth + 1) + "-" + mDay);
         hitUrl();
 
         mPhone.setFilters(new InputFilter[]{Utils.sepcialCharRemovalFilter});
@@ -132,8 +134,8 @@ public class AddManualCustomer extends HelperFrags implements HttpresponseUpd {
                 break;
             case R.id.open_calenderdate_tv:
 
-                mDate.setText("");
-                final Calendar c = Calendar.getInstance();
+              //  mOpencalender.setText("");
+                Calendar c = Calendar.getInstance();
                 mYear = c.get(Calendar.YEAR);
                 mMonth = c.get(Calendar.MONTH);
                 mDay = c.get(Calendar.DAY_OF_MONTH);
@@ -143,10 +145,21 @@ public class AddManualCustomer extends HelperFrags implements HttpresponseUpd {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                                 // date = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
-                                mDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                                mOpencalender.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
                             }
                         }, mYear, mMonth, mDay);
+
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+
+                try {
+                    c.add(Calendar.DATE, + Integer.parseInt(mPref.getNoFoDays()));
+                } catch (NumberFormatException e) {
+                    c.add(Calendar.DATE, + 15);
+
+                }
+                datePickerDialog.getDatePicker().setMaxDate(c.getTimeInMillis());
                 datePickerDialog.show();
+
 
                 break;
 
@@ -172,8 +185,8 @@ public class AddManualCustomer extends HelperFrags implements HttpresponseUpd {
         } else if (add_manual_spinner.getSelectedItemPosition() == 0) {
             snackbar = Snackbar.make(getView(), "Select Service!!!", Snackbar.LENGTH_LONG);
             snackbar.show();
-        } else if (mDate.getText().toString().equals("")) {
-            mDate.setError("Select Date!!!");
+        } else if (mOpencalender.getText().toString().equals("")) {
+            mOpencalender.setError("Select Date!!!");
          /*   snackbar = Snackbar.make(getView(), "Select Date!!!", Snackbar.LENGTH_LONG);
             snackbar.show();*/
 
@@ -189,10 +202,11 @@ public class AddManualCustomer extends HelperFrags implements HttpresponseUpd {
                     .appendPath("api.php")
                     .appendQueryParameter("action", "get_token")
                     .appendQueryParameter("cust_name", name)
+                    .appendQueryParameter("user_id",mPref.getUserId())
                     .appendQueryParameter("business_id", business_id)
                     .appendQueryParameter("business_address_id", address_id)
                     .appendQueryParameter("service_id", spinner_service)
-                    .appendQueryParameter("appointment_date", mDate.getText().toString())
+                    .appendQueryParameter("appointment_date", mOpencalender.getText().toString())
                     .appendQueryParameter("lat", "")
                     .appendQueryParameter("longi", "")
                     .appendQueryParameter("mobile", mPhone.getText().toString())

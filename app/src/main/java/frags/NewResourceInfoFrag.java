@@ -9,13 +9,12 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import atw.lifeoninternet.LandingActivity;
+import atw.lifeoninternet.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import helper.HelperFrags;
-import r2stech.lifeoninternet.LandingActivity;
-import r2stech.lifeoninternet.R;
-
 /**
  * Created by teknik on 10/4/2017.
  */

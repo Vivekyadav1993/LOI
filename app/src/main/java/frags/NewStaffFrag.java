@@ -18,13 +18,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
 
+import atw.lifeoninternet.LandingActivity;
+import atw.lifeoninternet.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import helper.HelperFrags;
 import models.StaffData;
-import r2stech.lifeoninternet.LandingActivity;
-import r2stech.lifeoninternet.R;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -136,39 +136,44 @@ public class NewStaffFrag extends HelperFrags {
         View currentFocusedView = getActivity().getCurrentFocus();
         if (currentFocusedView != null) {
             inputManager.hideSoftInputFromWindow(currentFocusedView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }else {
+
         }
 
-        try {
-            if (new_staff_name_input.getText().toString().equals("")) {
-                snackbar = Snackbar.make(Mroot, "Staff first name cannot Blank", Snackbar.LENGTH_LONG);
-                snackbar.show();
-            }else if(new_staff_last_name_input.getText().toString().equals("")){
-                snackbar = Snackbar.make(Mroot, "Staff last name cannot Blank", Snackbar.LENGTH_LONG);
-                snackbar.show();
-            } else{
-                //save related data
-                LandingActivity.staff_data_array.get(bundle.getInt("pos")).setFirst_name(new_staff_name_input.getText().toString());
-                LandingActivity.staff_data_array.get(bundle.getInt("pos")).setLast_name(new_staff_last_name_input.getText().toString());
-                LandingActivity.staff_data_array.get(bundle.getInt("pos")).setAddress(new_staff_add_input.getText().toString());
-                LandingActivity.staff_data_array.get(bundle.getInt("pos")).setPhone(new_staff_phone_input.getText().toString());
-                LandingActivity.staff_data_array.get(bundle.getInt("pos")).setEmail(new_staff_email_input.getText().toString());
+        if (new_staff_name_input.getText().toString().equals("") || new_staff_name_input.getText().toString().equals(null) || new_staff_name_input.getText().toString()==null) {
+           new_staff_name_input.setError("Enter Staff First Name ");
+          /*  snackbar = Snackbar.make(Mroot, "Staff first name can't Blank", Snackbar.LENGTH_LONG);
+            snackbar.show();
+      */  } else if (new_staff_last_name_input.getText().toString().equals("") || new_staff_last_name_input.getText().toString().equals(null) || new_staff_last_name_input.getText().toString()==null) {
+            new_staff_last_name_input.setError("Enter Staff Last Name");
+          /*  snackbar = Snackbar.make(Mroot, "Staff last name can't Blank", Snackbar.LENGTH_LONG);
+            snackbar.show();
+      */  } else if (new_staff_phone_input.getText().toString().equals("") || new_staff_phone_input.getText().toString().equals(null) || new_staff_phone_input.getText().toString()== null) {
+            new_staff_phone_input.setError("Enter Staff Phone Number");
+          /*  snackbar = Snackbar.make(Mroot, "Staff Phone number can't Blank", Snackbar.LENGTH_LONG);
+            snackbar.show();
+      */  } else {
+            //save related data
+            LandingActivity.staff_data_array.get(bundle.getInt("pos")).setFirst_name(new_staff_name_input.getText().toString());
+            LandingActivity.staff_data_array.get(bundle.getInt("pos")).setLast_name(new_staff_last_name_input.getText().toString());
+            LandingActivity.staff_data_array.get(bundle.getInt("pos")).setAddress(new_staff_add_input.getText().toString());
+            LandingActivity.staff_data_array.get(bundle.getInt("pos")).setPhone(new_staff_phone_input.getText().toString());
+            LandingActivity.staff_data_array.get(bundle.getInt("pos")).setEmail(new_staff_email_input.getText().toString());
 
-                if (new_staff_admin_btn.isChecked())
-                    LandingActivity.staff_data_array.get(bundle.getInt("pos")).setAdmin_flag("Yes");
-                else
-                    LandingActivity.staff_data_array.get(bundle.getInt("pos")).setAdmin_flag("No");
+            if (new_staff_admin_btn.isChecked())
+                LandingActivity.staff_data_array.get(bundle.getInt("pos")).setAdmin_flag("Yes");
+            else
+                LandingActivity.staff_data_array.get(bundle.getInt("pos")).setAdmin_flag("No");
 
-                Bundle _bundle = new Bundle();
-                _bundle.putString("src", bundle.getString("src"));
-                _bundle.putInt("pos", bundle.getInt("pos"));
-                _bundle.putInt("create_pos", bundle.getInt("create_pos"));
+            Bundle _bundle = new Bundle();
+            _bundle.putString("src", bundle.getString("src"));
+            _bundle.putInt("pos", bundle.getInt("pos"));
+            _bundle.putInt("create_pos", bundle.getInt("create_pos"));
 
-                // start new page
-                replaceFrag(new NewStaffInfoFrag(), _bundle, NewStaffFrag.class.getName());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            // start new page
+            replaceFrag(new NewStaffInfoFrag(), _bundle, NewStaffFrag.class.getName());
         }
+
 
     }
 
@@ -215,8 +220,6 @@ public class NewStaffFrag extends HelperFrags {
 
     // pick contact
     //code
-
-
 
 
     @Override

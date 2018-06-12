@@ -49,16 +49,16 @@
                 android:src="@android:drawable/ic_menu_rotate"
                 android:tint="@color/white" />
 
-            <TextView
+            android:textColor="@color/white"
+            <ImageView
                 android:id="@+id/add_service_next_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="52dp"
+                android:layout_width="52dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:padding="8dp"
-                android:text="NEXT"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_large" />
+                android:src="@drawable/ic_navigate"
+                android:tint="@color/white"
+                android:padding="10dp"/>
 
 
         </RelativeLayout>

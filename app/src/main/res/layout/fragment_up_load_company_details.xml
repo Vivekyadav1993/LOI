@@ -32,14 +32,14 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_large" />
 
-            <TextView
-                android:id="@+id/upload_company_details_upload_tv"
+            <Button
+                android:id="@+id/upload_company_details_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:padding="10dp"
-                android:text="Upload"
+                android:text="Update"
                 android:layout_marginRight="5dp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_large" />

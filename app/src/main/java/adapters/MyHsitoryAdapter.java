@@ -11,12 +11,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import atw.lifeoninternet.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import frags.CustomerLandingFrag;
 import models.History;
 import models.businesslist.Output;
-import r2stech.lifeoninternet.R;
 
 
 public class MyHsitoryAdapter extends RecyclerView.Adapter<MyHsitoryAdapter.ViewHolder> {

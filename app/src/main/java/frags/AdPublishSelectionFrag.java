@@ -11,14 +11,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import atw.lifeoninternet.LandingActivity;
+import atw.lifeoninternet.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import helper.HelperActivity;
 import helper.HelperFrags;
 import models.BusinessData;
-import r2stech.lifeoninternet.LandingActivity;
-import r2stech.lifeoninternet.R;
 
 /**
  * Created by teknik on 9/27/2017.

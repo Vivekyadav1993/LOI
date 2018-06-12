@@ -10,11 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
+import atw.lifeoninternet.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import frags.BusinessDetailsFrag;
@@ -22,7 +26,6 @@ import frags.BusinessHourFrag;
 import frags.CustomerLandingFrag;
 import models.businesslist.BusinessListModel;
 import models.businesslist.Output;
-import r2stech.lifeoninternet.R;
 
 
 public class CustomerLandingRecyclerViewAdapter extends RecyclerView.Adapter<CustomerLandingRecyclerViewAdapter.ViewHolder> {
@@ -67,7 +70,17 @@ public class CustomerLandingRecyclerViewAdapter extends RecyclerView.Adapter<Cus
         holder.mService.setText(data.get(position).getIndustry());
         holder.mCompanyOpenTimeTextV.setText(data.get(position).getOpenStatus().toString());
         holder.mOpentime.setText(data.get(position).getOpenTime());
-
+        Log.d("CLRVA","path"+data.get(position).getPic());
+        try {
+            Picasso.get()
+                    .load(data.get(position).getPic())
+                    .placeholder(R.mipmap.ic_launcher)
+                   /* .error(R.drawable.user_placeholder_error)*/
+                    .into(holder.mImageView);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //  Glide.with(mContext).load(data.get(position).getPic().toString()).into(holder.mImageView);
         if (data.get(position).getOpenStatus().equalsIgnoreCase("Closed Now")) {
 
             holder.mCompanyOpenTimeTextV.setText(data.get(position).getOpenStatus().toString());
@@ -109,6 +122,9 @@ public class CustomerLandingRecyclerViewAdapter extends RecyclerView.Adapter<Cus
         public TextView mService;
         @BindView(R.id.company_open_time_tv)
         public TextView mOpentime;
+
+        @BindView(R.id.company_image_iv)
+        public ImageView mImageView;
 
         @BindView(R.id.company_open_time_text_tv)
         public TextView mCompanyOpenTimeTextV;

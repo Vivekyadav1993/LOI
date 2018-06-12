@@ -44,6 +44,10 @@ import adapters.ExpandableListAdapter;
 import adapters.FaqChildAdapter;
 import adapters.ServiceStaffAdapter;
 import adapters.ShowStaffAdapter;
+import atw.lifeoninternet.R;
+import atw.lifeoninternet.interfaces.IAddDetailsPresenter;
+import atw.lifeoninternet.utils.Sharedpreferences;
+import atw.lifeoninternet.utils.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -58,13 +62,8 @@ import models.addetailsEdit.Resource;
 import models.addetailsEdit.Service;
 import models.addetailsEdit.Servicestaff;
 import models.addetailsEdit.Staff;
-import r2stech.lifeoninternet.LandingActivity;
-import r2stech.lifeoninternet.R;
-import r2stech.lifeoninternet.interfaces.AddDetailsEditPresenterImpl;
-import r2stech.lifeoninternet.interfaces.IAddDetailsPresenter;
-import r2stech.lifeoninternet.interfaces.IAddDetailsView;
-import r2stech.lifeoninternet.utils.Sharedpreferences;
-import r2stech.lifeoninternet.utils.Utils;
+
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -192,7 +191,7 @@ public class AdDetailsEditFrag extends HelperFrags implements HttpresponseUpd {
                     .appendPath("api.php")
                     .appendQueryParameter("action", "bookingDetails")
                     .appendQueryParameter("business_id", business_id)
-                    .appendQueryParameter("address_id", address_id);
+                    .appendQueryParameter("address_id", mPrefs.getAddressId());
 
             Log.e("stafflist", builder.build().toString());
             if (AppUtils.isNetworkAvailable(getActivity())) {
@@ -289,6 +288,7 @@ public class AdDetailsEditFrag extends HelperFrags implements HttpresponseUpd {
         bundle.putString("SunTo", SunTo);
         bundle.putString("StartDate", StartDate);
         bundle.putString("EndDate", EndDate);
+
         // mfragment.setArguments(bundle); //data b
         replaceFrag(new EditDayTimeFrag(), bundle, AdDetailsEditFrag.class.getName());
     }

@@ -49,6 +49,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import adapters.MyAdsAddressAdapter;
+import atw.lifeoninternet.LandingActivity;
+import atw.lifeoninternet.R;
+import atw.lifeoninternet.utils.Sharedpreferences;
+import atw.lifeoninternet.utils.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -58,20 +62,14 @@ import helper.HelperFrags;
 import helper.HttpresponseUpd;
 import models.myadsaddress.Businessaddress;
 import models.myadsaddress.MyAdsAddress;
-import r2stech.lifeoninternet.LandingActivity;
-import r2stech.lifeoninternet.R;
-import r2stech.lifeoninternet.utils.ImageFilePath;
-import r2stech.lifeoninternet.utils.Utils;
 
 import static android.app.Activity.RESULT_OK;
 import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
-import static r2stech.lifeoninternet.utils.Utils.bitmap;
-import static r2stech.lifeoninternet.utils.Utils.context;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UpLoadCompanyDetailsFrag extends HelperFrags implements HttpresponseUpd {
+public class UpLoadCompanyDetailsFrag extends HelperFrags /*implements HttpresponseUpd */{
 
     @BindView(R.id.company_details_upload_company_name_et)
     public EditText mCname;
@@ -98,6 +96,9 @@ public class UpLoadCompanyDetailsFrag extends HelperFrags implements Httprespons
     private Uri filePath;
 
     private String imagepath = null;
+    private String imageString;
+
+    private Sharedpreferences mPref;
 
     public UpLoadCompanyDetailsFrag() {
         // Required empty public constructor
@@ -113,21 +114,22 @@ public class UpLoadCompanyDetailsFrag extends HelperFrags implements Httprespons
     }
 
     private void initilizerView() {
-        callback = this;
-        business_id = LandingActivity.business_data.getBusiness_id();
+        mPref = Sharedpreferences.getUserDataObj(getActivity());
+      //  callback = this;
+
+        /*business_id = mPref.getBusnessId();*/
 
 
     }
 
-    @OnClick({R.id.upload_company_details_upload_tv, R.id.company_details_profile_iv})
+    @OnClick({R.id.upload_company_details_btn, R.id.company_details_profile_iv})
     public void onClick(View v) {
         switch (v.getId()) {
 
-            case R.id.upload_company_details_upload_tv:
-
-                uploadFun();
+            case R.id.upload_company_details_btn:
+                Toast.makeText(getActivity(), "Welcome", Toast.LENGTH_SHORT).show();
+                // uploadFun();
                 break;
-
             case R.id.company_details_profile_iv:
 
                 Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -155,23 +157,16 @@ public class UpLoadCompanyDetailsFrag extends HelperFrags implements Httprespons
 
         if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
 
-            //getting the image Uri
-            Uri imageUri = data.getData();
+            Uri filePath = data.getData();
             try {
-                //getting bitmap object from uri
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri);
-
-                //displaying selected image to imageview
+                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
+                Toast.makeText(getActivity(), "" + bitmap, Toast.LENGTH_SHORT).show();
                 mImage.setImageBitmap(bitmap);
-
                 Log.d("ULCDF", "bitmap" + bitmap);
-                //calling the method uploadBitmap to upload image
-                //  uploadBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
     }
 
     /**
@@ -206,14 +201,15 @@ public class UpLoadCompanyDetailsFrag extends HelperFrags implements Httprespons
     //handling the image chooser activity result
     private void uploadFun() {
 
+
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 4, baos);
         byte[] imageBytes = baos.toByteArray();
-        final String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
 
-        Log.d("ULCD", "photoPath" + baos);
+        Log.d("ULCD", "photoPath" + imageString);
 
-        if (photoPath != null) {
+      /*  if (photoPath != null) {
 
             Utils.showProgress(getActivity());
             //  StorageReference reff = mStorageRef.child("users").child(mPrefs.getUserId()).child(photoPath.getLastPathSegment());
@@ -221,25 +217,19 @@ public class UpLoadCompanyDetailsFrag extends HelperFrags implements Httprespons
             Log.d("ULCD", "profileUrl" + profileUrl);
 
         }
-
-
-      /*  ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] imageBytes = baos.toByteArray();
-        final String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
 */
-        Uri.Builder builder = new Uri.Builder();
+      /*  Uri.Builder builder = new Uri.Builder();
         builder.scheme("http")
                 .authority("lifeoninternet.com")
                 .appendPath(Utils.stringBuilder())
                 .appendPath("api.php")
                 .appendQueryParameter("action", "updatebusinessDetails")
-                .appendQueryParameter("business_id", business_id)
+                .appendQueryParameter("business_id", mPref.getBusnessId())
                 .appendQueryParameter("mobile", mCname.getText().toString())
                 .appendQueryParameter("email", mEmail.getText().toString())
                 .appendQueryParameter("keyword", mKey.getText().toString())
                 .appendQueryParameter("description", mDescription.getText().toString())
-                .appendQueryParameter("uploaded_file", profileUrl);
+                .appendQueryParameter("uploaded_file", imageString);
 
         String myUrl = builder.build().toString();
         Log.e("url", myUrl);
@@ -249,11 +239,11 @@ public class UpLoadCompanyDetailsFrag extends HelperFrags implements Httprespons
         else {
             snackbar = Snackbar.make(getView(), "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
             snackbar.show();
-        }
+        }*/
 
     }
 
-
+/*
     @Override
     public void getResponse(String response) {
         Log.e("responce", response);
@@ -274,5 +264,5 @@ public class UpLoadCompanyDetailsFrag extends HelperFrags implements Httprespons
 
         }
 
-    }
+    }*/
 }

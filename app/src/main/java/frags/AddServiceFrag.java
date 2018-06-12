@@ -39,6 +39,10 @@ import java.util.ArrayList;
 
 import adapters.AddResAdap;
 import adapters.AddSerAdap;
+import atw.lifeoninternet.LandingActivity;
+import atw.lifeoninternet.R;
+import atw.lifeoninternet.utils.Sharedpreferences;
+import atw.lifeoninternet.utils.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -50,10 +54,6 @@ import models.HomeSerData;
 import models.ResourceData;
 import models.ResourceSpecification;
 import models.ServiceData;
-import r2stech.lifeoninternet.LandingActivity;
-import r2stech.lifeoninternet.R;
-import r2stech.lifeoninternet.utils.Sharedpreferences;
-import r2stech.lifeoninternet.utils.Utils;
 
 import static frags.MyAdsFrag.address_id;
 import static frags.MyAdsFrag.business_id;

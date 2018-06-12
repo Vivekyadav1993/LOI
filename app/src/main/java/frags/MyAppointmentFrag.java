@@ -29,6 +29,9 @@ import java.util.List;
 
 import adapters.MyAdsAddressAdapter;
 import adapters.MyAppointmentAdapter;
+import atw.lifeoninternet.R;
+import atw.lifeoninternet.utils.Sharedpreferences;
+import atw.lifeoninternet.utils.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -40,10 +43,6 @@ import models.MyAppointment;
 import models.businesslist.Output;
 import models.myadsaddress.Businessaddress;
 import models.myadsaddress.MyAdsAddress;
-import r2stech.lifeoninternet.R;
-import r2stech.lifeoninternet.utils.Sharedpreferences;
-import r2stech.lifeoninternet.utils.Utils;
-import r2stech.lifeoninternet.views.AppointmentDashbord;
 
 /**
  * A simple {@link Fragment} subclass.
