@@ -5,11 +5,7 @@
     android:background="@color/grey">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        style="@style/linearLayoutFormatStyle"
         android:orientation="vertical"
         android:weightSum="1">
 
@@ -21,20 +17,17 @@
 
             <FrameLayout
                 android:id="@+id/userauth_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="30dp">
+                style="@style/linearLayoutFormatStyle">
 
             </FrameLayout>
 
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:tint="@color/blue"
-                android:background="@drawable/circular_background"
+                android:background="@color/blue"
                 android:src="@drawable/ic_expand_more" />
 
             <ImageView
@@ -56,21 +49,22 @@
 
             <TextView
                 android:id="@+id/userauth_tag"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/textInputField"
                 android:layout_centerInParent="true"
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="Create Account"
-                android:textColor="#000"
-                android:textSize="@dimen/text_xlarge" />
+                android:textColor="@color/blue"
+                android:textSize="@dimen/text_xlarge"
+                android:textStyle="bold" />
 
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_above="@+id/userauth_about_btn"
-                android:background="@color/dark_grey" />
+                android:background="@color/dark_grey"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/userauth_about_btn"
@@ -81,7 +75,8 @@
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
                 android:text="ABOUT | CONTACT"
-                android:textSize="@dimen/text_medium" />
+                android:textSize="@dimen/text_medium"
+                android:visibility="invisible" />
 
         </RelativeLayout>
 

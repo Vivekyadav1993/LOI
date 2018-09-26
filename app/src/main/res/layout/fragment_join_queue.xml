@@ -7,24 +7,19 @@
 
     <RelativeLayout
         android:id="@+id/header_rl"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/hesder_bg">
+        style="@style/headerRelativeLayout">
 
 
         <ImageView
             android:id="@+id/join_queue_back_btn"
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
-            android:padding="5dp"
-            android:src="@drawable/leftarrow_white" />
+            style="@style/headerImageView" />
 
         <TextView
             android:id="@+id/frag_toolbar_title_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/wrapEditTextInput"
             android:layout_centerHorizontal="true"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:text=""
@@ -32,9 +27,10 @@
             android:textSize="@dimen/text_large" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/wrapEditTextInput"
             android:layout_below="@id/frag_toolbar_title_tv"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
             android:gravity="center"
             android:text="Join the Queue"
             android:textColor="@color/white" />
@@ -42,37 +38,14 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/matchParentLayout"
         android:layout_below="@id/header_rl">
-
-        <com.wefika.calendar.CollapseCalendarView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
 
         <com.github.badoualy.datepicker.DatePickerTimeline
             android:id="@+id/frag_join_queue_calendar_view"
             android:layout_width="match_parent"
             android:layout_height="120dp" />
 
-        <Spinner
-            android:id="@+id/frag_join_queue_service_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/spinner_background" />
-
-        <Spinner
-            android:id="@+id/frag_join_queue_staff_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="8dp"
-            android:layout_toLeftOf="@id/frag_join_queue_service_spinner"
-            android:background="@drawable/spinner_background" />
 
         <View
             android:id="@+id/vieww"
@@ -89,41 +62,224 @@
             android:background="@color/white"
             android:padding="8dp">
 
-            <TextView
-                android:id="@+id/waiting_time_text_tv"
+            <Spinner
+                android:id="@+id/frag_join_queue_address_spinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="15dp"
-                android:gravity="center"
-                android:text=""
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:layout_height="30dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp" />
 
-            <TextView
-                android:id="@+id/frag_join_queue_waiting_time_tv"
+            <Spinner
+                android:id="@+id/frag_join_queue_staff_spinner"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@id/frag_join_queue_address_spinner"
+                android:visibility="gone" />
+
+
+            <Spinner
+                android:id="@+id/frag_join_queue_service_spinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/waiting_time_text_tv"
-                android:layout_marginTop="25dp"
-                android:gravity="center"
-                android:text=""
-                android:textColor="@color/blue"
-                android:textSize="20sp" />
+                android:layout_height="30dp"
+                android:layout_below="@id/frag_join_queue_address_spinner"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="10dp" />
 
-            <Button
-                android:id="@+id/frag_join_queue_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/frag_join_queue_waiting_time_tv"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="24dp"
-                android:background="@color/amber_700"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:text="Join queue"
-                android:textColor="@color/white" />
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/frag_join_queue_service_spinner">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/frag_join_queue_morning_tv"
+                        style="@style/wrapEditTextInput"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/rectangle_background_border"
+                        android:padding="5dp"
+                        android:text="Morning"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/frag_join_queue_rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp" />
+
+                    <TextView
+                        android:id="@+id/frag_join_queue_evening_tv"
+                        style="@style/wrapEditTextInput"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/rectangle_background_border"
+                        android:padding="5dp"
+                        android:text="Evening"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/frag_join_queue_evening_rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp" />
+
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/blue"
+                        android:padding="1dp"
+                        android:paddingBottom="10dp"
+                        android:text="Book"
+                        android:textColor="@color/white" />
+
+                </LinearLayout>
+            </ScrollView>
+
+            <LinearLayout
+                style="@style/matchParentLayout"
+                android:layout_below="@id/frag_join_queue_service_spinner"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/waiting_time_text_tv"
+                    style="@style/wrapEditTextInput"
+                    android:layout_below="@id/frag_join_queue_service_spinner"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:text="Welcome "
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/frag_join_queue_waiting_time_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/waiting_time_text_tv"
+                    android:layout_marginTop="25dp"
+                    android:gravity="center"
+                    android:text="Stavv"
+                    android:textColor="@color/blue"
+                    android:textSize="20sp"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/mor_eve_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/waiting_time_text_tv"
+                    android:layout_marginTop="25dp"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:weightSum="1">
+
+                    <LinearLayout
+                        android:id="@+id/mor_ll"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".5"
+                        android:background="@color/blue"
+                        android:orientation="vertical"
+                        android:padding="3dp"
+                        android:paddingBottom="5dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center_horizontal"
+                            android:text="Morning"
+                            android:textColor="@color/white" />
+
+
+                        <TextView
+                            android:id="@+id/morning_time_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center_horizontal"
+                            android:text=" 05:30 AM"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/eve_ll"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".5"
+                        android:orientation="vertical"
+                        android:padding="3dp"
+                        android:paddingBottom="5dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center_horizontal"
+                            android:text="Evening"
+                            android:textColor="@color/black" />
+
+
+                        <TextView
+                            android:id="@+id/evening_time_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center_horizontal"
+                            android:text=" 05:30 PM"
+                            android:textColor="@color/blue"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <Button
+                    android:id="@+id/frag_join_queue_mor_eve_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/mor_eve_ll"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/amber_700"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="Join queue"
+                    android:textColor="@color/white"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/frag_join_queue_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/frag_join_queue_waiting_time_tv"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="30dp"
+                    android:background="@color/amber_700"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="Join queue"
+                    android:textColor="@color/white"
+                    android:visibility="gone" />
+
+
+            </LinearLayout>
+
 
         </RelativeLayout>
 
@@ -139,7 +295,7 @@
             android:text="Pre Booking of spot in queue : Rs. 50 (Will be adjust in the final bill) "
             android:textColor="@color/red"
             android:textSize="14sp"
-            android:visibility="invisible" />
+            android:visibility="gone" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/frag_join_queue_float_btn"
@@ -154,6 +310,7 @@
             android:scaleType="fitXY"
             android:src="@drawable/ic_details"
             android:tint="@color/amber_700"
+            android:visibility="invisible"
             app:backgroundTint="@color/white"
             app:borderWidth="1dp"
             app:elevation="6dp" />

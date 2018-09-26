@@ -308,6 +308,20 @@
             android:text="Push Myself Back"
             android:textColor="@color/white"
             android:textSize="10sp" />
+        <Button
+            android:id="@+id/frag_joined_queue_edit_btn"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight=".5"
+            android:background="@color/colorPrimary"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="Push Myself Back"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/frag_joined_queue_show_details_btn"

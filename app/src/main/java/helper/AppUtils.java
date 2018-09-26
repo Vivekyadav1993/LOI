@@ -7,6 +7,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.design.widget.Snackbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.ProgressBar;
@@ -34,6 +35,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -87,7 +89,11 @@ public class AppUtils {
 
                         }
 
-                        updateCallback.getResponse(response);
+                        try {
+                            updateCallback.getResponse(response);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -103,6 +109,8 @@ public class AppUtils {
                     }
                 });
 
+
+
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(
                 0,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
@@ -110,6 +118,7 @@ public class AppUtils {
         //add request to queue
         requestQueue.add(stringRequest);
     }
+
 
     // Method for fetch address
     public static void getAdd(String url, Context c, final HttpresponseUpd callback) {

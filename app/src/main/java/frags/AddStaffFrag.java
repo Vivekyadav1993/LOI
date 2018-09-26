@@ -82,6 +82,7 @@ public class AddStaffFrag extends HelperFrags implements HttpresponseUpd {
     private TextView mDelete, mCancleTv;
     private String post_tag = "";
     private Sharedpreferences mPref;
+    private String staff_serving;
 
     @Nullable
     @Override
@@ -93,16 +94,16 @@ public class AddStaffFrag extends HelperFrags implements HttpresponseUpd {
         create_pos = bundle.getInt("create_pos");
         address_id = bundle.getInt("address_id");
         business_id = bundle.getInt("business_id");
-        mPref=Sharedpreferences.getUserDataObj(getActivity());
+        mPref = Sharedpreferences.getUserDataObj(getActivity());
         LandingActivity.staff = false;
         //initialize static  staff array and add index 0
         LandingActivity.staff_data_array = new ArrayList<>();
         pos = 0;
-        LandingActivity.staff_data_array.add(new StaffData("No", "No",mPref.getAddressId() /*LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos")).getAddress_id()*/
+        LandingActivity.staff_data_array.add(new StaffData("No", "No", mPref.getAddressId() /*LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos")).getAddress_id()*/
                 , "", "", "", "", "", "", "", "", "", "", "",
                 "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
                 "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-                "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+                "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""));
 
 
         try {
@@ -114,7 +115,7 @@ public class AddStaffFrag extends HelperFrags implements HttpresponseUpd {
                     .appendPath("api.php")
                     .appendQueryParameter("action", "staffList")
                     .appendQueryParameter("address_id", /*LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos")).getAddress_id()*/
-                    mPref.getAddressId());
+                            mPref.getAddressId());
 
             Log.e("stafflist", builder.build().toString());
             if (AppUtils.isNetworkAvailable(getActivity()))
@@ -133,9 +134,13 @@ public class AddStaffFrag extends HelperFrags implements HttpresponseUpd {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Bundle bundle = new Bundle();
-                    bundle.putString("src", "createstaff");
+                  /*  bundle.putString("src", "createstaff");
                     bundle.putInt("pos", i);
-                    bundle.putInt("create_pos", create_pos);
+                 */
+                    bundle.putString("staff_id", LandingActivity.staff_data_array.get(i).getStaff_id().toString());
+
+
+                    Log.d("AsF", "staff_id" + LandingActivity.staff_data_array.get(i).getStaff_id().toString());
                     // go next page
                     replaceFrag(new NewStaffFrag(), bundle, AddStaffFrag.class.getName());
                 }
@@ -152,12 +157,12 @@ public class AddStaffFrag extends HelperFrags implements HttpresponseUpd {
 
         //initialize static  staff array and add index 0
         LandingActivity.staff_data_array = new ArrayList<>();
-        pos = 0;
+      /*  pos = 0;
         LandingActivity.staff_data_array.add(new StaffData("No", "No", LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos")).getAddress_id(), "", "", "", "", "", "", "", "", "", "", "",
                 "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
                 "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
                 "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""));
-
+*/
         //hit api
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("http")
@@ -165,7 +170,7 @@ public class AddStaffFrag extends HelperFrags implements HttpresponseUpd {
                 .appendPath(Utils.stringBuilder())
                 .appendPath("api.php")
                 .appendQueryParameter("action", "staffList")
-                .appendQueryParameter("address_id", LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos")).getAddress_id());
+                .appendQueryParameter("address_id", mPref.getAddressId());
 
         Log.e("stafflist", builder.build().toString());
         if (AppUtils.isNetworkAvailable(getActivity()))
@@ -199,7 +204,7 @@ public class AddStaffFrag extends HelperFrags implements HttpresponseUpd {
             _bundle.putInt("address_id", address_id);
             _bundle.putInt("business_id", business_id);
 
-            replaceFrag(new AddResourcesFrag(), _bundle, AddStaffFrag.class.getName());
+            replaceFrag(new AddServiceFrag(), _bundle, AddStaffFrag.class.getName());
             // }
         } else if (add_staff_onlyme_btn.isChecked() || LandingActivity.staff_data_array.size() == 1) {
 
@@ -211,7 +216,7 @@ public class AddStaffFrag extends HelperFrags implements HttpresponseUpd {
                 _bundle.putInt("address_id", address_id);
                 _bundle.putInt("business_id", business_id);
 
-                replaceFrag(new AddResourcesFrag(), _bundle, AddStaffFrag.class.getName());
+                replaceFrag(new AddServiceFrag(), _bundle, AddStaffFrag.class.getName());
 
             } else {
                 Toast.makeText(getActivity(), "Add Staff First", Toast.LENGTH_SHORT).show();
@@ -230,10 +235,10 @@ public class AddStaffFrag extends HelperFrags implements HttpresponseUpd {
 
         } else {
             //save address id
-
-            try {
-                LandingActivity.staff_data_array.get(pos).setAddress_id(LandingActivity.business_data.getAdderess_data().get(create_pos).getAddress_id());
-                Bundle _bundle = new Bundle();
+            Bundle _bundle = new Bundle();
+            _bundle.putString("staff_id", "");
+            // LandingActivity.staff_data_array.get(pos).setAddress_id(LandingActivity.business_data.getAdderess_data().get(create_pos).getAddress_id());
+           /*     Bundle _bundle = new Bundle();
                 _bundle.putString("src", bundle.getString("src"));
                 if (src_pos) {
                     _bundle.putInt("pos", pos + 1);
@@ -262,14 +267,9 @@ public class AddStaffFrag extends HelperFrags implements HttpresponseUpd {
                 }
 
                 _bundle.putInt("create_pos", create_pos);
-                // go next page
-                replaceFrag(new NewStaffFrag(), _bundle, AddStaffFrag.class.getName());
-            } catch (Exception e) {
-                Bundle _bundle = new Bundle();
-                _bundle.putInt("create_pos", create_pos);
-                // go next page
-                replaceFrag(new NewStaffFrag(), _bundle, AddStaffFrag.class.getName());
-            }
+              */  // go next page
+            replaceFrag(new NewStaffFrag(), _bundle, AddStaffFrag.class.getName());
+
 
         }
     }
@@ -315,6 +315,7 @@ public class AddStaffFrag extends HelperFrags implements HttpresponseUpd {
                         for (int i = 0; i < arr.length(); i++) {
                             obj = arr.getJSONObject(i);
 
+                            staff_serving = obj.getString("staff_serving");
                             only_me_flag = obj.getString("onlyme_status");
 
                             staff_data = new StaffData(obj.getString("admin_status"), obj.getString("onlyme_status"),
@@ -372,7 +373,7 @@ public class AddStaffFrag extends HelperFrags implements HttpresponseUpd {
                                     obj.getString("sun_break1_to"), obj.getString("sun_break2_from"),
                                     obj.getString("sun_break2_to"), obj.getString("sun_break3_from"), obj.getString("sun_break3_to"),
                                     obj.getString("sun_break4_from"), obj.getString("sun_break4_to"), obj.getString("sun_break5_from"),
-                                    obj.getString("sun_break5_to")
+                                    obj.getString("sun_break5_to"), obj.getString("staff_serving")
 
                             );
 
@@ -403,18 +404,48 @@ public class AddStaffFrag extends HelperFrags implements HttpresponseUpd {
                             mDelete = (TextView) mDialougeBox.findViewById(R.id.delete_staff_tv);
                             mCancleTv = (TextView) mDialougeBox.findViewById(R.id.staff_cancel_tv);
 
+
                             mDelete.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    hitAPI("http://lifeoninternet.com/"+Utils.stringBuilder()+"/api.php?action=deleteStaff&business_id=" + String.valueOf(business_id)
+                                    Log.d("Serving", "check-status" +LandingActivity.staff_data_array.get(i).getStaff_serving());
 
-                                            + "&address_id=" + String.valueOf(address_id) + "&staff_id=" + LandingActivity.staff_data_array.get(i).getStaff_id());
+                                    if (LandingActivity.staff_data_array.get(i).getStaff_serving().equalsIgnoreCase("Serving")) {
+                                        Toast.makeText(getActivity(), "Currently serving customer ", Toast.LENGTH_LONG).show();
+                                    } else {
+                                        hitAPI("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=deleteStaff&business_id=" +
+                                                mPref.getBusnessId()
 
-                                    //    Toast.makeText(getContext(), "" + LandingActivity.staff_data_array.get(i).getStaff_id() + "bid" + business_id + "add" + address_id, Toast.LENGTH_SHORT).show();
+                                                + "&address_id=" + mPref.getAddressId() + "&staff_id=" + LandingActivity.staff_data_array.get(i).getStaff_id());
+
+                                        //    Toast.makeText(getContext(), "" + LandingActivity.staff_data_array.get(i).getStaff_id() + "bid" + business_id + "add" + address_id, Toast.LENGTH_SHORT).show();
+
+
+                                        try {
+                                            //hit api
+                                            Uri.Builder builder = new Uri.Builder();
+                                            builder.scheme("http")
+                                                    .authority("lifeoninternet.com")
+                                                    .appendPath(Utils.stringBuilder())
+                                                    .appendPath("api.php")
+                                                    .appendQueryParameter("action", "staffList")
+                                                    .appendQueryParameter("address_id", /*LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos")).getAddress_id()*/
+                                                            mPref.getAddressId());
+
+                                            Log.e("stafflist", builder.build().toString());
+                                            if (AppUtils.isNetworkAvailable(getActivity()))
+                                                AppUtils.getStringData(builder.build().toString(), getActivity(), callback);
+                                            else {
+                                                snackbar = Snackbar.make(Mroot, "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
+                                                snackbar.show();
+                                            }
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
                                     mDialougeBox.hide();
                                 }
                             });
-
                             mCancleTv.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -440,7 +471,7 @@ public class AddStaffFrag extends HelperFrags implements HttpresponseUpd {
                                     try {
                                         JSONObject main_obj = new JSONObject(response);
                                         dialog.dismiss();
-                                        Toast.makeText(getActivity(), "" + main_obj.getString("message") + "\n Press the refresh button", Toast.LENGTH_SHORT).show();
+                                        //  Toast.makeText(getActivity(), "" + main_obj.getString("message") + "\n Press the refresh button", Toast.LENGTH_SHORT).show();
 
                                     } catch (JSONException e) {
                                         dialog.dismiss();

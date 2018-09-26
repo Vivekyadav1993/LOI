@@ -1,16 +1,20 @@
 package models;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
+
+import java.util.Comparator;
 
 /**
  * Created by Vivek on 2/26/2018.
  */
 
 public class ConsumerListData implements Comparable<ConsumerListData> {
-    private String id, service_name, customer_name, estimate_time, status, appointment_date, token_id, message;
+    private String id, service_name, customer_name, estimate_time, status, appointment_date, token_id, message,book_position,sub_date,service_id,atpremise_all;
 
     public ConsumerListData(String id, String _service_name, String _customer_name, String _estimate_time, String _status,
-                            String _appointment_date, String _token_id, String message) {
+                            String _appointment_date, String _token_id, String message,String book_position,String sub_date,String service_id,
+                            String atpremise_all) {
         this.id = id;
         service_name = _service_name;
         customer_name = _customer_name;
@@ -19,6 +23,42 @@ public class ConsumerListData implements Comparable<ConsumerListData> {
         appointment_date = _appointment_date;
         token_id = _token_id;
         this.message = message;
+        this.book_position=book_position;
+        this.sub_date=sub_date;
+        this.service_id=service_id;
+        this.atpremise_all=atpremise_all;
+    }
+
+    public String getAtpremise_all() {
+        return atpremise_all;
+    }
+
+    public void setAtpremise_all(String atpremise_all) {
+        this.atpremise_all = atpremise_all;
+    }
+
+    public String getService_id() {
+        return service_id;
+    }
+
+    public void setService_id(String service_id) {
+        this.service_id = service_id;
+    }
+
+    public String getSub_date() {
+        return sub_date;
+    }
+
+    public void setSub_date(String sub_date) {
+        this.sub_date = sub_date;
+    }
+
+    public String getBook_position() {
+        return book_position;
+    }
+
+    public void setBook_position(String book_position) {
+        this.book_position = book_position;
     }
 
     public String getId() {
@@ -87,6 +127,21 @@ public class ConsumerListData implements Comparable<ConsumerListData> {
 
     @Override
     public int compareTo(@NonNull ConsumerListData consumerListData) {
-        return getEstimate_time().compareTo(consumerListData.getEstimate_time());
+
+
+            return Integer.valueOf(getBook_position()).compareTo(Integer.valueOf(consumerListData.getBook_position()));
+
     }
+
+  /*  @Override
+    public int compare(ConsumerListData consumerListData, ConsumerListData t1) {
+
+        int flag = Integer.parseInt(consumerListData.getAppointment_date())- Integer.parseInt(t1.getAppointment_date());
+        Log.d("CLD","flag_main"+false);
+        if(flag==0)
+            Log.d("CLD","flag"+false);
+        flag = consumerListData.getEstimate_time().compareTo(t1.getEstimate_time());
+        return flag;
+
+    }*/
 }

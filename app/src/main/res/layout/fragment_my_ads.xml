@@ -2,240 +2,302 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:attrs="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/linearLayoutFormatStyle"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="frags.MyAdsFrag">
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="120dp"
+        style="@style/linearLayoutFormatStyle"
+        android:layout_marginBottom="170dp"
         android:orientation="vertical">
 
         // header layout
 
         <RelativeLayout
             android:id="@+id/header_rl"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/hesder_bg">
+            style="@style/headerRelativeLayout">
 
 
             <ImageView
                 android:id="@+id/my_add_back_btn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
-                android:padding="10dp"
-                android:background="?selectableItemBackground"
-                android:src="@drawable/leftarrow_white" />
+                style="@style/headerImageView" />
 
 
             <TextView
                 android:id="@+id/my_ads_business_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrapTextInput"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/my_add_back_btn"
                 android:layout_toEndOf="@id/my_add_back_btn"
+                android:layout_toRightOf="@id/my_add_back_btn"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_large" />
+
+            <ImageView
+                android:id="@+id/not_attend_all_tv"
+                style="@style/headerIconImageView"
+                android:layout_marginRight="8dp"
+                android:padding="12dp"
+                android:tint="@color/white"
+                android:layout_toLeftOf="@id/my_ads_info_iv"
+                android:layout_toStartOf="@id/my_ads_info_iv"
+                android:src="@drawable/unattended_icon" />
 
 
             <ImageView
                 android:id="@+id/my_ads_info_iv"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerVertical="true"
+                style="@style/headerIconImageView"
                 android:layout_marginRight="8dp"
                 android:layout_toLeftOf="@id/add_cuctomers"
                 android:layout_toStartOf="@id/add_cuctomers"
-                android:padding="12dp"
-                android:background="?selectableItemBackground"
                 android:src="@drawable/ic_info_outline"
                 android:tint="@color/white" />
 
 
             <ImageView
                 android:id="@+id/add_cuctomers"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
+                style="@style/headerIconImageView"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
                 android:layout_marginRight="5dp"
-                android:padding="12dp"
-                android:background="?selectableItemBackground"
                 android:src="@drawable/addcustomer"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_large"
                 android:tint="@color/white" />
 
 
         </RelativeLayout>
 
-        <com.daasuu.bl.BubbleLayout
-            android:id="@+id/my_ads_bubble_layout"
+
+        <LinearLayout
+            android:id="@+id/admin_layout_ll"
+            style="@style/linearLayoutFormatStyle">
+
+
+            <ListView
+                android:id="@+id/staff_list"
+                style="@style/matchParentLayout"
+                android:layout_below="@id/header_rl"
+                android:layout_margin="5dp"></ListView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/staff_layout_ll"
+        style="@style/linearLayoutFormatStyle"
+        android:layout_marginTop="?actionBarSize"
+        android:padding="8dp"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/myads_staff_customer_name_tv"
+            style="@style/wrapEditTextInput"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/rectangle_background_border"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text=""
+            android:textColor="@color/amber_700"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+
+        <Button
+            android:id="@+id/muads_next_btn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/header_rl"
-            android:layout_marginTop="-12dp"
-            android:padding="8dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:visibility="gone"
-            app:bl_arrowDirection="top"
-            app:bl_arrowHeight="8dp"
-            app:bl_arrowPosition="265dp"
-            app:bl_arrowWidth="8dp"
-            app:bl_cornersRadius="6dp"
-            app:bl_strokeWidth="1dp">
+            android:layout_height="0dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight=".45"
+            android:background="@drawable/circle_btn_background"
+            android:fontFamily="sans-serif-condensed"
+            android:text="NEXT"
+            android:textColor="@color/white"
+            android:textSize="60sp" />
+
+
+        <Button
+            android:id="@+id/myads_unhold_btn"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="15dp"
+            android:layout_weight=".11"
+            android:text="unhold"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/myads_btns_ll"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="15dp"
+            android:layout_weight=".11"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:weightSum="3.2">
+
+            <Button
+                android:id="@+id/myads_skip_btn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/rectangle_btn_background"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="Skip"
+                android:textColor="@color/white"
+                android:visibility="invisible" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".1" />
+
+            <Button
+                android:id="@+id/myads_absent_btn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/rectangle_btn_red_background"
+                android:backgroundTint="@color/red"
+                android:text="Absent"
+                android:textColor="@color/white"
+                android:visibility="invisible" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".1" />
+
+
+            <Spinner
+                android:id="@+id/myads_staff_hold_spinner"
+                style="@android:style/Widget.Holo.Light.Spinner"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/rectangle_spinner_background"
+                android:backgroundTint="@color/yellow_600"
+                android:entries="@array/hold_data"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:visibility="invisible" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <com.daasuu.bl.BubbleLayout
+        android:id="@+id/my_ads_bubble_layout"
+        style="@style/matchWrapParentLayout"
+        android:layout_below="@id/header_rl"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:clickable="true"
+        android:padding="8dp"
+        android:visibility="gone"
+        app:bl_arrowDirection="top"
+        app:bl_arrowHeight="8dp"
+        app:bl_arrowPosition="265dp"
+        app:bl_arrowWidth="0dp"
+        app:bl_cornersRadius="6dp"
+        app:bl_strokeWidth="1dp">
+
+        <LinearLayout
+            style="@style/matchWrapParentLayout"
+            android:orientation="horizontal"
+            android:weightSum="4">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="4">
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".9"
+                android:orientation="vertical"
+                android:padding="8dp">
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:padding="8dp">
+                <TextView
+                    style="@style/bubbleLayoutHeadText"
+                    android:text="Served" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="4dp"
-                        android:text="Served"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="4dp"
-                        android:layout_marginTop="10dp"
-                        android:text="20"
-                        android:textColor="@android:color/holo_green_dark"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:padding="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="4dp"
-                        android:text="Left"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/my_ads_frag_left_customer_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="4dp"
-                        android:layout_marginTop="10dp"
-                        android:text="10"
-                        android:textColor="@android:color/holo_orange_light"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:padding="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="4dp"
-                        android:text="Cancel"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="4dp"
-                        android:layout_marginTop="10dp"
-                        android:text="20"
-                        android:textColor="@android:color/holo_red_dark"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:padding="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="4dp"
-                        android:text="Total"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/my_ads_frag_total_customer_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="4dp"
-                        android:layout_marginTop="10dp"
-                        android:text="20"
-                        android:textColor="@color/blue"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
+                <TextView
+                    android:id="@+id/served_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginTop="10dp"
+                    android:text=""
+                    android:textColor="@android:color/holo_green_dark"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="8dp">
 
-        </com.daasuu.bl.BubbleLayout>
+                <TextView
+                    style="@style/bubbleLayoutHeadText"
+                    android:text="In Queue" />
 
-        <ListView
-            android:id="@+id/staff_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/header_rl"
-            android:layout_margin="5dp"></ListView>
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/left_tv"
+                    style="@style/bubbleLayoutMainText"
+                    android:textColor="@android:color/holo_orange_light" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.1"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    style="@style/bubbleLayoutHeadText"
+                    android:text="Cancelled" />
+
+                <TextView
+                    android:id="@+id/cancel_tv"
+                    style="@style/bubbleLayoutMainText"
+                    android:textColor="@android:color/holo_red_dark" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    style="@style/bubbleLayoutHeadText"
+                    android:text="Total" />
+
+                <TextView
+                    android:id="@+id/total_tv"
+                    style="@style/bubbleLayoutMainText"
+                    android:textColor="@color/blue" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </com.daasuu.bl.BubbleLayout>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/bottom_sheet"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="170dp"
+        android:layout_gravity="bottom"
         android:background="@color/white"
-        android:visibility="visible"
-        app:behavior_peekHeight="120dp"
-        app:elevation="8dp"
-        app:layout_behavior="@string/bottom_sheet_behavior">
+        app:elevation="8dp">
 
         <RelativeLayout
             android:id="@+id/rl"
@@ -244,44 +306,57 @@
             android:background="@color/colorPrimary"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/customer_text"
+            <ImageView
+                android:id="@+id/search_show_hide_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|center"
                 android:padding="8dp"
-                android:text="Customers List"
+                android:src="@drawable/ic_search"
+                android:tint="@color/white"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/customer_text"
+                style="@style/wrapTextInput"
+                android:layout_gravity="center_horizontal|center"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/search_show_hide_button"
+                android:padding="8dp"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/unselect_all_tv"
+                style="@style/wrapTextInput"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toEndOf="@id/customer_text"
+                android:layout_toRightOf="@id/customer_text"
+                android:background="@color/red"
+                android:padding="8dp"
+                android:text="UnCheck"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+
             <ImageView
                 android:id="@+id/expand_up_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_gravity="center_horizontal"
-                android:padding="8dp"
-                android:src="@drawable/ic_expand_less"
-                android:tint="@color/white" />
+                style="@style/bottomSheetHeadArrow"
+                android:src="@drawable/ic_expand_less" />
 
             <ImageView
                 android:id="@+id/expand_down_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_gravity="center_horizontal"
-                android:padding="8dp"
+                style="@style/bottomSheetHeadArrow"
                 android:src="@drawable/ic_expand_more"
-                android:tint="@color/white"
                 android:visibility="gone" />
 
         </RelativeLayout>
 
         <EditText
             android:id="@+id/fragment_customer_name_search_et"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/matchWrapParentLayout"
             android:layout_below="@+id/rl"
             android:layout_marginBottom="1dp"
             android:layout_marginLeft="5dp"
@@ -289,20 +364,30 @@
             android:layout_marginTop="1dp"
             android:background="@drawable/edittext_background"
             android:drawableRight="@drawable/ic_search"
+            android:fontFamily="sans-serif-condensed"
             android:hint="Search"
             android:imeOptions="actionSearch"
             android:padding="8dp"
-            android:textSize="14sp">
+            android:textSize="14sp"
+            android:visibility="gone">
 
             <requestFocus />
         </EditText>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/fragment_customer_name_search_et" />
 
         <ListView
             android:id="@+id/customer_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/fragment_customer_name_search_et"
-            android:layout_margin="5dp" />
+            android:layout_margin="5dp"
+            android:longClickable="true"
+            android:visibility="gone" />
     </RelativeLayout>
 
 

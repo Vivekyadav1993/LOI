@@ -135,7 +135,7 @@ public class EditDayTimeFrag extends HelperFrags implements CompoundButton.OnChe
     private Sharedpreferences mPrefs;
 
     private String Mon, Tue, Wed, Thru, Fri, Sat, Sun, MonTo, TueTo, WedTo, ThruTo, FriTo, SatTo, SunTo, EndDate, StartDate,
-            NewStartDate, NewEndDate, mMon, mMonTo, mTue, mTueTo, mWed, mWedTo,mThru,mThruTo,mFri,mFriTo,mSat,mSatTo,mSun,mSunTo;
+            NewStartDate, NewEndDate, mMon, mMonTo, mTue, mTueTo, mWed, mWedTo,mThru,mThruTo,mFri,mFriTo,mSat,mSatTo,mSun,mSunTo,address_id;
 
 
     public EditDayTimeFrag() {
@@ -179,25 +179,85 @@ public class EditDayTimeFrag extends HelperFrags implements CompoundButton.OnChe
         SunTo = bundle.getString("SunTo");
         EndDate = bundle.getString("EndDate");
         StartDate = bundle.getString("StartDate");
+        address_id = bundle.getString("address_id");
         // get current date
+
+
 
 
         frag_day_time_date_start_btn.setText(StartDate);
         frag_day_time_date_end_btn.setText(EndDate);
-        frag_day_time_timemon_start_btn.setText(Mon);
-        frag_day_time_timemon_end_btn.setText(MonTo);
-        frag_day_time_timetue_start_btn.setText(Tue);
-        frag_day_time_timetue_end_btn.setText(TueTo);
-        frag_day_time_timewed_start_btn.setText(Wed);
-        frag_day_time_timewed_end_btn.setText(WedTo);
-        frag_day_time_timethr_start_btn.setText(Thru);
-        frag_day_time_timethr_end_btn.setText(ThruTo);
-        frag_day_time_timefri_start_btn.setText(Fri);
-        frag_day_time_timefri_end_btn.setText(FriTo);
-        frag_day_time_timesat_start_btn.setText(Sat);
-        frag_day_time_timesat_end_btn.setText(SatTo);
-        frag_day_time_timesun_start_btn.setText(Sun);
-        frag_day_time_timesun_end_btn.setText(SunTo);
+        if(Mon.equals("null")){
+            frag_day_time_timemon_start_btn.setText("");
+        }else {
+            frag_day_time_timemon_start_btn.setText(Mon);
+        }
+        if(MonTo.equals("null")){
+            frag_day_time_timemon_end_btn.setText("");
+        }else {
+            frag_day_time_timemon_end_btn.setText(MonTo);
+        }
+        if (Tue.equals("null")){
+            frag_day_time_timetue_start_btn.setText("");
+        }else {
+            frag_day_time_timetue_start_btn.setText(Tue);
+        }
+        if(TueTo.equals("null")){
+            frag_day_time_timetue_end_btn.setText("");
+        }else {
+            frag_day_time_timetue_end_btn.setText(TueTo);
+        }
+        if(Wed.equals("null")){
+            frag_day_time_timewed_start_btn.setText("");
+        }else {
+            frag_day_time_timewed_start_btn.setText(Wed);
+        }
+        if(WedTo.equals("null")){
+            frag_day_time_timewed_end_btn.setText("");
+        }else {
+            frag_day_time_timewed_end_btn.setText(WedTo);
+        }
+        if(Thru.equals("null")){
+            frag_day_time_timethr_start_btn.setText("");
+        }else {
+            frag_day_time_timethr_start_btn.setText(Thru);
+        }
+        if(ThruTo.equals("null")){
+            frag_day_time_timethr_end_btn.setText("");
+        }else {
+            frag_day_time_timethr_end_btn.setText(ThruTo);
+        }
+        if(Fri.equals("null")){
+            frag_day_time_timefri_start_btn.setText("");
+        }else {
+            frag_day_time_timefri_start_btn.setText(Fri);
+        }
+        if(FriTo.equals("null")){
+            frag_day_time_timefri_end_btn.setText("");
+        }else {
+            frag_day_time_timefri_end_btn.setText(FriTo);
+        }
+        if(Sat.equals("null")){
+            frag_day_time_timesat_start_btn.setText("");
+        }else {
+            frag_day_time_timesat_start_btn.setText(Sat);
+        }
+        if(SatTo.equals("null")){
+            frag_day_time_timesat_end_btn.setText("");
+        }else {
+            frag_day_time_timesat_end_btn.setText(SatTo);
+        }
+        if(Sun.equals("null")){
+            frag_day_time_timesun_start_btn.setText("");
+        }else {
+            frag_day_time_timesun_start_btn.setText(Sun);
+        }
+        if(SunTo.equals("null")){
+            frag_day_time_timesun_end_btn.setText("");
+        }else {
+            frag_day_time_timesun_end_btn.setText(SunTo);
+        }
+
 
 
 
@@ -221,8 +281,8 @@ public class EditDayTimeFrag extends HelperFrags implements CompoundButton.OnChe
         frag_day_time_timesun_switch_btn.setOnCheckedChangeListener(this);
 
 
-        if (!Mon.equalsIgnoreCase("") && !Tue.equalsIgnoreCase("") && !Wed.equalsIgnoreCase("") && !Thru.equalsIgnoreCase("")
-                && !Fri.equalsIgnoreCase("") && !Sat.equalsIgnoreCase("") && !Sun.equalsIgnoreCase("")) {
+        if (!Mon.equalsIgnoreCase("null") && !Tue.equalsIgnoreCase("null") && !Wed.equalsIgnoreCase("null") && !Thru.equalsIgnoreCase("null")
+                && !Fri.equalsIgnoreCase("null") && !Sat.equalsIgnoreCase("null") && !Sun.equalsIgnoreCase("null")) {
 
             frag_day_time_timemon_switch_btn.setEnabled(true);
             frag_day_time_timemon_switch_btn.setChecked(true);
@@ -264,19 +324,21 @@ public class EditDayTimeFrag extends HelperFrags implements CompoundButton.OnChe
             }
 
             // Mon  Time
-            if (Mon.equals("") || Mon.equals("")) {
+            if (Mon.equals("") || Mon.equals("null")) {
                 frag_day_time_timemon_switch_btn.setChecked(false);
             } else {
                 frag_day_time_timemon_start_btn.setText(Mon);
                 frag_day_time_timemon_end_btn.setText(MonTo);
+                frag_day_time_timemon_switch_btn.setChecked(true);
 
             }
 
             // Tue  Time
-            if (Tue.equals("") || Tue.equals("null")) {
+            if (Tue.equals("") || Tue.equals("null") ) {
                 frag_day_time_timetue_switch_btn.setChecked(false);
 
             } else {
+                frag_day_time_timetue_switch_btn.setChecked(true);
                 frag_day_time_timetue_start_btn.setText(Tue);
                 frag_day_time_timetue_end_btn.setText(TueTo);
 
@@ -284,58 +346,61 @@ public class EditDayTimeFrag extends HelperFrags implements CompoundButton.OnChe
 
 
             // Wed  Time
-            if (Wed.equals("") || WedTo.equals("")) {
+            if (Wed.equals("") || Wed.equals("null")) {
                 frag_day_time_timewed_switch_btn.setChecked(false);
 
             } else {
                 frag_day_time_timewed_start_btn.setText(Wed);
                 frag_day_time_timewed_end_btn.setText(WedTo);
-
+                frag_day_time_timewed_switch_btn.setChecked(true);
             }
 
 
             // Thr  Time
-            if (Thru.equals("") || ThruTo.equals("")) {
+            if (Thru.equals("") || ThruTo.equals("null")) {
                 frag_day_time_timethr_switch_btn.setChecked(false);
 
             } else {
                 frag_day_time_timethr_start_btn.setText(Thru);
                 frag_day_time_timethr_end_btn.setText(ThruTo);
-
+                frag_day_time_timethr_switch_btn.setChecked(true);
             }
 
 
             // Fri start Time
-            if (Fri.equals("") || FriTo.equals("")) {
+            if (Fri.equals("") || FriTo.equals("null")) {
                 frag_day_time_timefri_switch_btn.setChecked(false);
 
             } else {
                 frag_day_time_timefri_start_btn.setText(Fri);
                 frag_day_time_timefri_end_btn.setText(FriTo);
+                frag_day_time_timefri_switch_btn.setChecked(true);
 
             }
 
             // Sat start Time
-            if (Sat.equals("") || SatTo.equals("")) {
+            if (SatTo.equals("null")) {
                 frag_day_time_timesat_switch_btn.setChecked(false);
             } else {
                 frag_day_time_timesat_start_btn.setText(Sat);
                 frag_day_time_timesat_end_btn.setText(SatTo);
+                frag_day_time_timesat_switch_btn.setChecked(true);
 
             }
 
             // Sun start Time
-            if (Sun.equals("") || SunTo.equals("null")) {
+            if ( SunTo.equals("null")) {
                 frag_day_time_timesun_switch_btn.setChecked(false);
 
             } else {
                 frag_day_time_timesun_start_btn.setText(Sun);
                 frag_day_time_timesun_end_btn.setText(SunTo);
+                frag_day_time_timesun_switch_btn.setChecked(true);
 
             }
 
 
-            if (!frag_day_time_date_end_btn.getText().toString().equals("End date") && frag_day_time_date_switch_btn.isChecked()) {
+           /* if (!frag_day_time_date_end_btn.getText().toString().equals("End date") && frag_day_time_date_switch_btn.isChecked()) {
 
 
                 ArrayList<String> day_array = getListDate(frag_day_time_date_start_btn.getText().toString(), frag_day_time_date_end_btn.getText().toString());
@@ -435,7 +500,7 @@ public class EditDayTimeFrag extends HelperFrags implements CompoundButton.OnChe
                     frag_day_time_timesun_switch_btn.setChecked(true);
 
                 }
-            }
+            }*/
         }
         return Mroot;
     }
@@ -446,13 +511,13 @@ public class EditDayTimeFrag extends HelperFrags implements CompoundButton.OnChe
         // save data in address array
 
         // date start and End
-        if (frag_day_time_date_switch_btn.isChecked()) {
+     /*   if (frag_day_time_date_switch_btn.isChecked()) {
             NewStartDate = frag_day_time_date_start_btn.getText().toString();
             // LandingActivity.business_data.getAdderess_data().get(pos).setDate_end(frag_day_time_date_end_btn.getText().toString());
         } else {
             NewEndDate = frag_day_time_date_start_btn.getText().toString();
-            //  LandingActivity.business_data.getAdderess_data().get(pos).setDate_end("2019-12-11"/*bh_date_start_btn.getText().toString()*/);
-        }
+            //  LandingActivity.business_data.getAdderess_data().get(pos).setDate_end("2019-12-11"*//*bh_date_start_btn.getText().toString()*//*);
+        }*/
 
         // Mon start and End Time
         if (frag_day_time_timemon_switch_btn.isChecked()) {
@@ -528,9 +593,9 @@ public class EditDayTimeFrag extends HelperFrags implements CompoundButton.OnChe
                 .appendPath("api.php")
                 .appendQueryParameter("action", "editbusinessAddress")
                 .appendQueryParameter("business_id", /*AppConstants.app_data.getString("user_id", "")*/mPrefs.getBusinessId())
-                .appendQueryParameter("address_id", mPrefs.getAddressId())
-                .appendQueryParameter("start_date",StartDate )
-                .appendQueryParameter("end_date", EndDate)
+                .appendQueryParameter("address_id", address_id)
+                .appendQueryParameter("start_date",frag_day_time_date_start_btn.getText().toString() )
+                .appendQueryParameter("end_date", frag_day_time_date_end_btn.getText().toString())
 
                 .appendQueryParameter("mon_from_time",mMon)
                 .appendQueryParameter("mon_to_time", mMonTo)
@@ -580,12 +645,12 @@ public class EditDayTimeFrag extends HelperFrags implements CompoundButton.OnChe
 
     @OnClick(R.id.frag_day_time_date_end_btn)
     void getendDate() {
-        if (frag_day_time_date_switch_btn.isChecked()) {
+       /* if (frag_day_time_date_switch_btn.isChecked()) {*/
             getDateWithcallback(frag_day_time_date_end_btn, callback);
-        } else {
+     /*   } else {
 
         }
-
+*/
     }
 
     // mon time click listener
@@ -669,7 +734,7 @@ public class EditDayTimeFrag extends HelperFrags implements CompoundButton.OnChe
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
-        if (compoundButton.getId() == R.id.frag_day_time_date_switch_btn) {
+      /*  if (compoundButton.getId() == R.id.frag_day_time_date_switch_btn) {
 
             if (b) {
                 frag_day_time_date_end_btn.setTextColor(getActivity().getResources().getColor(R.color.black));
@@ -767,7 +832,7 @@ public class EditDayTimeFrag extends HelperFrags implements CompoundButton.OnChe
 
             }
         }
-
+*/
     }
 
 

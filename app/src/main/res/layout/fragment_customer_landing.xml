@@ -1,7 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/linearLayoutFormatStyle"
     android:orientation="vertical"
     android:padding="5dp"
     tools:context="frags.CustomerLandingFrag">
@@ -16,7 +15,8 @@
         android:layout_marginRight="10dp"
         android:background="@drawable/edittext_background"
         android:drawableRight="@drawable/ic_search"
-        android:hint="Search"
+        android:fontFamily="sans-serif-condensed"
+        android:hint="@string/search_hint"
         android:imeOptions="actionSearch"
         android:padding="8dp"
         android:textSize="14sp">
@@ -27,13 +27,13 @@
 
     <TextView
         android:id="@+id/fragment_customer_no_data_tv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/matchTextInput"
+        android:gravity="center"
         android:text="No Business Found !!!"
         android:textColor="@color/black"
         android:textSize="18sp"
-        android:visibility="gone"
-        android:gravity="center"/>
+        android:visibility="gone" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/customer_landing_frag_recycler_view"
         android:layout_width="match_parent"

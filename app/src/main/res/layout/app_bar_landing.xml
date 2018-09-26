@@ -14,33 +14,33 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorAccent"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:titleTextAppearance="@style/Toolbar.TitleText">
+            style="@style/appBarStyle"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <TextView
                 android:id="@+id/toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:drawablePadding="10dp"
-
+                style="@style/wrapTextInput"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:drawablePadding="5dp"
                 android:drawableRight="@drawable/loc_headericn"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-condensed"
+                android:maxLength="300"
+                android:maxLines="2"
                 android:text="Life On Internet"
-                android:textSize="@dimen/text_medium"
-                android:textStyle="normal" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_medium" />
+
             <TextView
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrapTextInput"
                 android:layout_marginLeft="50dp"
                 android:drawablePadding="10dp"
-                android:visibility="gone"
                 android:text="Life On Internet"
                 android:textSize="@dimen/text_medium"
-                android:textStyle="normal" />
+                android:textStyle="normal"
+                android:visibility="gone" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -49,8 +49,7 @@
 
     <FrameLayout
         android:id="@+id/parentcontainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/matchParentLayout"
         android:layout_marginTop="?attr/actionBarSize"></FrameLayout>
 
     <ImageView
@@ -81,8 +80,7 @@
 
         <EditText
             android:id="@+id/header_search_input"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            style="@style/matchTextInput"
             android:layout_toLeftOf="@+id/header_search_btn"
             android:gravity="center_vertical"
             android:hint="Search Ads by name"
@@ -103,114 +101,5 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_gravity="bottom"
-        android:background="@color/dark_grey"
-        android:paddingBottom="2dp"
-        android:paddingLeft="5dp"
-        android:paddingTop="2dp"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/white_round_bg"
-            android:weightSum="5">
-
-            //1st
-
-            <RelativeLayout
-
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-
-            </RelativeLayout>
-
-            //2nd
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/home_ena" />
-
-
-            </RelativeLayout>
-
-
-            //3rd
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/society_dis" />
-
-
-            </RelativeLayout>
-
-            //4th
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/invites_dis" />
-
-
-            </RelativeLayout>
-
-
-            //5th
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/shop_dis" />
-
-
-            </RelativeLayout>
-
-
-        </LinearLayout>
-
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:src="@drawable/my_listicn" />
-
-
-    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

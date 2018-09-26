@@ -1,7 +1,10 @@
 package frags;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -105,6 +108,8 @@ public class MyAppointmentFrag extends HelperFrags implements HttpresponseUpd {
     private void initilizerView() {
         mPref = Sharedpreferences.getUserDataObj(getActivity());
 
+
+        if(isNetworkConnectionAvailable()){
         try {
             list = new ArrayList<>();
             callback = this;
@@ -129,6 +134,9 @@ public class MyAppointmentFrag extends HelperFrags implements HttpresponseUpd {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        }else {
+            checkNetworkConnection();
         }
 
     }
@@ -196,6 +204,40 @@ public class MyAppointmentFrag extends HelperFrags implements HttpresponseUpd {
 
         }
 
+    }
+
+    public  boolean isNetworkConnectionAvailable(){
+        ConnectivityManager cm =
+                (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnected();
+        if(isConnected) {
+            Log.d("Network", "Connected");
+            return true;
+        }
+        else{
+            checkNetworkConnection();
+            Log.d("Network","Not Connected");
+            return false;
+        }
+    }
+
+    public void checkNetworkConnection(){
+
+        Toast.makeText(getContext(), "No internet Connection", Toast.LENGTH_SHORT).show();
+      /*  android.support.v7.app.AlertDialog.Builder builder =new android.support.v7.app.AlertDialog.Builder(getContext());
+        builder.setTitle("No internet Connection");
+        builder.setMessage("Please turn on internet connection to continue");
+        builder.setNegativeButton("close", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        android.support.v7.app.AlertDialog alertDialog = builder.create();
+        alertDialog.show();*/
     }
 
 }

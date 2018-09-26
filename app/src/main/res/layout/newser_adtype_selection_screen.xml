@@ -63,23 +63,10 @@
             android:layout_marginBottom="1dp"
             android:background="@color/white"
             android:gravity="left"
+            android:checked="true"
             android:layoutDirection="rtl"
             android:padding="10dp"
             android:text="Queue Model" />
-
-
-        <RadioButton
-            android:id="@+id/newser_adtype_group_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:background="@color/white"
-            android:gravity="left"
-            android:layoutDirection="rtl"
-            android:padding="10dp"
-            android:text="Group"
-            android:visibility="gone" />
-
 
         <RadioButton
             android:id="@+id/newser_adtype_appointment_btn"
@@ -87,12 +74,20 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"
             android:background="@color/white"
-            android:clickable="false"
-            android:enabled="false"
             android:gravity="left"
             android:layoutDirection="rtl"
             android:padding="10dp"
             android:text="Appointment Model" />
+        <RadioButton
+            android:id="@+id/newser_adtype_appointment_queue_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="@color/white"
+            android:gravity="left"
+            android:layoutDirection="rtl"
+            android:padding="10dp"
+            android:text="Appoint+Queue" />
 
     </RadioGroup>
 

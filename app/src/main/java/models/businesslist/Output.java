@@ -3,6 +3,7 @@ package models.businesslist;
 /**
  * Created by lenovo on 3/26/2018.
  */
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -36,6 +37,10 @@ public class Output {
     @Expose
     private String openTime;
 
+    @SerializedName("app_booking")
+    @Expose
+    private String appBooking;
+
 
     public String getPic() {
         return pic;
@@ -44,6 +49,7 @@ public class Output {
     public void setPic(String pic) {
         this.pic = pic;
     }
+
     public String getBusinessId() {
         return businessId;
     }
@@ -108,4 +114,11 @@ public class Output {
         this.openTime = openTime;
     }
 
+    public String getAppBooking() {
+        return appBooking;
+    }
+
+    public void setAppBooking(String appBooking) {
+        this.appBooking = appBooking;
+    }
 }

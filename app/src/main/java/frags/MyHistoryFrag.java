@@ -174,6 +174,9 @@ public class MyHistoryFrag extends HelperFrags implements HttpresponseUpd {
             snackbar = Snackbar.make(getView(), "Network error occurred!!!" + response, Snackbar.LENGTH_LONG);
             snackbar.show();
         } else if (post_tag.equals("selecteddate")) {
+            Calendar calendar = Calendar.getInstance();
+            mDatePickerTimeline.setLastVisibleDate(calendar.get(Calendar.YEAR), (calendar.get(Calendar.MONTH) + 1), calendar.get(Calendar.DATE));
+
             try {
                 JSONObject obj = new JSONObject(response);
                 JSONArray arr = obj.getJSONArray("output");
@@ -215,6 +218,10 @@ public class MyHistoryFrag extends HelperFrags implements HttpresponseUpd {
 
         } else if (post_tag.equals("selectmanualdate")) {
             try {
+                Calendar calendar = Calendar.getInstance();
+
+                mDatePickerTimeline.setLastVisibleDate(calendar.get(Calendar.YEAR), (calendar.get(Calendar.MONTH) + 1), calendar.get(Calendar.DATE));
+
                 JSONObject obj = new JSONObject(response);
                 JSONArray arr = obj.getJSONArray("output");
                 list.clear();

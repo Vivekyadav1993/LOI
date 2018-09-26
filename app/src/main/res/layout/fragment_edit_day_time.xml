@@ -72,6 +72,7 @@
                 android:id="@+id/frag_day_time_date_switch_layout"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:visibility="invisible"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true">
 
@@ -130,12 +131,12 @@
                     android:id="@+id/frag_day_time_date_end_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/bh_date_tag"
+                    android:layout_below="@id/frag_day_time_date_tag"
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@id/frag_day_time_date_start_btn"
                     android:minWidth="55dp"
                     android:text="End date"
-                    android:textColor="@color/grey" />
+                    android:textColor="@color/black" />
 
             </RelativeLayout>
         </RelativeLayout>

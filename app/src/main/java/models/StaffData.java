@@ -23,7 +23,7 @@ public class StaffData {
             fri_break4_to, fri_break5_from, fri_break5_to, sat_from_time, sat_to_time, sat_break1_from, sat_break1_to,
             sat_break2_from, sat_break2_to, sat_break3_from, sat_break3_to, sat_break4_from, sat_break4_to, sat_break5_from,
             sat_break5_to, sun_from_time, sun_to_time, sun_break1_from, sun_break1_to, sun_break2_from, sun_break2_to,
-            sun_break3_from, sun_break3_to, sun_break4_from, sun_break4_to, sun_break5_from, sun_break5_to ;
+            sun_break3_from, sun_break3_to, sun_break4_from, sun_break4_to, sun_break5_from, sun_break5_to,staff_serving ;
 
 
     public String getStaff_id() {
@@ -66,10 +66,10 @@ public class StaffData {
                       String _sat_break5_from, String _sat_break5_to, String _sun_from_time, String _sun_to_time,
                       String _sun_break1_from, String _sun_break1_to, String _sun_break2_from, String _sun_break2_to,
                       String _sun_break3_from, String _sun_break3_to, String _sun_break4_from, String _sun_break4_to,
-                      String _sun_break5_from, String _sun_break5_to){
+                      String _sun_break5_from, String _sun_break5_to,String staff_serving){
 
         admin_flag = _admin_flag;  only_me_flag = _only_me_flag;
-
+        this.staff_serving=staff_serving;
         address_id = _address_id;
 
         staff_id  = _staff_id;
@@ -123,6 +123,14 @@ public class StaffData {
 
 
 
+    }
+
+    public String getStaff_serving() {
+        return staff_serving;
+    }
+
+    public void setStaff_serving(String staff_serving) {
+        this.staff_serving = staff_serving;
     }
 
     public String getAddress_id() {

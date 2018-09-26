@@ -72,6 +72,7 @@
                 android:id="@+id/newstaff_working_date_switch_layout"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:visibility="invisible"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true">
 
@@ -130,11 +131,11 @@
                     android:id="@+id/newstaff_working_date_end_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/newstaff_working_date_tag"
+                    android:layout_below="@id/newstaff_working_date_tag"
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@id/newstaff_working_date_start_btn"
-                    android:text="End date"
-                    android:textColor="@color/dark_grey" />
+                    android:text="2018-12-31"
+                    android:textColor="@color/black" />
 
 
             </RelativeLayout>
@@ -166,7 +167,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:checked="true" />
+                    />
 
             </RelativeLayout>
 
@@ -204,11 +205,26 @@
                     android:text="Monday" />
 
                 <TextView
+                    android:id="@+id/mon_mor_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/newstaff_working_timemon_tag"
+                    android:layout_marginTop="1dp"
+                    android:padding="2dp"
+                    android:visibility="gone"
+                    android:textColor="@color/white"
+                    android:background="@color/blue"
+                    android:text="Morning:" />
+
+                <TextView
                     android:id="@+id/newstaff_working_timemon_start_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/newstaff_working_timemon_tag"
+                    android:layout_toRightOf="@id/mon_mor_tv"
+                    android:layout_below="@id/newstaff_working_timemon_tag"
                     android:drawablePadding="10dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginLeft="10dp"
                     android:drawableRight="@drawable/arrow_black"
                     android:text="08:00 AM"
                     android:textColor="@color/black" />
@@ -222,6 +238,46 @@
                     android:layout_toRightOf="@+id/newstaff_working_timemon_start_btn"
                     android:text="05:00 PM"
                     android:textColor="@color/black" />
+                <TextView
+                    android:id="@+id/mon_eve_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/mon_mor_tv"
+                    android:padding="2dp"
+                    android:visibility="gone"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/white"
+                    android:background="@color/blue"
+                    android:text="Evening :" />
+
+                <TextView
+                    android:id="@+id/bh_timemon_start_eve_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/mon_mor_tv"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="1dp"
+                    android:visibility="gone"
+                    android:layout_toRightOf="@id/mon_eve_tv"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:minWidth="55dp"
+                    android:text="05:00 PM"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/bh_timemon_end_eve_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/mon_mor_tv"
+                    android:layout_marginLeft="10dp"
+                    android:visibility="gone"
+                    android:layout_toRightOf="@+id/bh_timemon_start_eve_btn"
+                    android:minWidth="55dp"
+                    android:text="08:00 PM"
+                    android:textColor="@color/black" />
+
+
 
 
             </RelativeLayout>
@@ -254,7 +310,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:checked="true" />
+                     />
 
             </RelativeLayout>
 
@@ -292,11 +348,25 @@
                     android:text="Tuesday" />
 
                 <TextView
+                    android:id="@+id/tue_mor_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:textColor="@color/white"
+                    android:visibility="gone"
+                    android:background="@color/blue"
+                    android:layout_below="@id/newstaff_working_timetue_tag"
+                    android:text="Morning:" />
+
+
+                <TextView
                     android:id="@+id/newstaff_working_timetue_start_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/newstaff_working_timetue_tag"
                     android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/tue_mor_tv"
                     android:drawableRight="@drawable/arrow_black"
                     android:text="08:00 AM"
                     android:textColor="@color/black" />
@@ -310,6 +380,45 @@
                     android:layout_toRightOf="@+id/newstaff_working_timetue_start_btn"
                     android:text="05:00 PM"
                     android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tue_eve_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tue_mor_tv"
+                    android:padding="2dp"
+                    android:layout_marginTop="2dp"
+                    android:visibility="gone"
+                    android:textColor="@color/white"
+                    android:background="@color/blue"
+                    android:text="Evening :" />
+
+                <TextView
+                    android:id="@+id/bh_timetue_start_eve_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tue_mor_tv"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/tue_mor_tv"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:minWidth="55dp"
+                    android:text="05:00 AM"
+                    android:visibility="gone"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/bh_timetue_end_eve_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tue_mor_tv"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/bh_timetue_start_eve_btn"
+                    android:minWidth="55dp"
+                    android:text="08:00 PM"
+                    android:visibility="gone"
+                    android:textColor="@color/black" />
+
 
 
             </RelativeLayout>
@@ -342,7 +451,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:checked="true" />
+                     />
 
             </RelativeLayout>
 
@@ -380,11 +489,25 @@
                     android:text="Wednesday" />
 
                 <TextView
+                    android:id="@+id/wed_mor_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:textColor="@color/white"
+                    android:background="@color/blue"
+                    android:visibility="gone"
+                    android:layout_below="@id/newstaff_working_timewed_tag"
+                    android:text="Morning:" />
+
+
+                <TextView
                     android:id="@+id/newstaff_working_timewed_start_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/newstaff_working_timewed_tag"
                     android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/wed_mor_tv"
                     android:drawableRight="@drawable/arrow_black"
                     android:text="08:00 AM"
                     android:textColor="@color/black" />
@@ -398,6 +521,48 @@
                     android:layout_toRightOf="@+id/newstaff_working_timewed_start_btn"
                     android:text="05:00 PM"
                     android:textColor="@color/black" />
+
+
+                <TextView
+                    android:id="@+id/wed_eve_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/wed_mor_tv"
+                    android:padding="2dp"
+                    android:visibility="gone"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/white"
+                    android:background="@color/blue"
+                    android:text="Evening :" />
+
+                <TextView
+                    android:id="@+id/bh_timewed_start_eve_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/wed_mor_tv"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toEndOf="@id/wed_eve_tv"
+                    android:layout_toRightOf="@id/wed_mor_tv"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:minWidth="55dp"
+                    android:text="05:00 AM"
+                    android:visibility="gone"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/bh_timewed_end_eve_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/wed_mor_tv"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/bh_timewed_start_eve_btn"
+                    android:minWidth="55dp"
+                    android:text="08:00 PM"
+                    android:visibility="gone"
+                    android:textColor="@color/black" />
+
+
 
 
             </RelativeLayout>
@@ -429,7 +594,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:checked="true" />
+                     />
 
             </RelativeLayout>
 
@@ -467,11 +632,24 @@
                     android:text="Thursday" />
 
                 <TextView
+                    android:id="@+id/thr_mor_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:textColor="@color/white"
+                    android:visibility="gone"
+                    android:background="@color/blue"
+                    android:layout_below="@id/newstaff_working_timethr_tag"
+                    android:text="Morning:" />
+
+                <TextView
                     android:id="@+id/newstaff_working_timethr_start_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/thr_mor_tv"
                     android:layout_below="@+id/newstaff_working_timethr_tag"
                     android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"
                     android:drawableRight="@drawable/arrow_black"
                     android:text="08:00 AM"
                     android:textColor="@color/black" />
@@ -484,6 +662,45 @@
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@+id/newstaff_working_timethr_start_btn"
                     android:text="05:00 PM"
+                    android:textColor="@color/black" />
+
+
+                <TextView
+                    android:id="@+id/thr_eve_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/thr_mor_tv"
+                    android:padding="2dp"
+                    android:visibility="gone"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/white"
+                    android:background="@color/blue"
+                    android:text="Evening :" />
+
+                <TextView
+                    android:id="@+id/bh_timethr_start_eve_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/thr_mor_tv"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/thr_mor_tv"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:minWidth="55dp"
+                    android:text="05:00 PM"
+                    android:visibility="gone"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/bh_timethr_end_eve_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/thr_mor_tv"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/bh_timethr_start_eve_btn"
+                    android:minWidth="55dp"
+                    android:text="08:00 PM"
+                    android:visibility="gone"
                     android:textColor="@color/black" />
 
 
@@ -517,7 +734,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:checked="true" />
+                     />
 
             </RelativeLayout>
 
@@ -555,11 +772,24 @@
                     android:text="Friday" />
 
                 <TextView
+                    android:id="@+id/fri_mor_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:textColor="@color/white"
+                    android:background="@color/blue"
+                    android:visibility="gone"
+                    android:layout_below="@id/newstaff_working_timefri_tag"
+                    android:text="Morning:" />
+
+                <TextView
                     android:id="@+id/newstaff_working_timefri_start_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/newstaff_working_timefri_tag"
                     android:drawablePadding="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/fri_mor_tv"
                     android:drawableRight="@drawable/arrow_black"
                     android:text="08:00 AM"
                     android:textColor="@color/black" />
@@ -572,6 +802,45 @@
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@+id/newstaff_working_timefri_start_btn"
                     android:text="05:00 PM"
+                    android:textColor="@color/black" />
+
+
+                <TextView
+                    android:id="@+id/fri_eve_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/fri_mor_tv"
+                    android:padding="2dp"
+                    android:visibility="gone"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/white"
+                    android:background="@color/blue"
+                    android:text="Evening :" />
+
+                <TextView
+                    android:id="@+id/bh_timefri_start_eve_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/fri_mor_tv"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/fri_mor_tv"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:minWidth="55dp"
+                    android:text="05:00 PM"
+                    android:visibility="gone"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/bh_timefri_end_eve_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/fri_mor_tv"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/bh_timefri_start_eve_btn"
+                    android:minWidth="55dp"
+                    android:text="08:00 PM"
+                    android:visibility="gone"
                     android:textColor="@color/black" />
 
 
@@ -605,7 +874,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:checked="true" />
+                     />
 
             </RelativeLayout>
 
@@ -643,11 +912,26 @@
                     android:text="Saturday" />
 
                 <TextView
+                    android:id="@+id/sat_mor_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:visibility="gone"
+                    android:textColor="@color/white"
+                    android:background="@color/blue"
+                    android:layout_below="@id/newstaff_working_timesat_tag"
+                    android:text="Morning:" />
+
+
+
+                <TextView
                     android:id="@+id/newstaff_working_timesat_start_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/newstaff_working_timesat_tag"
                     android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/sat_mor_tv"
                     android:drawableRight="@drawable/arrow_black"
                     android:text="08:00 AM"
                     android:textColor="@color/black" />
@@ -661,6 +945,46 @@
                     android:layout_toRightOf="@+id/newstaff_working_timesat_start_btn"
                     android:text="05:00 PM"
                     android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/sat_eve_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/sat_mor_tv"
+                    android:padding="2dp"
+                    android:visibility="gone"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/white"
+                    android:background="@color/blue"
+                    android:text="Evening :" />
+
+                <TextView
+                    android:id="@+id/bh_timesat_start_eve_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/sat_mor_tv"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/sat_mor_tv"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:minWidth="55dp"
+                    android:text="05:00 PM"
+                    android:visibility="gone"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/bh_timesat_end_eve_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/sat_mor_tv"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/bh_timesat_start_eve_btn"
+                    android:minWidth="55dp"
+                    android:text="08:00 PM"
+                    android:visibility="gone"
+                    android:textColor="@color/black" />
+
+
 
 
             </RelativeLayout>
@@ -693,7 +1017,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:checked="true" />
+                     />
 
             </RelativeLayout>
 
@@ -731,11 +1055,25 @@
                     android:text="Sunday" />
 
                 <TextView
+                    android:id="@+id/sun_mor_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:textColor="@color/white"
+                    android:background="@color/blue"
+                    android:visibility="gone"
+                    android:layout_below="@id/newstaff_working_timesun_tag"
+                    android:text="Morning:" />
+
+
+                <TextView
                     android:id="@+id/newstaff_working_timesun_start_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/newstaff_working_timesun_tag"
                     android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/sun_mor_tv"
                     android:drawableRight="@drawable/arrow_black"
                     android:text="08:00 AM"
                     android:textColor="@color/black" />
@@ -748,6 +1086,45 @@
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@+id/newstaff_working_timesun_start_btn"
                     android:text="05:00 PM"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/sun_eve_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/sun_mor_tv"
+                    android:padding="2dp"
+                    android:visibility="gone"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/white"
+                    android:background="@color/blue"
+                    android:text="Evening :" />
+
+
+                <TextView
+                    android:id="@+id/bh_timesun_start_eve_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/sun_mor_tv"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/sun_mor_tv"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/arrow_black"
+                    android:minWidth="55dp"
+                    android:text="05:00 PM"
+                    android:visibility="gone"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/bh_timesun_end_eve_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/sun_mor_tv"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/bh_timesun_start_eve_btn"
+                    android:minWidth="55dp"
+                    android:visibility="gone"
+                    android:text="08:00 PM"
                     android:textColor="@color/black" />
 
 

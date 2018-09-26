@@ -2,10 +2,14 @@ package frags;
 
 
 import android.app.Dialog;
-import android.arch.lifecycle.LifecycleOwner;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Address;
+import android.location.Geocoder;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -14,6 +18,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -21,8 +27,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +42,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,6 +63,7 @@ import atw.lifeoninternet.utils.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import helper.AppConstants;
 import helper.AppUtils;
 import helper.HelperFrags;
 import helper.HttpresponseUpd;
@@ -62,8 +75,6 @@ import models.addetailsEdit.Resource;
 import models.addetailsEdit.Service;
 import models.addetailsEdit.Servicestaff;
 import models.addetailsEdit.Staff;
-
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -141,11 +152,16 @@ public class AdDetailsEditFrag extends HelperFrags implements HttpresponseUpd {
 
     public String business_id, address_id;
 
+    private HttpresponseUpd httpresponseUpd;
     private List<BusinessDayTime> businessDayTimesList;
     private Dialog mDialougeBox;
     private String post_tag;
     private ArrayList<String> dayDay, dayTo, day;
     private String Mon, Tue, Wed, Thru, Fri, Sat, Sun, MonTo, TueTo, WedTo, ThruTo, FriTo, SatTo, SunTo, StartDate, EndDate;
+    private ArrayList<String> address_list;
+    private String postTag = "", comming ;
+    private ArrayAdapter<String> autocomplete_adapter;
+    private AutoCompleteTextView address;
 
     public AdDetailsEditFrag() {
 
@@ -170,38 +186,55 @@ public class AdDetailsEditFrag extends HelperFrags implements HttpresponseUpd {
         staff_name_service = new ArrayList<>();
         bundle = getArguments();
         callback = this;
-        business_id = mPrefs.getBusnessId();
-        address_id = mPrefs.getAddressId();
+
+        business_id = /*bundle.getString("business_id")*/mPrefs.getBusnessId();
+
+         comming = bundle.getString("comingfrom");
+        Log.d("ADEF", "status" +  comming );
+        if (comming.equalsIgnoreCase("service")) {
+            address_id = bundle.getString("add_id");
+        } else if(comming.equalsIgnoreCase("address_page")) {
+            address_id = bundle.getString("address_id");
+        }
         //  mPrefs.setBusnessId(business_id);
         Log.d("AdEF", "bus_id" + business_id + "add" + address_id);
 
-        if (business_id.equalsIgnoreCase("null") && address_id.equalsIgnoreCase("null")) {
-            mScrollView.setVisibility(View.GONE);
-            mNoDataTv.setVisibility(View.VISIBLE);
-        } else {
-            //hit api
-
-            mScrollView.setVisibility(View.VISIBLE);
-            mNoDataTv.setVisibility(View.GONE);
-
-            Uri.Builder builder = new Uri.Builder();
-            builder.scheme("http")
-                    .authority("lifeoninternet.com")
-                    .appendPath(Utils.stringBuilder())
-                    .appendPath("api.php")
-                    .appendQueryParameter("action", "bookingDetails")
-                    .appendQueryParameter("business_id", business_id)
-                    .appendQueryParameter("address_id", mPrefs.getAddressId());
-
-            Log.e("stafflist", builder.build().toString());
-            if (AppUtils.isNetworkAvailable(getActivity())) {
-                post_tag = "businessdetails";
-                AppUtils.getStringData(builder.build().toString(), getActivity(), callback);
+        if (isNetworkConnectionAvailable()) {
+            if (business_id.equalsIgnoreCase("null") && address_id.equalsIgnoreCase("null")) {
+                mScrollView.setVisibility(View.GONE);
+                mNoDataTv.setVisibility(View.VISIBLE);
             } else {
-                snackbar = Snackbar.make(getView(), "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
-                snackbar.show();
+                //hit api
 
+                mScrollView.setVisibility(View.VISIBLE);
+                mNoDataTv.setVisibility(View.GONE);
+
+                Uri.Builder builder = new Uri.Builder();
+                builder.scheme("http")
+                        .authority("lifeoninternet.com")
+                        .appendPath(Utils.stringBuilder())
+                        .appendPath("api.php")
+                        .appendQueryParameter("action", "bookingDetails")
+                        .appendQueryParameter("business_id", business_id)
+                        .appendQueryParameter("address_id", address_id);
+
+                Log.e("stafflist", builder.build().toString());
+                if (AppUtils.isNetworkAvailable(getActivity())) {
+                    post_tag = "businessdetails";
+                    AppUtils.getStringData(builder.build().toString(), getActivity(), callback);
+                } else {
+                    try {
+                        snackbar = Snackbar.make(getView(), "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
+                        snackbar.show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
             }
+
+        } else {
+            checkNetworkConnection();
         }
 
         // preparing list data
@@ -228,15 +261,19 @@ public class AdDetailsEditFrag extends HelperFrags implements HttpresponseUpd {
 
             case R.id.ad_details_edit_service_iv:
                 bundle.putString("src", "value");
+                mPrefs.setAddressId(address_id);
                 replaceFrag(new AddServiceFrag(), bundle, AdDetailsEditFrag.class.getName());
                 break;
 
             case R.id.ad_details_edit_business_iv:
 
-                openEditBusinessDialougeBox();
+                // openEditBusinessDialougeBox(mBusinessNametv.getText().toString(),mBusinessAdd.getText().toString(),mPhone.getText().toString());
                 // bundle.putString("src", "value");
-                //  replaceFrag(new BusinessDetailsFrag(), bundle, BusinessDetailsFrag.class.getName());
-              /*  Fragment fragment = new BusinessDetailsFrag();
+                Bundle _bundle = new Bundle();
+                _bundle.putString("comming_from", "edit_page");
+                /*mPrefs.setAddressId(address_id);*/
+                replaceFrag(new BusinessDetailsFrag(), _bundle, BusinessDetailsFrag.class.getName());
+               /* Fragment fragment = new BusinessDetailsFrag();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.parentcontainer, fragment);
@@ -245,7 +282,9 @@ public class AdDetailsEditFrag extends HelperFrags implements HttpresponseUpd {
                 break;
 
             case R.id.ad_details_edit_staff_iv:
-                bundle.putString("src", "value");
+                bundle.putString("address_id_staff", address_id);
+                bundle.putString("coming_from", "edit_staff");
+                mPrefs.setAddressId(address_id);
                 replaceFrag(new AddStaffFrag(), bundle, AdDetailsEditFrag.class.getName());
                 break;
 
@@ -288,12 +327,13 @@ public class AdDetailsEditFrag extends HelperFrags implements HttpresponseUpd {
         bundle.putString("SunTo", SunTo);
         bundle.putString("StartDate", StartDate);
         bundle.putString("EndDate", EndDate);
+        bundle.putString("address_id", address_id);
 
         // mfragment.setArguments(bundle); //data b
         replaceFrag(new EditDayTimeFrag(), bundle, AdDetailsEditFrag.class.getName());
     }
 
-    private void openEditBusinessDialougeBox() {
+    private void openEditBusinessDialougeBox(String bus_name, String bus_add, String bus_phone) {
         mDialougeBox = new Dialog(getContext());
         mDialougeBox.requestWindowFeature(Window.FEATURE_NO_TITLE);
         mDialougeBox.setContentView(R.layout.item_edit_business);
@@ -301,21 +341,94 @@ public class AdDetailsEditFrag extends HelperFrags implements HttpresponseUpd {
         mDialougeBox.getWindow().setGravity(Gravity.CENTER);
         mDialougeBox.show();
         final EditText name = (EditText) mDialougeBox.findViewById(R.id.edit_business_name);
-        final EditText address = (EditText) mDialougeBox.findViewById(R.id.edit_business_address);
+        address = (AutoCompleteTextView) mDialougeBox.findViewById(R.id.edit_business_address);
         final EditText phone = (EditText) mDialougeBox.findViewById(R.id.edit_business_phone);
+        final ImageView current_location = (ImageView) mDialougeBox.findViewById(R.id.edit_business_current_address_tv);
+        name.setText(bus_name);
+        address.setText(bus_add);
+        phone.setText(bus_phone);
         TextView done = (TextView) mDialougeBox.findViewById(R.id.business_done_tv);
         TextView cancel = (TextView) mDialougeBox.findViewById(R.id.business_cancel_tv);
+        address.setThreshold(1);
+        httpresponseUpd = this;
+
+
+        address.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                address_list = new ArrayList<String>();
+
+                String input = "", url;
+
+
+                try {
+                    input = "input=" + URLEncoder.encode(editable.toString(), "utf-8");
+                } catch (UnsupportedEncodingException e1) {
+                    Toast.makeText(getActivity(), "UnsupportedEncodingException occurred!!Kindly try again.", Toast.LENGTH_SHORT).show();
+                }
+
+                String output = "json";
+                String parameter = input + "&types=geocode&sensor=true&key="
+                        + AppConstants.Google_place_APi_Key;
+
+                url = "https://maps.googleapis.com/maps/api/place/autocomplete/"
+                        + output + "?" + parameter;
+                postTag = "address_search";
+                hitApi(url, httpresponseUpd);
+
+            }
+        });
+
+
+        current_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                address.setText(AppConstants.app_data.getString("address", "Life On Internet"));
+            }
+        });
 
 
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                String bus_address = address.getText().toString();
+                Geocoder gc = new Geocoder(getContext());
+                if (gc.isPresent()) {
+                    List<Address> list = null;
+                    try {
+                        list = gc.getFromLocationName(bus_address, 1);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Address addres = list.get(0);
+                    double lat = addres.getLatitude();
+                    double lng = addres.getLongitude();
+
+                  /*  mPref.setBusinessLat(String.valueOf(lat));
+                    mPref.setBusinessLong(String.valueOf(lng));
+*/
+                    Log.d("address", "lat" + lat + "lng" + lng);
+                }
+
                 if (name.getText().length() == 0) {
                     name.setError("Name can't be blank");
                 } else if (address.getText().length() == 0) {
                     address.setError("Address can't be blank");
                 } else if (phone.getText().length() == 0) {
                     phone.setError("Phone can't be blank");
+
                 } else {
                     Uri.Builder builder = new Uri.Builder();
                     builder.scheme("http")
@@ -377,6 +490,42 @@ public class AdDetailsEditFrag extends HelperFrags implements HttpresponseUpd {
             }
 
             Toast.makeText(getActivity(), "Update successfully", Toast.LENGTH_SHORT).show();
+        } else if (postTag.equalsIgnoreCase("address_search")) {
+            Log.e("res_address", response);
+            try {
+                JSONObject obj = new JSONObject(response);
+                JSONArray ja = obj.getJSONArray("predictions");
+                Log.d("BDF", "ja" + ja.length());
+
+                for (int i = 0; i < ja.length(); i++) {
+                    JSONObject c = ja.getJSONObject(i);
+                    String description = c.getString("description");
+
+                    Log.d("BDF", "description" + description);
+
+                    address_list.add(description);
+                }
+                Log.d("BDF", "address_list" + address_list.size());
+                autocomplete_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, address_list) {
+                    @Override
+                    public View getView(int position,
+                                        View convertView, ViewGroup parent) {
+                        View view = super.getView(position,
+                                convertView, parent);
+                        TextView text = (TextView) view
+                                .findViewById(android.R.id.text1);
+                        text.setTextColor(Color.BLACK);
+                        return view;
+                    }
+                };
+
+                Log.e("array", address_list.size() + "---" + response);
+                address.setAdapter(autocomplete_adapter);
+                autocomplete_adapter.notifyDataSetChanged();
+            } catch (Exception e) {
+
+                Log.e("error", e.toString());
+            }
         } else if (post_tag.equals("businessdetails")) {
 
             try {
@@ -525,5 +674,38 @@ public class AdDetailsEditFrag extends HelperFrags implements HttpresponseUpd {
             }
         }
 
+    }
+
+    public boolean isNetworkConnectionAvailable() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnected();
+        if (isConnected) {
+            Log.d("Network", "Connected");
+            return true;
+        } else {
+            checkNetworkConnection();
+            Log.d("Network", "Not Connected");
+            return false;
+        }
+    }
+
+    public void checkNetworkConnection() {
+
+        Toast.makeText(getActivity(), "No internet Connection", Toast.LENGTH_SHORT).show();
+      /*  android.support.v7.app.AlertDialog.Builder builder =new android.support.v7.app.AlertDialog.Builder(getContext());
+        builder.setTitle("No internet Connection");
+        builder.setMessage("Please turn on internet connection to continue");
+        builder.setNegativeButton("close", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        android.support.v7.app.AlertDialog alertDialog = builder.create();
+        alertDialog.show();*/
     }
 }

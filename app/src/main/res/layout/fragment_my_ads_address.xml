@@ -1,28 +1,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+    style="@style/linearLayoutFormatStyle"
     tools:context="frags.MyAdsAddressFrag">
 
     <RelativeLayout
         android:id="@+id/address_header_rl"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/hesder_bg">
+        style="@style/headerRelativeLayout">
 
 
         <ImageView
             android:id="@+id/my_ads_add_back_btn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:padding="10dp"
-            android:src="@drawable/leftarrow_white" />
+            style="@style/headerImageView" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/linearLayoutStyle"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/add_ctg_next_btn"
             android:layout_toRightOf="@+id/add_ctg_back_btn"
@@ -47,8 +38,7 @@
 
     <LinearLayout
         android:id="@+id/frag_my_ads_address_main_ll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/linearLayoutStyle"
         android:layout_below="@id/address_header_rl"
         android:orientation="vertical"
         android:visibility="gone">
@@ -56,13 +46,12 @@
 
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+         style="@style/linearLayoutStyle"
+            android:background="@color/white">
 
             <TextView
                 android:id="@+id/serial_no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrapTextInput"
                 android:layout_gravity="center_vertical"
                 android:padding="10dp"
                 android:text="S.No."
@@ -71,8 +60,7 @@
 
             <TextView
                 android:id="@+id/my_ads_address_item_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/wrapTextInput"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:layout_toEndOf="@+id/serial_no"
@@ -92,23 +80,19 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/my_ads_address_frag_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            style="@style/matchParentLayout" />
 
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/frag_my_ads_address_no_address_ll"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/linearLayoutFormatStyle"
         android:layout_below="@id/address_header_rl"
-        android:orientation="vertical"
         android:visibility="gone">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            style="@style/matchParentLayout"
             android:layout_gravity="center"
             android:gravity="center"
             android:text="No Record Found !!!"
@@ -125,7 +109,8 @@
         android:layout_marginBottom="16dp"
         android:layout_marginRight="16dp"
         android:src="@android:drawable/ic_input_add"
-        android:tint="@color/white" />
+        android:tint="@color/white"
+        android:visibility="invisible" />
 
 
 </RelativeLayout>

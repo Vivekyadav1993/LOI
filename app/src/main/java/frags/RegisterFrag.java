@@ -66,12 +66,6 @@ public class RegisterFrag extends HelperFrags implements HttpresponseUpd {
 
     private SharedPreferences.Editor editor;
     private Dialog verifyOtpDialog;
-
-
-    private FragmentManager fragmentManager;
-
-    private FragmentTransaction fragmentTransaction;
-
     private Snackbar snackbar;
     String post_tag = "";
     private Sharedpreferences mPref;
@@ -155,15 +149,6 @@ public class RegisterFrag extends HelperFrags implements HttpresponseUpd {
                 mPref.setOtpNumber(otp_number);
                 if (obj.getString("message").equals("Verify OTP Number")) {
 
-                    // save user info
-                  /*  editor = AppConstants.app_data.edit();
-                    editor.putString("name", name_input.getText().toString());
-                    editor.putString("email", email_input.getText().toString());
-                    editor.putString("phone", phone_input.getText().toString());
-
-                    editor.putString("user_id", obj.getString("user_id"));
-                    editor.commit();
-*/
                     showVerifyOtpDialog();
 
                 } else {
@@ -211,11 +196,6 @@ public class RegisterFrag extends HelperFrags implements HttpresponseUpd {
                     startActivity(intent);
                     getActivity().finish();
 
-                 /*   fragmentManager = getActivity().getSupportFragmentManager();
-                    fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.userauth_container, new LoginFrag()).commit();
-*/
-
                 } else {
                     Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                 }
@@ -244,7 +224,6 @@ public class RegisterFrag extends HelperFrags implements HttpresponseUpd {
             @Override
             public void onClick(View v) {
 
-                Log.d("RF", "otp" + mPref.getOtpNumber() + "otp edit" + mOtpEt.getText().toString());
 
                 if (mOtpEt.getText().toString().equalsIgnoreCase(mPref.getOtpNumber())) {
                     Uri.Builder builder = new Uri.Builder();
@@ -273,7 +252,7 @@ public class RegisterFrag extends HelperFrags implements HttpresponseUpd {
 
                     }
                 } else {
-                    Toast.makeText(getActivity(), "Opt is not correct", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Please enter correct OTP", Toast.LENGTH_SHORT).show();
                 }
 
 

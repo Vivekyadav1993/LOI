@@ -46,6 +46,7 @@ import java.util.Locale;
 
 import atw.lifeoninternet.LandingActivity;
 import atw.lifeoninternet.R;
+import atw.lifeoninternet.utils.Sharedpreferences;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -84,6 +85,7 @@ public class Search_location_frag extends HelperFrags implements HttpresponseUpd
     LocationManager locationManager;
     String provider;
 
+    private Sharedpreferences mPref;
 
     @SuppressLint("MissingPermission")
     @Nullable
@@ -92,6 +94,7 @@ public class Search_location_frag extends HelperFrags implements HttpresponseUpd
         Mroot = inflater.inflate(R.layout.change_location_dialog_screen, null);
         ButterKnife.bind(this, Mroot);
         httpresponseUpd = this;
+        mPref= Sharedpreferences.getUserDataObj(getActivity());
         locd_autocomplte_input.setThreshold(0);
         address_list = new ArrayList<String>();
         locd_autocomplte_input.addTextChangedListener(new TextWatcher() {
@@ -264,6 +267,8 @@ public class Search_location_frag extends HelperFrags implements HttpresponseUpd
 
         } else {
             String[] add_array = locd_autocomplte_input.getText().toString().split(",");
+
+            mPref.setMainAddress(locd_autocomplte_input.getText().toString());
             // save current address
             SharedPreferences.Editor editor = AppConstants.app_data.edit();
             editor.putString("address", locd_autocomplte_input.getText().toString());

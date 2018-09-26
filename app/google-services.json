@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "83338033066",
+    "firebase_url": "https://lifeoninternet-40534.firebaseio.com",
+    "project_id": "lifeoninternet-40534",
+    "storage_bucket": "lifeoninternet-40534.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:83338033066:android:c2472a7b24720dfe",
+        "android_client_info": {
+          "package_name": "atw.lifeoninternet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "83338033066-hk426tjdphdvnjnhg20m0npvdvovlfck.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "atw.lifeoninternet",
+            "certificate_hash": "ebbcd6906779fd81c50055730e1b206e5eddd9d6"
+          }
+        },
+        {
+          "client_id": "83338033066-iqvnc9qec3h3osgotvofilst4vg27svu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfyRDehgGapsrGAWhgAbmCM5ND_7lg7c4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "83338033066-iqvnc9qec3h3osgotvofilst4vg27svu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -13,8 +13,7 @@
 
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/matchParentLayout"
         android:paddingLeft="5dp"
         android:paddingRight="5dp">
 
@@ -30,47 +29,43 @@
 
         <TextView
             android:id="@+id/company_name_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrapTextInput"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="8dp"
             android:layout_toEndOf="@id/company_image_iv"
             android:layout_toRightOf="@id/company_image_iv"
-            android:text="Choice Pizz Corner"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/company_address_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrapTextInput"
             android:layout_below="@id/company_name_tv"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="60dp"
             android:layout_toEndOf="@id/company_image_iv"
             android:layout_toRightOf="@id/company_image_iv"
-            android:text="Sec 49, Noida"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="12sp" />
 
         <TextView
             android:id="@+id/company_service_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrapTextInput"
             android:layout_below="@id/company_address_tv"
             android:layout_marginLeft="5dp"
             android:layout_toEndOf="@id/company_image_iv"
             android:layout_toRightOf="@id/company_image_iv"
-            android:text="Food"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="12sp" />
 
 
         <TextView
             android:id="@+id/company_open_time_text_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrapTextInput"
             android:layout_below="@id/company_service_tv"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="3dp"
@@ -87,8 +82,7 @@
 
         <TextView
             android:id="@+id/company_open_time_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrapTextInput"
             android:layout_below="@id/company_open_time_text_tv"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="5dp"
@@ -106,8 +100,7 @@
 
         <TextView
             android:id="@+id/company_last_appointment_time_text_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrapTextInput"
             android:layout_below="@id/company_service_tv"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="12dp"
@@ -126,8 +119,7 @@
 
         <TextView
             android:id="@+id/company_last_appointment_time_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrapTextInput"
             android:layout_below="@id/company_open_time_text_tv"
             android:layout_marginLeft="12dp"
             android:layout_marginTop="2dp"
@@ -152,10 +144,24 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
+            android:fontFamily="sans-serif-condensed"
             android:background="@color/blue"
             android:text="Book"
             android:textColor="@color/standard_white"
             android:textSize="10sp" />
+
+        <Button
+            android:id="@+id/company_call_btn"
+            android:layout_width="55dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/blue"
+            android:text="Call"
+            android:textColor="@color/standard_white"
+            android:textSize="10sp"
+            android:visibility="gone" />
 
     </RelativeLayout>
 

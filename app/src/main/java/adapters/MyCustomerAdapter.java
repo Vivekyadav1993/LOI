@@ -75,15 +75,23 @@ public class MyCustomerAdapter extends RecyclerView.Adapter<MyCustomerAdapter.Vi
             holder.mCheckbox.setChecked(true);
 
             for (int i=0;i<data.size();i++){
-                data.get(i).setStatus("Yes");
-                MyCustomerFrag.customerCancelArray.get(i).setStatus("Yes");
+                try {
+                    data.get(i).setStatus("Yes");
+                    MyCustomerFrag.customerCancelArray.get(i).setStatus("Yes");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
         } else {
             holder.mCheckbox.setChecked(false);
             for (int i=0;i<data.size();i++){
-                data.get(i).setStatus("No");
-                MyCustomerFrag.customerCancelArray.get(i).setStatus("No");
+                try {
+                    data.get(i).setStatus("No");
+                    MyCustomerFrag.customerCancelArray.get(i).setStatus("No");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
         }
@@ -103,12 +111,20 @@ public class MyCustomerAdapter extends RecyclerView.Adapter<MyCustomerAdapter.Vi
                         data.get(position).setStatus("Yes");
                         Log.e("okk", data.get(position).getBookingId());
 
-                        MyCustomerFrag.customerCancelArray.get(position).setStatus("Yes");
+                        try {
+                            MyCustomerFrag.customerCancelArray.get(position).setStatus("Yes");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
 
                     } else {
-                        data.get(position).setStatus("No");
-                        Log.e("disable", "-" + data.get(position).getStatus());
-                        MyCustomerFrag.customerCancelArray.get(position).setStatus("No");
+                        try {
+                            data.get(position).setStatus("No");
+                            Log.e("disable", "-" + data.get(position).getStatus());
+                            MyCustomerFrag.customerCancelArray.get(position).setStatus("No");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
 
                     }
 

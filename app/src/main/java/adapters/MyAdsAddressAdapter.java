@@ -1,6 +1,7 @@
 package adapters;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +29,7 @@ public class MyAdsAddressAdapter extends RecyclerView.Adapter<MyAdsAddressAdapte
 
 
     public interface MyAdsAddressonClick {
-        void onClick(int pos , String adddress_id);
+        void onClick(int pos , String adddress_id, String allow);
 
     }
 
@@ -53,12 +54,15 @@ public class MyAdsAddressAdapter extends RecyclerView.Adapter<MyAdsAddressAdapte
             holder.mAddress.setText(data.get(position).getAddress());
             holder.mSerialNo.setText(""+(position+1));
 
+            if(position==1) {
+                holder.card_view.setBackgroundColor(mMyAdsAddressFrag.getResources().getColor(R.color.gray));
+            }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
                     //   Log.d("CLRA", "" + position);
-                    mClick.onClick(position,data.get(position).getAddressId().toString());
+                    mClick.onClick(position,data.get(position).getAddressId().toString(),data.get(position).getAllow());
                 }
             });
         } catch (Exception e) {
@@ -77,6 +81,9 @@ public class MyAdsAddressAdapter extends RecyclerView.Adapter<MyAdsAddressAdapte
         public TextView mAddress;
         @BindView(R.id.serial_no)
         public TextView mSerialNo;
+
+        @BindView(R.id.card_view)
+        public CardView card_view;
 
         public ViewHolder(View itemView) {
             super(itemView);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="colorPrimary">#242638</color>
     <color name="colorPrimaryDark">#1E202E</color>
     <color name="colorAccent">#2B71FF</color>
@@ -14,7 +15,9 @@
 
     <color name="blue">#2B71FF</color>
 
-    <color name="hesder_bg">#343851</color>
+    <color name="hesder_bg">#242638</color>
+    <color name="background_blue_color">#242638</color>
+    <color name="tranparent_color">#00d0d022</color>
 
 
 </resources>

@@ -7,6 +7,7 @@ import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,19 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,7 +42,9 @@ import butterknife.OnClick;
 import helper.AppUtils;
 import helper.HttpresponseUpd;
 
-public class VenderDetailsActivity extends AppCompatActivity implements HttpresponseUpd {
+public class VenderDetailsActivity extends AppCompatActivity /*implements HttpresponseUpd */{
+
+    String imageString;
 
 
     @BindView(R.id.company_details_profile_ivvv)
@@ -47,8 +63,7 @@ public class VenderDetailsActivity extends AppCompatActivity implements Httpresp
     public EditText mDescription;
 
     Sharedpreferences mPref;
-
-    int PICK_IMAGE_REQUEST = 101;
+    int PICK_IMAGE_REQUEST = 111;
     Bitmap bitmap;
 
     private HttpresponseUpd callback;
@@ -57,7 +72,6 @@ public class VenderDetailsActivity extends AppCompatActivity implements Httpresp
     private String profileUrl;
     private String business_id;
     private Uri filePath;
-    private String imageString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +85,7 @@ public class VenderDetailsActivity extends AppCompatActivity implements Httpresp
 
         mPref = Sharedpreferences.getUserDataObj(this);
 
-        callback = this;
+       // callback = this;
         business_id = mPref.getBusnessId();
     }
 
@@ -129,9 +143,8 @@ public class VenderDetailsActivity extends AppCompatActivity implements Httpresp
 
     private void uploadFun() {
 
-
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 40, baos);
         byte[] imageBytes = baos.toByteArray();
         imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
 
@@ -151,7 +164,11 @@ public class VenderDetailsActivity extends AppCompatActivity implements Httpresp
         } else if (mKey.getText().toString().equals("")) {
             mKey.setError("Key cannot be blank!!!");
         } else {
-            Uri.Builder builder = new Uri.Builder();
+
+            hitAPI("http://lifeoninternet.com/"+Utils.stringBuilder()+"/api.php?action=updatebusinessDetails&business_id="+mPref.getBusnessId()+
+                    "&mobile="+mCname.getText().toString()+"&email="+mEmail.getText().toString()+"&keyword="+mKey.getText().toString()+
+                    "&description="+mDescription.getText().toString()+"&uploaded_file="+imageString);
+         /*   Uri.Builder builder = new Uri.Builder();
             builder.scheme("http")
                     .authority("lifeoninternet.com")
                     .appendPath(Utils.stringBuilder())
@@ -168,19 +185,70 @@ public class VenderDetailsActivity extends AppCompatActivity implements Httpresp
             Log.e("url", myUrl);
 
             if (AppUtils.isNetworkAvailable(this))
-                AppUtils.getStringData(builder.build().toString(), this, callback);
+                AppUtils.getStringData(builder.build().toString(), VenderDetailsActivity.this, callback);
             else {
-         /*   snackbar = Snackbar.make(this, "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
-            snackbar.show();*/
+         *//*   snackbar = Snackbar.make(this, "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
+            snackbar.show();*//*
                 Toast.makeText(this, "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Toast.LENGTH_SHORT).show();
-            }
+            }*/
         }
 
     }
 
-    @Override
+    private void hitAPI(final String url) {
+
+        StringRequest strReq = new StringRequest(Request.Method.GET,
+                url.replaceAll(" ", "%20"), new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.e("url", url);
+                Log.e("urlres", response);
+             /*   try {
+                    //parse data and put all to list
+                    JSONObject main_obj = new JSONObject(response);
+                    JSONArray output_array = main_obj.getJSONArray("results");
+
+
+                } catch (JSONException e) {
+                    Log.e("error", e.getMessage());
+
+                }*/
+
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String message = "";
+                if (error instanceof NetworkError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof ServerError) {
+                    message = "The server could not be found. Please try again after some time!!";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof ParseError) {
+                    message = "Parsing error! Please try again after some time!!";
+                } else if (error instanceof NoConnectionError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof TimeoutError) {
+                    message = "Connection TimeOut! Please check your internet connection.";
+                }
+                //  Utils.stopProgress(getActivity());
+            }
+        });
+
+        Volley.newRequestQueue(this).add(strReq);
+
+
+    }
+
+/*    @Override
     public void getResponse(String response) {
 
+
+       // http://lifeoninternet.com/production/api.php?action=updatebusinessDetails&business_id=74&mobile=5666&email=hjff%40gmail.com&keyword=hdxhs&description=dxch&uploaded_file=
         Log.e("res", response);
 
         if (response.contains("error")) {
@@ -196,8 +264,7 @@ public class VenderDetailsActivity extends AppCompatActivity implements Httpresp
                 e.printStackTrace();
             }
 
-
         }
 
-    }
+    }*/
 }

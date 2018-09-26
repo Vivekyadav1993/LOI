@@ -45,6 +45,7 @@
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="5dp"
+                android:visibility="invisible"
                 android:layout_toLeftOf="@id/add_staff_next_btn"
                 android:padding="8dp"
                 android:src="@android:drawable/ic_menu_rotate"

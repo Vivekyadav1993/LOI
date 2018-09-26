@@ -102,7 +102,7 @@ public class NewServiceStaffSelectionFrag extends HelperFrags implements Httpres
             _bundle.putInt("create_pos", bundle.getInt("create_pos"));
             _bundle.putString("ser_id", bundle.getString("ser_id"));
             // go next page
-            replaceFrag(new NewSerResourceSelectionFrag(), _bundle, NewServiceStaffSelectionFrag.class.getName());
+            replaceFrag(new NewSerAdTypeSelectionFrag(), _bundle, NewServiceStaffSelectionFrag.class.getName());
 
         } else {
 
@@ -191,7 +191,7 @@ public class NewServiceStaffSelectionFrag extends HelperFrags implements Httpres
                     _bundle.putInt("create_pos", bundle.getInt("create_pos"));
                     _bundle.putString("ser_id", bundle.getString("ser_id"));
                     // go next page
-                    replaceFrag(new NewSerResourceSelectionFrag(), _bundle, NewServiceStaffSelectionFrag.class.getName());
+                    replaceFrag(new NewSerAdTypeSelectionFrag(), _bundle, NewServiceStaffSelectionFrag.class.getName());
 
                 }
                 snackbar = Snackbar.make(Mroot, arr.getJSONObject(0).getString("message"), Snackbar.LENGTH_LONG);

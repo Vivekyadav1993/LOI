@@ -1,6 +1,5 @@
 package frags;
 
-import android.content.Context;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,24 +9,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
-import atw.lifeoninternet.LandingActivity;
 import atw.lifeoninternet.R;
 import atw.lifeoninternet.utils.Sharedpreferences;
 import atw.lifeoninternet.utils.Utils;
@@ -40,7 +36,7 @@ import helper.HelperFrags;
 import helper.HttpresponseUpd;
 
 /**
- * Created by teknik on 9/28/2017.
+ * Created by vivek on 10/01/2018.
  */
 
 public class BusinessHourFrag extends HelperFrags implements CompoundButton.OnCheckedChangeListener, HttpresponseUpd {
@@ -125,6 +121,7 @@ public class BusinessHourFrag extends HelperFrags implements CompoundButton.OnCh
     @BindView(R.id.bh_timesun_end_btn)
     TextView bh_timesun_end_btn;
 
+
     @BindView(R.id.bh_timesun_switch_btn)
     Switch bh_timesun_switch_btn;
 
@@ -139,7 +136,14 @@ public class BusinessHourFrag extends HelperFrags implements CompoundButton.OnCh
 
     private Sharedpreferences mPrefs;
 
+    String start_date, end_date, mon_from_time, mon_to_time, tue_from_time, tue_to_time, wed_from_time, wed_to_time,
+            thru_from_time, thru_to_time, fri_from_time, fri_to_time, sat_from_time, sat_to_time, sun_from_time, sun_to_time;
+
+
     Geocoder geocoder = null;
+    private String industry_id, address_id_;
+    private Uri.Builder builder;
+    private String post_tag, business_name, phone, address,business_id,address_id,industry_name ;
 
 
     @Nullable
@@ -160,12 +164,41 @@ public class BusinessHourFrag extends HelperFrags implements CompoundButton.OnCh
         callback = this;
         geocoder = new Geocoder(getActivity());
         bundle = getArguments();
+        industry_id = bundle.getString("indusrty_id");
+        address_id = bundle.getString("address_id_");
+        industry_name= bundle.getString("indusrty_name");
+        mPrefs.setIndustryType(industry_name);
+        if(mPrefs.getBusnessId().equalsIgnoreCase("null")){
+            business_id="";
+        }else {
+            business_id= mPrefs.getBusnessId();
+        }
+        Log.d("BHF", "address_id" + address_id);
+        try {
+            if (address_id==null) {
+                address_id_="";
+            } else {
+                address_id_=address_id;
+                hitBusinessHourApi(business_id, address_id);
 
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+        Log.d("BHF","business_id"+mPrefs.getBusnessId());
+
+
+        address = bundle.getString("address");
+        phone = bundle.getString("bussiness_phone");
+        business_name = bundle.getString("bussiness_name");
+        Log.d("BHF", "address_id_1" + address_id_);
         // get current date
         bh_date_start_btn.setText(getcurrentDate());
 
-        Log.d("BHF", "Lat" + mPrefs.getLat() + "Long" + mPrefs.getLong());
-        bh_date_switch_btn.setOnCheckedChangeListener(this);
+        //  bh_date_switch_btn.setOnCheckedChangeListener(this);
         bh_timemon_switch_btn.setOnCheckedChangeListener(this);
         bh_timetue_switch_btn.setOnCheckedChangeListener(this);
         bh_timewed_switch_btn.setOnCheckedChangeListener(this);
@@ -176,31 +209,34 @@ public class BusinessHourFrag extends HelperFrags implements CompoundButton.OnCh
 
         pos = bundle.getInt("pos");
 
-        if (bundle.getString("src").equals("def")) {
 
-            bh_timemon_switch_btn.setEnabled(true);
-            bh_timemon_switch_btn.setChecked(true);
+    /*    if (bundle.getString("src").equals("def")) {*/
 
-            bh_timetue_switch_btn.setEnabled(true);
-            bh_timetue_switch_btn.setChecked(true);
+        bh_timemon_switch_btn.setEnabled(true);
+        bh_timemon_switch_btn.setChecked(true);
 
-            bh_timewed_switch_btn.setEnabled(true);
-            bh_timewed_switch_btn.setChecked(true);
+        bh_timetue_switch_btn.setEnabled(true);
+        bh_timetue_switch_btn.setChecked(true);
 
-            bh_timethr_switch_btn.setEnabled(true);
-            bh_timethr_switch_btn.setChecked(true);
+        bh_timewed_switch_btn.setEnabled(true);
+        bh_timewed_switch_btn.setChecked(true);
 
-            bh_timefri_switch_btn.setEnabled(true);
-            bh_timefri_switch_btn.setChecked(true);
+        bh_timethr_switch_btn.setEnabled(true);
+        bh_timethr_switch_btn.setChecked(true);
 
-            bh_timesat_switch_btn.setEnabled(true);
-            bh_timesat_switch_btn.setChecked(true);
+        bh_timefri_switch_btn.setEnabled(true);
+        bh_timefri_switch_btn.setChecked(true);
 
-            bh_timesun_switch_btn.setEnabled(true);
-            bh_timesun_switch_btn.setChecked(true);
+        bh_timesat_switch_btn.setEnabled(true);
+        bh_timesat_switch_btn.setChecked(true);
+
+        bh_timesun_switch_btn.setEnabled(true);
+        bh_timesun_switch_btn.setChecked(true);
 
 
-        } else {
+
+
+       /* } else {
 
             // date start
             if (LandingActivity.business_data.getAdderess_data().get(bundle.getInt("pos")).getDate_start().equals("")
@@ -214,7 +250,7 @@ public class BusinessHourFrag extends HelperFrags implements CompoundButton.OnCh
             if (LandingActivity.business_data.getAdderess_data().get(bundle.getInt("pos")).getDate_end().equals("")
                     || LandingActivity.business_data.getAdderess_data().get(bundle.getInt("pos")).getDate_end().equals("null")) {
 
-            } else {
+            } *//*else {
                 if (LandingActivity.business_data.getAdderess_data().get(bundle.getInt("pos")).getDate_start().equals(LandingActivity.business_data.getAdderess_data().get(bundle.getInt("pos")).getDate_end())) {
                     bh_date_switch_btn.setChecked(false);
                 } else {
@@ -222,7 +258,7 @@ public class BusinessHourFrag extends HelperFrags implements CompoundButton.OnCh
 
                 }
 
-            }
+            }*//*
 
             // Mon  Time
             if (LandingActivity.business_data.getAdderess_data().get(bundle.getInt("pos")).getMon_start_time().equals("null") || LandingActivity.business_data.getAdderess_data().get(bundle.getInt("pos")).getMon_end_time().equals("null")) {
@@ -302,7 +338,7 @@ public class BusinessHourFrag extends HelperFrags implements CompoundButton.OnCh
             }
 
 
-            if (!bh_date_end_btn.getText().toString().equals("End date") && bh_date_switch_btn.isChecked()) {
+            if (bh_date_end_btn.getText().toString().equals("")*//* && bh_date_switch_btn.isChecked()*//*) {
 
 
                 ArrayList<String> day_array = getListDate(bh_date_start_btn.getText().toString(), bh_date_end_btn.getText().toString());
@@ -403,10 +439,37 @@ public class BusinessHourFrag extends HelperFrags implements CompoundButton.OnCh
 
                 }
             }
-        }
+        }*/
         return Mroot;
     }
 
+    private void hitBusinessHourApi(String busnessId, String address_id_1) {
+
+        builder = new Uri.Builder();
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("http")
+                .authority("lifeoninternet.com")
+                .appendPath(Utils.stringBuilder())
+                .appendPath("api.php")
+                .appendQueryParameter("action", "bookingDetails")
+                .appendQueryParameter("business_id", busnessId)
+                .appendQueryParameter("address_id", address_id_1);
+
+        Log.d("url","hour_url"+builder);
+        if (AppUtils.isNetworkAvailable(getActivity())) {
+            post_tag = "businessdetails";
+            AppUtils.getStringData(builder.build().toString(), getActivity(), callback);
+        } else {
+            try {
+                snackbar = Snackbar.make(getView(), "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
+                snackbar.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    }
 
     @OnClick(R.id.bh_next_btn)
     void goNext() {
@@ -416,79 +479,82 @@ public class BusinessHourFrag extends HelperFrags implements CompoundButton.OnCh
         int month = c.get(Calendar.MONTH);
         int year = c.get(Calendar.YEAR);
         String date = year + "-" + (month + 1) + "-" + day;
+
+      //  Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
         // date start and End
-        if (bh_date_switch_btn.isChecked()) {
+      /*  if (bh_date_switch_btn.isChecked()) {
             LandingActivity.business_data.getAdderess_data().get(pos).setDate_start(bh_date_start_btn.getText().toString());
             LandingActivity.business_data.getAdderess_data().get(pos).setDate_end(date);
         } else {
             LandingActivity.business_data.getAdderess_data().get(pos).setDate_start(bh_date_start_btn.getText().toString());
-            LandingActivity.business_data.getAdderess_data().get(pos).setDate_end("2019-12-11"/*bh_date_start_btn.getText().toString()*/);
-        }
+            LandingActivity.business_data.getAdderess_data().get(pos).setDate_end("2019-12-11"*//*bh_date_start_btn.getText().toString()*//*);
+        }*/
 
+        String mon_start_time, mon_end_time, tue_start_time, tue_end_time, wed_start_time, wed_end_time, thru_start_time, thru_end_time, fri_start_time, fri_end_time;
+        String sat_start_time, sat_end_time, sun_start_time, sun_to_time;
         // Mon start and End Time
         if (bh_timemon_switch_btn.isChecked()) {
-            LandingActivity.business_data.getAdderess_data().get(pos).setMon_start_time(bh_timemon_start_btn.getText().toString());
-            LandingActivity.business_data.getAdderess_data().get(pos).setMon_end_time(bh_timemon_end_btn.getText().toString());
+            mon_start_time = bh_timemon_start_btn.getText().toString();
+            mon_end_time = bh_timemon_end_btn.getText().toString();
         } else {
-            LandingActivity.business_data.getAdderess_data().get(pos).setMon_start_time("");
-            LandingActivity.business_data.getAdderess_data().get(pos).setMon_end_time("");
+            mon_start_time = "";
+            mon_end_time = "";
         }
 
         // Tue start and End Time
         if (bh_timetue_switch_btn.isChecked()) {
-            LandingActivity.business_data.getAdderess_data().get(pos).setTue_start_time(bh_timetue_start_btn.getText().toString());
-            LandingActivity.business_data.getAdderess_data().get(pos).setTue_end_time(bh_timetue_end_btn.getText().toString());
+            tue_start_time = bh_timetue_start_btn.getText().toString();
+            tue_end_time = bh_timetue_end_btn.getText().toString();
         } else {
-            LandingActivity.business_data.getAdderess_data().get(pos).setTue_start_time("");
-            LandingActivity.business_data.getAdderess_data().get(pos).setTue_end_time("");
+            tue_start_time = "";
+            tue_end_time = "";
         }
 
         // Wed start and End Time
         if (bh_timewed_switch_btn.isChecked()) {
-            LandingActivity.business_data.getAdderess_data().get(pos).setWed_start_time(bh_timewed_start_btn.getText().toString());
-            LandingActivity.business_data.getAdderess_data().get(pos).setWed_end_time(bh_timewed_end_btn.getText().toString());
+            wed_start_time = bh_timewed_start_btn.getText().toString();
+            wed_end_time = bh_timewed_end_btn.getText().toString();
         } else {
-            LandingActivity.business_data.getAdderess_data().get(pos).setWed_start_time("");
-            LandingActivity.business_data.getAdderess_data().get(pos).setWed_end_time("");
+            wed_start_time = "";
+            wed_end_time = "";
         }
 
         // thr start and End Time
         if (bh_timethr_switch_btn.isChecked()) {
-            LandingActivity.business_data.getAdderess_data().get(pos).setThr_start_time(bh_timethr_start_btn.getText().toString());
-            LandingActivity.business_data.getAdderess_data().get(pos).setThr_end_time(bh_timethr_end_btn.getText().toString());
+            thru_start_time = bh_timethr_start_btn.getText().toString();
+            thru_end_time = bh_timethr_end_btn.getText().toString();
         } else {
-            LandingActivity.business_data.getAdderess_data().get(pos).setThr_start_time("");
-            LandingActivity.business_data.getAdderess_data().get(pos).setThr_end_time("");
+            thru_start_time = "";
+            thru_end_time = "";
         }
 
         // fri start and End Time
         if (bh_timefri_switch_btn.isChecked()) {
-            LandingActivity.business_data.getAdderess_data().get(pos).setFri_start_time(bh_timefri_start_btn.getText().toString());
-            LandingActivity.business_data.getAdderess_data().get(pos).setFri_end_time(bh_timefri_end_btn.getText().toString());
+            fri_start_time = bh_timefri_start_btn.getText().toString();
+            fri_end_time = bh_timefri_end_btn.getText().toString();
         } else {
-            LandingActivity.business_data.getAdderess_data().get(pos).setFri_start_time("");
-            LandingActivity.business_data.getAdderess_data().get(pos).setFri_end_time("");
+            fri_start_time = "";
+            fri_end_time = "";
         }
 
         // Sat start and End Time
         if (bh_timesat_switch_btn.isChecked()) {
-            LandingActivity.business_data.getAdderess_data().get(pos).setSat_start_time(bh_timesat_start_btn.getText().toString());
-            LandingActivity.business_data.getAdderess_data().get(pos).setSat_end_time(bh_timesat_end_btn.getText().toString());
+            sat_start_time = bh_timesat_start_btn.getText().toString();
+            sat_end_time = bh_timesat_end_btn.getText().toString();
         } else {
-            LandingActivity.business_data.getAdderess_data().get(pos).setSat_start_time("");
-            LandingActivity.business_data.getAdderess_data().get(pos).setSat_end_time("");
+            sat_start_time = "";
+            sat_end_time = "";
         }
 
 
         // Sun start and End Time
         if (bh_timesun_switch_btn.isChecked()) {
-            LandingActivity.business_data.getAdderess_data().get(pos).setSun_start_time(bh_timesun_start_btn.getText().toString());
-            LandingActivity.business_data.getAdderess_data().get(pos).setSun_end_time(bh_timesun_end_btn.getText().toString());
+            sun_start_time = bh_timesun_start_btn.getText().toString();
+            sun_to_time = bh_timesun_end_btn.getText().toString();
         } else {
-            LandingActivity.business_data.getAdderess_data().get(pos).setSun_start_time("");
-            LandingActivity.business_data.getAdderess_data().get(pos).setSun_end_time("");
+            sun_start_time = "";
+            sun_to_time = "";
         }
-
 
         // call api to create event id
         //hit api
@@ -499,50 +565,52 @@ public class BusinessHourFrag extends HelperFrags implements CompoundButton.OnCh
                 .appendPath("api.php")
                 .appendQueryParameter("action", "createEvent")
                 .appendQueryParameter("user_id", AppConstants.app_data.getString("user_id", ""))
-                .appendQueryParameter("industry_id", LandingActivity.business_data.getBusiness_industry_id())
-                .appendQueryParameter("publish_id", LandingActivity.business_data.getPublish_id())
-                .appendQueryParameter("publish_type", LandingActivity.business_data.getPublish_type())
-                .appendQueryParameter("business_name", LandingActivity.business_data.getBusiness_name())
-                .appendQueryParameter("business_phone", LandingActivity.business_data.getBusiness_phone())
-                .appendQueryParameter("regular_flag", LandingActivity.business_data.getBusiness_phone())
+                .appendQueryParameter("industry_id", industry_id)
+                .appendQueryParameter("publish_id", "0")
+                .appendQueryParameter("publish_type", "Public")
+                .appendQueryParameter("business_name", business_name)
+                .appendQueryParameter("business_phone", phone)
+                .appendQueryParameter("regular_flag", "")
 
-                .appendQueryParameter("address", LandingActivity.business_data.getAdderess_data().get(pos).getFull_address())
-                .appendQueryParameter("address_id", LandingActivity.business_data.getAdderess_data().get(pos).getAddress_id())
+                .appendQueryParameter("address", address)
+                .appendQueryParameter("address_id", address_id_)
+                .appendQueryParameter("start_date", bh_date_start_btn.getText().toString())
+                .appendQueryParameter("end_date", bh_date_end_btn.getText().toString())
+                .appendQueryParameter("mon_from_time", mon_start_time)
+                .appendQueryParameter("mon_to_time", mon_end_time)
 
-                .appendQueryParameter("start_date", LandingActivity.business_data.getAdderess_data().get(pos).getDate_start())
-                .appendQueryParameter("end_date", LandingActivity.business_data.getAdderess_data().get(pos).getDate_end())
+                .appendQueryParameter("tue_from_time", tue_start_time)
+                .appendQueryParameter("tue_to_time", tue_end_time)
 
-                .appendQueryParameter("mon_from_time", LandingActivity.business_data.getAdderess_data().get(pos).getMon_start_time())
-                .appendQueryParameter("mon_to_time", LandingActivity.business_data.getAdderess_data().get(pos).getMon_end_time())
+                .appendQueryParameter("wed_from_time", wed_start_time)
+                .appendQueryParameter("wed_to_time", wed_end_time)
 
-                .appendQueryParameter("tue_from_time", LandingActivity.business_data.getAdderess_data().get(pos).getTue_start_time())
-                .appendQueryParameter("tue_to_time", LandingActivity.business_data.getAdderess_data().get(pos).getTue_end_time())
+                .appendQueryParameter("thru_from_time", thru_start_time)
+                .appendQueryParameter("thru_to_time", thru_end_time)
 
-                .appendQueryParameter("wed_from_time", LandingActivity.business_data.getAdderess_data().get(pos).getWed_start_time())
-                .appendQueryParameter("wed_to_time", LandingActivity.business_data.getAdderess_data().get(pos).getWed_end_time())
-
-                .appendQueryParameter("thru_from_time", LandingActivity.business_data.getAdderess_data().get(pos).getThr_start_time())
-                .appendQueryParameter("thru_to_time", LandingActivity.business_data.getAdderess_data().get(pos).getThr_end_time())
-
-                .appendQueryParameter("fri_from_time", LandingActivity.business_data.getAdderess_data().get(pos).getFri_start_time())
-                .appendQueryParameter("fri_to_time", LandingActivity.business_data.getAdderess_data().get(pos).getFri_end_time())
+                .appendQueryParameter("fri_from_time", fri_start_time)
+                .appendQueryParameter("fri_to_time", fri_end_time)
 
 
-                .appendQueryParameter("sat_from_time", LandingActivity.business_data.getAdderess_data().get(pos).getSat_start_time())
-                .appendQueryParameter("sat_to_time", LandingActivity.business_data.getAdderess_data().get(pos).getSat_end_time())
+                .appendQueryParameter("sat_from_time", sat_start_time)
+                .appendQueryParameter("sat_to_time", sat_end_time)
 
-                .appendQueryParameter("sun_from_time", LandingActivity.business_data.getAdderess_data().get(pos).getSun_start_time())
-                .appendQueryParameter("sun_to_time", LandingActivity.business_data.getAdderess_data().get(pos).getSun_end_time())
-                .appendQueryParameter("lat", mPrefs.getLat())
-                .appendQueryParameter("longi", mPrefs.getLong());
+                .appendQueryParameter("sun_from_time", sun_start_time)
+                .appendQueryParameter("sun_to_time", sun_to_time)
+                .appendQueryParameter("lat", mPrefs.getBusinessLat())
+                .appendQueryParameter("longi", mPrefs.getBusinessLong())
+                .appendQueryParameter("business_id", business_id)
+        ;
 
 
         Log.e("url", builder.build().toString());
 
 
-        if (AppUtils.isNetworkAvailable(getActivity()))
+        if (AppUtils.isNetworkAvailable(getActivity())) {
+
+            post_tag = "create_business";
             AppUtils.getStringData(builder.build().toString(), getActivity(), callback);
-        else {
+        } else {
             snackbar = Snackbar.make(Mroot, "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
             snackbar.show();
         }
@@ -562,11 +630,11 @@ public class BusinessHourFrag extends HelperFrags implements CompoundButton.OnCh
 
     @OnClick(R.id.bh_date_end_btn)
     void getendDate() {
-        if (bh_date_switch_btn.isChecked()) {
-            getDateWithcallback(bh_date_end_btn, callback);
-        } else {
+        /*if (bh_date_switch_btn.isChecked()) {*/
+        getDateWithcallback(bh_date_end_btn, callback);
+        /*} else {
 
-        }
+        }*/
 
     }
 
@@ -759,7 +827,7 @@ public class BusinessHourFrag extends HelperFrags implements CompoundButton.OnCh
 
         if (response.equals("Date")) {
 
-            if (!bh_date_end_btn.getText().toString().equals("End date") && bh_date_switch_btn.isChecked()) {
+            if (!bh_date_end_btn.getText().toString().equals("") /*&& bh_date_switch_btn.isChecked()*/) {
 
                 ArrayList<String> day_array = getListDate(bh_date_start_btn.getText().toString(), bh_date_end_btn.getText().toString());
                 String day = "";
@@ -1070,7 +1138,130 @@ public class BusinessHourFrag extends HelperFrags implements CompoundButton.OnCh
 
             snackbar.show();
 
-        } else {
+        } else if (post_tag.equalsIgnoreCase("businessdetails")) {
+
+            Log.e("res1", response);
+            try {
+                JSONObject obj = new JSONObject(response);
+                JSONArray ja = obj.getJSONArray("business");
+                JSONObject address_object = ja.getJSONObject(0);
+
+                start_date = address_object.getString("start_date");
+                end_date = address_object.getString("end_date");
+                mon_from_time = address_object.getString("mon_from_time");
+                mon_to_time = address_object.getString("mon_to_time");
+                tue_from_time = address_object.getString("tue_from_time");
+                tue_to_time = address_object.getString("tue_to_time");
+                wed_from_time = address_object.getString("wed_from_time");
+                wed_to_time = address_object.getString("wed_to_time");
+                thru_from_time = address_object.getString("thru_from_time");
+                thru_to_time = address_object.getString("thru_to_time");
+                fri_from_time = address_object.getString("fri_from_time");
+                fri_to_time = address_object.getString("fri_to_time");
+                sat_from_time = address_object.getString("sat_from_time");
+                sat_to_time = address_object.getString("sat_to_time");
+                sun_from_time = address_object.getString("sun_from_time");
+                sun_to_time = address_object.getString("sun_to_time");
+
+
+                bh_date_start_btn.setText(start_date);
+                bh_date_end_btn.setText(end_date);
+                if (mon_from_time.equalsIgnoreCase("null")) {
+                    bh_timemon_switch_btn.setEnabled(false);
+                    bh_timemon_switch_btn.setChecked(false);
+                    bh_timemon_start_btn.setText("08:00 AM");
+                    bh_timemon_end_btn.setText("05:00 PM");
+                } else {
+                    bh_timemon_switch_btn.setEnabled(true);
+                    bh_timemon_switch_btn.setChecked(true);
+                    bh_timemon_start_btn.setText(mon_from_time);
+                    bh_timemon_end_btn.setText(mon_to_time);
+                }
+                if (tue_from_time.equalsIgnoreCase("null")) {
+                    bh_timetue_switch_btn.setEnabled(false);
+                    bh_timetue_switch_btn.setChecked(false);
+                    bh_timetue_start_btn.setText("08:00 AM");
+                    bh_timetue_end_btn.setText("05:00 PM");
+                } else {
+                    bh_timetue_switch_btn.setEnabled(true);
+                    bh_timetue_switch_btn.setChecked(true);
+                    bh_timetue_start_btn.setText(tue_from_time);
+                    bh_timetue_end_btn.setText(tue_to_time);
+
+                }
+                if (wed_from_time.equalsIgnoreCase("null")) {
+                    bh_timewed_switch_btn.setEnabled(false);
+                    bh_timewed_switch_btn.setChecked(false);
+                    bh_timewed_start_btn.setText("08:00 AM");
+                    bh_timewed_end_btn.setText("05:00 PM");
+
+                } else {
+                    bh_timewed_switch_btn.setEnabled(true);
+                    bh_timewed_switch_btn.setChecked(true);
+                    bh_timewed_start_btn.setText(wed_from_time);
+                    bh_timewed_end_btn.setText(wed_to_time);
+
+                }
+                if (thru_from_time.equalsIgnoreCase("null")) {
+                    bh_timethr_switch_btn.setEnabled(false);
+                    bh_timethr_switch_btn.setChecked(false);
+                    bh_timethr_start_btn.setText("08:00 AM");
+                    bh_timethr_end_btn.setText("05:00 PM");
+
+                } else {
+                    bh_timethr_switch_btn.setEnabled(true);
+                    bh_timethr_switch_btn.setChecked(true);
+                    bh_timethr_start_btn.setText(thru_from_time);
+                    bh_timethr_end_btn.setText(thru_to_time);
+
+                }
+                if (fri_from_time.equalsIgnoreCase("null")) {
+                    bh_timefri_switch_btn.setEnabled(false);
+                    bh_timefri_switch_btn.setChecked(false);
+                    bh_timefri_start_btn.setText("08:00 AM");
+                    bh_timefri_end_btn.setText("05:00 PM");
+
+                } else {
+                    bh_timefri_switch_btn.setEnabled(true);
+                    bh_timefri_switch_btn.setChecked(true);
+                    bh_timefri_start_btn.setText(fri_from_time);
+                    bh_timefri_end_btn.setText(fri_to_time);
+
+                }
+                if (sat_from_time.equalsIgnoreCase("null")) {
+                    bh_timesat_switch_btn.setEnabled(false);
+                    bh_timesat_switch_btn.setChecked(false);
+                    bh_timesat_start_btn.setText("08:00 AM");
+                    bh_timesat_end_btn.setText("05:00 PM");
+
+                } else {
+                    bh_timesat_switch_btn.setEnabled(true);
+                    bh_timesat_switch_btn.setChecked(true);
+                    bh_timesat_start_btn.setText(sat_from_time);
+                    bh_timesat_end_btn.setText(sat_to_time);
+
+                }
+                if (sun_from_time.equalsIgnoreCase("null")) {
+
+                    bh_timesun_start_btn.setText("08:00 AM");
+                    bh_timesun_end_btn.setText("05:00 PM");
+                    bh_timesun_switch_btn.setEnabled(false);
+                    bh_timesun_switch_btn.setChecked(false);
+
+                } else {
+                    bh_timesun_start_btn.setText(sun_from_time);
+                    bh_timesun_end_btn.setText(sun_to_time);
+                    bh_timesun_switch_btn.setEnabled(true);
+                    bh_timesun_switch_btn.setChecked(true);
+
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+        } else if (post_tag.equalsIgnoreCase("create_business")) {
 
             try {
                 //parse data
@@ -1078,41 +1269,39 @@ public class BusinessHourFrag extends HelperFrags implements CompoundButton.OnCh
                 JSONArray arr = main_obj.getJSONArray("output");
                 JSONObject obj = arr.getJSONObject(0);
 
-                if (obj.getString("business_id").equals("0")) {
-                    snackbar = Snackbar.make(Mroot, obj.getString("message"), Snackbar.LENGTH_LONG);
-                    snackbar.show();
-                } else {
+                // save data
 
-                    // save data
+                mPrefs.setAddressId(obj.getString("address_id"));
+                mPrefs.setBusnessId(obj.getString("business_id"));
+                mPrefs.setBusnessName(obj.getString("business_name"));
 
-                    mPrefs.setAddressId(obj.getString("address_id"));
-                    mPrefs.setBusnessId(obj.getString("business_id"));
-                    mPrefs.setBusnessName(obj.getString("business_name"));
-
-                    LandingActivity.business_data.setBusiness_id(obj.getString("business_id"));
+                /*    LandingActivity.business_data.setBusiness_id(obj.getString("business_id"));
                     Log.d("BusinessHourFrag", "business_id" + obj.getString("business_id"));
 
                     LandingActivity.business_data.getAdderess_data().get(pos).setAddress_id(obj.getString("address_id"));
+*/
+                Bundle _bundle = new Bundle();
+                _bundle.putInt("create_pos", pos);
+                _bundle.putString("business_id", obj.getString("business_id"));
+                _bundle.putString("address_id", obj.getString("address_id"));
 
-                    snackbar = Snackbar.make(Mroot, obj.getString("message"), Snackbar.LENGTH_LONG);
-                    snackbar.show();
+                replaceFrag(new AddStaffFrag(), _bundle, BusinessDetailsFrag.class.getName());
 
-                    LandingActivity.staff = false;
+                snackbar = Snackbar.make(Mroot, obj.getString("message"), Snackbar.LENGTH_LONG);
+                snackbar.show();
+
+
+             /*       LandingActivity.staff = false;
                     LandingActivity.res = false;
-                    Bundle _bundle = new Bundle();
+            */
 
-                    if (bundle.getString("src").equals("def")) {
+                /*    if (bundle.getString("src").equals("def")) {
                         _bundle.putString("src", "def");
                     } else {
                         _bundle.putString("src", "create");
                     }
+*/
 
-                    _bundle.putInt("create_pos", pos);
-                    _bundle.putInt("business_id", Integer.parseInt(obj.getString("business_id")));
-                    _bundle.putInt("address_id", Integer.parseInt(obj.getString("address_id")));
-
-                    replaceFrag(new AddStaffFrag(), _bundle, BusinessDetailsFrag.class.getName());
-                }
 
             } catch (JSONException e) {
                 // snackbar = Snackbar.make(Mroot, e.getMessage(), Snackbar.LENGTH_LONG);

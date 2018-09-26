@@ -1,4 +1,9 @@
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
 
 android {
     compileSdkVersion 26
@@ -7,8 +12,8 @@ android {
         applicationId "atw.lifeoninternet"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 16
-        versionName "1.0"
+        versionCode 32
+        versionName "1.0.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
@@ -32,6 +37,8 @@ android {
 dependencies {
     implementation 'com.android.support:support-v4:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.google.firebase:firebase-messaging:11.0.4'
+    implementation 'com.google.firebase:firebase-core:11.0.4'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -49,28 +56,17 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.github.satyan:sugar:1.4'
     compile 'ru.egslava:MaskedEditText:1.0.5'
-    compile 'com.google.android.gms:play-services-location:8.4.0'
-    compile 'com.google.android.gms:play-services:8.4.0'
+    compile 'com.google.android.gms:play-services-location:11.0.4'
+    compile 'com.google.android.gms:play-services:11.0.4'
+    implementation 'com.google.firebase:firebase-config:11.0.4'
     implementation 'com.squareup.picasso:picasso:2.71828'
     compile 'com.daasuu:BubbleLayout:1.2.0'
     compile 'com.github.badoualy:datepicker-timeline:c6dcd05737'
     compile 'com.wefika:collapse-calendar-view:0.1.0'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
+    compile 'com.bignerdranch.android:expandablerecyclerview:3.0.0-RC1'
+    compile 'com.github.sujithkanna:smileyrating:1.6.8'
+
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+apply plugin: 'com.google.gms.google-services'

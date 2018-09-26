@@ -201,9 +201,10 @@ public class MyCustomerFrag extends HelperFrags implements HttpresponseUpd {
         TextView cancelBtn = (TextView) mDialougeBox.findViewById(R.id.booking_cancel_cancel_tv);
         final EditText reasonInput = (EditText) mDialougeBox.findViewById(R.id.cancel_booking_et);
 
-        RadioGroup radioGroup = (RadioGroup) mDialougeBox.findViewById(R.id.radioGroup);
+        final RadioGroup radioGroup = (RadioGroup) mDialougeBox.findViewById(R.id.radioGroup);
         RadioButton radioButton1 = mDialougeBox.findViewById(R.id.reason_1);
         RadioButton radioButton2 = mDialougeBox.findViewById(R.id.reason_2);
+        RadioButton radioButton3 = mDialougeBox.findViewById(R.id.reason_3);
 
         int selectedId = radioGroup.getCheckedRadioButtonId();
 
@@ -223,7 +224,6 @@ public class MyCustomerFrag extends HelperFrags implements HttpresponseUpd {
                 }
                 if (customerCancelArray.size() == 0) {
 
-                    Toast.makeText(activity, "Heee", Toast.LENGTH_SHORT).show();
                 } else {
                     try {
                         for (int i = 0; i < customerCancelArray.size(); i++) {
@@ -244,6 +244,8 @@ public class MyCustomerFrag extends HelperFrags implements HttpresponseUpd {
                     }
 
                     Log.d("MCF", "arrForA" + arrForA);
+
+                    int selectedId=radioGroup.getCheckedRadioButtonId();
 
                     Uri.Builder builder = new Uri.Builder();
                     builder.scheme("http")
@@ -291,7 +293,12 @@ public class MyCustomerFrag extends HelperFrags implements HttpresponseUpd {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
-                mMyCustomerAdapter.selectAll(b);
+                try {
+                    mMyCustomerAdapter.selectAll(b);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(activity, "No Coustomer avaliable", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

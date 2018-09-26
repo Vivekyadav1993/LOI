@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/matchParentLayout"
     android:background="@color/white"
     android:paddingBottom="30dp"
     android:paddingLeft="20dp"
@@ -16,27 +15,21 @@
 
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrapTextInput"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:fontFamily="sans-serif-condensed"
             android:text="CREATE ACCOUNT"
             android:textColor="@color/blue"
             android:textSize="@dimen/text_xxxlarge" />
 
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            style="@style/textInputField"
             android:layout_marginTop="5dp">
 
             <EditText
                 android:id="@+id/register_name_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/wrapEditTextInput"
                 android:drawableLeft="@drawable/ic_name"
                 android:drawablePadding="8dp"
                 android:hint="Name"
@@ -46,17 +39,13 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            style="@style/textInputField"
             android:layout_marginTop="1dp">
 
 
             <EditText
                 android:id="@+id/register_phone_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/wrapEditTextInput"
                 android:drawableLeft="@drawable/ic_phone"
                 android:drawablePadding="8dp"
                 android:hint="Phone Number"
@@ -67,37 +56,28 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            style="@style/textInputField"
             android:layout_marginTop="1dp">
 
             <EditText
                 android:id="@+id/register_email_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/wrapEditTextInput"
                 android:drawableLeft="@drawable/ic_email_black"
                 android:drawablePadding="8dp"
                 android:drawableTint="@color/blue"
                 android:hint="Email Id"
                 android:imeOptions="actionNext"
-
                 android:inputType="text"
                 android:textSize="@dimen/text_xlarge" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            style="@style/textInputField"
             android:layout_marginTop="1dp">
 
             <EditText
                 android:id="@+id/register_password_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/wrapEditTextInput"
                 android:drawableLeft="@drawable/ic_password"
                 android:drawablePadding="8dp"
                 android:hint="Password"
@@ -109,8 +89,7 @@
 
         <TextView
             android:id="@+id/register_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/wrapTextInput"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
             android:background="@drawable/grey_border_trans"

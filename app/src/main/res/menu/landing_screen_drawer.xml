@@ -2,12 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-
-    <group >
+    <group>
         <item
             android:id="@+id/nav_my_appointment"
-            android:title="My Appointment"
-            />
+            android:title="My Appointment" />
         <item
             android:id="@+id/nav_msg_notification"
             android:title="Message and notification" />
@@ -57,7 +55,6 @@
             <item
                 android:id="@+id/nav_about"
                 android:title="About" />
-
 
 
         </menu>

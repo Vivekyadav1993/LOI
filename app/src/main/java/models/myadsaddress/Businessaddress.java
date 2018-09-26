@@ -5,6 +5,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class Businessaddress {
 
+    @SerializedName("allow")
+    @Expose
+    private String allow;
     @SerializedName("address_id")
     @Expose
     private String addressId;
@@ -59,6 +62,14 @@ public class Businessaddress {
     @SerializedName("sun_to_time")
     @Expose
     private String sunToTime;
+
+    public String getAllow() {
+        return allow;
+    }
+
+    public void setAllow(String allow) {
+        this.allow = allow;
+    }
 
     public String getAddressId() {
         return addressId;

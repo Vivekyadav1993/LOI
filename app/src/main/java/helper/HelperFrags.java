@@ -1103,8 +1103,6 @@ public class HelperFrags extends Fragment {
 
         }
 
-
-
        /* //get day name
         Date date = new Date();
         SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
@@ -1148,8 +1146,6 @@ public class HelperFrags extends Fragment {
                 case Calendar.SUNDAY:
                     day_name.add("Sun");
                     break;
-
-
             }
         }
 

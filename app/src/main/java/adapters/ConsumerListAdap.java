@@ -1,5 +1,6 @@
 package adapters;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -13,11 +14,15 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 
 import atw.lifeoninternet.LandingActivity;
 import atw.lifeoninternet.R;
@@ -31,7 +36,7 @@ import static frags.MyAdsFrag.business_id;
 
 
 /**
- * Created by ROINET on 3/6/2018.
+ * Created by Vivek on 3/6/2018.
  */
 
 public class ConsumerListAdap extends BaseAdapter {
@@ -43,13 +48,27 @@ public class ConsumerListAdap extends BaseAdapter {
     private UpdateListData updateListData;
     private Sharedpreferences mPref;
     private Dialog mDialougeBox;
+    private String atpermise_all;
+    private int row_index = -1;
 
-    public ConsumerListAdap(Activity act, ArrayList<ConsumerListData> _data, UpdateListData _updateListData) {
+    private CustomerSelectedClick mClick;
+    //  private CustomerLandingCallClick mClickCall;
+
+    public interface CustomerSelectedClick {
+        void onClick(int id, String position, String service_id);
+
+    }
+
+    public ConsumerListAdap(Activity act, ArrayList<ConsumerListData> _data, String atpermise_all, UpdateListData _updateListData, CustomerSelectedClick mClick) {
         activity = act;
         data = _data;
+        this.atpermise_all = atpermise_all;
         updateListData = _updateListData;
+        this.mClick = mClick;
         mPref = Sharedpreferences.getUserDataObj(act);
-         Collections.sort(data);
+
+        Collections.sort(data);
+
 
     }
 
@@ -59,10 +78,10 @@ public class ConsumerListAdap extends BaseAdapter {
     }
 
 
-
     static class Holder {
         TextView token, info, status;
         Button absent_btn;
+        RelativeLayout customer_list_rl;
     }
 
     @Override
@@ -98,25 +117,63 @@ public class ConsumerListAdap extends BaseAdapter {
             holder.info = (TextView) view.findViewById(R.id.token_info);
             holder.status = (TextView) view.findViewById(R.id.token_status);
             holder.absent_btn = (Button) view.findViewById(R.id.absent_btn);
+            holder.customer_list_rl = (RelativeLayout) view.findViewById(R.id.customer_list_rl);
 
             holder.absent_btn.setTag(position);
             view.setTag(holder);
         } else {
             holder = (Holder) view.getTag();
         }
+
+
         try {
 
+            holder.customer_list_rl.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+
+                    mClick.onClick(Integer.parseInt(data.get(position).getId()), String.valueOf(position), data.get(position).getService_id());
+                    //  holder.customer_list_rl.getChildAt(position).setBackgroundColor(Color.GRAY);
+                    return true;
+                }
+            });
             set = data.get(position);
 
-            if (data.get(position).getStatus().equalsIgnoreCase("Active")) {
-                holder.absent_btn.setVisibility(View.VISIBLE);
-                //  holder.status.setText("At Premise");
+            if (atpermise_all.equalsIgnoreCase("Yes")) {
 
+                if (data.get(position).getStatus().equalsIgnoreCase("In")) {
+                    holder.absent_btn.setVisibility(View.VISIBLE);
+                    holder.status.setVisibility(View.INVISIBLE);
+                    holder.absent_btn.setText("In");
+                    holder.absent_btn.setBackgroundColor(Color.BLUE);
+                } else {
+                    holder.absent_btn.setText("Cancel");
+                    holder.absent_btn.setVisibility(View.VISIBLE);
+                    holder.absent_btn.setBackgroundColor(Color.RED);
+
+                }
             } else {
+                if (data.get(position).getStatus().equalsIgnoreCase("In")) {
+                    holder.absent_btn.setText("In");
+                    holder.absent_btn.setBackgroundColor(Color.BLUE);
+                } else {
+                    holder.absent_btn.setText("Cancel");
+                    holder.absent_btn.setVisibility(View.VISIBLE);
+                    holder.absent_btn.setBackgroundColor(Color.RED);
 
-                holder.absent_btn.setVisibility(View.GONE);
+                }
+                holder.status.setVisibility(View.VISIBLE);
+
+                if (data.get(position).getStatus().equalsIgnoreCase("Active")) {
+                    holder.absent_btn.setVisibility(View.VISIBLE);
+                    //  holder.status.setText("At Premise");
+
+                } else {
+
+                    holder.absent_btn.setVisibility(View.INVISIBLE);
+                }
+
             }
-
             holder.status.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -126,7 +183,7 @@ public class ConsumerListAdap extends BaseAdapter {
                         if (data.get(position).getStatus().equalsIgnoreCase("Active")) {
                             updateListData.doUpdate("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=updateUserStatusAtPermise&id="
                                     + data.get(position).getId() + "&business_id=" + business_id + "&address_id="
-                                    + MyAdsFrag.address_id);
+                                    + MyAdsFrag.address_id + "&sub_date=" + data.get(position).getSub_date() + "&service_id=" + data.get(position).getService_id());
                             holder.status.setText("At Premise");
                         } else {
 
@@ -141,7 +198,7 @@ public class ConsumerListAdap extends BaseAdapter {
                         if (data.get(position).getStatus().equalsIgnoreCase("Active")) {
                             updateListData.doUpdate("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=updateUserStatusAtPermise&id="
                                     + data.get(position).getId() + "&business_id=" + business_id + "&address_id="
-                                    + MyAdsFrag.address_id + "&staff_id=" + mPref.getStaffId());
+                                    + MyAdsFrag.address_id + "&staff_id=" + mPref.getStaffId() + "&sub_date=" + data.get(position).getSub_date() + "&service_id=" + data.get(position).getService_id());
                             holder.status.setText("At Premise");
                         } else {
 
@@ -159,45 +216,58 @@ public class ConsumerListAdap extends BaseAdapter {
                 public void onClick(View v) {
 
 
-                    mDialougeBox = new Dialog(activity);
-                    mDialougeBox.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                    mDialougeBox.setContentView(R.layout.item_absent_customer);
-                    mDialougeBox.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    mDialougeBox.getWindow().setGravity(Gravity.CENTER);
-                    mDialougeBox.show();
+                    if (data.get(position).getStatus().equalsIgnoreCase("In")) {
 
-                    TextView mDelete = (TextView) mDialougeBox.findViewById(R.id.absent_customer_tv);
-                    TextView mCancleTv = (TextView) mDialougeBox.findViewById(R.id.cancel_customer_tv) ;
+                    } else {
+                        mDialougeBox = new Dialog(activity);
+                        mDialougeBox.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        mDialougeBox.setContentView(R.layout.item_absent_customer);
+                        mDialougeBox.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        mDialougeBox.getWindow().setGravity(Gravity.CENTER);
+                        mDialougeBox.show();
 
-                    mDelete.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if (mPref.getStaffId().equalsIgnoreCase("")) {
-                                updateListData.doUpdate("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=updateUserStatusAbsent&id="
-                                        + data.get(position).getId() + "&business_id=" + business_id + "&address_id="
-                                        + MyAdsFrag.address_id + "&appointment_date=" + data.get(position).getAppointment_date());
+                        TextView mDelete = (TextView) mDialougeBox.findViewById(R.id.absent_customer_tv);
+                        TextView mCancleTv = (TextView) mDialougeBox.findViewById(R.id.cancel_customer_tv);
+
+                        mDelete.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if (mPref.getStaffId().equalsIgnoreCase("")) {
+                                    try {
+                                        updateListData.doUpdate("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=updateUserStatusAbsent&id="
+                                                + data.get(position).getId() + "&business_id=" + business_id + "&address_id="
+                                                + MyAdsFrag.address_id + "&appointment_date=" + data.get(position).getAppointment_date() +
+                                                "&sub_date=" + data.get(position).getSub_date() + "&service_id=" + data.get(position).getService_id());
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
 
 
-                            } else {
-                                Log.d("CLA", "" + data.get(position).getId());
-                                updateListData.doUpdate("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=updateUserStatusAbsent&id="
-                                        + data.get(position).getId() + "&business_id=" + business_id + "&address_id="
-                                        + MyAdsFrag.address_id + "&appointment_date=" + data.get(position).getAppointment_date() + "&staff_id=" + mPref.getStaffId());
+                                } else {
+                                    try {
+                                        Log.d("CLA", "" + data.get(position).getId());
+                                        updateListData.doUpdate("http://lifeoninternet.com/" + Utils.stringBuilder() + "/api.php?action=updateUserStatusAbsent&id="
+                                                + data.get(position).getId() + "&business_id=" + business_id + "&address_id="
+                                                + MyAdsFrag.address_id + "&appointment_date=" + data.get(position).getAppointment_date() +
+                                                "&staff_id=" + mPref.getStaffId() + "&sub_date=" + data.get(position).getSub_date() + "&service_id=" + data.get(position).getService_id());
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                mDialougeBox.hide();
                             }
-                            mDialougeBox.hide();
-                        }
-                    });
+                        });
 
-                    mCancleTv.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
+                        mCancleTv.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
 
-                            mDialougeBox.hide();
+                                mDialougeBox.hide();
 
-                        }
-                    });
+                            }
+                        });
 
-
+                    }
                 }
             });
 

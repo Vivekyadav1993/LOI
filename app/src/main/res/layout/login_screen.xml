@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/linearLayoutFormatStyle"
     android:background="@color/white"
-    android:orientation="vertical"
     android:paddingBottom="10dp"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
@@ -11,37 +9,26 @@
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/linearLayoutStyle"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="35dp"
-        android:padding="3dp"
         android:background="@drawable/login_background"
         android:orientation="horizontal"
+        android:padding="3dp"
         android:weightSum="1">
 
         <TextView
             android:id="@+id/frag_login_user_tv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:fontFamily="sans-serif-condensed"
-            android:gravity="center"
-            android:padding="8dp"
-            android:text="USER LOGIN"
+            style="@style/splashTextView"
             android:background="@color/blue"
+            android:text="USER LOGIN"
             android:textColor="@color/white"
             android:textSize="@dimen/text_xlarge" />
 
         <TextView
             android:id="@+id/frag_login_staff_tv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:fontFamily="sans-serif-condensed"
-            android:gravity="center"
-            android:padding="8dp"
+            style="@style/splashTextView"
             android:text="STAFF LOGIN"
             android:textColor="@color/blue"
             android:textSize="@dimen/text_xlarge" />
@@ -51,21 +38,16 @@
 
     <LinearLayout
         android:id="@+id/frag_login_user_ll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/linearLayoutStyle"
         android:orientation="vertical">
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            style="@style/textInputField"
             android:layout_marginTop="30dp">
 
             <EditText
                 android:id="@+id/login_phone_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/wrapEditTextInput"
                 android:layout_marginTop="40dp"
                 android:drawableLeft="@drawable/ic_phone"
                 android:drawablePadding="8dp"
@@ -79,16 +61,12 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            style="@style/textInputField"
             android:layout_marginTop="5dp">
 
             <EditText
                 android:id="@+id/login_password_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/wrapEditTextInput"
                 android:layout_marginTop="20dp"
                 android:drawableLeft="@drawable/ic_password"
                 android:drawablePadding="8dp"
@@ -103,16 +81,12 @@
 
     <LinearLayout
         android:id="@+id/frag_login_staff_ll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/linearLayoutStyle"
         android:orientation="vertical"
         android:visibility="gone">
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            style="@style/textInputField"
             android:layout_marginTop="30dp">
 
             <EditText
@@ -132,10 +106,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            style="@style/textInputField"
             android:layout_marginTop="5dp">
 
             <EditText
@@ -157,8 +128,7 @@
 
     <TextView
         android:id="@+id/login_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/wrapTextInput"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
         android:background="@drawable/grey_border_trans"
@@ -169,6 +139,7 @@
         android:text="GO !"
         android:textColor="@color/blue"
         android:textSize="@dimen/text_xxlarge" />
+
     <TextView
         android:id="@+id/staff_login_btn"
         android:layout_width="wrap_content"
@@ -180,19 +151,18 @@
         android:paddingLeft="40dp"
         android:paddingRight="40dp"
         android:paddingTop="10dp"
-        android:visibility="gone"
         android:text="GO !"
         android:textColor="@color/blue"
-        android:textSize="@dimen/text_xxlarge" />
+        android:textSize="@dimen/text_xxlarge"
+        android:visibility="gone" />
 
 
     <TextView
         android:id="@+id/login_forgot_pwd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/wrapTextInput"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:fontFamily="sans-serif-condensed"
+
         android:padding="5dp"
         android:text="Forgot Password ?"
         android:textColor="@color/red"

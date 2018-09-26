@@ -30,11 +30,12 @@
                 android:src="@drawable/leftarrow_white" />
 
             <TextView
+                android:id="@+id/staff_name_header_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/new_staff_next_btn"
-                android:layout_toRightOf="@+id/new_staff_back_btn"
+                android:layout_toLeftOf="@id/new_staff_next_btn"
+                android:layout_toRightOf="@id/new_staff_back_btn"
                 android:gravity="center"
                 android:text="New Staff"
                 android:textColor="@color/white"
@@ -47,8 +48,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:padding="10dp"
-                android:tint="@color/white"
-                android:src="@drawable/ic_navigate" />
+                android:src="@drawable/ic_navigate"
+                android:tint="@color/white" />
 
 
         </RelativeLayout>
@@ -118,8 +119,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="5dp"
-                android:visibility="gone"
-                android:src="@drawable/tele_icn" />
+                android:src="@drawable/tele_icn"
+                android:visibility="gone" />
         </RelativeLayout>
 
         // Last name layout
@@ -175,6 +176,7 @@
                     android:hint="Phone Number "
                     android:imeOptions="actionNext"
                     android:inputType="number"
+                    android:maxLength="10"
                     android:paddingLeft="20dp"
                     android:paddingRight="10dp"
                     android:textSize="@dimen/text_medium" />
@@ -213,7 +215,6 @@
 
 
         </RelativeLayout>
-
 
 
         // address layout

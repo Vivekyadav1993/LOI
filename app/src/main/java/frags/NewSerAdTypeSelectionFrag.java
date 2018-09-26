@@ -44,8 +44,8 @@ public class NewSerAdTypeSelectionFrag extends HelperFrags implements  Httprespo
     @BindView(R.id.newser_adtype_que_btn)
     RadioButton newser_adtype_que_btn;
 
-    @BindView(R.id.newser_adtype_group_btn)
-    RadioButton newser_adtype_group_btn;
+    @BindView(R.id.newser_adtype_appointment_queue_btn)
+    RadioButton newser_adtype_appointment_queue_btn;
 
     @BindView(R.id.newser_adtype_appointment_btn)
     RadioButton newser_adtype_appointment_btn;
@@ -60,7 +60,7 @@ public class NewSerAdTypeSelectionFrag extends HelperFrags implements  Httprespo
     @BindView(R.id.sub_type_unfixed)
     RadioButton sub_type_unfixed;
 
-    private String appointment_type ="", appointment_subtype = "";
+    private String appointment_type ="que", appointment_subtype = "";
 
     private HttpresponseUpd callback;
 
@@ -80,27 +80,27 @@ public class NewSerAdTypeSelectionFrag extends HelperFrags implements  Httprespo
 
         bundle = getArguments();
 
+
         newser_adtype_all_radiogrp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 if (newser_adtype_appointment_btn.isChecked()){
-                    newser_adtype_appointment_layout.setVisibility(View.VISIBLE);
-                    appointment_type = "Appointment";
+                 //   newser_adtype_appointment_layout.setVisibility(View.VISIBLE);
+                    appointment_type = "apt";
                 }
-                else{
+              /*  else{
                     newser_adtype_appointment_layout.setVisibility(View.GONE);
-                }
+                }*/
 
                 if (newser_adtype_que_btn.isChecked()){
-                    appointment_type = "Que";
+                    appointment_type = "que";
                 }
 
-                if (newser_adtype_group_btn.isChecked()){
-                    appointment_type = "Group";
+                if (newser_adtype_appointment_queue_btn.isChecked()){
+                    appointment_type = "queapt";
                 }
             }
         });
-
 
         sub_type_radiogrp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

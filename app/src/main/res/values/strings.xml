@@ -25,7 +25,7 @@
 
     <string-array name="hold_data">
 
-        <item>Hold</item>
+        <item>HOLD</item>
         <item>5 min</item>
         <item>10 min</item>
         <item>15 min</item>
@@ -35,6 +35,11 @@
 
     </string-array>
 
+    <string name="youAreNotUpdatedTitle">Update Available</string>
+    <string name="youAreNotUpdatedMessage">A new version of YOUR_APP_NAME is available. Please update to version\s</string>
+    <string name="youAreNotUpdatedMessage1">\s now</string>
+
+    <string name="update">Update</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="otp_dilg">We have sent OTP on your \n mobile number</string>
@@ -52,6 +57,10 @@
     <string name="btn_label_refresh">Refresh</string>
     <string name="otp_dilg_login">Your number is not verified, Verify first</string>
     <string name="edit_date_time"><![CDATA[Business day & Time :]]></string>
+    <string name="business_orerwrite">You are overwritting \n an  existing business, \n\n Really want to overwrite?</string>
+    <string name="update_message">Please download our \n exciting new version.</string>
+    <string name="search_hint">Search</string>
+    <string name="update_dialouge_box">Download our exciting new version. Now Life on Internet application is -</string>
 
 
 </resources>

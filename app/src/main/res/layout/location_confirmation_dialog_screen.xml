@@ -8,9 +8,8 @@
     android:orientation="vertical">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#343851"
+        style="@style/matchTextInput"
+        android:background="@color/colorAccent"
         android:gravity="center"
         android:padding="10dp"
         android:text="LOCATION"
@@ -18,8 +17,7 @@
         android:textSize="@dimen/text_xlarge" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/wrapTextInput"
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="Current Location"
@@ -27,26 +25,24 @@
 
     <TextView
         android:id="@+id/loc_confirm_add"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/matchTextInput"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="8dp"
         android:layout_marginRight="20dp"
+        android:layout_marginTop="8dp"
         android:gravity="left"
         android:text="Current Location"
-        android:textColor="#232323"
+        android:textColor="@color/black"
         android:textSize="@dimen/text_large"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/loc_confirm_changeloc_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/wrapTextInput"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
         android:background="@drawable/blue_round_trans"
         android:gravity="center"
         android:minWidth="150dp"
-        android:layout_marginTop="10dp"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
         android:text="Change Location"
@@ -55,8 +51,7 @@
 
     <TextView
         android:id="@+id/loc_confirm_done"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/wrapTextInput"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"

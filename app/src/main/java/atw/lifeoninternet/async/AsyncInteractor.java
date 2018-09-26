@@ -1,6 +1,7 @@
 package atw.lifeoninternet.async;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -16,6 +17,7 @@ import java.util.Map;
 
 import atw.lifeoninternet.AppController;
 import atw.lifeoninternet.utils.LogToastUtility;
+import atw.lifeoninternet.utils.Utils;
 
 
 /**
@@ -77,8 +79,11 @@ public class AsyncInteractor implements IAsyncInteractor {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        LogToastUtility.LI(TAG, "GetUrl:" + pid + ":error:" + error.toString());
-                        listener.onRequestCompletionError(pid, error.toString());
+
+                          //  Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show();
+                            LogToastUtility.LI(TAG, "GetUrl:" + pid + ":error:" + error.toString());
+                            listener.onRequestCompletionError(pid, error.toString());
+
                     }
                 }) {
             @Override

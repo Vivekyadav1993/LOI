@@ -10,149 +10,237 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingBottom="30dp">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/hesder_bg">
+
+        <RelativeLayout style="@style/headerRelativeLayout">
 
 
-        <ImageView
-            android:id="@+id/add_customer_back_btn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:padding="10dp"
-            android:src="@drawable/leftarrow_white" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/add_ctg_next_btn"
-            android:layout_toRightOf="@id/add_ctg_back_btn"
-            android:gravity="center"
-            android:text="Add Customer"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_large" />
-
-
-
-
-    </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="10dp"
-            android:padding="3dp"
-            android:background="@drawable/login_background"
-            android:orientation="horizontal"
-            android:weightSum="1">
+            <ImageView
+                android:id="@+id/add_customer_back_btn"
+                style="@style/headerImageView" />
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".5"
-                android:fontFamily="sans-serif-condensed"
+                style="@style/wrapTextInput"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/add_customer_back_btn"
                 android:gravity="center"
-                android:padding="8dp"
-                android:text="Walk-in"
-                android:background="@color/blue"
+                android:text="Add Customer"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_xlarge" />
+                android:textSize="@dimen/text_large" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".5"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="center"
-                android:padding="8dp"
-                android:text="On-Call"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/text_xlarge" />
+            <LinearLayout
+                android:layout_width="120dp"
+                android:layout_height="42dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/login_background"
+                android:orientation="horizontal"
+                android:padding="3dp"
+                android:weightSum="1">
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/add_manual_customer_walkin_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight=".5"
+                    android:background="@color/blue"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="Walk-in"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_medium" />
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="25dp">
+                <TextView
+                    android:id="@+id/add_manual_customer_oncall_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight=".5"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="On-Call"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/text_medium" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/add_manual_customer_phone_et"
+            style="@style/wrapEditTextInput"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:hint="Enter phone no."
+            android:inputType="number"
+            android:maxLength="10"
+            android:text=""
+            android:textSize="14sp" />
+
 
         <EditText
             android:id="@+id/ctg_name_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/wrapEditTextInput"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
             android:hint="Enter customer name"
             android:imeOptions="actionNext"
             android:inputType="textCapWords"
             android:textSize="@dimen/text_medium" />
 
-    </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp">
+        <Spinner
+            android:id="@+id/add_manual_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/spinner_background" />
 
-        <EditText
-            android:id="@+id/add_manual_customer_phone_et"
+
+        <!--    <DatePicker
+                android:id="@+id/booking_date_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />-->
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="25dp"
+                android:gravity="center_vertical"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Select Date :"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/open_calenderdate_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="25dp"
+                android:background="@color/blue"
+                android:gravity="center_vertical"
+                android:fontFamily="sans-serif-condensed"
+                android:padding="5dp"
+                android:text="Select date"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/add_customer_done"
+            style="@style/wrapEditTextInput"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/blue"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="JOIN QUEUE"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_medium" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:text="Or"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:visibility="invisible" />
+
+
+        <TextView
+            android:id="@+id/frag_add_manual_book_appoint_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter phone no."
-            android:inputType="phone"
-            android:maxLength="10"
-            android:text=""
-            android:textSize="14sp" />
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/blue"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="BOOk APPOINTMENT"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_medium"
+            android:visibility="invisible" />
 
-    </android.support.design.widget.TextInputLayout>
+        <ScrollView
+            android:id="@+id/frag_add_manual_sv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/frag_join_queue_service_spinner"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/frag_add_manually_morning_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:padding="8dp"
+                    android:text="MORNING"
+                    android:textColor="@color/blue"
+                    android:textSize="14sp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/frag_add_manual_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/frag_add_manually_evening_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:padding="8dp"
+                    android:text="EVENING"
+                    android:textColor="@color/blue"
+                    android:textSize="14sp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/frag_add_manual_evening_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="1dp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+        </ScrollView>
 
 
-    <Spinner
-        android:id="@+id/add_manual_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="15dp" />
-
-
-    <!--    <DatePicker
-            android:id="@+id/booking_date_picker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />-->
-
-    <TextView
-        android:id="@+id/open_calenderdate_tv"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="15dp"
-        android:background="@color/blue"
-        android:gravity="center_vertical"
-        android:padding="5dp"
-        android:text="Select date"
-        android:textColor="@color/white"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/add_customer_done"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:layout_marginLeft="22dp"
-        android:layout_marginRight="22dp"
-        android:layout_marginTop="15dp"
-        android:background="@color/blue"
-        android:text="Add Customer"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_large" />
     </LinearLayout>
 
 </ScrollView>

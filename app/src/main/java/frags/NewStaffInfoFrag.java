@@ -85,9 +85,9 @@ public class NewStaffInfoFrag extends HelperFrags implements HttpresponseUpd {
         bundle = getArguments();
 
         //set staff name
-        new_staffinfo_tag.setText(LandingActivity.staff_data_array.get(bundle.getInt("pos")).getFirst_name() + " "
+     /*   new_staffinfo_tag.setText(LandingActivity.staff_data_array.get(bundle.getInt("pos")).getFirst_name() + " "
                 + LandingActivity.staff_data_array.get(bundle.getInt("pos")).getLast_name());
-
+*/
         return Mroot;
     }
 
@@ -106,15 +106,11 @@ public class NewStaffInfoFrag extends HelperFrags implements HttpresponseUpd {
                 .appendQueryParameter("address_id", LandingActivity.staff_data_array.get(bundle.getInt("pos")).getAddress_id())
                 .appendQueryParameter("onlyme_status", LandingActivity.staff_data_array.get(bundle.getInt("pos")).getOnly_me_flag())
                 .appendQueryParameter("admin_status", LandingActivity.staff_data_array.get(bundle.getInt("pos")).getAdmin_flag())
-
-
                 .appendQueryParameter("first_name", LandingActivity.staff_data_array.get(bundle.getInt("pos")).getFirst_name())
                 .appendQueryParameter("last_name", LandingActivity.staff_data_array.get(bundle.getInt("pos")).getLast_name())
                 .appendQueryParameter("email", LandingActivity.staff_data_array.get(bundle.getInt("pos")).getEmail())
                 .appendQueryParameter("phone", LandingActivity.staff_data_array.get(bundle.getInt("pos")).getPhone())
                 .appendQueryParameter("address", LandingActivity.staff_data_array.get(bundle.getInt("pos")).getAddress())
-
-
                 .appendQueryParameter("all_break1_from", LandingActivity.staff_data_array.get(bundle.getInt("pos")).getAll_break1_from())
                 .appendQueryParameter("all_break1_to", LandingActivity.staff_data_array.get(bundle.getInt("pos")).getAll_break1_to())
                 .appendQueryParameter("all_break2_from", LandingActivity.staff_data_array.get(bundle.getInt("pos")).getAll_break2_from())
@@ -253,17 +249,17 @@ public class NewStaffInfoFrag extends HelperFrags implements HttpresponseUpd {
     @OnClick(R.id.new_staffinfo_workingdays_btn)
     void goNext() {
         Bundle _bundle = new Bundle();
-        _bundle.putString("src", bundle.getString("src"));
+      /*  _bundle.putString("src", bundle.getString("src"));
         _bundle.putInt("pos", bundle.getInt("pos"));
-        _bundle.putInt("create_pos", bundle.getInt("create_pos"));
+     */  // _bundle.putInt("create_pos", bundle.getInt("create_pos"));
         replaceFrag(new NewStaffWorkingHourFrag(), _bundle, NewStaffInfoFrag.class.getName());
     }
 
     @OnClick(R.id.new_staffinfo_breaks_btn)
     void goNextBreak() {
         Bundle _bundle = new Bundle();
-        _bundle.putString("src", bundle.getString("src"));
-        _bundle.putInt("pos", bundle.getInt("pos"));
+      //  _bundle.putString("src", bundle.getString("src"));
+      //  _bundle.putInt("pos", bundle.getInt("pos"));
 
         replaceFrag(new NewStaffBreakTimeFrag(), _bundle, NewStaffInfoFrag.class.getName());
     }

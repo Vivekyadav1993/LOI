@@ -8,9 +8,11 @@ import android.support.annotation.NonNull;
 
 public class StaffListData /*implements Comparable<StaffListData> */{
 
-    private String staff_id, staff_name, hold_id, staff_status, service_name, customer_name, estimate_time, status, appointment_date, token_id, staff_service_started;
+    private String staff_id, staff_name, hold_id, staff_status, service_name, customer_name, estimate_time,
+            status, appointment_date, token_id, staff_service_started,sub_date,service_id,skip_last;
 
-    public StaffListData(String _staff_id, String _staff_name, String hold_id, String staff_status, String _service_name, String _customer_name, String _estimate_time, String _status, String _appointment_date, String _token_id, String staff_service_started) {
+    public StaffListData(String _staff_id, String _staff_name, String hold_id, String staff_status, String _service_name, String _customer_name, String _estimate_time, String _status,
+                         String _appointment_date, String _token_id, String staff_service_started,String sub_date,String service_id,String skip_last) {
 
         this.staff_id = _staff_id;
         this.staff_name = _staff_name;
@@ -23,6 +25,33 @@ public class StaffListData /*implements Comparable<StaffListData> */{
         this.appointment_date = _appointment_date;
         this.token_id = _token_id;
         this.staff_service_started = staff_service_started;
+        this.sub_date=sub_date;
+        this.service_id=service_id;
+        this.skip_last=skip_last;
+    }
+
+    public String getSkip_last() {
+        return skip_last;
+    }
+
+    public void setSkip_last(String skip_last) {
+        this.skip_last = skip_last;
+    }
+
+    public String getService_id() {
+        return service_id;
+    }
+
+    public void setService_id(String service_id) {
+        this.service_id = service_id;
+    }
+
+    public String getSub_date() {
+        return sub_date;
+    }
+
+    public void setSub_date(String sub_date) {
+        this.sub_date = sub_date;
     }
 
     public String getHold_id() {

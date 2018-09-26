@@ -1,12 +1,21 @@
 package atw.lifeoninternet;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.SyncStateContract;
@@ -28,7 +37,10 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -37,6 +49,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.daasuu.bl.BubbleLayout;
 
 import org.json.JSONArray;
@@ -64,6 +77,7 @@ import helper.AppUtils;
 import helper.HelperActivity;
 import helper.HttpresponseUpd;
 import helper.LocationUpd;
+import io.fabric.sdk.android.Fabric;
 import models.BusinessData;
 import models.BusinessHourData;
 import models.CategoryData;
@@ -76,9 +90,8 @@ import models.StaffData;
 public class LandingActivity extends HelperActivity
         implements NavigationView.OnNavigationItemSelectedListener, LocationUpd, HttpresponseUpd {
 
-
     private FragmentManager fragmentManager;
-
+    private Dialog mDialougeBox;
     private FragmentTransaction fragmentTransaction;
 
     private Bundle bundle;
@@ -114,7 +127,6 @@ public class LandingActivity extends HelperActivity
 
     public static String staffwise_booking_switch = "", advnoof_day_switch = "",
             packageconfig_switch = "", status_switch = "",
-
     ingroup_switch = "", sync_switch = "", ajust_radiobtn_value = "";
 
     private Sharedpreferences mPrefs;
@@ -138,12 +150,30 @@ public class LandingActivity extends HelperActivity
         location_upd = this;
         http_callback = this;
 
-
         ButterKnife.bind(this);
+
+        final Fabric fabric = new Fabric.Builder(this)
+                .kits(new Crashlytics())
+                .debuggable(true)  // Enables Crashlytics debugger
+                .build();
+        Fabric.with(fabric);
         mPrefs = Sharedpreferences.getUserDataObj(this);
         status_login = getIntent().getStringExtra("src");
 
-        Log.d("LandingActivity", "login status" + status_login);
+      /*  Button crashButton = new Button(this);
+        crashButton.setText("Crash!");
+        crashButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Crashlytics.getInstance().crash(); // Force a crash
+            }
+        });
+
+        addContentView(crashButton, new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));*/
+
+
+
         //initialize share preference
         AppConstants.app_data = getSharedPreferences("AppData", MODE_PRIVATE);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -151,7 +181,7 @@ public class LandingActivity extends HelperActivity
 
         toolbar_title = (TextView) findViewById(R.id.toolbar_title);
 
-        toolbar_title.setText("  " + AppConstants.app_data.getString("short_add", "Life On Internet"));
+        toolbar_title.setText(AppConstants.app_data.getString("address", "Life On Internet"));
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
@@ -160,7 +190,6 @@ public class LandingActivity extends HelperActivity
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-
                 // Update navigation header text
                 updateNavigationViewHeader();
             }
@@ -183,10 +212,11 @@ public class LandingActivity extends HelperActivity
         header_email = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_header_user_email);
         header_mbole = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_header_user_mobile);
 
-        //  header_name.setText(mPrefs.getName());
-        // header_name.setText(mPrefs.getEmailId());
-        header_name.setText(AppConstants.app_data.getString("name", "n/a"));
-        header_email.setText(AppConstants.app_data.getString("email", "n/a"));
+        header_name.setText(mPrefs.getName());
+        header_name.setText(mPrefs.getEmailId());
+      /*  header_name.setText(AppConstants.app_data.getString("name", "Guest"));
+        header_email.setText(AppConstants.app_data.getString("email", "guest@lifeoninternet.com"));
+      */
         header_mbole.setText(mPrefs.getMobile());
 
         toolbar_title.setOnClickListener(new View.OnClickListener() {
@@ -227,15 +257,34 @@ public class LandingActivity extends HelperActivity
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
 
-        Fragment frag1 = new CustomerLandingFrag();
-       /* Bundle bundle = new Bundle();
-        frag.setArguments(bundle);*/
 
-        fragmentTransaction.add(R.id.parentcontainer, frag1)/*.addToBackStack(LandingActivity.class.getName())*/.commit();
+        if (mPrefs.getStaffId().equalsIgnoreCase(null) || mPrefs.getStaffId().equalsIgnoreCase("")) {
+            getLocConfirmDialog();
+            Fragment frag1 = new CustomerLandingFrag();
+            fragmentTransaction.add(R.id.parentcontainer, frag1)/*.addToBackStack(LandingActivity.class.getName())*/.commit();
+
+
+        } else {
+            if (mPrefs.getUserId().equals(null) || mPrefs.getUserId().equals("")) {
+                Intent intent = new Intent(this, UserAuthACtivity.class);
+                startActivity(intent);
+
+            } else {
+                fragmentManager = getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                Fragment frag = new MyAdsAddressFrag();
+                Bundle bundle = new Bundle();
+                bundle.putString("commingfrom", "myads");
+                frag.setArguments(bundle);
+
+                fragmentTransaction.replace(R.id.parentcontainer, frag).addToBackStack(LandingActivity.class.getName()).commit();
+            }
+        }
+
 
         bundle = getIntent().getExtras();
 
-        Log.d("LA", "StaffId" + mPrefs.getStaffId());
+   /*     Log.d("LA", "StaffId" + mPrefs.getStaffId());
         if (mPrefs.getStaffId().equalsIgnoreCase("")) {
 
             navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -244,19 +293,19 @@ public class LandingActivity extends HelperActivity
             nav_Menu.findItem(R.id.nav_edit_ads).setVisible(true);
 
 
-        } else {
-            hideItem();
-        }
+        } else {*/
+        hideItem();
+        //  }
 
         if (bundle.getString("src").equals("def")) {
             // def means current location dialog appear as well as get data by its lat long
             Log.e("erc0", bundle.getString("src"));
-            getLocConfirmDialog();
+            //  getLocConfirmDialog();
 
         } else if (bundle.getString("src").equals("stafflogin")) {
             // def means current location dialog appear as well as get data by its lat long
             Log.e("erc110", bundle.getString("src"));
-            getLocConfirmDialog();
+            //  getLocConfirmDialog();
 
 
         } else if (bundle.getString("src").equals("deff")) {
@@ -330,12 +379,14 @@ public class LandingActivity extends HelperActivity
         Log.d("LA", "Staff_status" + mPrefs.getStaffAdmin());
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         Menu nav_Menu = navigationView.getMenu();
-        if (mPrefs.getStaffAdmin().equalsIgnoreCase("Yes")) {
-            nav_Menu.findItem(R.id.nav_create_ads).setVisible(true);
-            nav_Menu.findItem(R.id.nav_edit_ads).setVisible(true);
-        } else {
+        if (mPrefs.getStaffAdmin().equalsIgnoreCase("No")) {
+
             nav_Menu.findItem(R.id.nav_create_ads).setVisible(false);
             nav_Menu.findItem(R.id.nav_edit_ads).setVisible(false);
+        } else {
+
+            nav_Menu.findItem(R.id.nav_create_ads).setVisible(true);
+            nav_Menu.findItem(R.id.nav_edit_ads).setVisible(true);
         }
 
 
@@ -351,7 +402,11 @@ public class LandingActivity extends HelperActivity
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+            try {
+                drawer.closeDrawer(GravityCompat.START);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
             super.onBackPressed();
         }
@@ -403,7 +458,8 @@ public class LandingActivity extends HelperActivity
             bundle.putString("comming", "showsearch");
             fragmentTransaction.replace(R.id.parentcontainer, frag).addToBackStack(LandingActivity.class.getName()).commit();
 *//*
-        } else */if (id == R.id.action_home) {
+        } else */
+        if (id == R.id.action_home) {
 
             fragmentManager = getSupportFragmentManager();
             fragmentTransaction = fragmentManager.beginTransaction();
@@ -424,17 +480,70 @@ public class LandingActivity extends HelperActivity
 
         if (id == R.id.nav_create_ads) {
 
-            // Handle the camera action
-            fragmentManager = getSupportFragmentManager();
-            fragmentTransaction = fragmentManager.beginTransaction();
-            Fragment frag = new AdPublishSelectionFrag();
-            Bundle bundle = new Bundle();
+            Log.d("LandingActivity", "business_id" + mPrefs.getBusnessId());
 
-            bundle.putString("src", "def");
-            frag.setArguments(bundle);
+            if (mPrefs.getUserId().equals(null) || mPrefs.getUserId().equals("")) {
+                Intent intent = new Intent(this, UserAuthACtivity.class);
+                startActivity(intent);
 
-            fragmentTransaction.add(R.id.parentcontainer, frag).addToBackStack(LandingActivity.class.getName()).commit();
-        } else if (id == R.id.nav_logout) {
+            } else {
+
+                if (mPrefs.getBusnessId().equals(null) || mPrefs.getBusnessId().equals("")) {
+                    fragmentManager = getSupportFragmentManager();
+                    fragmentTransaction = fragmentManager.beginTransaction();
+                    Fragment frag = new AdPublishSelectionFrag();
+                    Bundle bundle = new Bundle();
+
+                    bundle.putString("src", "def");
+                    frag.setArguments(bundle);
+
+                    fragmentTransaction.add(R.id.parentcontainer, frag).addToBackStack(LandingActivity.class.getName()).commit();
+
+                } else {
+                    mDialougeBox = new Dialog(LandingActivity.this);
+                    mDialougeBox.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    mDialougeBox.setContentView(R.layout.item_new_business);
+                    mDialougeBox.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    mDialougeBox.getWindow().setGravity(Gravity.CENTER);
+                    mDialougeBox.show();
+
+                    TextView mDelete = (TextView) mDialougeBox.findViewById(R.id.overwrite_business_tv);
+                    TextView mCancleTv = (TextView) mDialougeBox.findViewById(R.id.businessoverwrite_cancel_tv);
+
+
+                    mDelete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            mPrefs.setBusnessId("");
+                            fragmentManager = getSupportFragmentManager();
+                            fragmentTransaction = fragmentManager.beginTransaction();
+                            Fragment frag = new AdPublishSelectionFrag();
+                            Bundle bundle = new Bundle();
+
+                            bundle.putString("src", "def");
+                            frag.setArguments(bundle);
+
+                            fragmentTransaction.add(R.id.parentcontainer, frag).addToBackStack(LandingActivity.class.getName()).commit();
+
+
+                            mDialougeBox.hide();
+                        }
+                    });
+                    mCancleTv.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            mDialougeBox.hide();
+
+                        }
+                    });
+
+                }
+            }
+
+        } else if (id == R.id.nav_logout)
+
+        {
 
             mPrefs.setIsUserLoggedIn(false);
 
@@ -452,48 +561,65 @@ public class LandingActivity extends HelperActivity
             finish();
         } else if (id == R.id.nav_my_ads) {
 
-            fragmentManager = getSupportFragmentManager();
-            fragmentTransaction = fragmentManager.beginTransaction();
-            Fragment frag = new MyAdsAddressFrag();
-            Bundle bundle = new Bundle();
-            bundle.putString("commingfrom", "myads");
-            frag.setArguments(bundle);
+            if (mPrefs.getUserId().equals(null) || mPrefs.getUserId().equals("")) {
+                Intent intent = new Intent(this, UserAuthACtivity.class);
+                startActivity(intent);
 
-            fragmentTransaction.replace(R.id.parentcontainer, frag).addToBackStack(LandingActivity.class.getName()).commit();
-
-
-        } else if (id == R.id.nav_my_cust_list) {
-
-
-            if (mPrefs.getBusnessId() == null || mPrefs.getBusnessId().equals("")) {
-                Toast.makeText(this, "Create Business First", Toast.LENGTH_SHORT).show();
             } else {
                 fragmentManager = getSupportFragmentManager();
                 fragmentTransaction = fragmentManager.beginTransaction();
-
                 Fragment frag = new MyAdsAddressFrag();
                 Bundle bundle = new Bundle();
-                bundle.putString("commingfrom", "editads");
+                bundle.putString("commingfrom", "myads");
                 frag.setArguments(bundle);
-                fragmentTransaction.replace(R.id.parentcontainer, frag).addToBackStack(LandingActivity.class.getName()).commit();
 
+                fragmentTransaction.replace(R.id.parentcontainer, frag).addToBackStack(LandingActivity.class.getName()).commit();
+            }
+
+        } else if (id == R.id.nav_my_cust_list) {
+
+            if (mPrefs.getUserId().equals(null) || mPrefs.getUserId().equals("")) {
+                Intent intent = new Intent(this, UserAuthACtivity.class);
+                startActivity(intent);
+
+            } else {
+                if (mPrefs.getBusnessId() == null || mPrefs.getBusnessId().equals("")) {
+                    Toast.makeText(this, "Create Business First", Toast.LENGTH_SHORT).show();
+                } else {
+                    fragmentManager = getSupportFragmentManager();
+                    fragmentTransaction = fragmentManager.beginTransaction();
+
+                    Fragment frag = new MyAdsAddressFrag();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("commingfrom", "editads");
+                    frag.setArguments(bundle);
+                    fragmentTransaction.replace(R.id.parentcontainer, frag).addToBackStack(LandingActivity.class.getName()).commit();
+
+                }
             }
 
         } else if (id == R.id.nav_edit_ads) {
 
             try {
-                if (mPrefs.getBusnessId() == null || mPrefs.getBusnessId().equals("")) {
-                    Toast.makeText(this, "Create Ads First", Toast.LENGTH_SHORT).show();
+                if (mPrefs.getUserId().equals(null) || mPrefs.getUserId().equals("")) {
+                    Intent intent = new Intent(this, UserAuthACtivity.class);
+                    startActivity(intent);
+
                 } else {
+                    if (mPrefs.getBusnessId() == null || mPrefs.getBusnessId().equals("")) {
+                        Toast.makeText(this, "Create Ads First", Toast.LENGTH_SHORT).show();
+                    } else {
 
-                    Log.d("LandingActivity", "business_id:" + mPrefs.getBusnessId());
+                        Log.d("LandingActivity", "business_id:" + mPrefs.getBusnessId());
 
-                    fragmentManager = getSupportFragmentManager();
-                    fragmentTransaction = fragmentManager.beginTransaction();
-                    Fragment frag = new AdDetailsEditFrag();
-                    Bundle bundle = new Bundle();
-                    frag.setArguments(bundle);
-                    fragmentTransaction.replace(R.id.parentcontainer, frag).addToBackStack(LandingActivity.class.getName()).commit();
+                        fragmentManager = getSupportFragmentManager();
+                        fragmentTransaction = fragmentManager.beginTransaction();
+                        Fragment frag = new /*AdDetailsEditFrag()*/ MyAdsAddressFrag();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("commingfrom", "landing_edit_button");
+                        frag.setArguments(bundle);
+                        fragmentTransaction.replace(R.id.parentcontainer, frag).addToBackStack(LandingActivity.class.getName()).commit();
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -502,13 +628,17 @@ public class LandingActivity extends HelperActivity
             }
 
         } else if (id == R.id.nav_my_appointment) {
+            if (mPrefs.getUserId().equals(null) || mPrefs.getUserId().equals("")) {
+                Intent intent = new Intent(this, UserAuthACtivity.class);
+                startActivity(intent);
 
-            fragmentManager = getSupportFragmentManager();
-            fragmentTransaction = fragmentManager.beginTransaction();
-            Fragment frag = new MyAppointmentFrag();
-            Bundle bundle = new Bundle();
-            fragmentTransaction.replace(R.id.parentcontainer, frag).addToBackStack(LandingActivity.class.getName()).commit();
-
+            } else {
+                fragmentManager = getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                Fragment frag = new MyAppointmentFrag();
+                Bundle bundle = new Bundle();
+                fragmentTransaction.replace(R.id.parentcontainer, frag).addToBackStack(LandingActivity.class.getName()).commit();
+            }
         }/* else if (id == R.id.nav_booking_history) {
 
             fragmentManager = getSupportFragmentManager();
@@ -680,7 +810,7 @@ public class LandingActivity extends HelperActivity
                     messageInputWindow.showAtLocation(findViewById(R.id.parent_cordinate), Gravity.CENTER, 0, 0);
                 }
             });
-            Log.e("erc1", bundle.getString("src"));
+//            Log.e("erc1", bundle.getString("src"));
 
 
         } catch (WindowManager.BadTokenException e) {

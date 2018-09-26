@@ -59,7 +59,7 @@ import static frags.MyAdsFrag.address_id;
 import static frags.MyAdsFrag.business_id;
 
 /**
- * Created by teknik on 10/5/2017.
+ * Created by vivek on 10/5/2018.
  */
 
 public class AddServiceFrag extends HelperFrags implements HttpresponseUpd {
@@ -143,9 +143,13 @@ public class AddServiceFrag extends HelperFrags implements HttpresponseUpd {
         if (AppUtils.isNetworkAvailable(getActivity()))
             AppUtils.getStringData(builder.build().toString(), getActivity(), callback);
         else {
-            snackbar = Snackbar.make(Mroot, "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
+            try {
+                snackbar = Snackbar.make(Mroot, "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
 
-            snackbar.show();
+                snackbar.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         }
         return Mroot;
@@ -159,7 +163,7 @@ public class AddServiceFrag extends HelperFrags implements HttpresponseUpd {
 
         LandingActivity.service_data_array = new ArrayList<>();
 
-        LandingActivity.service_data_array.add(new ServiceData(LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos")).getAddress_id(), "",
+        LandingActivity.service_data_array.add(new ServiceData(mPrefs.getAddressId(), "",
                 "", "", "", "", "", "", "", homeser_data_array));
 
         //hit api
@@ -192,7 +196,8 @@ public class AddServiceFrag extends HelperFrags implements HttpresponseUpd {
       /*  _bundle.putString("src", "def");
         _bundle.putInt("create_pos", bundle.getInt("create_pos"));
 */
-            _bundle.putString("add_id", LandingActivity.service_data_array.get(bundle.getInt("pos")).getAdd_id());
+            _bundle.putString("add_id", /*LandingActivity.service_data_array.get(bundle.getInt("pos")).getAdd_id()*/mPrefs.getAddressId());
+            _bundle.putString("comingfrom", /*LandingActivity.service_data_array.get(bundle.getInt("pos")).getAdd_id()*/"service");
 
             replaceFrag(new /*AddCategoryFrag()*/AdDetailsEditFrag(), _bundle, AddStaffFrag.class.getName());
 
@@ -203,7 +208,8 @@ public class AddServiceFrag extends HelperFrags implements HttpresponseUpd {
       /*  _bundle.putString("src", "def");
         _bundle.putInt("create_pos", bundle.getInt("create_pos"));
 */
-                _bundle.putString("add_id", LandingActivity.service_data_array.get(bundle.getInt("pos")).getAdd_id());
+                _bundle.putString("add_id",mPrefs.getAddressId());
+                _bundle.putString("comingfrom", /*LandingActivity.service_data_array.get(bundle.getInt("pos")).getAdd_id()*/"service");
 
                 replaceFrag(new /*AddCategoryFrag()*/AdDetailsEditFrag(), _bundle, AddStaffFrag.class.getName());
 
@@ -224,7 +230,7 @@ public class AddServiceFrag extends HelperFrags implements HttpresponseUpd {
             ArrayList<HomeSerData> homeser_data_array = new ArrayList<>();
             homeser_data_array.add(new HomeSerData("", "", "", "", "", "", "", "", ""));
 
-            LandingActivity.service_data_array.add(pos + 1, new ServiceData(LandingActivity.business_data.getAdderess_data().get(bundle.getInt("create_pos")).getAddress_id(), "",
+            LandingActivity.service_data_array.add(pos + 1, new ServiceData(mPrefs.getAddressId(), "",
                     "", "", "", "", "", "", "", homeser_data_array));
             _bundle.putInt("pos", pos + 1);
 
@@ -401,7 +407,27 @@ public class AddServiceFrag extends HelperFrags implements HttpresponseUpd {
                                             JSONObject main_obj = new JSONObject(response);
                                             //   JSONArray output_array = main_obj.getJSONArray("output");
                                             dialog.dismiss();
-                                            Toast.makeText(getActivity(), "" + main_obj.getString("message") + "\n Press the refresh button", Toast.LENGTH_SHORT).show();
+                                            Uri.Builder builder = new Uri.Builder();
+                                            builder.scheme("http")
+                                                    .authority("lifeoninternet.com")
+                                                    .appendPath(Utils.stringBuilder())
+                                                    .appendPath("api.php")
+                                                    .appendQueryParameter("action", "getService")
+                                                    .appendQueryParameter("address_id", LandingActivity.service_data_array.get(bundle.getInt("pos")).getAdd_id())
+                                            ;
+                                            Log.e("url", builder.build().toString());
+                                            if (AppUtils.isNetworkAvailable(getActivity()))
+                                                AppUtils.getStringData(builder.build().toString(), getActivity(), callback);
+                                            else {
+                                                try {
+                                                    snackbar = Snackbar.make(Mroot, "Life On Internet couldn't run without Internet!!! Kindly Switch On your Network Data.", Snackbar.LENGTH_LONG);
+
+                                                    snackbar.show();
+                                                } catch (Exception e) {
+                                                    e.printStackTrace();
+                                                }
+
+                                            }
 
                                         } catch (JSONException e) {
                                             dialog.dismiss();

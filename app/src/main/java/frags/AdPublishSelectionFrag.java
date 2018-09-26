@@ -35,35 +35,33 @@ public class AdPublishSelectionFrag extends HelperFrags {
     TextView ad_pub_next_btn;
 
 
-    private Bundle bundle ;
-
-
+    private Bundle bundle;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Mroot = inflater.inflate(R.layout.ad_publish_selection,null);
+        Mroot = inflater.inflate(R.layout.ad_publish_selection, null);
         ButterKnife.bind(this, Mroot);
         LandingActivity.business_data = new BusinessData();
-        return  Mroot;
+        return Mroot;
 
     }
 
     @OnClick(R.id.ad_pub_forall_btn)
-    void forAll(){
+    void forAll() {
         // save public in  publish type variable
         LandingActivity.business_data.setPublish_type("Public");
         LandingActivity.business_data.setPublish_id("0");
 
         bundle = new Bundle();
-        bundle.putString("src","def");
-
-        replaceFrag(new BusinessDetailsFrag(),bundle,AdPublishSelectionFrag.class.getName());
+        bundle.putString("src", "def");
+        bundle.putString("comming_from", "adpublishpage");
+        replaceFrag(new BusinessDetailsFrag(), bundle, AdPublishSelectionFrag.class.getName());
     }
 
     @OnClick(R.id.ad_pub_society_btn)
-    void forSociety(){
+    void forSociety() {
 
       /*  // save Society in  publish type variable
         LandingActivity.business_data.setPublish_type("Society");
@@ -73,6 +71,7 @@ public class AdPublishSelectionFrag extends HelperFrags {
         replaceFrag(new GroupSelectionFrag(),bundle,AdPublishSelectionFrag.class.getName());
 */
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -100,7 +99,7 @@ public class AdPublishSelectionFrag extends HelperFrags {
 
 
     @OnClick(R.id.ad_pub_private_btn)
-    void forPrivate(){
+    void forPrivate() {
         // save Private in  publish type variable
     /*    LandingActivity.business_data.setPublish_type("Private");
 
@@ -109,8 +108,9 @@ public class AdPublishSelectionFrag extends HelperFrags {
         replaceFrag(new GroupSelectionFrag(),bundle,AdPublishSelectionFrag.class.getName());
 */
     }
+
     @OnClick(R.id.ad_pub_back_btn)
-    void forBack(){
+    void forBack() {
         getActivity().onBackPressed();
     }
 }

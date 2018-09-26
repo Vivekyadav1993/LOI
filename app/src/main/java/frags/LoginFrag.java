@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,10 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,10 +35,8 @@ import helper.AppUtils;
 import helper.HelperFrags;
 import helper.HttpresponseUpd;
 
-import static android.content.Context.LAYOUT_INFLATER_SERVICE;
-
 /**
- * Created by teknik on 9/25/2017.
+ * Created by Vivek on 9/25/2017.
  */
 
 public class LoginFrag extends HelperFrags implements HttpresponseUpd {
@@ -281,10 +276,11 @@ public class LoginFrag extends HelperFrags implements HttpresponseUpd {
                 JSONArray main_array = main_obj.getJSONArray("output");
                 JSONObject obj = main_array.getJSONObject(0);
 
+                Toast.makeText(getActivity(), "" + main_obj.getString("message"), Toast.LENGTH_SHORT).show();
                 if (!obj.getString("user_id").equals("0")) {
 
 
-                    if (obj.getString("message").equalsIgnoreCase("Verify your mobile number")) {
+                    if (main_obj.getString("message").equalsIgnoreCase("Verify your mobile number")) {
 
                         showVerifyOtpDialog(obj.getString("user_id"));
                     } else {
@@ -295,13 +291,15 @@ public class LoginFrag extends HelperFrags implements HttpresponseUpd {
                         mPrefs.setMobile(obj.getString("mobile"));
                         mPrefs.setBusnessId(obj.getString("business_id"));
                         mPrefs.setAddressId(obj.getString("address_id"));
+                        mPrefs.setIndustryType(obj.getString("industry"));
+                        mPrefs.setStaffAdmin("Yes");
+
                         mPrefs.setIsUserLoggedIn(true);
                         // save user info
                         editor = AppConstants.app_data.edit();
                         editor.putString("name", obj.getString("name"));
                         editor.putString("email", obj.getString("email"));
                         editor.putString("phone", obj.getString("mobile"));
-
                         editor.putString("user_id", obj.getString("user_id"));
                         editor.commit();
 
@@ -317,8 +315,7 @@ public class LoginFrag extends HelperFrags implements HttpresponseUpd {
                 }
 
             } catch (JSONException e) {
-                snackbar = Snackbar.make(Mroot, " " + e.getMessage(), Snackbar.LENGTH_LONG);
-
+                snackbar = Snackbar.make(Mroot, "" + Utils.networkToastMsg(), Snackbar.LENGTH_LONG);
                 snackbar.show();
             }
 
@@ -329,40 +326,67 @@ public class LoginFrag extends HelperFrags implements HttpresponseUpd {
 
                 JSONObject main_obj = new JSONObject(response);
                 JSONArray main_array = main_obj.getJSONArray("output");
-                String message= main_obj.getString("message");
+                String message = main_obj.getString("message");
                 JSONObject obj = main_array.getJSONObject(0);
 
-                Toast.makeText(getActivity(), ""+message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
 
-                        mPrefs.setEmailId(obj.getString("email"));
-                        mPrefs.setName(obj.getString("name"));
-                        mPrefs.setUserId(obj.getString("user_id"));
-                        mPrefs.setCustId(obj.getString("cust_id"));
-                        mPrefs.setStaffId(obj.getString("staff_id"));
-                        mPrefs.setBusnessId(obj.getString("business_id"));
-                        mPrefs.setStaffAdmin(obj.getString("admin_status"));
-                        mPrefs.setIsUserLoggedIn(true);
-                        // save user info
-                        editor = AppConstants.app_data.edit();
-                        editor.putString("name", obj.getString("name"));
-                        editor.putString("email", obj.getString("email"));
-                        editor.putString("phone", obj.getString("mobile"));
+                mPrefs.setEmailId(obj.getString("email"));
+                mPrefs.setName(obj.getString("name"));
+                mPrefs.setUserId(obj.getString("user_id"));
+                mPrefs.setCustId(obj.getString("cust_id"));
+                //  mPrefs.setStaffId(obj.getString("staff_id"));
+                mPrefs.setBusnessId(obj.getString("business_id"));
+                mPrefs.setStaffAdmin(obj.getString("admin_status"));
 
-                        editor.putString("user_id", obj.getString("user_id"));
-                        editor.commit();
-
-                        Intent intent = new Intent(getActivity(), LandingActivity.class);
-                        intent.putExtra("src", "stafflogin");
-                        startActivity(intent);
-                        getActivity().finish();
+                Log.d("LoginFrag", mPrefs.getStaffAdmin());
+                mPrefs.setIndustryType(obj.getString("industry"));
+                mPrefs.setIsUserLoggedIn(true);
 
 
+                try {
+                    JSONArray jsonArray = obj.getJSONArray("address_staff");
+
+                    if (jsonArray.length() == 1) {
+
+                        Log.d("LF", "staff_id" + jsonArray.getJSONObject(0).getString("staff_id"));
+                        mPrefs.setStaffId(jsonArray.getJSONObject(0).getString("staff_id"));
+
+                    } else {
+                        String address_id_1 = jsonArray.getJSONObject(0).getString("address_id");
+                        String address_id_2 = jsonArray.getJSONObject(1).getString("address_id");
+                        String staff_id_1 = jsonArray.getJSONObject(0).getString("staff_id");
+                        String staff_id_2 = jsonArray.getJSONObject(1).getString("staff_id");
+
+                        mPrefs.setStaffId("");
+                        mPrefs.setAddressId1(address_id_1);
+                        mPrefs.setAddressId2(address_id_2);
+                        mPrefs.setStaffId1(staff_id_1);
+                        mPrefs.setStaffId2(staff_id_2);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                // save user info
+                editor = AppConstants.app_data.edit();
+                editor.putString("name", obj.getString("name"));
+                editor.putString("email", obj.getString("email"));
+                editor.putString("phone", obj.getString("mobile"));
+
+                editor.putString("user_id", obj.getString("user_id"));
+                editor.commit();
+
+
+                Intent intent = new Intent(getActivity(), LandingActivity.class);
+                intent.putExtra("src", "stafflogin");
+                startActivity(intent);
+                getActivity().finish();
 
 
             } catch (JSONException e) {
-                snackbar = Snackbar.make(Mroot, "Parsing error occurred!!! " + e.getMessage(), Snackbar.LENGTH_LONG);
 
-                snackbar.show();
             }
 
 

@@ -22,6 +22,7 @@
         android:fitsSystemWindows="true"
         android:background="@color/white"
         app:itemTextColor="@color/black"
+        app:itemTextAppearance="@style/fontFamily"
         app:headerLayout="@layout/nav_header_landing"
         app:menu="@menu/landing_screen_drawer" />
 

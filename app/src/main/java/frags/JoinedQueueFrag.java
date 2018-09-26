@@ -97,8 +97,8 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
     private Bundle bundle;
     private String businessid, addreddid, serviceid, appointment_date, staff_id, staff_status;
     private Snackbar snackbar;
-    private String token_number, your_place, estimate_time, a_date, message, booking_id, cust_id;
-    private String post_tag, busines_sid, addred_did, service_id, appointmen_tdate, staf_fid, bookin_gid, service_status, setvices_tatus;
+    private String token_number, your_place, estimate_time, a_date, message, booking_id, cust_id, ssub_date;
+    private String post_tag, busines_sid, addred_did, service_id, appointmen_tdate, staf_fid, bookin_gid, service_status, setvices_tatus, sub_date;
 
     private Dialog mDialougeBox;
     public Boolean Comming = false;
@@ -131,7 +131,7 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
         serviceid = bundle.getString("service_id");
         appointment_date = bundle.getString("appointment_date");
         staff_id = bundle.getString("staff_id");
-
+        sub_date = bundle.getString("sub_date");
         busines_sid = bundle.getString("businessid");
         addred_did = bundle.getString("addressid");
         service_id = bundle.getString("Serviceid");
@@ -144,7 +144,7 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
 
         hitDistanceApi();
 
-        Log.d("JQ", "before hiting api");
+        Log.d("JQ", "appointment_date" + appointment_date);
 
          /*  handler.postDelayed(new Runnable() {
             public void run() {
@@ -336,7 +336,9 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
                 .appendQueryParameter("appointment_date", appointment_date)
                 .appendQueryParameter("user_id", AppConstants.app_data.getString("user_id", ""))
                 .appendQueryParameter("lat", mPref.getLat())
-                .appendQueryParameter("longi", mPref.getLong());
+                .appendQueryParameter("longi", mPref.getLong())
+                .appendQueryParameter("sub_date", sub_date)
+        ;
 
         Log.e("stafflist", builder.build().toString());
         if (AppUtils.isNetworkAvailable(getActivity())) {
@@ -391,7 +393,9 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
                     .appendQueryParameter("id", booking_id)
                     .appendQueryParameter("business_id", businessid)
                     .appendQueryParameter("address_id", addreddid)
-                    .appendQueryParameter("appointment_date", appointment_date);
+                    .appendQueryParameter("appointment_date", appointment_date)
+                    .appendQueryParameter("sub_date", ssub_date)
+                    .appendQueryParameter("service_id", service_id);
 
             Log.e("stafflist", builder.build().toString());
             if (AppUtils.isNetworkAvailable(getActivity())) {
@@ -411,7 +415,9 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
                     .appendQueryParameter("id", bookin_gid)
                     .appendQueryParameter("business_id", busines_sid)
                     .appendQueryParameter("address_id", addred_did)
-                    .appendQueryParameter("appointment_date", appointmen_tdate);
+                    .appendQueryParameter("appointment_date", appointmen_tdate)
+                    .appendQueryParameter("sub_date", ssub_date)
+                    .appendQueryParameter("service_id", service_id);
 
             Log.e("stafflist", builder.build().toString());
             if (AppUtils.isNetworkAvailable(getActivity())) {
@@ -450,7 +456,9 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
                             .appendQueryParameter("id", booking_id)
                             .appendQueryParameter("business_id", businessid)
                             .appendQueryParameter("address_id", addreddid)
-                            .appendQueryParameter("appointment_date", appointment_date);
+                            .appendQueryParameter("appointment_date", appointment_date)
+                            .appendQueryParameter("sub_date ", ssub_date)
+                            .appendQueryParameter("service_id", service_id);
 
                     Log.e("stafflist", builder.build().toString());
                     if (AppUtils.isNetworkAvailable(getActivity())) {
@@ -470,7 +478,9 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
                             .appendQueryParameter("id", bookin_gid)
                             .appendQueryParameter("business_id", busines_sid)
                             .appendQueryParameter("address_id", addred_did)
-                            .appendQueryParameter("appointment_date", appointmen_tdate);
+                            .appendQueryParameter("appointment_date", appointmen_tdate)
+                            .appendQueryParameter("sub_date", ssub_date)
+                            .appendQueryParameter("service_id", service_id);
 
                     Log.e("stafflist", builder.build().toString());
                     if (AppUtils.isNetworkAvailable(getActivity())) {
@@ -604,6 +614,8 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
                 String business_name = objt.getString("business_name");
                 String staff_name = objt.getString("staff_name");
                 String queue_status = objt.getString("queue_status");
+                ssub_date = objt.getString("sub_date");
+                service_id = objt.getString("service_id");
                 //  Toast.makeText(getContext(), "" + message, Toast.LENGTH_SHORT).show();
 
                 mPref.setBooingId(booking_id);
@@ -654,7 +666,6 @@ public class JoinedQueueFrag extends HelperFrags implements HttpresponseUpd {
                     mStatusIv.setBackgroundResource(R.drawable.group_queue_icon);
                     mServiceStatusHide.setVisibility(View.GONE);
                     mServiceAbsentHide.setVisibility(View.GONE);
-
                 }
 
               /*  if (queue_status.equalsIgnoreCase("second")) {

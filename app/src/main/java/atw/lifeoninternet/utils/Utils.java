@@ -81,58 +81,18 @@ import atw.lifeoninternet.R;
 
 
 public class Utils {
-    /**
-     * For Language
-     */
 
     public static String appCode = "";
 
 
     public static Context context;
-    public static String authToken = "";
-    public static int CHOOSE_DATA_FROM_GIVEN_LIST = 222;
-    public static String dataChoosed = "dataChoosed";
-    public static String dataType = "dataType";
 
-
-    /**
-     * Data Type
-     **/
-    public static String dataCompany = "Company";
-    public static String dataIndustry = "Industry";
-    public static String dataDesignation = "Designation";
-    public static String dataSkills = "Skills";
-    public static String dataLocation = "Location";
-    public static String dataCompanyBenifits = "Company Benifits";
-    public static int MAX_IMAGES_SELECTABLE = 5;
-
-  /*  public static void chooseDataFromList(Activity mContext, String dataType, String pageTitle,
-                                          String dataTitle, ArrayList<String> dataList) {
-
-        Intent intent = new Intent(mContext, AutoSearchActivity.class);
-        intent.putExtra("dataType", dataType);
-        intent.putExtra("pageTitle", pageTitle);
-        intent.putExtra("dataTitle", dataTitle);
-        intent.putStringArrayListExtra("dataList", dataList);
-        startActivityForResult(intent, Utils.CHOOSE_DATA_FROM_GIVEN_LIST);// Activity is started with requestCode 2
-
-
-    }
-*/
-
-    /**
-     * Method Names
-     */
     public static String methodGet = "GET";
     public static String methodDelete = "DELETE";
     public static String methodPost = "POST";
     public static String methodPut = "PUT";
     public static String methodMultipart = "MULTIPART";
 
-
-    public interface dialogInterface {
-        public void dialogClick();
-    }
 
 
     /* add tail 1 screen params data*/
@@ -156,23 +116,12 @@ public class Utils {
     public static String refreshedFirebaseTokenValue = "";
 
     public static void showProgress(Context context) {
-//        progress = new ProgressDialog(context);
-//        progress.setMessage("Please Wait");
-//        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//        progress.setCancelable(false);
-//
-//        // if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-//        Drawable drawable = new ProgressBar(context).getIndeterminateDrawable().mutate();
-//        drawable.setColorFilter(ContextCompat.getColor(context, R.color.colorAccent),
-//                PorterDuff.Mode.SRC_IN);
-//        progress.setIndeterminateDrawable(drawable);
-//        //  }
-//
-//        progress.show();
+
         try {
             progressSimple = new IOSDialog.Builder(context)
                     .setTitle("Progressing...")
                     .setTitleColorRes(R.color.colorAccent)
+                    .setCancelable(false)
                     .build();
             progressSimple.show();
         } catch (Exception e) {
@@ -183,11 +132,19 @@ public class Utils {
 
     public static String stringBuilder() {
 
-        // String baseUrl = "new_service";
+        //  String baseUrl = "new_service";
 
-        String baseUrl = "production";
+        // String baseUrl = "sample";
+
+         String baseUrl = "production";
 
         return baseUrl;
+    }
+
+    public static String networkToastMsg() {
+
+        String message = "Network issue, Please try again !!!";
+        return message;
     }
 
     public static void showProgress(Context context, String message) {
@@ -225,27 +182,6 @@ public class Utils {
         customSnackbar.show();
     }
 
-    /*
-     *Check Internet availability
-     */
-    public static boolean isInternetAvailable(Context context) {
-        boolean isInternetAvailable = false;
-        try {
-            ConnectivityManager connectivityManager = (ConnectivityManager) context
-                    .getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo networkInfo = connectivityManager
-                    .getActiveNetworkInfo();
-            isInternetAvailable = networkInfo != null && networkInfo.isAvailable()
-                    && networkInfo.isConnectedOrConnecting();
-            if (isInternetAvailable)
-                Utils.showToast(context, "Please connect to internet");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return isInternetAvailable;
-    }
-
     public static boolean isStatusTrue(JSONObject jsonObject) {
         Boolean aStatus = false;
         if (jsonObject != null) {
@@ -261,12 +197,7 @@ public class Utils {
         return aStatus;
     }
 
-    /**
-     * Check particular node is array.
-     *
-     * @param jsonObject
-     * @return true if particular node is Array.
-     */
+
     public static boolean isJsonArray(JSONObject jsonObject, String key) {
 
         if (!jsonObject.isNull(key)) {
