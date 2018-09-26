@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -119,6 +120,10 @@ public class JoinQueueFrag extends HelperFrags implements HttpresponseUpd {
 
     @BindView(R.id.mor_ll)
     public LinearLayout morLl;
+    @BindView(R.id.join_queue_queue_ll)
+    public LinearLayout join_queue_queue_ll;
+    @BindView(R.id.join_queue_appointment_sc)
+    public ScrollView join_queue_appointment_sc;
     @BindView(R.id.eve_ll)
     public LinearLayout eveLl;
 
@@ -331,12 +336,24 @@ public class JoinQueueFrag extends HelperFrags implements HttpresponseUpd {
     @SuppressLint("ResourceType")
     @OnClick({R.id.frag_join_queue_button, R.id.join_queue_back_btn,
             R.id.frag_join_queue_float_btn, R.id.frag_join_queue_mor_eve_button, R.id.mor_ll, R.id.eve_ll, R.id.frag_join_queue_morning_tv,
-            R.id.frag_join_queue_evening_tv})
+            R.id.frag_join_queue_evening_tv, R.id.take_appointment_visible_btn,R.id.join_queue_visible_btn})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.frag_join_queue_button:
 
                 joinQueueFun();
+                break;
+            case R.id.take_appointment_visible_btn:
+
+                join_queue_appointment_sc.setVisibility(View.VISIBLE);
+                join_queue_queue_ll.setVisibility(View.GONE);
+
+                break;
+                case R.id.join_queue_visible_btn:
+
+                join_queue_appointment_sc.setVisibility(View.GONE);
+                join_queue_queue_ll.setVisibility(View.VISIBLE);
+
                 break;
 
             case R.id.frag_join_queue_morning_tv:
